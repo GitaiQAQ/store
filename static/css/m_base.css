@@ -13,7 +13,10 @@ ul{
 a {
     color: inherit;
 }
-
+img.recommend_title{
+width:38%;
+margin:15px auto; 
+}
 a:link,
 a:visited {
     text-decoration: none;

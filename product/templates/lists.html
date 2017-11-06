@@ -1,16 +1,74 @@
-{% extends 'base.html' %}{% block pagetitle%}商品列表{% endblock%} {% block css %}
-{% load staticfiles %}
+{% extends 'base.html' %}{% block pagetitle%}商品列表{% endblock%} {% block css %} {% load staticfiles %}
 <link href="/static/products/css/list.css" rel="stylesheet"> {% endblock %} {% block content %}
-<section>
+<div class="container main">
     <!-- 路径导航 -->
-    <ol class="breadcrumb">
-        <li><a href="#">Home</a></li>
+    <ol class="breadcrumb row">
+        <li>
+            <a href="#">Home</a>
+        </li>
         <li class="active">搜索结果</li>
-        <div class="title">商品列表 </div>
-    </ol>
-    
-</section>
-{% endblock %} {% block js %}
-<script type="text/javascript" src="/static/js/list.js"></script>
 
-{% endblock %}
+        <div class="input-group search_wrap">
+            <input type="search" class="form-control inp_search" placeholder="Search">
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="button" title="点击搜索">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                </button>
+            </span>
+        </div>
+    </ol>
+ 
+        <div class="row row_margin">
+            <div class="col-sm-4 col-md-3">
+                <div class="thumbnail">
+                    <img src="/static/img/list3.jpg" alt="...">
+                    <div class="caption">
+                        <h4>Thumbnail label</h4>
+                        <p class="price">
+                            <i class="fa fa-jpy" aria-hidden="true"></i>
+                            20.00
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 col-md-3">
+                <div class="thumbnail ">
+                    <img src="/static/img/list3.jpg" alt="...">
+                    <div class="caption">
+                        <h4>Thumbnail label</h4>
+                        <p class="price">
+                            <i class="fa fa-jpy" aria-hidden="true"></i>
+                            20.00
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 col-md-3">
+                <div class="thumbnail">
+                    <img src="/static/img/list3.jpg" alt="...">
+                    <div class="caption">
+                        <h4>Thumbnail label</h4>
+                        <p class="price">
+                            <i class="fa fa-jpy" aria-hidden="true"></i>
+                            20.00
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 col-md-3">
+                <div class="thumbnail">
+                    <img src="/static/img/list3.jpg" alt="...">
+                    <div class="caption">
+                        <h4>Thumbnail label</h4>
+                        <p class="price">
+                            <i class="fa fa-jpy" aria-hidden="true"></i>
+                            20.00
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %} {% block js %}
+<script type="text/javascript" src="/static/js/list.js"></script> {% endblock %}

@@ -94,7 +94,10 @@ nav {
     outline: 0px;
     background-color: transparent;
 }
-
+nav ul,header ul{
+    padding: 0px;
+    margin: 0px;
+}
 nav ul.pull-left li {
     width: 100px;
     text-align: center;
