@@ -149,6 +149,10 @@ class ProductView(View):
         ls2 = [12111,32,4343]
         ls3 = [124444,32,4343]
         list_names = [ls1, ls2,ls3 ]
+        if 'keywords' in request.GET:
+            keywords = request.GET['keywords'].strip()
+            products = AdaptorProduct.objects.filter(title__icontains = keywords)
+            content['products'] = products
          
      
         if 'new' in request.GET:
