@@ -76,9 +76,9 @@ class ProductDetailView(APIView):
         }
         content['mediaroot'] = settings.MEDIA_URL
         if isMble:
-            return render(request, 'detail.html', content)
-        else:
             return render(request, 'm_detail.html', content)
+        else:
+            return render(request, 'detail.html', content)
 
 
     @method_decorator(csrf_exempt)
