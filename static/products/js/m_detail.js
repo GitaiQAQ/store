@@ -92,13 +92,7 @@ $(document).ready(function(){
         $('#com_wrap').append(result);
     })
 });
-/* $('#com_wrap').on('click','.publish',function(){
-    $.get('/comment/comment/?id=1', {}, function(result){
-        $('#com_wrap').remove(result);
-        $('#com_wrap').append(result);
-    })错的
-})
- */
+
 /*“加入购物车”按钮绑定事件*
 --------------------------*/
 $('.add-cart').click(function () {
