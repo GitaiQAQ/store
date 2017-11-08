@@ -6,22 +6,24 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-5 col-md-5">
-
+               <!--  {% for pic in product.productpic_set.all %}
+                <div class="swiper-slide slide-1">
+                    <img src='{{mediaroot}}{{pic.url}}' /> </div>
+                {% endfor %} -->
             <!-- 商品图片展示 -->
-            <ul class="thumbnail_list">
-                <div class="img_magnify">
+            <div class="img_magnify">
                     <img id="big_img" src="" />
                 </div>
+            <ul class="thumbnail_list">
+                {% for pic in product.productpic_set.all %}
                 <li>
                     <a href="#" class="thumbnail thumbnail_custom">
-                        <img src="/static/img/list3.jpg" alt="缩略图">
+                           
+                        <img src="{{mediaroot}}{{pic.url}}" alt="缩略图">
+                        
                     </a>
                 </li>
-                <li>
-                    <a href="#" class="thumbnail thumbnail_custom">
-                        <img src="/static/img/list1.jpg" alt="缩略图">
-                    </a>
-                </li>
+                {% endfor %}
             </ul>
             <!-- 商品图片展示 完！！！ -->
 
@@ -37,26 +39,26 @@
         <!-- 型号选择和购买 -->
         <div class="col-sm-7 col-md-7">
 
-            <div class="item_name f18">
-                <!-- 商品名 -->
+            <div class="item_name">
+                {{product.title|truncatechars:"100"}}
             </div>
-            <div class="msg">
+            <div class="item_msg">
+                {{product.description|default:''}} {{product.adaptorrule_set.all.0.name }} {{product.adaptorrule_set.all.0.unit }}
             </div>
             <div class="price">
-                <!-- 价格 -->
-                <i class="fa fa-jpy" aria-hidden="true"></i>25
+                <span>价格:</span>
+                <i class="fa fa-jpy" aria-hidden="true"></i>{{product.adaptorrule_set.all.0.price }}
             </div>
 
 
             <div class="hide_box_content">
-                <div class="hide_box_price">
-                    <i class="fa fa-jpy" aria-hidden="true"></i>
-                    <span class="price" id="total_price"> </span>
-                    <i class="fa fa-times pull-right" aria-hidden="true"></i>
-                    <div class="font-grey">库存：
-                        <span class="stock_copy">--</span>
+                    <div class="hide_box_price">
+                        <i class="fa fa-jpy" aria-hidden="true"></i>
+                        <span class="price" id="total_price"> </span>
+                        <div class="font-grey">库存：
+                            <span class="stock_copy">--</span>
+                        </div>
                     </div>
-                </div>
                 <table class="table">
                     {% if product.adaptorrule_set.all %}
                     <tr>
@@ -105,17 +107,16 @@
         </div>
 
         <!-- 商品详情 -->
-        <div class="col-sm-12 col-md-12 tab-pane fade" id="details">
+        <div class="col-sm-12 col-md-12" id="details">
             <div class="illustrate">
+                {{ product.detail|default:''|safe}}
             </div>
+            {% include 'recommend.html' %}
         </div>
 
         <!-- 规格参数 -->
         <div class="col-sm-12 col-md-12 tb-wrap">
             <table class="table table-bordered pro-table">
-                <tr>
-                    <td></td>
-                </tr>
             </table>
         </div>
 
@@ -128,4 +129,19 @@
 </div>
 
 {% endblock %} {% block js %}
-<script type="text/javascript " src="/static/products/js/detail.js"></script>> {% endblock %}
+<script type="text/javascript " src="/static/products/js/detail.js"></script>>
+<script>
+        var items = {{product.parameters|safe}};
+            var html = '';
+            for (var i = 0; i < items.length; i++) {
+                html = ' <tr ">' +
+                    '<td class="key ">' + items[i]['key'] + '</td>' +
+                    '<td class="value ">' + items[i]['value'] + '</td>' +
+        
+                    '</tr>';
+                $('.pro-table').append(html);
+            }
+        
+        </script> {% endblock %}
+
+
