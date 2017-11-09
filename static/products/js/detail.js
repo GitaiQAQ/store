@@ -14,15 +14,14 @@ $('ul.thumbnail_list').on('mouseenter','a.thumbnail_custom',function(){
 
 /* ajax  立即购买*
 --------------------------*/
-/* $('.buy-now').click(function () {
-    getLogin();
+ $('.buy-now').click(function () {
+    getLogin(); 
     if ($('.act_box').length === 0) {
-        $('.table').find('.red_msg').remove();
-        $('.table').append('<p class="red_msg">请选择</p>');
+        $('.red_msg').remove();
+        $('.rule_wrap').append('<p class="red_msg">请选择</p>');
     } else {
         var url = '/shopcar/shopcars/';
         var csrfmiddlewaretoken = $('input[name=csrfmiddlewaretoken]').val();
-    
         var ruleid = $('.act_box').attr('ruleid')
         var quantity = parseInt($('#carnum').text());
         var data = {
@@ -50,11 +49,30 @@ $('ul.thumbnail_list').on('mouseenter','a.thumbnail_custom',function(){
             }
         });
     }
-}); */ 
+}); 
+
+/* 商品信息存入COOKIE */
+function productCookie(){
+    var products = new Array();
+    var product = {};
+        product.name = $('.item_name').text();
+        product.rule = $('.rule_name').text();
+        product.img = $('#big_img').attr('src');
+        product.Price = $('.unit-price').text();
+        product.ruleid = $('.rule_tr').attr('ruleid');
+        product.num = $('#carnum').text();
+        products.push(product);
+    products = JSON.stringify(products);
+    CookieUtil.set("products", products, '', "/");
+    //cookie保存总价
+    var sum_price = $('#total_price').text();
+    CookieUtil.set("sum_price", sum_price, '', "/");
+};
 
 /* 选中规格效果
 --------------------------*/
 $('table.table').on('click', '.rule_tr', function () {
+    $('.red_msg').remove();
     $(this).siblings().removeClass('act_box');
     $(this).addClass('act_box');
     $('.table').find('.red_msg').remove();
@@ -86,12 +104,12 @@ $('.btn-group').on("click", '.subtraction', function () {
     //价格变动
     $('#total_price').text($('.act_box').children('.unit-price').text() * $('.carnum').text());
 });
+
 /*加入购物车提交程序封装
 --------------------------*/
 function ajaxSubmit() {
     var url = '/shopcar/shopcars/';
     var csrfmiddlewaretoken = $('input[name=csrfmiddlewaretoken]').val();
-
     var ruleid = $('.act_box').attr('ruleid')
     var quantity = parseInt($('#carnum').text());
     var data = {
@@ -120,11 +138,36 @@ function ajaxSubmit() {
 
 /*“加入购物车”按钮绑定事件*
 --------------------------*/
-$('.add-cart').click(function () {
+ $('.add-cart').click(function () {
     getLogin();
     if ($('.act_box').length === 0) {
-        fnRuleShow();
+        $('.rule_wrap').find('.red_msg').remove();
+        $('.rule_wrap').append('<p class="red_msg">请选择</p>');
     } else {
         ajaxSubmit();
     }
 });
+
+//bootstrap标签页
+$('#myTab a').click(function (e) {
+    e.preventDefault()
+    $(this).tab('show')
+  });
+
+/* ajax  镶嵌评价页
+--------------------------*/
+var productid=$('#productid').val();
+$(document).ready(function(){
+    $.get("/comment/comment/?id="+productid, {}, function(result){
+        $('#com_wrap').append(result);
+    })
+});
+
+/* 限制价格小数点后面两位数 */
+var total_price=$('#total_price').text()-0;
+$('#total_price').text(total_price.toFixed(2));
+
+/* 提交评论后刷新 */
+$('#com_wrap').on('click','.publish',function(){
+  window.location.reload();
+})

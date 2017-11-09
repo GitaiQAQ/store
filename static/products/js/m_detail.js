@@ -93,7 +93,7 @@ $(document).ready(function(){
     })
 });
 
-/*“加入购物车”按钮绑定事件*
+/* “加入购物车”按钮绑定事件*
 --------------------------*/
 $('.add-cart').click(function () {
     getLogin();
@@ -202,7 +202,7 @@ $('#myTab a').click(function (e) {
   });
   var total_price=$('#total_price').text()-0;
   $('#total_price').text(total_price.toFixed(2));
-  var comReload=$('#com_wrap');
+  
   $('#com_wrap').on('click','.publish',function(){
     window.location.reload();
   })
