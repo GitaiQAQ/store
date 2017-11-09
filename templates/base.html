@@ -12,6 +12,11 @@
 </head>
 
 <body>
+        {% if request.user.is_anonymous %}
+        <input type="hidden" id="userlogin" value="0" />
+        {% else %}
+        <input type="hidden" id="userlogin" value="1" />
+        {% endif %}
     {% block menu %}
     <!--页眉-->
     <div class="header-wrap">
