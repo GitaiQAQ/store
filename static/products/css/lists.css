@@ -162,7 +162,7 @@ svg.list-btn {
 
 /* 结算按钮 */
 
-footer {
+#footer {
     height: 50px;
     width: 100%;
     overflow: hidden;
@@ -171,7 +171,7 @@ footer {
     margin-bottom: 20px;
 }
 
-footer div {
+#footer div {
     box-sizing: border-box;
 }
 
@@ -204,24 +204,6 @@ input[type=text]{
     width:50px;
     font-size: 14px;
 }
-
-.menu-right::after {
-    border-style: solid;
-    border-width: 50px 25px 50px;
-    border-color: transparent;
-    border-top-color: rgb(201,22,35);
-    border-right-color: rgb(201,22,35);
-    content: "";
-    display: inline-block;
-    margin: 0 auto;
-    -webkit-transform: translateX(-100%);
-    -ms-transform: translateX(-100%);
-    transform: translateX(-100%);
-    position: absolute;
-    bottom: 0px;
-    left: 1px;
-}
-
 
 /*--------------------------------------------------------------------------------- */
 
@@ -278,10 +260,7 @@ transform: translate(-50%,-50%);
     bottom: 0px;
 transform: translateY(50%);
 }
-/* .menu-right::after,a.menu-right:hover,a.menu-right:focus,a.menu-right:active{
-    color: #eee;
-    background-color: #757575;
-} */.ware-wrap {
+.ware-wrap {
         border-radius: 6px;
         margin: 4px;
         position: relative;
