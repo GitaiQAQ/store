@@ -10,10 +10,10 @@
                 <span class="radio_input check_style"></span>
             </label>
         </div>
-        <div class="img_parent col-xs-3 col-sm-3 col-lg-3 col-md-3">
+        <div class="img_parent col-xs-3 col-sm-3 col-lg-2 col-md-2">
             <img class="img-rounded" src="{{mediaroot}}{{car.rule.product.thumbnail}}">
         </div>
-        <div class="col-xs-8 col-sm-8 col-lg-8 col-md-8 list_center">
+        <div class="col-xs-8 col-sm-8 col-lg-9 col-md-9 list_center">
             <div class="carlist_name">{{car.rule.product.title|truncatechars:"20"}}
                 <i class="fa fa-times pull-right" aria-hidden="true"></i>
             </div>
@@ -53,8 +53,8 @@
             去结算
         </a>
     </div>
-
-{% include 'recommend.html' %} </div>{% endblock %} {% block js %}
+</div>
+{% include 'recommend.html' %} {% endblock %} {% block js %}
 <script type="text/javascript" src="/static/shopcar/js/shopcar.js"></script>
 <script>
     var sum = 0;
