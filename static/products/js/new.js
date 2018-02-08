@@ -46,8 +46,8 @@ $('.submit button').click(function() {
     var categoryid = $('#sel-category').val();
     var title = $('#title').val();
     var desc = $('#desc').val();
-
-    var detail = tinymce.get("detail").getContent();
+    var detail = CKEDITOR.instances['id_detail'].getData();
+    //
     var categoryid = $('#sel-category').val();
     var taobaourl = $('#taobaourl').val();
 

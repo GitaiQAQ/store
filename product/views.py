@@ -27,10 +27,15 @@ from django.utils.translation import ugettext  as _
 from product.comm import handle_uploaded_file
 
 from mobile.detectmobilebrowsermiddleware import DetectMobileBrowser
-
+from django import forms
 
 dmb     = DetectMobileBrowser()
 
+class AdaptorProductForm(forms.ModelForm):
+
+    class Meta:
+        model = AdaptorProduct
+        fields = ('detail',)
 
 @login_required 
 @permission_required('product.manage_product')
@@ -45,6 +50,8 @@ def change(request, pk):
         try:
              product = AdaptorProduct.objects.get(pk=pk)
              content['product'] =product 
+             form = AdaptorProductForm(instance=product)
+             content['form'] = form
         except AdaptorProduct.DoesNotExist:
             raise Http404
         if 'pic' in request.GET:
@@ -133,42 +140,20 @@ class ProductView(View):
         content['products'] = products
         content['categories'] = categories
         content['mediaroot'] = settings.MEDIA_URL 
-        obj = {
-            'name':'12dd21',
-            'age':23,
-        }
-        obj2 = {
-            'name':'1ddd221',
-            'age':233,
-        }
-        obj3 = {
-            'name':'dss',
-            'age':213,
-        }
-        ls1 = [12222,32,4343]
-        ls2 = [12111,32,4343]
-        ls3 = [124444,32,4343]
-        list_names = [ls1, ls2,ls3 ]
+         
         if 'keywords' in request.GET:
             keywords = request.GET['keywords'].strip()
             products = AdaptorProduct.objects.filter(title__icontains = keywords)
             content['products'] = products
          
-     
+        form = AdaptorProductForm()
+        content['form'] = form
         if 'new' in request.GET:
             if isMble:
                 return render(request, 'm_new.html', content)
             else:
                 return render(request, 'new.html', content)
-        if 'test' in request.GET:
-            if isMble:
-                return render(request, 'm_new.html', content)
-            else:
-                content['first_name'] = '继伟121'
-                content['last_name'] = '张iiS'
-                content['myvar'] = 0
-                content['list_names'] = list_names
-                return render(request, 'test.html', content)
+        
         if 'pic' in request.GET:
             if isMble:
                 return render(request, 'm_pic.html', content)

@@ -26,6 +26,7 @@ class BaseBlock(models.Model):
         abstract = True
         
 class AdaptorBaseBlock(BaseBlock):
+    
     objects = AdaptorSiteContentManager()
     
 
@@ -44,9 +45,15 @@ class BaseBlockItem(models.Model):
     title = models.CharField(max_length = 512) 
     # item状态：显示或隐藏
     status = models.SmallIntegerField(default = STATUS_SHOW) 
+    # 标记被显示在什么位置：如主轮播图中
+    mark = models.CharField(max_length = 128) 
+    # 日期，可手动修改的日期
+    date = models.DateTimeField(null=True)
+    
     class Meta:
         abstract = True
      
 class AdaptorBaseBlockItem(BaseBlockItem): 
-    pass
+    # 标签，以逗号隔开
+    lables = models.CharField(max_length = 1024, null = True) 
     

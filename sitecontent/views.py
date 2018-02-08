@@ -206,13 +206,11 @@ class BlockItemContentView(View):
                 return render(request, 'sitecontent/testitem.html', content)
             else:
                 return render(request, 'sitecontent/testitem.html', content)
-
         if 'detail' in request.GET:
             if isMble:
                 return render(request, 'sitecontent/m_detail.html', content)
             else:
                 return render(request, 'sitecontent/m_detail.html', content)
-       
         else:
             if isMble:
                 return render(request, 'sitecontent/m_lists.html', content)
@@ -267,7 +265,18 @@ class BlockItemContentView(View):
                     status = request.POST['status'].strip() 
                     if status:
                         item.status = status
-        
+              
+                if 'label' in request.POST:
+                    label = request.POST['label'].strip() 
+                    # 将中文的符号替换为英文的
+                    label = label.replace('，',',')
+                    item.lables = label
+
+                if 'date' in request.POST:
+                    date = request.POST['date'].strip() 
+                    if date:
+                        item.date = date
+
                 item.save()
                 result['id'] = item.id
                 result['status'] ='ok'
@@ -306,12 +315,20 @@ class BlockItemContentView(View):
             if 'mark' in request.POST:
                 mark = request.POST['mark'].strip() 
                 if mark:
-                    item.mark = mark
-            
+                    item.mark = mark 
+            if 'label' in request.POST:
+                label = request.POST['label'].strip() 
+                # 将中文的符号替换为英文的
+                label = label.replace('，',',')
+                item.lables = label
             if 'status' in request.POST:
                 status = request.POST['status'].strip() 
                 if status:
                     item.status = status
+            if 'date' in request.POST:
+                    date = request.POST['date'].strip() 
+                    if date:
+                        item.date = date
                  
             item.save()
             result['id'] = item.id
