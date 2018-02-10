@@ -6,6 +6,5 @@
 /static/plugins/
 /media/
 *.json
-*/docs/*
-/store/*
+*/docs/* 
 docs/通用商城设计文档.docx
