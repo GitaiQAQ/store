@@ -1,206 +1,90 @@
-/*
- * 更改默认
- */
-*{
-    z-index: 2;
-}
-body {
+@charset "utf-8";
+body{
     margin: 0px;
     padding: 0px;
-    background-color: #f6f6f6; 
-    padding-bottom: 230px;
+    min-width: 1200px;
+    font-family: "Helvetica Neue", Helvetica, Arial, Verdana, STHeiti, "Microsoft Yahei", sans-serif;
+}
+.fs32{
+    font-size:32px;
+}
+.mb50{
+    margin-bottom: 50px;
+}
+.container{
+    width: 1200px!important;
+}
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6{
+    font-weight: 100;
+}
+.b-n{
+    border:none!important;
+}
+
+.p-r{
     position: relative;
 }
-li{
-    
-    list-style-type: none;
+.white{
+    color:white;
 }
-header ul li,nav ul li {
-    display: inline-block;
+.orange{
+    color:#ea5014
 }
-
-
-a {
-    color: inherit;
+.black{
+    color:#333;
 }
-
-a:hover,
-a:active {
+.grey{
+    color: rgb(181, 182, 182);
+}
+.orange-bg
+{
+    background-color: #ea5014;
+}
+.orange-bg:link,.orange-bg:visited,.orange-bg:hover,.orange-bg:active{
+    text-decoration: none;
+    color: white;
+    outline: none;
+}
+.text-overflow{
+    display:block;/*内联对象需加*/
+    width:100%;
+    word-break:keep-all;/* 不换行 */
+    white-space:nowrap;/* 不换行 */
+    overflow:hidden;/* 内容超出宽度时隐藏超出部分的内容 */
+    text-overflow:ellipsis;/* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/
+}
+a:link,a:visited,a:hover,a:active{
     text-decoration: none;
 }
-/*
- *通用
- */
- .hide{
-     display: none;
- }
-.font-gray {
-    color: #707070;
-}
-.del_padding{
-    margin: 0 -15px;
-}
 
-/*
- * header
- */
-
-.header-wrap {
-    background-color: rgb(201,22,35);
-    border-bottom: 1px solid #ddd;
-}
-
-header {
-    width: 80%;
-    margin: 0px auto;
-    line-height: 50px;
-    height: 50px;
-    color: #fff;
-}
-
-.fa-shop {
-    font-size: 16px;
-    margin-right: 5px;
-}
-
-.badge {
+.common-btn {
     display: inline-block;
-    padding: 1px 4px;
-    font-size: 8px;
-    font-weight: 300;
-    line-height: 1;
-    color: rgb(201,22,35);
+    padding: 4px 12px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
     text-align: center;
-    white-space: nowrap;
     vertical-align: middle;
-    background-color: #fff;
-    border-radius: 50%;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    min-width: 100px;
 }
-
-
-/*
- * 菜单item
- */
-
-nav {
-    margin: 0px auto;
-    display: flex;
-    align-items: center;
-}
-
-.search {
-    padding: 5px;
-    border: 0px;
-    outline: 0px;
-    background-color: transparent;
-}
-nav ul,header ul{
+ul{
     padding: 0px;
     margin: 0px;
 }
-nav ul.pull-left li {
-    width: 100px;
-    text-align: center;
+li{ 
+    list-style-type: none;
 }
-
-nav li:hover {
-    font-size: 15px;
-}
-
-.nav-wrap {
-    background-color: #fff;
-    width: 100%;
-    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.16), 0px 2px 2px rgba(0, 0, 0, 0.08);
-}
-
-.fa-angle-down {
-    margin-left: 8px;
-}
-
-#search-form {
-    padding-left: 6px;
-    padding-top: 6px;
-}
-
-nav ul.pull-left li.logo {
-    width: auto;
-}
-
-
-/*
- * footer
- */
-
-footer {
-    z-index: 1;
-    position: absolute;
-     bottom:0px;
-    background-color: #757575;
-    width: 100%;
-    color: #fff;
-    text-align: center;
-    margin-top: 50px;
-    height:200px;
-}
-
-footer>div {
-    display: inline-block;
-    position: absolute;
-    top: 50%;
-    transform: translate(-50%, -50%);
-}
-
-footer>span {
-    display: inline-block;
-}
-
-header ul.pull-left li {
-    padding-right: 16px;
-}
-
-header ul.pull-right li {
-    padding: 0px 16px;
-}
-
-header ul.pull-right {
-    margin-right: -16px;
-}
-
-section {
-    width: 80%;
-    margin: 20px auto;
-}
-
-.title {
-    color: rgb(201,22,35);
-    margin-top: 20px;
-    font-size: 20px;
-}
-
-.bd-left {
-    border-left: 1px solid #ddd;
-}
-
-.breadcrumb {
-    margin: 0 auto;
-    background-color: #fff;
-    padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 0px;
-    border: 1px solid #ddd;
-}
-
-.btn-primary {
-    background-color: #4b9be0;
-    border-color: #337ab7;
-}
-.price{
-    color: rgb(201,22,35);
-}
-.margin-30{
-    margin-left:-30px;
-    margin-right: -30px;
-}
-header a:focus,nav a:focus,header a:hover,nav a:hover{
-    color: rgb(225, 147, 36);
+.grey-btn{
+    color:#333;
+    background-color: #e5e5e5;
 }

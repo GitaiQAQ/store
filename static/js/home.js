@@ -1,79 +1,17 @@
-
- var mySwiper = new Swiper('.swiper-container', {
-    pagination: '.swiper-pagination',
-    prevButton: '.swiper-button-prev',
-    nextButton: '.swiper-button-next',
-    autoplay: 3000,
-    speed: 300,
-});
-$('.swiper-slide').css('max-height', $('.sidebar').height()+ 'px');
-
-/*
- * 视频
- */
-$( document ).ready(function() {
-  
-      scaleVideoContainer();
-  
-      initBannerVideoSize('.video-container .poster img');
-      initBannerVideoSize('.video-container .filter');
-      initBannerVideoSize('.video-container video');
-  
-      $(window).on('resize', function() {
-          scaleVideoContainer();
-          scaleBannerVideoSize('.video-container .poster img');
-          scaleBannerVideoSize('.video-container .filter');
-          scaleBannerVideoSize('.video-container video');
-      });
- 
-  
-  });
-  
-  function scaleVideoContainer() {
-  
-      var height = $(window).height() + 5;
-      var unitHeight = parseInt(height) + 'px';
-      $('.homepage-hero-module').css('height',unitHeight);
-  
-  }
-  
-  function initBannerVideoSize(element){
-  
-      $(element).each(function(){
-          $(this).data('height', $(this).height());
-          $(this).data('width', $(this).width());
-      });
-  
-      scaleBannerVideoSize(element);
-  
-  }
-  
-  function scaleBannerVideoSize(element){
-  
-      var windowWidth = $(window).width(),
-      windowHeight = $(window).height() + 5,
-      videoWidth,
-      videoHeight;
-  
-  
-      $(element).each(function(){
-          var videoAspectRatio = $(this).data('height')/$(this).data('width');
-  
-          $(this).width(windowWidth);
-  
-          if(windowWidth < 1000){
-              videoHeight = windowHeight;
-              videoWidth = videoHeight / videoAspectRatio;
-              $(this).css({'margin-top' : 0, 'margin-left' : -(videoWidth - windowWidth) / 2 + 'px'});
-  
-              $(this).width(videoWidth).height(videoHeight);
-          }
-  
-          $('.homepage-hero-module .video-container video').addClass('fadeIn animated');
-  
-      });
-  }
-
-
-$('.row_margin').css('margin-left','-30px');
-$('.row_margin').css('margin-right','-30px');
+$(document).ready(function(){
+    var swiper = new Swiper('.swiper-container', {
+       pagination: '.swiper-pagination',
+       paginationClickable: true,
+       nextButton: '.swiper-button-next',
+       prevButton: '.swiper-button-prev',
+       // Enable debugger
+       debugger: true,
+       autoplay : 5000,
+       loop : true
+   });
+   /* 轮播图箭头位置 */
+   var abslut = $('.logo').offset().left;
+   $('.swiper-button-prev').css('left', abslut+'px');
+   $('.swiper-button-next').css('right', abslut+'px');
+   $('.shop-link3').css('left', abslut+60+'px');
+})

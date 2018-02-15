@@ -1,93 +1,92 @@
-/* 
- *图标样式定义
- */
-.fa-angle-down {
-    margin-left: 8px;
-}
-
-.fa-angle-right {
-    margin-left: 20px;
-}
-/* 
- *轮播图图片
- */
-#swiper-container img {
+  /* 轮播图 */
+  .sider {
+    height: 400px;
     width: 100%;
-}
-/* 
- *VIDEO
- */
-.homepage-hero-module {
-    border-right: none;
-    border-left: none;
     position: relative;
-    border-radius: 6px;
+    background-size:cover!important;
+    background-position: center center!important;
+    background-repeat: no-repeat!important;
+  }
+  .sider0{
+    background: url(/static/img/slider/slider1.png);
+  } 
+  .sider1{
+  background: url(/static/img/slider/slider2.png);
 }
-.no-video .video-container video,
-.touch .video-container video {
-    display: none;
+.sider2{
+  background: url(/static/img/slider/slider3.png);
 }
-.no-video .video-container .poster,
-.touch .video-container .poster {
-    display: block !important;
+.sider3{
+  background: url(/static/img/slider/slider4.png);
 }
-.video-container {
-    position: relative;
-    bottom: 0%;
-    left: 0%;
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
-    background: #000;
+.sider4{
+  background: url(/static/img/slider/slider5.png);
 }
-.video-container .poster img {
-    width: 100%;
-    bottom: 0;
+.sider5{
+  background: url(/static/img/slider/slider6.png);
+}
+  .sider .shop-link {
+    color: #fff;
     position: absolute;
-}
-.video-container .filter {
-    z-index: 100;
-    position: absolute;
-    background: rgba(0, 0, 0, 0.4);
-    width: 100%;
-}
-.video-container video {
-    position: absolute;
-    z-index: 0;
-    bottom: 0;
-}
-.video-container video.fillWidth {
-    width: 100%;
-}   
-.demo{
-    position: absolute;
-    top:50%;
-    left: 10%;
-    z-index: 10;
-}
-
-
-.in_video{
-    background-color:transparent;
-    border-color:rgba(255, 255, 255,.5); 
-    border-width: 2px;
-    color:#fefefe;
-    border-radius: 50%;
-    width:250px;
-    height: 150px;
-    text-align: center;
-  padding-top:30px;
-}
-.in_video a:link,.panel-default a:link{
-    text-decoration: underline;
-}
-.main_top,.homepage-hero-module{
-    margin-top: 20px;
-}
-.panel-default{
-    margin: 0 -15px;
-}
-#swiper-container{
-    border-radius: 6px;
-    margin: 0 -5px;
-}
+    
+  }
+  .shop-link ul>li{
+      float: left;
+      padding: 0 6px;
+      border-left: 1px solid #ddd;
+      line-height: 1;
+  }
+  .shop-link ul>li:first-child{
+      border: none;
+  }
+  .shop-link .fs40{
+    font-family: lanting;
+  }
+  .shop-link1{
+    left: 58%;
+    bottom: 50%;
+    transform: translateY(50%);
+  }
+  .shop-link2{
+    left: 50%;
+    bottom: 20%;
+    transform: translateX(-50%);
+  }
+  .shop-link3{
+    bottom: 50%;
+    transform: translateY(50%);
+    color: #333!important;
+  }
+  .shop-link3 .learn_more{
+    color: #333;
+  }
+  .shop-link4{
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 62%;
+  }
+  .shop-link4 td{
+    vertical-align: text-bottom;
+    line-height: 1;
+    padding: 15px;
+  }
+  .shop-link5{
+    left: 56%;
+    bottom: 50%;
+    transform: translateY(50%);
+  }
+  .shop-link6{
+    left: 22.5%;
+    top: 44%;
+    color: #333!important;
+  }
+  .shop-link3 a:first-child,.shop-link6 .learn_more{
+    color: #333;
+  }
+  .sider .shop-link .now-bye {
+    margin-left: 10px;
+  }
+  .sider .shop-link .common-btn .fa-angle-right {
+    font-size: 120%;
+    margin-left: 4px;
+  }

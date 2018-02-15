@@ -1,0 +1,255 @@
+/* 菜单开始*/
+.menu, .menu-holder{
+    min-height: 60px;
+    line-height: 60px; 
+    width: 100%;
+}
+.menu-holder{
+    position: relative;
+    top: 0;
+    z-index: 10;
+    overflow: hidden;
+}
+.menu table
+{
+     min-height: 60px;
+    line-height: 60px;
+    margin: 20px auto;
+}
+.menu a{
+    font-size: 14px;
+    color: rgb(181, 182, 182);
+}
+.menu .small-padding a{
+    font-size: 12px;
+}
+.menu a:hover, .a_img:hover{
+    text-decoration: none;
+    
+}
+
+.menu td{
+    line-height: 40px;
+}
+.menu-list td{
+    padding: 0 15px;
+}
+.menu-list td:last-child{
+    padding-right:0px!important;
+}
+
+.menu td a{
+    width: 40px;
+}
+
+.menu td.small-padding{
+    padding: 0 10px;
+    font-size: 12px;
+    position: relative;
+    top: -3px;
+}
+
+.menu .td_mall
+{
+    width: 60px;
+    height: 60px;
+    padding:0;
+    border-radius: 30px;
+    background-color: #ea5014;
+}
+.menu-unfixed
+{
+    position: static !important;
+}
+.menu  .td_mall a{
+        margin-left: 13px;
+}
+.point{
+    width: 5px;
+    height:5px;
+    border-radius: 50%;
+    margin: 0 auto;
+    background-color:rgb(181, 182, 182);
+}
+
+.bottom-line{
+    position: absolute;
+    overflow: hidden;
+    border-top: 1px solid rgb(181, 182, 182);
+    z-index: -1;
+    width: 100%;
+}
+
+.menu .active *{
+    color: #ea5014;
+    
+}
+.menu .active .point{
+    background-color: #ea5014;
+}
+.logo
+{
+    height: 34px;
+}
+.small-padding button {
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
+.menu .fa {
+    color: #d6d6d6;
+}
+.orange-point{
+    background-color:#ea5014;
+  }
+.fixed_menu_class {
+    background-color: rgb(52, 52, 52);
+    position: relative!important;
+}
+
+/* 菜单结束*/
+
+/* 页脚开始 */
+
+
+table .first a{ 
+    font-size: 14px;
+    color: #eee;
+}
+
+.linkitems a
+{
+    font-size: 12px;
+    color:rgb(181, 182, 182);
+}
+
+.linkitems tr{
+    line-height:22px;
+}
+.linkitems tr:first-child{
+    line-height:46px;
+}
+
+.linkitems
+{
+    padding: 5px 0 40px;
+   background-color:rgb(99, 99, 99);
+}
+.lable{
+    color: #fff;
+    background-color: #ea5014;
+    padding: 0px 4px;
+    position: relative;
+    font-size:10px;
+    border-radius: 4px;
+}
+.lable:after{
+    content:'';
+    position:absolute;
+    top:100%;
+    left:4px;
+    width:0; height:0;
+    border-width:2px;
+    border-style:solid; 
+    border-color:#ea5014 transparent transparent #ea5014;
+}
+.linkitems td{
+    min-width: 110px;
+}
+.linkitems td.td_online{
+    min-width: 240px!important;
+}
+footer a{
+    color: inherit;
+    margin-left: 5px;
+}
+
+footer a:hover{
+    color: inherit;
+}
+.linkitems table.container{
+    padding:0 15px!important;
+    display: block;
+    overflow: hidden;
+}
+
+.phone
+{   
+    font-size: 18px;
+}
+
+.qrcode img{
+    width: 100%;
+}
+.qrcode{
+    padding: 6px;
+    width: 104px;
+    background-color: #fff;
+    position: relative;
+    margin-left: 50px;
+}
+/* .qrcode::before{
+    width: 60px;
+    height: 20px;
+    background-color: rgb(226, 227, 227);
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 20px;
+}
+.qrcode::after{
+    width: 60px;
+    height: 20px;
+    background-color: rgb(226, 227, 227);
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 20px; 
+} */
+.online-div{
+    line-height: initial!important;
+    color: rgb(181, 182, 182);
+    font-size: 12px;
+}
+a.custom-service{
+    color: #fff;
+    padding: 6px 12px;
+    background-color:#ea5014;
+    font-size: 12px;
+}
+
+.custom-service img{
+    height: 18px;
+}
+.f-logo{
+    width: 14px;
+    height: 16px;
+    vertical-align:sub;
+}
+footer .pull-left,footer .pull-right{
+    font-size: 10px;
+    color: #fff;
+    z-index:1000 ;
+    line-height: 40px;
+}
+footer .round-btn .fa{
+    display: inline-block!important;
+    width: 20px;
+    height: 20px;
+    padding: 4px;
+    background-color: #fff;
+    border-radius: 50%;
+    color: rgb(181, 182, 182)!important;
+    text-align: center;
+}
+.round-btn i{
+    font-size: 10px;
+}
+footer{
+    height: 40px;
+    width: 100%;
+    color: #fff;
+    background-color:rgb(143, 144, 146);
+    z-index: 1000;
+}
+/* 页脚结束 */
