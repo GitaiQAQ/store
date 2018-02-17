@@ -2,18 +2,28 @@
 {% block fixed_menu_class %}fixed_menu_class{%endblock%}{% block css %}
 <link href="/static/css/shophome.css" rel="stylesheet">
 <link href="/static/css/classify.css" rel="stylesheet">
-<link type="text/css" rel="stylesheet" href="https://cdn.bootcss.com/Swiper/3.4.2/css/swiper.css"> {% endblock %} {% block content %}
+<link type="text/css" rel="stylesheet" href="/static/css/swiper.css"> {% endblock %} {% block content %}
 <!-- Swiper -->
 <div class="swiper-container row">
     <div class="swiper-wrapper">
 
         <div class="swiper-slide">
             <div class="sider sider1">
-                <div class="shop-link shop-link3">
-                    <div class="mb50 fs40 orange">高科技精密陶瓷</div>
-                    <div class="mb50 fs20">时光荏苒&nbsp;风采依旧</div>
-                    <a class="learn_more" href="javascript:;">查看详情</a>
-                    <a class="now-bye orange-bg common-btn" href="javascript:;">立即购买
+                <div class="shop-link shop-link1">
+                    <div class="mb40 fs18 white">
+                        ASU Watch
+                    </div>
+                    <div class="orange fs32">
+                        全球首款虚拟触控智能手表
+                    </div>
+                    <ul class="clearfix mb40 grey">
+                        <li>双屏互动</li>
+                        <li>体感</li>
+                        <li>手势识别</li>
+                        <li>高清音质</li>
+                    </ul>
+                    <a class="learn_more grey" href="javascript:;">查看详情</a>
+                    <a class="now-bye orange-bg common-btn" href="javascript:;">立即预约
                         <i class="fa fa-angle-right" aria-hidden="true"></i>
                     </a>
                 </div>
@@ -25,22 +35,6 @@
         <div class="swiper-slide">
             <div class="sider sider0">
                 <div class="shop-link shop-link1">
-                    <div class="mb50 fs20">
-                        ASU Watch
-                    </div>
-                    <div class="orange fs32">
-                        全球首款虚拟触控智能手表
-                    </div>
-                    <ul class="clearfix">
-                        <li>双屏互动</li>
-                        <li>体感</li>
-                        <li>手势识别</li>
-                        <li>高清音质</li>
-                    </ul>
-                    <a class="learn_more" href="javascript:;">查看详情</a>
-                    <a class="now-bye orange-bg common-btn" href="javascript:;">立即购买
-                        <i class="fa fa-angle-right" aria-hidden="true"></i>
-                    </a>
                 </div>
             </div>
         </div>
@@ -57,6 +51,37 @@
 </div>
 <!-- end swiper -->
 
+<!-- 商品 -->
+<div class="container product-warp">
+   <div class="col-xs-12">
+       <div class="classify-name">产品</div>
+   </div>
+   <div class="col-xs-6">
+       <div class="product-list text-center">
+           <img class="product-pic" src="/static/img/watch.png" alt="">
+           <div class="fs16">ASU&nbsp;Watch&nbsp;激光投影手表</div>
+           <div class="orange">¥&nbsp;3699</div>
+       </div>
+   </div>
+   <div class="col-xs-6">
+    <div class="product-list text-center">
+        <img class="product-pic" src="/static/img/watch_g.png" alt="">
+        <div class="fs16">ASU&nbsp;Watch&nbsp;激光投影手表&nbsp;黑金版</div>
+        <div class="orange">¥&nbsp;8888</div>
+    </div>
+</div>
+   <div class="col-xs-12">
+    <div class="classify-name">配件</div>
+   </div>
+   <div class="col-xs-6">
+    <div class="product-list text-center">
+        <img class="product-pic" src="/static/img/earphone.png" alt="">
+        <div class="fs16">ASU&nbsp;蓝牙耳机</div>
+        <div class="orange">¥&nbsp;199</div>
+    </div>
+</div>
+</div>
+<!-- end 商品 -->
 <!-- 功能 -->
 <ul class="hide_menu"><a href="{% url 'category:categories' %}">
     <li class="pull-left submenu">

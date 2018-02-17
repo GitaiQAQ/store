@@ -1,4 +1,9 @@
 @charset "utf-8";
+@font-face
+{
+font-family: lanting;
+src: url('/static/font/lanting.ttf');
+}
 body{
     margin: 0px;
     padding: 0px;
@@ -8,8 +13,11 @@ body{
 .fs32{
     font-size:32px;
 }
-.mb50{
-    margin-bottom: 50px;
+.fs16{
+    font-size: 16px;
+}
+.mb40{
+    margin-bottom: 40px;
 }
 .container{
     width: 1200px!important;
@@ -25,7 +33,7 @@ body{
     position: relative;
 }
 .white{
-    color:white;
+    color:#fff;
 }
 .orange{
     color:#ea5014

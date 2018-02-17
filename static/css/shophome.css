@@ -7,23 +7,8 @@
     background-position: center center!important;
     background-repeat: no-repeat!important;
   }
-  .sider0{
-    background: url(/static/img/slider/slider1.png);
-  } 
   .sider1{
   background: url(/static/img/slider/slider2.png);
-}
-.sider2{
-  background: url(/static/img/slider/slider3.png);
-}
-.sider3{
-  background: url(/static/img/slider/slider4.png);
-}
-.sider4{
-  background: url(/static/img/slider/slider5.png);
-}
-.sider5{
-  background: url(/static/img/slider/slider6.png);
 }
   .sider .shop-link {
     color: #fff;
@@ -32,61 +17,73 @@
   }
   .shop-link ul>li{
       float: left;
-      padding: 0 6px;
-      border-left: 1px solid #ddd;
-      line-height: 1;
+      padding: 0 8px;
+      border-left: 1px solid #ccc;
+      line-height: .9;
   }
   .shop-link ul>li:first-child{
       border: none;
+      padding-left: 0px!important;
   }
   .shop-link .fs40{
     font-family: lanting;
-  }
-  .shop-link1{
-    left: 58%;
-    bottom: 50%;
-    transform: translateY(50%);
   }
   .shop-link2{
     left: 50%;
     bottom: 20%;
     transform: translateX(-50%);
   }
-  .shop-link3{
+  .shop-link1{
     bottom: 50%;
     transform: translateY(50%);
-    color: #333!important;
+    right: 50%;
   }
-  .shop-link3 .learn_more{
-    color: #333;
-  }
-  .shop-link4{
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: 62%;
-  }
-  .shop-link4 td{
-    vertical-align: text-bottom;
-    line-height: 1;
-    padding: 15px;
-  }
-  .shop-link5{
-    left: 56%;
-    bottom: 50%;
-    transform: translateY(50%);
-  }
-  .shop-link6{
-    left: 22.5%;
-    top: 44%;
-    color: #333!important;
-  }
-  .shop-link3 a:first-child,.shop-link6 .learn_more{
-    color: #333;
-  }
+
+  
+.learn_more{
+  padding-bottom: 4px;
+  border-bottom: 2px solid #ea5014;
+}
   .sider .shop-link .now-bye {
     margin-left: 10px;
   }
   .sider .shop-link .common-btn .fa-angle-right {
     font-size: 120%;
     margin-left: 4px;
+  }
+  sider a:hover,sider a:visited,sider a:active{
+    color: inherit;
+  }
+  .orange.fs32{
+    margin-bottom: 12px;
+    font-family: lanting;
+  }
+  .fs18{
+    font-size: 18px;
+  }
+
+  /* 主要产品列表 */
+  .classify-name{
+    margin: 60px 0 15px;
+    padding: 0 14px 4px 0;
+    border-bottom: 2px  solid rgb(204, 204, 204);
+    display: inline-block;
+  }
+  .product-pic{
+    display: block;
+    height: 150px;
+    margin: 30px auto;
+  }
+  .product-list{
+    border: 1px solid #ddd;
+    background: -webkit-linear-gradient(left bottom, #f5f5f5 , #fff); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(top right,  #f5f5f5 , #fff); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(top right, #f5f5f5 , #fff); /* Firefox 3.6 - 15 */
+    background: linear-gradient(to top right, #f5f5f5 , #fff); /* 标准的语法 */
+  }
+  .product-list .orange{
+    margin: 15px 0 20px;
+  }
+  .product-warp{
+    margin-bottom: 60px;
   }
