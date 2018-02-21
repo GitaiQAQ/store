@@ -7,8 +7,11 @@
     background-position: center center!important;
     background-repeat: no-repeat!important;
   }
-  .sider1{
-  background: url(/static/img/slider/slider2.png);
+  .sider0{
+  background: url(/static/img/sider/sider0.png);
+}
+.sider1{
+  background: url(/static/img/sider/sider1.png);
 }
   .sider .shop-link {
     color: #fff;
@@ -28,12 +31,8 @@
   .shop-link .fs40{
     font-family: lanting;
   }
-  .shop-link2{
-    left: 50%;
-    bottom: 20%;
-    transform: translateX(-50%);
-  }
-  .shop-link1{
+
+  .shop-link0{
     bottom: 50%;
     transform: translateY(50%);
     right: 50%;
