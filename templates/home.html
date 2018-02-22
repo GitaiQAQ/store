@@ -1,86 +1,40 @@
 {% extends 'base.html' %} 
 {% block fixed_menu_class %}fixed_menu_class{%endblock%}{% block css %}
-<link href="/static/css/shophome.css" rel="stylesheet">
-<link href="/static/css/classify.css" rel="stylesheet">
+<link href="/static/products/css/products.css" rel="stylesheet">
 <link type="text/css" rel="stylesheet" href="/static/css/swiper.css"> {% endblock %} {% block content %}
-<!-- Swiper -->
-<div class="swiper-container row">
-    <div class="swiper-wrapper">
 
-        <div class="swiper-slide">
-            <div class="sider sider0">
-                <div class="shop-link shop-link0">
-                    <div class="mb40 fs18 white">
-                        ASU Watch
+<div class="container container-main">
+    <div class="row">
+        <div class="col-xs-6 img-wrap">
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+            
+                    <div class="swiper-slide">
+                        <div class="sider sider0">
+                            <img class="product-pic" src="/static/img/watch.png" alt="">
+                        </div>
                     </div>
-                    <div class="orange fs32">
-                        全球首款虚拟触控智能手表
+                    <!-- slider 0 end-->
+            
+            
+                    <div class="swiper-slide">
+                        <div class="sider sider1">
+                            <img class="product-pic" src="/static/img/watch.png" alt="">
+                        </div>
                     </div>
-                    <ul class="clearfix mb40 grey">
-                        <li>双屏互动</li>
-                        <li>体感</li>
-                        <li>手势识别</li>
-                        <li>高清音质</li>
-                    </ul>
-                    <a class="learn_more grey" href="javascript:;">查看详情</a>
-                    <a class="now-bye orange-bg common-btn" href="javascript:;">立即预约
-                        <i class="fa fa-angle-right" aria-hidden="true"></i>
-                    </a>
+                    <!-- slider 1 end-->
+            
+                </div>
+                <!-- Add Navigation -->
+                <div class="swiper-button-warp container">
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
                 </div>
             </div>
         </div>
-        <!-- slider 0 end-->
-
-
-        <div class="swiper-slide">
-            <div class="sider sider1">
-                
-            </div>
-        </div>
-        <!-- slider 1 end-->
-
-    </div>
-    <!-- Add Pagination -->
-    <div class="swiper-pagination"></div>
-    <!-- Add Navigation -->
-    <div class="swiper-button-warp container">
-        <div class="swiper-button-prev"></div>
-        <div class="swiper-button-next"></div>
+        <div class="col-xs-6"></div>
     </div>
 </div>
-<!-- end swiper -->
-
-<!-- 商品 -->
-<div class="container product-warp">
-   <div class="col-xs-12">
-       <div class="classify-name">产品</div>
-   </div>
-   <div class="col-xs-6">
-       <div class="product-list text-center">
-           <img class="product-pic" src="/static/img/watch.png" alt="">
-           <div class="fs16">ASU&nbsp;Watch&nbsp;激光投影手表</div>
-           <div class="orange">¥&nbsp;3699</div>
-       </div>
-   </div>
-   <div class="col-xs-6">
-    <div class="product-list text-center">
-        <img class="product-pic" src="/static/img/watch_g.png" alt="">
-        <div class="fs16">ASU&nbsp;Watch&nbsp;激光投影手表&nbsp;黑金版</div>
-        <div class="orange">¥&nbsp;8888</div>
-    </div>
-</div>
-   <div class="col-xs-12">
-    <div class="classify-name">配件</div>
-   </div>
-   <div class="col-xs-6">
-    <div class="product-list text-center">
-        <img class="product-pic" src="/static/img/earphone.png" alt="">
-        <div class="fs16">ASU&nbsp;蓝牙耳机</div>
-        <div class="orange">¥&nbsp;199</div>
-    </div>
-</div>
-</div>
-<!-- end 商品 -->
 <!-- 功能 -->
 <ul class="hide_menu"><a href="{% url 'category:categories' %}">
     <li class="pull-left submenu">
