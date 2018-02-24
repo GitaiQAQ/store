@@ -1,4 +1,4 @@
-{% extends 'base.html' %} {% block css %}
+{% extends 'base.html' %}{% block pagetitle%}{{product.title}}{% endblock%} {% block css %}
 <link href="/static/products/css/products.css" rel="stylesheet"> {% endblock %} {% block content %}
 <input type="hidden" id="productid" value="{{product.id}}" />
 <div class="container main-container">
