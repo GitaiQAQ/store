@@ -6,7 +6,7 @@ from django.db import models
 from appuser.models import AdaptorUser as User 
 from category.models import Category
 from django.utils.translation import ugettext_lazy as _
-from product.manager import AdaptorProductManager, AdaptorRuleManager
+from product.manager import AdaptorProductManager, AdaptorRuleManager, RuleNameManager
 from basedatas.models import BaseDate, Pic
 from django.db.models import F
 from ckeditor_uploader.fields import RichTextUploadingField
@@ -47,6 +47,10 @@ class Product(BaseDate):
     detail = RichTextUploadingField(_('Detail'), null=True)
     # 所属类别
     category = models.ForeignKey(Category)
+    # 邮费
+    mail_price =  models.DecimalField(_('price'), max_digits=3, decimal_places=0, default=0)
+    # 发货时间
+    delivery_time = models.CharField(_(''), max_length = 2048, default="订单付款后7个工作日")
     thumbnail = models.CharField(_('thumbnail'), max_length = 2048, null=True)
 
     class Meta:
@@ -123,7 +127,7 @@ class AdaptorProduct(StoreProduct):
     objects = AdaptorProductManager() 
     
     def __str__(self):
-        return self.title  
+        return self.title 
  
 class ProductPic(Pic): 
     """产品图片类"""
@@ -139,7 +143,22 @@ class ProductPic(Pic):
     class Meta:
         db_table = 'pic'
      
- 
+class RuleName(models.Model):
+    """
+    规格名称：不同的类别中对应的规格名可能不同：
+    如：产品类别中，规格为：款式、颜色，其中款式为主规格。
+    主规格：主规格规定了商品的价格
+    副规格：如配件等
+    """
+    # 所属类别
+    category = models.ForeignKey(Category)
+    # 规格分类的名称：如：产品、配件、颜色
+    name = models.CharField(_('name'), max_length=1024, null=True)
+    # 是否是主规格，默认为不是
+    mainrule = models.BooleanField(default = False)
+    objects = RuleNameManager()
+
+
 class Rule(models.Model):
     """
     商品的规格：如：电脑商品 名称：8G/价格：6999/库存：100/单位：台
@@ -149,20 +168,21 @@ class Rule(models.Model):
     OP_REDUCE_TYPE_ALL = 2   # 同时减少可用库存和物理库存
     
     product = models.ForeignKey(AdaptorProduct)
-    # 名称 ：8G
-    name = models.CharField(_('name'), max_length=1024, null=True)
+    rule_title =models.CharField(_('rule title'), max_length=1024, default='')
+    # 规格名称 ：标准版、黑金版、
+    name = models.CharField(_('name'), max_length=1024)
     # 价格:6999
     price = models.DecimalField(_('price'), max_digits=9, decimal_places=2, null=True)
 
     # 如果可以随便增加、删除库存，那么没有办法核对库存信息。
     # 要可以核对库存信息，则还需要完善的入库操作
     # 物理库存：100
-    real_inventory = models.PositiveIntegerField(_('real inventory'), default = 0, null=True)
+    #real_inventory = models.PositiveIntegerField(_('real inventory'), default = 0, null=True)
     # 可用库存：100
-    available_inventory = models.PositiveIntegerField(_('available inventory'), default = 0, null=True)
+    #available_inventory = models.PositiveIntegerField(_('available inventory'), default = 0, null=True)
 
     # 单位：台
-    unit = models.CharField(_('unit'), max_length=128, null=True)
+    # unit = models.CharField(_('unit'), max_length=128, null=True)
     
     # 标记这个规格在用户修改的过程中是否被删除了
     # 算法：

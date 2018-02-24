@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block pagetitle%}创建商品规格{% endblock%}
+ {% block css %}
+<link href="/static/products/css/newrule.css" rel="stylesheet">
+{% endblock %} 
+{% block content %}
+
+    <input type="hidden" name="method" value="detail_file" />  
+
+<section>
+    <!-- 路径导航 -->
+    <ol class="breadcrumb">
+        <li><a href="/">首页</a></li>
+        <li><a href="{% url 'product:products' %}">商品列表</a></li>
+        <li class="active">发布规格</li>
+       
+    </ol>
+
+
+    <div  class="container">
+        <div class="row"> 
+                <form action="" method="post">
+                        {%csrf_token%} 
+                        <div class="col-xs-2">
+                            <label for="id" class="control-label">规格所属类型：</label>
+                    
+                            <select class="form-control " name="categoryid" id="sel-category">
+                                {% for category in categories %} 
+                                            <option value ="{{category.id}}"  >{{category.name}}</option>
+                                {% endfor%}
+                            </select>
+                        </div>
+                        <div class="col-xs-4">
+                                <label for="id" class="control-label">名称：</label> 
+                            <input type="text" class="form-control" name="title" id="title" value="{{product.title}}" placeholder="">
+                        </div> 
+                        <div class="col-xs-2">
+                                <label for="id" class="control-label">是否是主规格：</label> <br/>
+                                <input type="checkbox" name="mainrule"  value="1" >
+                            </div>
+                        <button type="submit" class="btn btn-primary " status="1 ">提交</button> 
+            </form>
+            
+        </div>
+        <div class="row"> 
+            <table class="table">
+                    <tr>
+                        <th>分类</th>
+                        <th>规格名称</th>
+                        <th>主分类</th>
+                        <th> </th>
+                    </tr>
+                    {% for rule in rules %}
+                    <tr>
+                        <td>{{rule.category.name}}</td>
+                        <td>{{rule.name}}</td>
+                        <td>{% if rule.mainrule %} 是 {% else %} 否 {% endif %}</td>
+                        <td ><button class="btn btn-danger ruledelete" rulenameid="{{rule.id}}"  >删除</button></td>
+                    </tr>
+                    {% endfor %}
+                </table>
+        </div>
+    </div>
+    
+           
+       
+</section>
+
+{% endblock %} 
+{% block js %} 
+<script src="/static/products/js/newrule.js " rel="stylesheet "></script>
+{% endblock %}
