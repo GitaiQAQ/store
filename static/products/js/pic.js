@@ -22,7 +22,7 @@ $("#img_input2").on("change", function(e) {
     }
 });
 
-
+/*
 //  搜索栏样式改变
 var oForm = document.getElementById('search-form');
 var oInp = oForm.firstElementChild;
@@ -38,7 +38,7 @@ function removeBottom() {
     oForm.style.cssText = 'border-bottom:1px solid #FFF;'
 
 }
-
+*/
 $(document).ready(function() {
     $('.btn-set-primary').click(function() {
         var btn = $(this);

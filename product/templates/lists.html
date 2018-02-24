@@ -24,7 +24,7 @@
                     <div class="thumbnail">
                         <img src="{{mediaroot}}{{product.thumbnail}}" alt="...">
                         <div class="caption">
-                            <h4><a href="{% url 'product:detail' product.id " >{{product.title}}</a></h4>
+                            <h4><a href="{% url 'product:detail' product.id %}" >{{product.title}}</a></h4>
                             <p class="price">
                                 <i class="fa fa-jpy" aria-hidden="true"></i>
                                 {{product.adaptorrule_set.all.0.price}}
