@@ -110,3 +110,14 @@ li{
 .cut-line{
 border-bottom: 1px solid #ddd;
 }
+.hint{
+    position: absolute;
+    left: 40%;
+    bottom: 40%;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    line-height: 15px;
+    font-size: 10px;
+    text-align: center;
+}

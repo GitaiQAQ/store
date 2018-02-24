@@ -1,0 +1,116 @@
+{% extends 'base.html' %} 
+{% block fixed_menu_class %}fixed_menu_class{%endblock%}{% block css %}
+<link type="text/css" rel="stylesheet" href="/static/css/swiper.css"> {% endblock %} {% block content %}
+<link href="/static/products/css/products.css" rel="stylesheet">
+<div class="container container-main">
+   
+        <div class="col-xs-6 p-n img-wrap">
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+            
+                    <div class="swiper-slide">
+                        <div class="sider sider0">
+                            <img class="product-pic" src="/static/img/d-erji.png" alt="">
+                        </div>
+                        <div class="pagination grey">1／2</div>
+                    </div>
+                    <!-- slider 0 end-->
+            
+            
+                    <div class="swiper-slide">
+                        <div class="sider sider1">
+                            <img class="product-pic" src="/static/img/d-erji.png" alt="">
+                        </div>
+                        <div class="pagination grey">2／2</div>
+                    </div>
+                    <!-- slider 1 end-->
+            
+                </div>
+                <!-- Add Navigation -->
+                <div class="swiper-button-warp container">
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6 shop">
+            <div class="fs24 item_name">ASU&nbsp;蓝牙耳机</div>
+            <div class="fs24">¥199</div>
+            <div class="cut-line"></div>
+            <div>外观版本<span class="edition">标准版本</span></div>
+            <div class="content"></div>
+            <div class="cut-line"></div>
+            <div class="carnum clearfix">
+                <input class="pull-left" id="carnum" type="text" value="1">
+                <span class="pull-left grey">
+                    <div id="addition"><i class="fa fa-angle-up" aria-hidden="true"></i></div>
+                    <div id="subtraction"><i class="fa fa-angle-down" aria-hidden="true"></i></div>
+                </span>
+            </div>
+            <div class="grey">邮费:免费<span class="ml30">发货时间:订单付款后7个工作日。</span></div>
+            <div>
+                <button class="common-btn white orange-bg">加入购物车</button><a class="orange ml30" href="javascript:;">了解更多></a>
+            </div>
+        </div>
+    <div class="col-xs-12 orange fs20 introduce"><div>产品概括</div></div>
+</div>
+<!-- 功能 -->
+<ul class="hide_menu"><a href="{% url 'category:categories' %}">
+    <li class="pull-left submenu">
+        类别
+    </li>
+    </a>
+    <a href="{% url 'product:products' %}">
+    <li class="pull-left submenu">
+        商品
+    </li>
+    </a>
+    <a href="{% url 'product:products' %}?new">
+    <li class="pull-left submenu">
+        创建商品
+    </li>
+    </a>
+    <a href="{% url 'product:products' %}?pic">
+    <li class="pull-left submenu">
+        创建商品图片
+    </li>
+    </a>
+    <a href="{% url 'product:products' %}">
+    <li class="pull-left submenu">
+        商品列表
+    </li>
+    </a>
+    <a href="{% url 'users:logout' %}">
+    <li class="pull-left submenu">
+        退出
+    </li>
+    </a>
+    <a href="{% url 'bill:bills' %}">
+    <li class="pull-left submenu">
+        我的订单
+    </li>
+    </a>
+    
+    <a href=" {% url 'apis:apis' %}">
+    <li class="pull-left submenu">
+        API
+    </li>
+    </a>
+    <a href=" {% url 'sitecontent:blockcontents' %}?new">
+    <li class="pull-left submenu">
+       | 网站模块管理
+    </li>
+    </a>
+    <a href=" {% url 'sitecontent:blockitemcontents' %}?new">
+        <li class="pull-left submenu">
+           |     网站模块内容管理 |
+        </li>
+        </a></ul>
+ 
+<div class="aj"> {% if request.user.is_anonymous %}未登录{%else%} {{request.user.username}}{% endif%}</div>
+
+{% endblock %} {% block js %}
+<script type="text/javascript " src="/static/js/swiper-3.4.2.jquery.min.js "></script>
+<script type="text/javascript " src="/static/js/login.js "></script>
+<script type="text/javascript " src="/static/products/js/detail.js"></script>
+<script type="text/javascript " src="/static/js/classify.js "></script> {% endblock %}
