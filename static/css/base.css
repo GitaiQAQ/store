@@ -4,6 +4,9 @@
 font-family: lanting;
 src: url('/static/font/lanting.ttf');
 }
+.p-n{
+    padding: unset;
+}
 body{
     margin: 0px;
     padding: 0px;
