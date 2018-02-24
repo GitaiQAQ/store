@@ -1,4 +1,34 @@
 
+/* 轮播图初始化 */
+$(document).ready(function(){
+    var swiper = new Swiper('.swiper-container', {
+       pagination: '.swiper-pagination',
+       paginationClickable: true,
+       nextButton: '.swiper-button-next',
+       prevButton: '.swiper-button-prev',
+       // Enable debugger
+       debugger: true,
+       autoplay : 5000,
+       loop : true
+   });
+});
+/* 加 
+--------------------------*/
+$('.pull-left.grey').on("click", '#addition', function () {
+    var quantity = parseInt($('#carnum').val());
+    $('#carnum').val(quantity + 1); 
+});
+
+/* 减去 
+--------------------------*/
+$('.pull-left.grey').on("click", '#subtraction', function () {
+    var quantity = parseInt($('#carnum').val());
+    if(quantity>1){
+        $('#carnum').val(quantity - 1); 
+    }
+});
+
+
 
 /* 商品信息存入COOKIE */
 function productCookie(){
@@ -19,21 +49,6 @@ function productCookie(){
 };
 
 
-/* 加 
---------------------------*/
-$('.pull-left.grey').on("click", '#addition', function () {
-    var quantity = parseInt($('#carnum').val());
-    $('#carnum').val(quantity + 1); 
-});
-
-/* 减去 
---------------------------*/
-$('.pull-left.grey').on("click", '#subtraction', function () {
-    var quantity = parseInt($('#carnum').val());
-    if(quantity>1){
-        $('#carnum').val(quantity - 1); 
-    }
-});
 
 /*加入购物车提交程序封装
 --------------------------*/
