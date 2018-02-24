@@ -12,25 +12,21 @@ $('.add-rule').click(function() {
     var rule_el = document.getElementById('tb_rule');
     var name = $('#name').val();
     var price = $('#price').val();
-    var rule = $('#rule').val();
-    var inventory = $('#inventory').val();
     var newhtml = ' <tr class="tr_rule" ruleid="-1">' +
         '<td class="name">' + name + '</td>' +
-        '<td class="unit">' + rule + '</td>' +
         '<td class="price">' + price + '</td>' +
-        '<td class="inv" >' + inventory + '</td>' +
         ' <td><i class="fa fa-trash-o" aria-hidden="true"></i></td>' +
         ' </tr>';
 
-    if (name.length == 0 || price.length == 0 || rule.length == 0 || inventory.length == 0) {
+    if (name.length == 0 || price.length == 0 ) {
         var html = '<div class="alert-text">内容不能为空!</div>';
         $('#tb_rule').before(html);
-    } else if (isNaN(price) || isNaN(inventory)) {
+    } else if (isNaN(price) ) {
         var html = '<div class="alert-text">价格或库存只能输入数字!</div>';
         $('#tb_rule').before(html);
     } else {
         rule_el.innerHTML = rule_el.innerHTML + newhtml;
-        $('#name,#rule,#price,#inventory').val("");
+        $('#name,#price').val("");
     }; 
 });
 
@@ -50,7 +46,12 @@ $('.submit button').click(function() {
     //
     var categoryid = $('#sel-category').val();
     var taobaourl = $('#taobaourl').val();
-
+    var mail_price = $('#mailmoney').val();
+    var delivery_time = $('#delivery_time').val();
+    var mainrulename = $('#mainrulename').val();
+    var vicerulename = $('#vicerulename').val();
+    //
+    
     var obj = {};
     var rules = Array();
 
@@ -58,10 +59,8 @@ $('.submit button').click(function() {
     var rules_tr = $('.tr_rule');
     rules_tr.each(function() {
         //新建
-        obj['name'] =$(this).find('.name').text();
-        obj['unit'] = $(this).find('.unit').text();
-        obj['price'] = $(this).find('.price').text();
-        obj['inv'] = $(this).find('.inv').text();
+        obj['name'] =$(this).find('.name').text(); 
+        obj['price'] = $(this).find('.price').text(); 
         rules.push(obj);
         obj = {};
     });
@@ -69,8 +68,7 @@ $('.submit button').click(function() {
     var parameters_tr = $('.parameter_tr');
     var obj_para = {};
     parameters_tr.each(function() {
-        obj_para['key'] = $(this).find('.key').text();
-        obj_para['value'] = $(this).find('.value').text(); 
+        obj_para['key'] = $(this).find('.key').text(); 
         parameters.push(obj_para);
         obj_para = {};
     });
@@ -80,7 +78,11 @@ $('.submit button').click(function() {
         'method': 'create',
         'categoryid': categoryid,
         'title': title,
+        'mainrulename': mainrulename,
+        'vicerulename': vicerulename,
         'description': desc,
+        'mail_price':mail_price,
+        'delivery_time': delivery_time,
         'detail': detail,
         'taobaourl' :taobaourl,
         'rules': JSON.stringify(rules),
@@ -118,19 +120,17 @@ $('.submit button').click(function() {
 $('#add-pro').click(function() {
     $(".alert-text").remove();
     var pro = $('#pro').val();
-    var val = $('#val').val();
     var proTr = '<tr class="parameter_tr">'+
-        '<td><input type="text" value="'+pro+'"/></td>'+
-        '<td><input type="text" value="'+val+'"/></td>'+
+        '<td><input class="key" type="text" value="'+pro+'"/></td>'+
         '<td><i class="fa fa-trash-o" aria-hidden="true"></i></td>' +
         '</tr>';
 
-    if (pro.length == 0 || val.length == 0) {
+    if (pro.length == 0 ) {
         var html = '<div class="alert-text">内容不能为空!</div>';
         $('#pro-table').before(html);
     } else {
         $('#pro-table').append(proTr);
-        $('#pro,#val').val("");
+        $('#pro').val("");
     };
 });
 
@@ -152,8 +152,8 @@ $(".ta-wrap input").on('keyup input', function(event) {
         $(this).val(val.substring(0, 50));
     }
     count.text(len + "/50");
-});
-
+}); 
+fnLimited($(".number"));
 ///以下是修改product时用到的js
 
 

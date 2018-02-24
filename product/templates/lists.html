@@ -24,7 +24,7 @@
                     <div class="thumbnail">
                         <img src="{{mediaroot}}{{product.thumbnail}}" alt="...">
                         <div class="caption">
-                            <h4>{{product.title}}</h4>
+                            <h4><a href="{% url 'product:detail' product.id " >{{product.title}}</a></h4>
                             <p class="price">
                                 <i class="fa fa-jpy" aria-hidden="true"></i>
                                 {{product.adaptorrule_set.all.0.price}}
@@ -32,56 +32,7 @@
                         </div>
                     </div>
                 </div>
-            {% endfor %}
-            <div class="col-sm-4 col-md-3">
-                <div class="thumbnail">
-                    <img src="/static/img/list3.jpg" alt="...">
-                    <div class="caption">
-                        <h4>Thumbnail label</h4>
-                        <p class="price">
-                            <i class="fa fa-jpy" aria-hidden="true"></i>
-                            20.00
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-4 col-md-3">
-                <div class="thumbnail ">
-                    <img src="/static/img/list3.jpg" alt="...">
-                    <div class="caption">
-                        <h4>Thumbnail label</h4>
-                        <p class="price">
-                            <i class="fa fa-jpy" aria-hidden="true"></i>
-                            20.00
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-4 col-md-3">
-                <div class="thumbnail">
-                    <img src="/static/img/list3.jpg" alt="...">
-                    <div class="caption">
-                        <h4>Thumbnail label</h4>
-                        <p class="price">
-                            <i class="fa fa-jpy" aria-hidden="true"></i>
-                            20.00
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-4 col-md-3">
-                    <div class="thumbnail">
-                        <img src="/static/img/list3.jpg" alt="...">
-                        <div class="caption">
-                            <h4>Thumbnail label</h4>
-                            <p class="price">
-                                <i class="fa fa-jpy" aria-hidden="true"></i>
-                                20.00
-                            </p>
-                        </div>
-                    </div>
-                </div>
-           
+            {% endfor %}  
         </div>
     </div>
 

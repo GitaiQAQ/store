@@ -54,12 +54,26 @@ def change(request, pk):
              content['form'] = form
         except AdaptorProduct.DoesNotExist:
             raise Http404
+        
         if 'pic' in request.GET:
             if isMble:
                 return render(request, 'm_pic.html', content)
             else:
                 return render(request, 'pic.html', content)
         else: 
+            if 'categoryid' in request.GET:
+                categoryid = request.GET['categoryid'].strip()
+                category = Category.objects.get(id=categoryid)
+            else:
+                category = categories[0]
+            content['category'] = category
+            rulenames = RuleName.objects.filter(category = category)
+            rulename = rulenames.filter(mainrule= True)[0]
+            content['rulename'] = rulename.name
+            
+            rulename = rulenames.filter(mainrule= False)
+            if len(rulename) > 0:
+                content['vicerulename'] = rulename[0].name
             if isMble:
                 return render(request, 'change.html', content)
             else:
@@ -149,6 +163,19 @@ class ProductView(View):
         form = AdaptorProductForm()
         content['form'] = form
         if 'new' in request.GET:
+            if 'categoryid' in request.GET:
+                categoryid = request.GET['categoryid'].strip()
+                category = Category.objects.get(id=categoryid)
+            else:
+                category = categories[0]
+            content['category'] = category
+            rulenames = RuleName.objects.filter(category = category)
+            rulename = rulenames.filter(mainrule= True)[0]
+            content['rulename'] = rulename.name
+            
+            rulename = rulenames.filter(mainrule= False)
+            if len(rulename) > 0:
+                content['vicerulename'] = rulename[0].name
             if isMble:
                 return render(request, 'm_new.html', content)
             else:
@@ -243,23 +270,27 @@ class ProductView(View):
         if 'title' in request.POST and 'categoryid' in request.POST: 
             title = request.POST['title'].strip()
             categoryid = request.POST['categoryid'].strip()
-   
+            
             # 创建商品
             try:
                 category = Category.objects.get(id=categoryid)  
                 product = AdaptorProduct.objects.create(user=user, title=title, 
                           category=category)
        
-                if 'detail' in request.POST:
-                    detail = request.POST['detail'].strip()
-                    product.detail = detail 
+              
                 if 'description' in request.POST:
                     description = request.POST['description'].strip()
                     product.description = description 
   
-                if 'parameters' in request.POST:
-                    parameters = request.POST['parameters'].strip() 
-                    product.parameters = parameters
+                 
+                if 'mail_price' in request.POST:
+                    mail_price = request.POST['mail_price'].strip()
+                    product.mail_price = mail_price 
+  
+                if 'delivery_time' in request.POST:
+                    delivery_time = request.POST['delivery_time'].strip() 
+                    product.delivery_time = delivery_time
+
                 if 'detail' in request.POST:
                     detail = request.POST['detail'].strip()
                     product.detail = detail
@@ -272,8 +303,13 @@ class ProductView(View):
                     product.taobaourl = taobaourl
                  
                 if 'rules' in request.POST:  
+                    mainrulename = request.POST['mainrulename'].strip()
                     rules = request.POST['rules'].strip()
-                    AdaptorRule.objects.mul_create(rules, product)
+                    AdaptorRule.objects.mul_mainrule_create(rules, product, mainrulename)
+                if 'parameters' in request.POST:
+                    parameters = request.POST['parameters'].strip()
+                    vicerulename = request.POST['vicerulename'].strip()
+                    AdaptorRule.objects.mul_mainrule_create(parameters, product, vicerulename, mainrule=False)
                 product.save()
                 result['id'] = product.id
                 result['status'] ='ok'
@@ -315,9 +351,7 @@ class ProductView(View):
                 if 'price' in data:
                     price = data['price']
                     product.price = price
-                if 'parameters' in data:
-                    parameters = data['parameters']
-                    product.parameters = parameters 
+              
                 if 'description' in request.POST:
                     description = request.POST['description'].strip()
                     product.description = description 
@@ -328,12 +362,20 @@ class ProductView(View):
                 if 'taobaourl' in request.POST:
                     taobaourl = request.POST['taobaourl'].strip()
                     product.taobaourl = taobaourl
-
-                if 'rules' in request.POST:   
-                    rules = request.POST['rules'].strip()
                     
+                if 'mail_price' in request.POST:
+                    mail_price = request.POST['mail_price'].strip()
+                    product.mail_price = mail_price 
+  
+                if 'delivery_time' in request.POST:
+                    delivery_time = request.POST['delivery_time'].strip() 
+                    product.delivery_time = delivery_time
+
+                if 'rules' in request.POST:  
+                    rules = request.POST['rules'].strip()
+                    mainrulename = request.POST['mainrulename'].strip()
                     product.set_undeleted() 
-                    error_list = AdaptorRule.objects.mul_modify(rules, product) 
+                    error_list = AdaptorRule.objects.mul_modify(rules, product, mainrulename) 
                     if len(error_list) > 0:
                         result['error_list'] = error_list
                         result['error_list_msg'] = _('The new inventory cannot satisfied with the unpayed bill')
@@ -341,7 +383,11 @@ class ProductView(View):
                     if len(undeleted_list) > 0:
                         result['undeleted_list'] = undeleted_list
                         result['undeleted_msg'] = _('There are unpayed bill for this item')
-                
+                if 'parameters' in request.POST:
+                    parameters = request.POST['parameters'].strip()
+                    vicerulename = request.POST['vicerulename'].strip()
+                    AdaptorRule.objects.mul_modify(parameters, product, vicerulename, mainrule=False)
+
                 product.save() 
                 result['status'] ='ok'
                 result['msg'] = _('Modified sucessfully')

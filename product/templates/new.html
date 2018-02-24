@@ -7,7 +7,10 @@
 {% block content %}
 <form action="" method="post">
     {%csrf_token%} 
-    <input type="hidden" name="method" value="detail_file" />  
+    <input type="hidden" name="method" value="detail_file" /> 
+    <input type="hidden" id="mainrulename" value="{{rulename}}" />   
+    <input type="hidden" id="vicerulename" value="{{vicerulename}}" />  
+    
 </form>
 
 <section>
@@ -23,11 +26,14 @@
     <div  class="form-horizontal">
         <div class="form-group">
             <label for="id" class="col-sm-2 control-label">商品类型：</label>
-            <div class="col-sm-4">
+            <div class="col-sm-2">
                 <select class="form-control " id="sel-category">
-                    {% for category in categories %} 
-                                <option value ="{{category.id}}"  >{{category.name}}</option>
-                         
+                    {% for categoryitem in categories %} 
+                    {% if categoryitem.id == category.id %}
+                    <option value ="{{categoryitem.id}}" selected="selected" >{{categoryitem.name}}</option>
+                    {% else %}
+                    <option value ="{{categoryitem.id}}"  >{{categoryitem.name}}</option>
+                    {% endif %}
                     {% endfor%}
                 </select>
             </div>
@@ -41,94 +47,48 @@
         
         <div class="form-group">
             <label for="name" class="col-sm-2 control-label">{% trans 'Product Detail' %}:</label>
-            <div class="col-sm-10 ta-wrap">
+            <div class="col-sm-8 ta-wrap">
                 <input type="text" class="form-control" name="desc" value="{{product.description|default:''}}" id="desc" placeholder="">
                 <span>0/50</span>
             </div>
 
         </div>
-
+        <div class="form-group">
+            <label for="name" class="col-sm-2 control-label">运费（￥）元:</label>
+            <div class="col-sm-1 ta-wrap">
+                <input type="text" class="form-control number" name="mailmoney" value="{{product.mail_price|default:'0'}}" id="mailmoney" placeholder="">
+               
+            </div> 
+            <label for="name" class="col-sm-2 control-label">发货时间:</label>
+            <div class="col-sm-4 ta-wrap">
+                <input type="text" class="form-control" name="delivery_time" value="{{product.delivery_time|default:'订单付款后7个工作日'}}" id="delivery_time" placeholder="">
+                
+            </div> 
+         
+        </div> 
         <div class="form-group">
             <label for="message" class="col-sm-2 control-label">商品详情：</label>
-            <div class="col-sm-10">
+            <div class="col-sm-8">
                 {{ form.as_p }} 
             </div>
 
         </div>
 
         <div class="form-group">
-                <label for="message" class="col-sm-2 control-label">淘宝地址：</label>
-                <div class="col-sm-10">
-                        <input type="text" class="form-control"   value="{{product.taobaourl|default:''}}" id="taobaourl" placeholder="">
+                <label for="message" class="col-sm-2 control-label">官网地址：</label>
+                <div class="col-sm-8">
+                        <input type="text" class="form-control"   value="{{product.taobaourl|default:''}}" id="taobaourl" placeholder="了解更多的URL地址">
                 </div>
     
         </div>
 
-
-        <div class="form-group gray-white">
-            <label for="message" class="col-sm-2 control-label">规格设置：</label>
-            <div class="col-sm-10 format">
-                <div class="form-inline add-inp">
-
-                    <div class="form-group">
-
-                        <input type="text" class="form-control" id="name" placeholder="名称">
-                    </div>
-                    <div class="form-group">
-
-                        <input type="text" class="form-control" id="rule" placeholder="规格">
-                    </div>
-                    <div class="form-group">
-
-                        <input type="text" class="form-control" id="price" placeholder="价格">
-                    </div>
-                    <div class="form-group">
-
-                        <input type="text" class="form-control" id="inventory" placeholder="库存">
-                    </div>
-                    <button type="button" class="btn btn-primary add-rule blue-btn"><i class="fa fa-plus" aria-hidden="true"></i></button>
-
-                </div>
-                
-                    <table class="table table-hover table-bordered" id="tb_rule">
-                        <tr>
-                            <th>名称</th>
-                            <th>型号</th>
-                            <th>价格</th>
-                            <th>库存</th>
-                            <th>删除</th>
-                        </tr> 
-                    </table> 
-            </div>
-        </div>
-
-        <div class="form-group gray-white">
-            <label for="message" class="col-sm-2 control-label">属性设置：</label>
-            <div class="col-sm-10 format">
-                <div class="form-inline"> 
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="pro" placeholder="属性名称">
-                    </div>
-                    <div class="form-group">
-
-                        <input type="text" class="form-control" id="val" placeholder="属性内容">
-                    </div>
-                    <button id="add-pro" type="button " class="btn btn-primary blue-btn">
-                        <i class="fa fa-plus " aria-hidden="true "></i>
-                    </button>
-
-                </div>
-                <table class="table table-hover table-bordered " id="pro-table">
-                    <tr>
-                        <th>名称<i class="fa fa-pencil" aria-hidden="true"></i></th>
-                        <th>型号<i class="fa fa-pencil" aria-hidden="true"></i></th>
-                        <th>删除</th>
-                    </tr>
-                    
-                </table>
-            </div>
-
-        </div>
+        {% if category.id == 27 %}
+        {% include 'newproduct.html' %}
+        {% elif category.id == 38  %}
+        {% include 'newassitant.html' %}
+        {% else %}
+        {% include 'newproduct.html' %}
+        {% endif %}
 
     </div>
     <div class="msg "> </div>
@@ -147,6 +107,13 @@
 <script type="text/javascript" src="/static/js/HoldOn.min.js"></script>
  
 {{ form.media }}
+{% if category.id == 27 %}
+<script src="/static/products/js/newproduct.js " rel="stylesheet "></script>
+{% elif category.id == 38  %}
 <script src="/static/products/js/new.js " rel="stylesheet "></script>
+{% else %}
+<script src="/static/products/js/new.js " rel="stylesheet "></script>
+{% endif %}
+
  
 {% endblock %}

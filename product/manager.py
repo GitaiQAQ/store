@@ -36,53 +36,41 @@ class RuleManager(models.Manager):
     OP_ADD = 1    # 加库存操作，同时增加可用库存和物理库存
     OP_REDUCE = 0 # 减库存操作
     Timeout = 3
-    def mul_create(self, rules_str, product):
+    def mul_mainrule_create(self, rules_str, product, rule_title, mainrule = True):
         """
-        批量创建规格
-        rules_str参数的样式：'[{"key":"23","value":"JK37"},{"key":"2332","value":"WL7"}]'
+        批量创建主规格或者是副规格
+        mainrule为真的时候表示是主规格，否则是副规格
         """ 
         rules = json.loads(rules_str)
         for rule in rules:  
-            self.create(product = product, name=rule['name'], price = float(rule['price']), 
-                             real_inventory=rule['inv'],available_inventory=rule['inv'], unit=rule['unit'] )
+            if mainrule:
+                self.create(product = product, name=rule['name'], price = float(rule['price']),
+                rule_title=rule_title)
+            else:
+                self.create(product = product, name=rule['key'] , rule_title=rule_title)
     
-
-    def mul_modify(self, rules_str, product):
+   
+    def mul_modify(self, rules_str, product, rule_title, mainrule = True):
         """
         批量修改规格
-        rules_str参数的样式：'[{"key":"23","value":"JK37"},{"key":"2332","value":"WL7"}]'
         """
         rules = json.loads(rules_str)
         error_list = []
-
-        for rule in rules:  
+        
+        for rule in rules:   
             if int(rule['ruleid']) == -1:
                 # 新添加的规格
-                obj = self.create(product = product, name=rule['name'], price = float(rule['price']), 
-                             real_inventory=rule['inv'],available_inventory=rule['inv'], unit=rule['unit'] )
+                if mainrule:
+                    obj = self.create(product = product, name=rule['name'], rule_title=rule_title,
+                     price = float(rule['price']) )
+                else:
+                    obj = self.create(product = product, name=rule['name'] , rule_title=rule_title )
             else:
                 obj, created = self.get_or_create(product = product, pk = rule['ruleid'])
-                
-                if obj.has_unpayedbill() > 0: # 有未支付的订单
-                    difference =  obj.real_inventory - obj.available_inventory
-                    if int(rule['inv']) < difference:
-                        rule_error = {}
-                        # 新库存数量不足以满足那些未支付的订单出库
-                        rule_error['ruleid'] = obj.id
-                        rule_error['name'] = obj.name
-                        rule_error['difference'] = difference
-                        rule_error['real_inventory'] = obj.real_inventory
-                        error_list.append(rule_error)
-                    else:
-                        obj.real_inventory = rule['inv']
-                        obj.available_inventory = int(rule['inv']) - difference
-                else:
-                    obj.real_inventory = rule['inv']
-                    obj.available_inventory = rule['inv']
-                  
                 obj.name = rule['name']
-                obj.price = float(rule['price']) 
-                obj.unit = rule['unit']
+                if mainrule:
+                    obj.price = float(rule['price']) 
+                obj.rule_title = rule_title
                 obj.deleted = 0 # 代表这个字段没有被用户删除
                 obj.save()
         

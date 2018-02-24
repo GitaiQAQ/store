@@ -97,15 +97,7 @@ class StoreProduct(Product):
         rules = self.adaptorrule_set.filter(deleted=1)
         undeleted_list = []
         for rule in rules:
-            if rule.has_unpayedbill() > 0:
-                rule_error = {}
-                rule_error['ruleid'] = rule.id  
-                rule_error['name'] = rule.name                
-                undeleted_list.append(rule_error)
-                rule.deleted = 0
-                rule.save()
-            else:
-                rule.delete()
+            rule.delete()
         
         return undeleted_list
 
@@ -167,7 +159,7 @@ class Rule(models.Model):
     OP_REDUCE_TYPE_REAL = 1  # 减物理库存
     OP_REDUCE_TYPE_ALL = 2   # 同时减少可用库存和物理库存
     
-    product = models.ForeignKey(AdaptorProduct)
+    product = models.ForeignKey(AdaptorProduct) 
     rule_title =models.CharField(_('rule title'), max_length=1024, default='')
     # 规格名称 ：标准版、黑金版、
     name = models.CharField(_('name'), max_length=1024)

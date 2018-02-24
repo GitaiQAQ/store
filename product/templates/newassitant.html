@@ -1,0 +1,58 @@
+ 
+
+        <div class="form-group gray-white">
+            <label for="message" class="col-sm-2 control-label">{{rulename}}：</label>
+            <div class="col-sm-10 format">
+                <div class="form-inline add-inp">
+
+                    <div class="form-group">
+
+                        <input type="text" class="form-control" id="name" placeholder="名称">
+                    </div>
+                
+                    <div class="form-group">
+
+                        <input type="text" class="form-control" id="price" placeholder="价格">
+                    </div>
+                   
+                    <button type="button" class="btn btn-primary add-rule blue-btn"><i class="fa fa-plus" aria-hidden="true"></i></button>
+
+                </div>
+                
+                    <table class="table table-hover table-bordered" id="tb_rule">
+                        <tr>
+                            <th>名称</th>
+                            <th>价格</th>
+                            <th>删除</th>
+                        </tr> 
+                    </table> 
+            </div>
+        </div>
+
+        {% if vicerulename %}
+        <div class="form-group gray-white">
+            <label for="message" class="col-sm-2 control-label">{{vicerulename}}设置：</label>
+            <div class="col-sm-10 format">
+                <div class="form-inline"> 
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="pro" placeholder="{{vicerulename}}名称">
+                    </div>
+                
+                    <button id="add-pro" type="button " class="btn btn-primary blue-btn">
+                        <i class="fa fa-plus " aria-hidden="true "></i>
+                    </button>
+
+                </div>
+                <table class="table table-hover table-bordered " id="pro-table">
+                    <tr>
+                        <th>名称<i class="fa fa-pencil" aria-hidden="true"></i></th>
+                        <th>型号<i class="fa fa-pencil" aria-hidden="true"></i></th>
+                        <th>删除</th>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+    {% endif %}
+
+ 

@@ -1,0 +1,82 @@
+ 
+<div class="form-group gray-white">
+        <label for="message" class="col-sm-2 control-label">{{rulename}}：</label>
+        <div class="col-sm-6 format">
+
+            <div class="form-inline add-inp">
+
+                <div class="form-group">
+                     <input type="text" class="form-control" id="name" placeholder="{{rulename}}名称">
+                </div>
+                
+                <div class="form-group">
+                    <input type="text" class="form-control" id="price" placeholder="价格">
+                </div>
+                
+                <button type="button" class="btn btn-primary add-rule blue-btn"><i class="fa fa-plus" aria-hidden="true"></i></button>
+
+            </div>
+            {% if product %}
+            <table class="table table-hover table-bordered" id="tb_rule">
+          
+                <tr>
+                    <th>{{rulename}}名称<i class="fa fa-pencil" aria-hidden="true"></i></th> 
+                    <th>价格<i class="fa fa-pencil" aria-hidden="true"></i></th>  
+                    <th>操作</th>
+                </tr>
+
+                {% for rule in product.adaptorrule_set.all %}
+                    {% if rule.price %}
+                        <tr class="tr_rule" ruleid="{{rule.id}}">
+                            
+                            <td class="name" ><input type="text" value="{{rule.name}}" title="点击修改"/></td>
+                            
+                            <td class="price"> <input type="text" value="{{rule.price}}" title="点击修改"/></td> 
+                        
+                            <td class="operate">
+                                <i class="fa fa-trash-o " aria-hidden="true" title="删除"></i>
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </table> 
+            {% endif %}
+            <table class="table_error table">
+            </table>
+        </div>
+    </div>
+
+    <div class="form-group gray-white">
+        <label for="message" class="col-sm-2 control-label">{{vicerulename}}：</label>
+        <div class="col-sm-4 format">
+            <div class="form-inline"> 
+                <div class="form-group">
+                    <input type="text" class="form-control" id="pro" placeholder="{{vicerulename}}">
+                </div>
+                <button id="add-pro" type="button " class="btn btn-primary blue-btn">
+                    <i class="fa fa-plus " aria-hidden="true "></i>
+                </button>
+
+            </div>
+            <table class="table table-hover table-bordered " id="pro-table">
+                <tr>
+                    <th>{{vicerulename}}<i class="fa fa-pencil" aria-hidden="true"></i></th>
+                  
+                    <th>删除</th>
+                </tr>
+                {% for rule in product.adaptorrule_set.all %}
+                {% if not rule.price %}
+                    <tr class="parameter_tr " ruleid="{{rule.id}}">
+                        <td class="name key"  ><input type="text" value="{{rule.name}}" title="点击修改"/></td>  
+                        <td class="operate">
+                            <i class="fa fa-trash-o " aria-hidden="true" title="删除"></i>
+                        </td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+            </table>
+        </div>
+
+    </div>
+ 
+ 
