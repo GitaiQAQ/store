@@ -17,6 +17,18 @@ class AdaptorProductManager(ProductManager):
     pass
  
 
+class RuleNameManager(models.Manager): 
+    def set_main_rule(self, category, rulename):
+        """设置某个分类的主规格，并把该其他规格设为副规格"""
+        rulenames =  self.filter(category=category)
+        for rn in rulenames:
+            if rn == rulename:
+                rn.mainrule = True
+            else:
+                rn.mainrule = False
+            rn.save()
+ 
+
 class RuleManager(models.Manager):
     """
     规格的manager，增加库存，减少库存都需要在这里执行

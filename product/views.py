@@ -5,7 +5,7 @@ import random
 import string
 import os
 from datetime import datetime
-
+from django.shortcuts import redirect 
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views import View
@@ -13,7 +13,7 @@ from django.http import Http404, QueryDict
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from category.models import Category
-from product.models import AdaptorProduct, AdaptorRule, ProductPic
+from product.models import AdaptorProduct, AdaptorRule, ProductPic,RuleName
 from common.fileupload import FileUpload
 from django.utils.decorators import method_decorator
 from django.views.generic.detail import DetailView
@@ -153,7 +153,14 @@ class ProductView(View):
                 return render(request, 'm_new.html', content)
             else:
                 return render(request, 'new.html', content)
-        
+        if 'newrule' in request.GET:
+            rules = RuleName.objects.all()
+            content['rules'] = rules
+             
+            if isMble:
+                return render(request, 'm_new.html', content)
+            else:
+                return render(request, 'newrule.html', content)
         if 'pic' in request.GET:
             if isMble:
                 return render(request, 'm_pic.html', content)
@@ -197,14 +204,34 @@ class ProductView(View):
             method = request.POST['method'].lower()
             if method == 'put':# 修改
                 return self.put(request)
-            elif method == 'delete': # 删除
-                return self.delete(request)
+            elif method == 'delete': # 删除 
+                if 'rulenameid' in request.POST:
+                    # 删除规格 
+                    rulenameid = request.POST['rulenameid'] 
+                    RuleName.objects.get(id=rulenameid).delete()
+                    return HttpResponse('ok')
+                else:
+                    return self.delete(request)
             elif method == 'fallback': # 下架
                 return self.fallback(request)
             elif method == 'create': # 创建
                 return self.create(request) 
         else:
-            return self.create(request)
+            # 创建主规格 
+            if 'title' in request.POST and 'categoryid' in request.POST :
+                title = request.POST['title'].strip()
+                categoryid = request.POST['categoryid'].strip()
+                category = Category.objects.get(id=categoryid)  
+                if 'mainrule' in request.POST:
+                    mainrule = True 
+                else:
+                    mainrule = False
+                rulename = RuleName.objects.create(name = title, category=category, mainrule=mainrule) 
+                if mainrule:
+                    RuleName.objects.set_main_rule(category, rulename) 
+                return redirect('/product/products/?newrule')
+            else:
+                return HttpResponse('Error')
         
     
     def create(self, request):
