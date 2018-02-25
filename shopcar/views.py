@@ -26,17 +26,6 @@ from mobile.detectmobilebrowsermiddleware import DetectMobileBrowser
 
 dmb     = DetectMobileBrowser()
 
-class ShopcarView(View):
-    def get(self, request):
-        isMble  = dmb.process_request(request)
-        content = {} 
-       
-        content['mediaroot'] = settings.MEDIA_URL
-         
-        if isMble:
-            return render(request, 'shopcar/m_lists.html', content)
-        else:
-            return render(request, 'shopcar/lists.html', content)
 
 
 class ShopcarView(APIView):
