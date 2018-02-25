@@ -1,5 +1,5 @@
 /* 
- *轮播图初始化 
+ * 轮播图初始化 
  */
 $(document).ready(function(){
     var swiper = new Swiper('.swiper-container', {
@@ -13,46 +13,50 @@ $(document).ready(function(){
        loop : true
    });
 });
+
 /* 
- *增加产品个数
+ * 增加产品个数
  */
 $('.pull-left.grey').on("click", '#addition', function () {
     var quantity = parseInt($('#carnum').val());
     $('#carnum').val(quantity + 1); 
     total();
 });
+
 /* 
- *减少产品个数
+ * 减少产品个数
  */
 $('.pull-left.grey').on("click", '#subtraction', function () {
     var quantity = parseInt($('#carnum').val());
     if(quantity>1){
         $('#carnum').val(quantity - 1); 
-    }
+    };
     total();
 });
+
 /* 
  * 件数输入框失去焦点事件
  */
 $('#carnum').on('blur',function(){
-    total()
-})
-$('.edition').on('click',function(){
+    total();
+});
+
 /* 
- *型号选中效果
+ * ‘型号’点击事件
  */
+$('.edition').on('click',function(){
     if( $(this).hasClass('active-rule')){
         $(this).removeClass('active-rule');
         $('#total_price').text('0');
     }else{
         $('.edition').removeClass('active-rule');
         $(this).addClass('active-rule');
-        total();
-        
-    }
-})
+        total(); 
+    };
+});
+
 /* 
- *商品总价
+ * 商品总价
  */
 function total(){
     var nub = $('#carnum').val(),
@@ -62,15 +66,30 @@ function total(){
         $('#total_price').text(totalPrice);
     }else{
         $('#total_price').text('0');
-    }
-}
+    };
+};
+
 /* 
  * 表带颜色
  */
 $(document).ready(function(){
     var color = $('.b_color').attr('data-color');
     $('.b_color').css('background-color',color);
-})
+});
+
+/* 
+ * 个数输入--禁止输入除数字之外的其他字符和0
+ */
+$("#carnum").keyup(function(){    
+    $(this).val($(this).val().replace(/[^1-9.]/g,''));    
+}).bind("paste",function(){  //CTR+V事件处理    
+    $(this).val($(this).val().replace(/[^1-9.]/g,''));     
+}).css("ime-mode", "disabled"); //CSS设置输入法不可用
+
+
+
+
+
 /* 
  * “加入购物车”按钮绑定事件
  */
@@ -83,8 +102,9 @@ $('#add-cart').click(function () {
         ajaxSubmit();
     }
 });
+
 /* 
- * 封装‘ajax提交’函数b_color
+ * 封装‘ajax提交’函数
  */
 function ajaxSubmit() {
     var url = '/product/products/',
