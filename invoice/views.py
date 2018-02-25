@@ -18,17 +18,15 @@ from django.views.generic.detail import DetailView
 from django.conf import settings
 from rest_framework.views import APIView
 from rest_framework.response import Response 
-from product.models import AdaptorRule
-from shopcar.models import CartItem
+ 
+from invoice.models import Invoice
 
 from mobile.detectmobilebrowsermiddleware import DetectMobileBrowser
 
 
 dmb     = DetectMobileBrowser()
-
-
-
-class ShopcarView(APIView):
+ 
+class InvoiceView(APIView):
 
     @method_decorator(login_required)
     def get(self, request,  format=None ):

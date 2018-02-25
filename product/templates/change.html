@@ -96,20 +96,20 @@
     <div class="submit"> 
         <span class="btn-group " role="group " aria-label="... ">
             <button type="button" class="btn btn-primary product-btn " status="1 ">发布</button>
-            <button type="button " class="btn btn-default ">
-            <i class="fa fa-file-text-o " aria-hidden="true "></i>
-        </button>
+            <!--
+            <button type="button " class="btn btn-danger btn-delete"> 删除 </button>-->
      </span>
     </div>
 </section>
 {% endblock %} {% block js %}
 <script type="text/javascript" src="/static/js/HoldOn.min.js"></script>
-  
+
 {{ form.media }}
+<script src="/static/products/js/new.js " rel="stylesheet "></script>
 {% if category.id == 27 %}
 <script src="/static/products/js/changeproduct.js " rel="stylesheet "></script>
 {% elif category.id == 38  %}
-<script src="/static/products/js/new.js " rel="stylesheet "></script>
+<script src="/static/products/js/newassitant.js " rel="stylesheet "></script>
 {% else %}
 <script src="/static/products/js/changeproduct.js " rel="stylesheet "></script>
 {% endif %}

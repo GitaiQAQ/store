@@ -411,7 +411,7 @@ class ProductView(View):
         删除指定商品
         """
         result = {}
-        data = QueryDict(request.body.decode('utf-8')) 
+        data = QueryDict(request.body.decode('utf-8'))  
         if 'id' in data:
             productid = data['id'] 
             try: 

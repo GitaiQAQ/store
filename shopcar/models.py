@@ -16,7 +16,8 @@ class CartItem(models.Model):
     # 购物车中存储的应该是某一产品的某一规格，比如，电脑下有256G电脑，128G电脑，购物车存储的应该是其中的一种
     # 而不是电脑本身
     rule = models.ForeignKey(AdaptorRule, unique=False, on_delete=models.CASCADE) 
-            
+    # 规格的描述信息：如普通版，黑色
+    desc = models.CharField('rule desc', max_length=1024, default='')        
     class Meta:
         db_table = 'cart'
         ordering = ['date_added']
