@@ -6,6 +6,7 @@
 <link href="/static/products/css/products.css" rel="stylesheet">
 {% endblock %}
 {% block content %}
+{%csrf_token%}
 <input type="hidden" id="productid" value="{{product.id}}" />
 <div class="container container-main">
    

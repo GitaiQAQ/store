@@ -1,0 +1,9 @@
+.container-car{
+    margin: 60px auto 120px;
+    border:1px solid #ddd;
+}
+.car-title{
+    padding: 20px 30px;
+    background-color: rgb(242, 242, 242);
+    font-size: 16px;
+}
