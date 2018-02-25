@@ -1,9 +1,9 @@
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.shortcuts import render
-
+from django.shortcuts import redirect
 import pdb
-
+from django.conf import settings
 
 class Common():
     
@@ -42,11 +42,12 @@ class Common():
     #user is not login, and redirect by server side.
     #we need the next parameter to direct the URL after login
     def redirect_login_path(self, isMobile, request):
-        next_url = request.path
-        context  = {'next':next_url}
-        if isMobile:
-            return render(request, 'registration/m_login.html', context)
+        next_url = request.get_full_path() 
+        print(next_url)
+        if next_url:
+            return redirect(settings.LOGIN_URL +"?next="+next_url)
         else:
-            return render(request, 'registration/login.html', context)
+            return redirect(settings.LOGIN_URL )
+         
     
  

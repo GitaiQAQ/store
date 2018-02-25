@@ -28,7 +28,10 @@ from product.comm import handle_uploaded_file
 
 from mobile.detectmobilebrowsermiddleware import DetectMobileBrowser
 from django import forms
+from basedatas.bd_comm import Common 
 
+dmb     = DetectMobileBrowser()
+comm    = Common()
 dmb     = DetectMobileBrowser()
 
 class AdaptorProductForm(forms.ModelForm):
@@ -163,6 +166,8 @@ class ProductView(View):
         form = AdaptorProductForm()
         content['form'] = form
         if 'new' in request.GET:
+            if  request.user.is_anonymous():
+                return comm.redirect_login_path(isMble, request)
             if 'categoryid' in request.GET:
                 categoryid = request.GET['categoryid'].strip()
                 category = Category.objects.get(id=categoryid)
