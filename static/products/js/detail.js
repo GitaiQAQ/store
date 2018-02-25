@@ -34,22 +34,17 @@ $('.pull-left.grey').on("click", '#subtraction', function () {
     total();
 });
 
-/* 
- * 件数输入框失去焦点事件
- */
-$('#carnum').on('blur',function(){
-    total();
-});
 
 /* 
  * ‘型号’点击事件
  */
 $('.edition').on('click',function(){
+    $('.rulemsg').remove();
     if( $(this).hasClass('active-rule')){
         $(this).removeClass('active-rule');
         $('#total_price').text('0');
     }else{
-        $('.edition').removeClass('active-rule');
+        $(this).siblings('edition').removeClass('active-rule');
         $(this).addClass('active-rule');
         total(); 
     };
@@ -76,6 +71,16 @@ $(document).ready(function(){
     var color = $('.b_color').attr('data-color');
     $('.b_color').css('background-color',color);
 });
+//选择颜色
+$('.b_color').on('click',function(){
+    $('.colormsg').remove();
+    if( $(this).hasClass('active-color')){
+        $(this).removeClass('active-color');
+    }else{
+        $(this).siblings('b_color').removeClass('active-color');
+        $(this).addClass('active-color');
+    };
+});
 
 /* 
  * 个数输入--禁止输入除数字之外的其他字符和0
@@ -86,19 +91,37 @@ $("#carnum").keyup(function(){
     $(this).val($(this).val().replace(/[^1-9.]/g,''));     
 }).css("ime-mode", "disabled"); //CSS设置输入法不可用
 
-
-
-
-
+/* 
+ * 件数输入框焦点事件
+ */
+$('#carnum').on('focus',function(){
+    $('.msg').remove();
+});
+$('#carnum').on('blur',function(){
+    if($('#carnum').val()==''){
+       $('.msg').remove();
+       $(this).parent().after('<span class="msg orange fs12">数量不能为空!</span>')
+    }else{
+        total();
+    }
+});
 /* 
  * “加入购物车”按钮绑定事件
  */
 $('#add-cart').click(function () {
     getLogin();
-    if ($('.act_box').length === 0) {
-        $('.rule_wrap').find('.red_msg').remove();
-        $('.rule_wrap').append('<p class="red_msg">请选择</p>');
-    } else {
+    if ($('.active-rule').length === 0) {
+        $('.rulemsg').remove();
+        $('.edition').parent().append('<span class="rulemsg orange fs12">规格未选择!</span>');
+    } else if($('.active-color').length === 0){
+        $('.colormsg').remove();
+        $('.b_color').parent().append('<span class="colormsg orange fs12">规格未选择!</span>');
+    }else if($('#carnum').val()==''){
+       
+        
+        return;
+    }
+     else {
         ajaxSubmit();
     }
 });
@@ -107,10 +130,10 @@ $('#add-cart').click(function () {
  * 封装‘ajax提交’函数
  */
 function ajaxSubmit() {
-    var url = '/product/products/',
+    var url = '/shopcar/shopcars/',
         csrfmiddlewaretoken = $('input[name=csrfmiddlewaretoken]').val(),
-        ruleid = $('.act_box').attr('ruleid'),
-        quantity = parseInt($('#carnum').text()),
+        ruleid = $('.edition.active-rule').attr('ruleid'),
+        quantity =$('#carnum').val(),
         data = {
         'method': 'create',
         'ruleid': ruleid,

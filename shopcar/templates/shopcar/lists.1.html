@@ -1,0 +1,66 @@
+{% extends 'base.html' %}{% block pagetitle%}购物车{% endblock%} {% block css %} {% load staticfiles %}
+<link href="/static/products/css/lists.css" rel="stylesheet">{% endblock %} {% block content %}
+<div class="container">
+    {% if ruleitems %} {% for car in ruleitems %}
+
+    <div class="list carlist row">
+        <div class="col-xs-1 col-sm-1 col-lg-1 col-md-1">
+            <label class="demo--label">
+                <input class="demo--radio checked" type="checkbox" name="demo-radio">
+                <span class="radio_input check_style"></span>
+            </label>
+        </div>
+        <div class="img_parent col-xs-3 col-sm-3 col-lg-2 col-md-2">
+            <img class="img-rounded" src="{{mediaroot}}{{car.rule.product.thumbnail}}">
+        </div>
+        <div class="col-xs-8 col-sm-8 col-lg-9 col-md-9 list_center">
+            <div class="carlist_name">{{car.rule.product.title|truncatechars:"20"}}
+                <i class="fa fa-times pull-right" aria-hidden="true"></i>
+            </div>
+            <div class="rule_content font-grey">规格：{{car.rule.name}}
+            </div>
+            <div class="item_main" carid="{{car.id}}">
+                <div class="pull-left">
+                    <i class="fa fa-jpy" aria-hidden="true"></i>
+                    <span class="price add_price carprice">{{car.rule.price}}</span>
+                </div>
+                <div class="carnum_parent pull-right">
+                    <span class="addition glyphicon glyphicon-plus"> </span>
+                    <input class="carnum" ruleid="{{car.rule.id}}" type="text" value="{{car.quantity}}">
+                    <span class="subtraction glyphicon glyphicon-minus">
+                        <span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    {% endfor %} {% else %} 购物车中没有物品 {%endif%}
+
+    <!-- 结账按钮 -->
+    <div class="text-center " id="footer ">
+
+        <div class="pull-left menu-left ">
+            <label class="demo--label">
+                <input id="all_checked" class="demo--radio" type="checkbox" name="demo-radio">
+                <span class="radio_input"></span>全选
+            </label>
+            总计：
+            <i class="fa fa-jpy" aria-hidden="true"></i>
+            <span class="price sum_price"> 0.00</span>
+        </div>
+
+        <a class="block pull-right menu-right " href="javascript:; ">
+            去结算
+        </a>
+    </div>
+</div>
+{% include 'recommend.html' %} {% endblock %} {% block js %}
+<script type="text/javascript" src="/static/shopcar/js/shopcar.js"></script>
+<script>
+    var sum = 0;
+    {%if ruleitems %} {% for rule in ruleitems %}
+    sum += {{ rule.rule.price }} * {{ rule.quantity }};
+    {% endfor %}
+    {% endif %}
+    $('.sum_price').text(sum);
+</script> {% endblock %}

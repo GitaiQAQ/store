@@ -38,8 +38,7 @@
       border-radius: 50%;
       position: relative;
       top: 2px;
-     /*  background-color: #000;
-      border: 3px solid rgb(223, 164, 146); */
+      cursor: pointer;
   }
   .carnum span {
       display: block;
@@ -101,6 +100,14 @@
       min-height: 20px;
   }
   
-  .active-rule{
+  .active-rule,.active-color{
     border: 1px solid#ea5014!important;
   }
+  .msg{
+      transform: translate(10px,-28px);
+      display: inline-block;
+  }
+  .rulemsg,.colormsg{
+    transform:translateX(10px);
+    display: inline-block;
+}
