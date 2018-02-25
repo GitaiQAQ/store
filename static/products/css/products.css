@@ -29,16 +29,17 @@
       cursor: pointer;
       border-radius: 4px;
   }
-  .color-b{
+  .b_color{
       margin-left: 20px;
       display: inline-block;
       content: '';
       width: 15px;
       height: 15px;
-      background-color: rgb(67, 83, 141);
       border-radius: 50%;
       position: relative;
       top: 2px;
+     /*  background-color: #000;
+      border: 3px solid rgb(223, 164, 146); */
   }
   .carnum span {
       display: block;
@@ -99,16 +100,7 @@
       content: '';
       min-height: 20px;
   }
-  .color-g{
-    margin-left: 20px;
-    display: inline-block;
-    content: '';
-    width: 15px;
-    height: 15px;
-    background-color: #000;
-    border: 3px solid rgb(223, 164, 146);
-    border-radius: 50%;
-    position: relative;
-    top: 2px;
-  }
   
+  .active-rule{
+    border: 1px solid#ea5014!important;
+  }
