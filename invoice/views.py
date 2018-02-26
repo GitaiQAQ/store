@@ -31,16 +31,22 @@ class InvoiceView(APIView):
     @method_decorator(login_required)
     def get(self, request,  format=None ):
         """获取某个用户的购物车列表"""
-        isMble  = dmb.process_request(request)
-        ruleitems = CartItem.objects.filter(user = request.user)
-        content = {}  
-        content['mediaroot'] = settings.MEDIA_URL
-        content['ruleitems'] = ruleitems
-         
-        if isMble:
-            return render(request, 'shopcar/m_lists.html', content)
+        if 'invoicetype' in request.GET:
+            invoicetype = request.GET['invoicetype']
+            invoices = Invoice.objects.filter(user = request.user, invoicetype=invoicetype)
         else:
-            return render(request, 'shopcar/lists.html', content)
+            invoices = Invoice.objects.filter(user = request.user, invoicetype=1)
+        
+        
+        content = {}  
+        if len(invoices) > 0:
+            invoice = invoices[0]
+            content['invoicetype'] = invoice.invoicetype
+            content['code'] = invoice.code
+            content['title'] = invoice.title
+            content['content'] = invoice.content 
+         
+        return HttpResponse(json.dumps(content), content_type='application/json')
 
     @method_decorator(login_required)
     @method_decorator(csrf_exempt)
@@ -51,33 +57,16 @@ class InvoiceView(APIView):
         """
         result = {} 
         if request.method == 'POST': 
-            user = request.user
-             
-            if 'method' in request.POST:
-                method = request.POST['method']
-            
-                ruleid = request.POST['ruleid']
-                try:
-                    rule = AdaptorRule.objects.get(id = ruleid)
-            
-                    if method == 'delete': 
-                        caritem = CartItem.objects.get(rule = rule, user = user)
-                        caritem.delete()
-                        result['status'] = 'ok'
-                        result['msg']    = _('Delete successfully....')#'删除成功...' 
-                    else :
-                        # create 
-                        quantity = request.POST['num']
-                        desc = request.POST['desc']
-                        car, create = CartItem.objects.get_or_create(rule = rule, user=user, desc = desc )
-                        car.quantity += int(quantity )
-                        car.save()
-                        result['status'] = 'ok'
-                        result['msg']    = _('Add successfully....') # '添加成功...' 
-                except AdaptorRule.DoesNotExist:
-                    result['status'] = 'error'
-                    result['msg']    = _('Not found....') #'未找到商品....'
-            
+            user = request.user　
+            if 'method' in request.POST:　
+                invoicetype = request.POST['invoicetype']
+                code = request.POST.get('code')
+                title = request.POST['title']
+                content = request.POST.get('content')　
+                invoice = Invoice.objects.create(user = user, code=code,
+               　　　　　　 invoicetype=invoicetype, content=content, title=title)　
+                result['status'] = 'ok'
+                result['msg']    = _('Add successfully....') # '添加成功...' 　
             else:   
                 result['status'] = 'error'
                 result['msg']    = _('Need method in post...') 
