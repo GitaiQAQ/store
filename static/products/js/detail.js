@@ -115,10 +115,8 @@ $('#add-cart').click(function () {
         $('.edition').parent().append('<span class="rulemsg orange fs12">规格未选择!</span>');
     } else if($('.active-color').length === 0){
         $('.colormsg').remove();
-        $('.b_color').parent().append('<span class="colormsg orange fs12">规格未选择!</span>');
+        $('.b_color').parent().append('<span class="colormsg orange fs12">表带颜色未选择!</span>');
     }else if($('#carnum').val()==''){
-       
-        
         return;
     }
      else {
