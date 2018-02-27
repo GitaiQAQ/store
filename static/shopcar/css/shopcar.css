@@ -8,10 +8,10 @@
     background-color: rgb(242, 242, 242);
     font-size: 16px;
 }
-.car-list{
+table{
     width: 100%;
 }
-.car-list td{
+table td{
     padding:15px 0;
 }
 .wrap-border{

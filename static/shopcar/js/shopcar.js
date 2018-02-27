@@ -23,6 +23,8 @@ $('body').on("click", "input[type='checkbox']", function() {
     cal_sum();
     var sum = cal_sum();
     $('.sum_price').text(sum);
+    var nub =nub_sum();
+    $('.nub-sum').text(nub);
 });
 
 
@@ -35,6 +37,8 @@ window.onload = function() {
         cal_sum();
         var sum = cal_sum();
         $('.sum_price').text(sum);
+        var nub =nub_sum();
+        $('.nub-sum').text(nub);
     }
 /* 
  *计算总计价格
@@ -46,6 +50,17 @@ function cal_sum() {
         price = parseFloat($(selectList[i]).find('.carprice').text());
         num = parseFloat($(selectList[i]).find('.carnum').text());
         sum += price * num;
+    }
+    return sum;
+};
+/* 总件数 */
+function nub_sum() {
+    var num = 0;
+    var sum = 0; //tatol money
+    for (var i = 0; i < selectList.length; i++) {
+        price = parseFloat($(selectList[i]).find('.carprice').text());
+        num = parseFloat($(selectList[i]).find('.carnum').text());
+        sum +=  num;
     }
     return sum;
 };
@@ -66,6 +81,9 @@ $('.car-list').on("click", '.addition', function() {
     /* 总价 */
     var sum = cal_sum();
     $('.sum_price').text(sum);
+    /* 总件 */
+    var nub =nub_sum();
+    $('.nub-sum').text(nub);
 });
 /* 
  *减按钮
@@ -85,13 +103,16 @@ $('.car-list').on("click", '.subtraction', function() {
         var price=$(this).parents('tr').find('.carprice').text();
         var small_sum=price*now_num;
         $(this).parents('tr').find('.small_sum').text(small_sum);
+        /* 总件 */
+        var nub =nub_sum();
+        $('.nub-sum').text(nub);
     };
 });
 
 /* 
  *提交按钮
  */
-$('a.menu-right').click(function() {
+$('a#buy').click(function() {
     if(selectList.length<1){
         $('.menu-right').css({'background-color':'#505050','color':'#eee'});
         $('.menu-right::after').css({'border-color':'#505050!important'})
@@ -127,7 +148,7 @@ $('a.menu-right').click(function() {
 /* 
  *删除按钮
  */
-$('.car-list').on('click','.fa-times',function(){
+$('.car-list').on('click','.close',function(){
     var fa_times=$(this);
     data = {
         'method': 'delete',
