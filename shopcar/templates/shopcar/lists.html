@@ -10,59 +10,98 @@
 
 <div class="container">
     <div class="col-xs-12 container-car">
-            <div class="car-title row">我的购物车</div>
+            <div class="car-title">我的购物车</div>
+            <table class="car-list">
+                <!-- 列表标题 -->
+                <tr class="wrap-border">
+                    <td class="title-name" colspan="3">商品名称</td>
+                    <td class="text-center">单价</td>
+                    <td class="text-center">数量</td>
+                    <td class="text-center">小计</td>
+                    <td class="text-center">操作</td>
+                </tr>
+                <!-- 列表标题 end -->
+
+            <!-- 购物车列表详情 -->
+                {% if ruleitems %} {% for car in ruleitems %}
+                <tr class="wrap-border">
+
+                <!-- 商品勾选 -->
+                    <td class="check text-center"><input class="checked" type="checkbox"></td>
+                <!-- 商品勾选 end -->
+
+                <!--商品图 -->
+                    <td class="img-wrap text-center">
+                        <img class="img-rounded" src="{{mediaroot}}{{car.rule.product.thumbnail}}">
+                    </td>
+                <!--商品图 end -->
+
+                <!-- 名称型号 -->
+                    <td class="shop-msg">
+                        <div class="carlist_name">{{car.rule.product.title|truncatechars:"20"}}
+                        </div>
+                        <div class="rule_content grey">规格：{{car.rule.name}}
+                        </div>
+                    </td>
+                <!-- 名称型号 end -->
+
+                <!-- 价格 -->
+                    <td class="w159 text-center" carid="{{car.id}}">
+                                <i class="fa fa-jpy" aria-hidden="true"></i>
+                                <span class="carprice">{{car.rule.price}}</span>
+                    </td>
+                <!-- 价格 end -->
+
+                <!-- 数量 -->
+                    <td class="w159 text-center">
+                                <span class="addition r-btn">＋</span>
+                                <span class="carnum" ruleid="{{car.rule.id}}">{{car.quantity}}</span>
+                                <span class="subtraction r-btn">－<span>
+                    </td>
+               <!-- 数量 end -->
+
+               <!-- 小计 -->
+                    <td class="w159 text-center">
+                            <span class="small_sum"></span>
+                    </td>
+                <!-- 小计 emd -->
+
+                    <td class="w159 text-center">
+                            <div class="delete r-btn">×</div>
+                         </td>
+                    </tr>
+                    
+                    {% endfor %} {% else %} 购物车中没有物品 {%endif%}
+            <!-- 购物车列表详情end -->
+                </table>
     
-            {% if ruleitems %} {% for car in ruleitems %}
-        
-            <div class="list carlist row">
-                <div class="col-xs-1 col-sm-1 col-lg-1 col-md-1">
-                    <label class="demo--label">
-                        <input class="demo--radio checked" type="checkbox" name="demo-radio">
-                        <span class="radio_input check_style"></span>
-                    </label>
-                </div>
-                <div class="img_parent col-xs-3 col-sm-3 col-lg-2 col-md-2">
-                    <img class="img-rounded" src="{{mediaroot}}{{car.rule.product.thumbnail}}">
-                </div>
-                <div class="col-xs-8 col-sm-8 col-lg-9 col-md-9 list_center">
-                    <div class="carlist_name">{{car.rule.product.title|truncatechars:"20"}}
-                        <i class="fa fa-times pull-right" aria-hidden="true"></i>
-                    </div>
-                    <div class="rule_content font-grey">规格：{{car.rule.name}}
-                    </div>
-                    <div class="item_main" carid="{{car.id}}">
-                        <div class="pull-left">
-                            <i class="fa fa-jpy" aria-hidden="true"></i>
-                            <span class="price add_price carprice">{{car.rule.price}}</span>
-                        </div>
-                        <div class="carnum_parent pull-right">
-                            <span class="addition glyphicon glyphicon-plus"> </span>
-                            <input class="carnum" ruleid="{{car.rule.id}}" type="text" value="{{car.quantity}}">
-                            <span class="subtraction glyphicon glyphicon-minus">
-                                <span>
-                        </div>
-                    </div>
-                </div>
-        
-            </div>
-            {% endfor %} {% else %} 购物车中没有物品 {%endif%}
+
+            
         
             <!-- 结账按钮 -->
-            <div class="text-center " id="footer ">
+            <div class="col-xs-12 car-footer">
         
-                <div class="pull-left menu-left ">
-                    <label class="demo--label">
-                        <input id="all_checked" class="demo--radio" type="checkbox" name="demo-radio">
-                        <span class="radio_input"></span>全选
-                    </label>
-                    总计：
-                    <i class="fa fa-jpy" aria-hidden="true"></i>
-                    <span class="price sum_price"> 0.00</span>
-                </div>
+                    <div class="col-xs-3">
+                            <input id="all_checked" type="checkbox">
+                            全选丨<span id="all-delete" class="grey">删除选中的商品</span>
+                    </div>
+                    <div class="col-xs-6 text-right">
+                        <div>已选<span class="fs18 orange">2</span>件商品</div>
+                        <div  class="grey">共计<span>2</span>件商品</div>
+                    </div>
+                    <div class="pull-left sum-price">
+                        <div>总价&nbsp;<span class="orange fs18">¥&nbsp;<span class="price sum_price"> 0.00</span></span>
+                        </div>
+                        <div class="grey">应付总额不含运费</div>
+                    </div>
+                    <div class="pull-right">
+                            <a class="orange-bg common-btn" href="javascript:; ">
+                                    去结算
+                            </a>
+                    </div>
+                    
         
-                <a class="block pull-right menu-right " href="javascript:; ">
-                    去结算
-                </a>
+                
             </div>
     </div>
 </div>

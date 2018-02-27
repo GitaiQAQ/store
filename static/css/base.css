@@ -7,6 +7,7 @@ src: url('/static/font/lanting.ttf');
 .p-n{
     padding: unset;
 }
+
 body{
     margin: 0px;
     padding: 0px;
@@ -24,6 +25,9 @@ body{
 }
 .fs16{
     font-size: 16px;
+}
+.fs18{
+    font-size: 18px;
 }
 .mb40{
     margin-bottom: 40px;

@@ -1,9 +1,85 @@
 .container-car{
     margin: 60px auto 120px;
+    padding: 0px;
     border:1px solid #ddd;
 }
 .car-title{
     padding: 20px 30px;
     background-color: rgb(242, 242, 242);
     font-size: 16px;
+}
+.car-list{
+    width: 100%;
+}
+.car-list td{
+    padding:15px 0;
+}
+.wrap-border{
+    border-bottom: 1px solid #ddd;
+}
+
+.img-rounded{
+    background-color: #fff;
+    width: 200px;
+    height: 200px;
+    padding:20px;
+    border: 1px solid #ddd;
+}
+.check{
+    width: 73px;
+}
+.img-wrap{
+    width: 200px;
+}
+.shop-msg{
+    width: 420px;
+}
+.shop-msg>div{
+margin-left: 30px;
+}
+.title-name{
+    padding-left: 30px!important;
+}
+.w159{
+    width: 159px;
+}
+.carnum{
+    display: inline-block;
+    width: 30%;
+    border: none;
+    outline: none;
+    padding: 0 10px;
+}
+.r-btn{
+    width: 17px;
+    height: 17px;
+    border: 1px solid #b5b6b6;
+    color: #b5b6b6;
+    text-align: center;
+    border-radius: 50%;
+    font-size: 12px;
+    display: inline-block;
+    cursor: pointer;
+}
+.car-footer{
+    padding: 30px 15px;
+}
+input[type=checkbox], input[type=radio]{
+    margin: 0;
+    vertical-align: middle; 
+}
+input[type=checkbox].checked{
+    margin: 0 30px;
+}
+#all-delete{
+    cursor: pointer;
+}
+.col-xs-6.text-right{
+    border-right:1px solid #ddd;
+}
+.sum-price{
+    padding-left: 15px;
+}
+.car-footer .pull-right{
+    padding-right: 15px;
 }

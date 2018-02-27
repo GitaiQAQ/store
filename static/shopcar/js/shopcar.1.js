@@ -1,9 +1,9 @@
 /* 
  *提示登录
  */
-/* $('document').ready(function() {
+$('document').ready(function() {
     getLogin();
-}) */
+})
 
 /* 
  *checkbox click
@@ -19,7 +19,7 @@ $("#all_checked").click(function() {
     //单选
 var selectList = '';
 $('body').on("click", "input[type='checkbox']", function() {
-    selectList = $("input.checked:checked").parents('.car-list');
+    selectList = $("input.checked:checked").parents('.carlist');
     cal_sum();
     var sum = cal_sum();
     $('.sum_price').text(sum.toFixed(0));
@@ -28,7 +28,7 @@ $('body').on("click", "input[type='checkbox']", function() {
 /* 
  *个数失去焦点
  */
-$('.car-list').on("blur", '.carnum', function() {
+$('.carlist').on("blur", '.carnum', function() {
            var sum = cal_sum();
            $('.sum_price').text(sum.toFixed(0));
 });
@@ -39,10 +39,10 @@ fnLimited($('.carnum'));//限制用户输入除数字外的其他字符
  *加载完跟新价格
  */
 window.onload = function() {
-        var selectList = $("input.checked:checked").parents('.car-list');
+        var selectList = $("input.checked:checked").parents('.carlist');
         cal_sum();
         var sum = cal_sum();
-        $('.sum_price').text(sum.toFixed(1));
+        $('.sum_price').text(sum.toFixed(0));
     }
 /* 
  *计算总计价格
@@ -52,7 +52,7 @@ function cal_sum() {
     var sum = 0; //tatol money
     for (var i = 0; i < selectList.length; i++) {
         price = parseFloat($(selectList[i]).find('.carprice').text());
-        num = parseFloat($(selectList[i]).find('.carnum').text());
+        num = parseFloat($(selectList[i]).find('.carnum').val());
         sum += price * num;
     }
     return sum;
@@ -61,31 +61,27 @@ function cal_sum() {
 /* 
  *加按钮
  */
-$('.car-list').on("click", '.addition', function() {
-    var quantity = $(this).next().text();
-    $(this).next().text(quantity + 1);
-    /* 总价 */
+$('.carlist').on("click", '.addition', function() {
+    $(this).siblings('.subtraction').css('color','inherit');
+    var quantity = $(this).next().val();
+    quantity = parseInt(quantity);
+    $(this).next().val(quantity + 1);
     var sum = cal_sum();
-    $('.sum_price').text(sum);
-    /* 小计 */
-    let small_sum= parseInt($(this).parents('tr').find('.carprice').text())*quantity;
-    $(this).parents('tr').find('.small_sum').text(small_sum);
+    $('.sum_price').text(sum.toFixed(0));
 });
 /* 
  *减按钮
  */
-$('.car-list').on("click", '.subtraction', function() {
-    var quantity = $(this).prev('.carnum').text();
+$('.carlist').on("click", '.subtraction', function() {
+    var quantity = $(this).prev().val();
     var quantity = parseInt(quantity);
-    if (quantity <1) {
-        $(this).prev().text(0);
+    if (quantity <=1) {
+        $(this).prev().val(0);
+        $(this).css('color','#ccc');
     } else {
-        $(this).prev().text(quantity - 1);
+        $(this).prev().val(quantity - 1);
         var sum = cal_sum();
-        $('.sum_price').text(sum);
-         /* 小计 */
-        let small_sum=parseInt($(this).parents('tr').find('.carprice').text())*quantity;
-        $(this).parents('tr').find('.small_sum').text(small_sum);
+        $('.sum_price').text(sum.toFixed(0));
     };
 });
 
@@ -101,7 +97,7 @@ $('a.menu-right').click(function() {
     //创建商品列表数组，每个元素是一个商品对象
     var products = new Array();
     for (var i = 0; i < selectList.length; i++) {
-        var aName = $(selectList[i]).find('.car-list_name'),
+        var aName = $(selectList[i]).find('.carlist_name'),
             aRule = $(selectList[i]).find('.rule_content'),
             aImg = $(selectList[i]).find('img'),
             aPrice = $(selectList[i]).find('.carprice'),
@@ -128,7 +124,7 @@ $('a.menu-right').click(function() {
 /* 
  *删除按钮
  */
-$('.car-list').on('click','.fa-times',function(){
+$('.carlist').on('click','.fa-times',function(){
     var fa_times=$(this);
     data = {
         'method': 'delete',
@@ -141,7 +137,7 @@ $('.car-list').on('click','.fa-times',function(){
         data: data,
         success: function(result) {
             if (result['status'] == 'ok'){
-                fa_times.parents('.car-list').remove();
+                fa_times.parents('.carlist').remove();
             }
             
         },
