@@ -19,7 +19,5 @@ class Invoice(models.Model):
     title = models.CharField(max_length = 512) 
     # 发票类型：企业0还是个人1，默认是个人
     invoicetype = models.SmallIntegerField(default = PERSONAL) 
-    # 标记被显示在什么位置：如主轮播图中
-    mark = models.CharField(max_length = 128) 
+     
     
-  
