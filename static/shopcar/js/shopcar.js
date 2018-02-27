@@ -16,24 +16,16 @@ $("#all_checked").click(function() {
         $("input.checked").prop("checked", false);
     }
 });
-    //单选
+    /* 按钮选中显示总价*/
 var selectList = '';
 $('body').on("click", "input[type='checkbox']", function() {
     selectList = $("input.checked:checked").parents('.car-list');
     cal_sum();
     var sum = cal_sum();
-    $('.sum_price').text(sum.toFixed(0));
+    $('.sum_price').text(sum);
 });
 
-/* 
- *个数失去焦点
- */
-$('.car-list').on("blur", '.carnum', function() {
-           var sum = cal_sum();
-           $('.sum_price').text(sum.toFixed(0));
-});
 
-fnLimited($('.carnum'));//限制用户输入除数字外的其他字符
 
 /* 
  *加载完跟新价格
@@ -42,7 +34,7 @@ window.onload = function() {
         var selectList = $("input.checked:checked").parents('.car-list');
         cal_sum();
         var sum = cal_sum();
-        $('.sum_price').text(sum.toFixed(1));
+        $('.sum_price').text(sum);
     }
 /* 
  *计算总计价格
@@ -63,28 +55,35 @@ function cal_sum() {
  */
 $('.car-list').on("click", '.addition', function() {
     var quantity = $(this).next().text();
+    var quantity = parseInt(quantity);
     $(this).next().text(quantity + 1);
+    var now_num=$(this).next().text();
+    
+    /* 小计 */
+    var price=$(this).parents('tr').find('.carprice').text();
+    var small_sum= price*now_num;
+    $(this).parents('tr').find('.small_sum').text(small_sum);
     /* 总价 */
     var sum = cal_sum();
     $('.sum_price').text(sum);
-    /* 小计 */
-    let small_sum= parseInt($(this).parents('tr').find('.carprice').text())*quantity;
-    $(this).parents('tr').find('.small_sum').text(small_sum);
 });
 /* 
  *减按钮
  */
 $('.car-list').on("click", '.subtraction', function() {
-    var quantity = $(this).prev('.carnum').text();
+    var quantity = $(this).prev().text();
     var quantity = parseInt(quantity);
     if (quantity <1) {
         $(this).prev().text(0);
     } else {
         $(this).prev().text(quantity - 1);
+        /* 总价 */
         var sum = cal_sum();
         $('.sum_price').text(sum);
          /* 小计 */
-        let small_sum=parseInt($(this).parents('tr').find('.carprice').text())*quantity;
+        var now_num=$(this).prev().text();
+        var price=$(this).parents('tr').find('.carprice').text();
+        var small_sum=price*now_num;
         $(this).parents('tr').find('.small_sum').text(small_sum);
     };
 });
