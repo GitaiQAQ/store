@@ -1,9 +1,9 @@
 /* 
  *提示登录
  */
-/* $('document').ready(function() {
+ $('document').ready(function() {
     getLogin();
-}) */
+}) 
 
 /* 
  *checkbox click
@@ -114,8 +114,7 @@ $('.car-list').on("click", '.subtraction', function() {
  */
 $('a#buy').click(function() {
     if(selectList.length<1){
-        $('.menu-right').css({'background-color':'#505050','color':'#eee'});
-        $('.menu-right::after').css({'border-color':'#505050!important'})
+        $().errormessage('未选中商品！');
         return;
     }
     //创建商品列表数组，每个元素是一个商品对象
@@ -148,11 +147,11 @@ $('a#buy').click(function() {
 /* 
  *删除按钮
  */
-$('.car-list').on('click','.close',function(){
+$('.car-list').on('click','.delete',function(){
     var fa_times=$(this);
     data = {
         'method': 'delete',
-        'ruleid': $(this).attr('ruleid'),
+        'ruleid': fa_times.attr('ruleid'),
         'csrfmiddlewaretoken': getCookie('csrftoken'),
     };
     $.ajax({
@@ -163,10 +162,9 @@ $('.car-list').on('click','.close',function(){
             if (result['status'] == 'ok'){
                 fa_times.parents('.car-list').remove();
             }
-            
         },
         error: function(){
-          /*   alert('server is down!'); */
+            $().errormessage('server is down!');
         }
     })
 });

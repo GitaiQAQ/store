@@ -110,16 +110,16 @@ $('#carnum').on('blur',function(){
  */
 $('#add-cart').click(function () {
     getLogin();
-    if ($('.active-rule').length === 0) {
+    if ($('.active-rule').length == 0) {
         $('.rulemsg').remove();
         $('.edition').parent().append('<span class="rulemsg orange fs12">规格未选择!</span>');
-    } else if($('.active-color').length === 0){
-        $('.colormsg').remove();
-        $('.b_color').parent().append('<span class="colormsg orange fs12">表带颜色未选择!</span>');
-    }else if($('#carnum').val()==''){
+    } else if (!$('.b_color').attr('data-color') == ''&&$('.active-color').length == 0) {
+            $('.colormsg').remove();
+            $('.b_color').parent().append('<span class="colormsg orange fs12">表带颜色未选择!</span>');
+    } else if ($('#carnum').val() == '') {
         return;
     }
-     else {
+    else {
         ajaxSubmit();
     }
 });
@@ -132,10 +132,12 @@ function ajaxSubmit() {
         csrfmiddlewaretoken = $('input[name=csrfmiddlewaretoken]').val(),
         ruleid = $('.edition.active-rule').attr('ruleid'),
         quantity =$('#carnum').val(),
+        desc=$('item_name').text()+$('.active-rule').text()+$('.active-color').text(),
         data = {
         'method': 'create',
         'ruleid': ruleid,
         'num': quantity,
+        'desc':desc,
         'csrfmiddlewaretoken': csrfmiddlewaretoken
         }
 
