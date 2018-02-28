@@ -33,12 +33,12 @@ class BillView(View):
     def get(self, request):
         isMble  = dmb.process_request(request)
         content = {} 
-        bills = AdaptorBill.objects.filter(owner = request.user)
+        bills = AdaptorBill.objects.filter(owner = request.user) 
         content['bills'] = bills
         if 'new' in request.GET:
             if isMble:
                 return render(request, 'bill/m_new.html', content)
-            else:
+            else: 
                 return render(request, 'bill/new.html', content)
         if 'test' in request.GET:
             if isMble:
@@ -52,12 +52,11 @@ class BillView(View):
                 return render(request, 'bill/m_detail.html', content)
         if 'unpayed' in request.GET:
             # 给客户展示订单支付页面
-            # 需要订单号
+            # 需要订单号 
             if 'billno' in request.GET:
                 billno = request.GET['billno']
-                try:
-                    bill = AdaptorBill.objects.get(no = billno, owner = request.user)
-       
+                try:  
+                    bill = AdaptorBill.objects.get(no = billno, owner = request.user) 
                     content['bill'] = bill
                 except AdaptorBill.DoesNotExist:
                     content['bill'] = False
@@ -118,8 +117,7 @@ class BillView(View):
         # title\category字段是必须的
         user = request.user
         result = {}
-        if  'address_id' in request.POST   and 'items' in request.POST  :   
-            
+        if  'address_id' in request.POST   and 'items' in request.POST:    
             items_str = request.POST['items']
             items = json.loads(items_str) 
             if len(items) > 0:
@@ -142,11 +140,15 @@ class BillView(View):
                 q_bill={}
                 q_bill['billid'] = bill.id 
                 q_bill['items'] = items_str
+                """
+                # 推到消息队列
+
                 p = Publisher()
                 p.publish_message('store_exchange', json.dumps(q_bill), 'msg_avail')
                 p.close_connection()
+                """
 
-                result['id'] = bill.id
+                result['no'] = bill.no
                 result['status'] ='ok'
                 result['msg'] ='创建成功...' 
             else:
@@ -319,15 +321,7 @@ class RabbitBillDetailView(APIView):
                     productpic = ProductPic.objects.get(pk = picid)
                     productpic.delete()
                     result['status'] = 'OK'
-                    result['msg']    = '删除成功...' 
-            elif 'picid' in request.POST: # 说明是在设置主缩略图
-                picid = request.POST['picid']
-                productpic = ProductPic.objects.get(pk = picid)
-                product.thumbnail = productpic.url 
-                product.save()
-                
-                result['status'] = 'OK'
-                result['msg']    = '设置成功...'
+                    result['msg']    = '删除成功...'  
             else: 
                 code    = ''.join(random.choice(string.ascii_letters + string.digits) for i in range(4))
                 filename = handle_uploaded_file(request.FILES['pic'], str(user.id)+'_'+ code)
@@ -390,15 +384,7 @@ class BillDetailView(APIView):
                     productpic = ProductPic.objects.get(pk = picid)
                     productpic.delete()
                     result['status'] = 'OK'
-                    result['msg']    = '删除成功...' 
-            elif 'picid' in request.POST: # 说明是在设置主缩略图
-                picid = request.POST['picid']
-                productpic = ProductPic.objects.get(pk = picid)
-                product.thumbnail = productpic.url 
-                product.save()
-                
-                result['status'] = 'OK'
-                result['msg']    = '设置成功...'
+                    result['msg']    = '删除成功...'  
             else: 
                 code    = ''.join(random.choice(string.ascii_letters + string.digits) for i in range(4))
                 filename = handle_uploaded_file(request.FILES['pic'], str(user.id)+'_'+ code)
