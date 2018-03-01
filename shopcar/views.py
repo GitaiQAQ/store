@@ -37,8 +37,7 @@ class ShopcarView(APIView):
         ruleitems = CartItem.objects.filter(user = request.user)
         content = {}  
         content['mediaroot'] = settings.MEDIA_URL
-        content['ruleitems'] = ruleitems
-         
+        content['ruleitems'] = ruleitems 
         if isMble:
             return render(request, 'shopcar/m_lists.html', content)
         else:
@@ -71,8 +70,9 @@ class ShopcarView(APIView):
                         # create 
                         quantity = request.POST['num']
                         desc = request.POST['desc']
-                        car, create = CartItem.objects.get_or_create(rule = rule, user=user, desc = desc )
+                        car, create = CartItem.objects.get_or_create(rule = rule, user=user )
                         car.quantity += int(quantity )
+                        car.desc = desc
                         car.save()
                         result['status'] = 'ok'
                         result['msg']    = _('Add successfully....') # '添加成功...' 
