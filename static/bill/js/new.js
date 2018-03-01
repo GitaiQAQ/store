@@ -1,19 +1,20 @@
 $(document).ready(function(){
     /* 
-    *获取cookid数据
-    */
+     *获取cookid数据
+     */
     var nSum_price = JSON.parse(CookieUtil.get("sum_price"));//总价格
     var aProducts = JSON.parse(CookieUtil.get("products"));//商品
     var oAdress = JSON.parse(CookieUtil.get("aAddress"));//快递地址
     
     /* 
-    *显示总价
-    */
+     *显示总价
+     */
     $('#sum_price').text(nSum_price);
+
     /* 
-    *显示总件数
-    *图片显示
-    */
+     *显示总件数
+     *图片显示
+     */
     var sum_number = 0;
     var oImg = $('img.thumbnail');
     var counter = 0;
@@ -47,10 +48,7 @@ $(document).ready(function(){
             var aSrc = aProducts[i].img;
             $(oImg[i]).attr('src', aSrc);
         }
-
-
     };
-
     $('#sum_number').text('共' + sum_number + '件');
 
     /* 

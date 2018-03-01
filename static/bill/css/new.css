@@ -1,0 +1,104 @@
+body{
+    background-color:#f9f9f8;
+}
+.container-car{
+    margin: 60px auto 60px;
+    padding: 0px;
+    border:1px solid #ddd;
+}
+.address-wrap{
+    padding: 20px 30px;
+    background-color:#fff;
+}
+.address-wrap>.col-xs-3{
+    margin-right: 30px;
+}
+.new-address{
+    background-color: rgb(247, 247, 247);
+    border:1px solid #ddd;
+}
+.car-title{
+    padding: 20px 30px;
+    background-color: rgb(242, 242, 242);
+    font-size: 16px;
+}
+
+.address{
+    border:1px solid #ddd;
+}
+
+#sum_number{
+    color: #777;
+}
+
+.header {
+    height: 44px;
+    font-size: 16px;
+    text-align: center;
+    line-height: 44px;  
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+}
+
+.header i {
+    height: 100%;
+    line-height: 40px;
+}
+
+
+/******************** 买家留言 ********************/
+.message{
+    border-radius: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    height: 44px;
+    outline: 0px;
+    -webkit-appearance: none;
+}
+
+.fa-angle-right{
+    color:#777;
+    position: absolute;
+    right: 0px;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-right: 10px;
+    font-size: 20px;
+}
+
+/******************** 购买的商品 ********************/
+section.ware{
+    display:flex;
+    align-items:center;
+}
+
+
+.thumbnail{
+    padding: 0px;
+    margin-right: 4px;
+    margin-bottom: 0px;
+    width: 18%;
+    border: 0px;
+    display: none;
+}
+
+.img-rounded{
+width: 19%;
+margin-right:12px;
+}
+.ware .pull-right{
+    position: absolute;
+    right: 25px;
+
+}
+
+.product_price{
+    color:rgb(201,22,35);
+    font-size: 16px;
+}
+
+.all_price .pull-right{
+margin-right: 25px;
+}
+
+
