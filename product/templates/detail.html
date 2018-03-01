@@ -44,9 +44,9 @@
             <!-- 具体版本 -->
             {% if product.adaptorrule_set.all %}
             {% for rule in product.adaptorrule_set.all %}
-                {% if rule.price %}
-                <span class="edition" data-price="{{rule.price}}" ruleid="{{rule.id}}">
-                    {{rule.name}}
+                {% if rule.price %} 
+                <span class="edition  " data-price="{{rule.price}}"   ruleid="{{rule.id}}">
+                    {{rule.name}}  
                 </span>
                 {% endif %}
             {% endfor %} 
@@ -64,7 +64,8 @@
             {% if product.adaptorrule_set.all %}  
             {% for rule in product.adaptorrule_set.all %}
                 {% if not rule.price %}
-                <span class="b_color"  ruleid="{{rule.id}}" data-color="{{rule.name}}"></span>
+                <span class="b_color "  ruleid="{{rule.id}}" 
+                data-color="{{rule.name}}"></span>
                 {% endif %}
             {% endfor %} 
             {% endif %}
@@ -102,6 +103,7 @@
 <script type="text/javascript " src="/static/products/js/detail.js"></script>
 <script type="text/javascript " src="/static/js/classify.js "></script> 
 <script>
+    /*
     var items = {{ product.parameters | safe }};
     var html = '';
     for (var i = 0; i < items.length; i++) {
@@ -110,6 +112,6 @@
             '<td class="value">' + items[i]['value'] + '</td>' +
             '</tr>';
         $('.pro-table').prepend(html);
-    }
+    }*/
 </script>
 {% endblock %}

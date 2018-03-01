@@ -14,6 +14,15 @@ $(document).ready(function(){
    });
 });
 
+//初始化：页面加载的时候默认现则第一个规格
+if ($(".edition").length > 0){
+     $(".edition:first").addClass("active-rule");
+     $("#total_price").text($(".edition:first").attr("data-price"));
+}
+if ($(".b_color").length > 0){
+    $(".b_color:first").addClass("active-color");
+}
+
 /* 
  * 增加产品个数
  */
