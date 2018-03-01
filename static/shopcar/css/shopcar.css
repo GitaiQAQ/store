@@ -1,5 +1,8 @@
+body{
+    background-color:#f9f9f8;
+}
 .container-car{
-    margin: 60px auto 120px;
+    margin: 60px auto 60px;
     padding: 0px;
     border:1px solid #ddd;
 }
@@ -10,6 +13,7 @@
 }
 table.shop-car{
     width: 100%;
+    background-color: #fff;
 }
 table.shop-car td{
     padding:15px 0;
@@ -20,19 +24,19 @@ table.shop-car td{
 
 .img-rounded{
     background-color: #fff;
-    width: 200px;
-    height: 200px;
-    padding:20px;
+    width: 100px;
+    height: 100px;
+    padding:15px;
     border: 1px solid #ddd;
 }
 .check{
     width: 73px;
 }
 .img-wrap{
-    width: 200px;
+    width: 100px;
 }
 .shop-msg{
-    width: 420px;
+    width: 520px;
 }
 .shop-msg>div{
 margin-left: 30px;
@@ -63,6 +67,8 @@ margin-left: 30px;
 }
 .car-footer{
     padding: 30px 15px;
+    background-color: #fff;
+    border-top: 1px solid #ddd;
 }
 input[type=checkbox], input[type=radio]{
     margin: 0;
@@ -82,4 +88,18 @@ input[type=checkbox].checked{
 }
 .car-footer .pull-right{
     padding-right: 15px;
+}
+.cut-off{
+    margin:0 59px 0 0;
+    border-bottom: 1px solid #ddd;
+}
+.p-n{
+    padding:0!important;
+}
+.cut-off-wrap:last-child{
+    display: none;
+}
+.nothing{
+    padding:60px 30px!important;
+    background-color: #fff;
 }

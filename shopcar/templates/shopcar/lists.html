@@ -24,7 +24,7 @@
 
             <!-- 购物车列表详情 -->
                 {% if ruleitems %} {% for car in ruleitems %}
-                <tr class="wrap-border car-list">
+                <tr class="car-list">
 
                 <!-- 商品勾选 -->
                     <td class="check text-center"><input class="checked" type="checkbox"></td>
@@ -71,8 +71,13 @@
                             <div class="delete r-btn" ruleid="{{car.rule.id}}">×</div>
                          </td>
                     </tr>
-                    
-                    {% endfor %} {% else %} 购物车中没有物品 {%endif%}
+                    <tr class="cut-off-wrap">
+                        <td class="p-n"></td>
+                        <td class="p-n" colspan="6">
+                            <div class="cut-off"></div>
+                        </td>
+                    </tr>
+                    {% endfor %} {% else %} <tr><td class="nothing orange" colspan="7">购物车中没有物品</td></tr> {%endif%}
             <!-- 购物车列表详情end -->
                 </table>
      
