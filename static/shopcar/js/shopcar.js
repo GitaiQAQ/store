@@ -168,3 +168,35 @@ $('.car-list').on('click','.delete',function(){
         }
     })
 });
+/*
+* 全部删除
+*/
+$('#all-delete').click(function(){ 
+    data = {
+        'method': 'delete', 
+        'csrfmiddlewaretoken': getCookie('csrftoken'),
+    };
+    if(selectList.length){
+            for (var i = 0; i < selectList.length; i++) {
+                var ruleid = $(selectList[i]).find('.carnum').attr('ruleid');
+                data['ruleid'] = ruleid;
+                $.ajax({
+                    type: 'post',
+                    url: '/shopcar/shopcars/',
+                    data: data,
+                    success: function(result) {
+                        if (result['status'] == 'ok'){
+                            
+                        }
+                    },
+                    error: function(){
+                        $().errormessage('server is down!');
+                    }
+                })
+            } 
+            location.href="/shopcar/shopcars/";
+    }
+    else{
+        $().errormessage('请先选择...');
+    }
+});

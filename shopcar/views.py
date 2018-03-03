@@ -23,13 +23,10 @@ from shopcar.models import CartItem
 
 from mobile.detectmobilebrowsermiddleware import DetectMobileBrowser
 
-
 dmb     = DetectMobileBrowser()
 
 
-
 class ShopcarView(APIView):
-
     @method_decorator(login_required)
     def get(self, request,  format=None ):
         """获取某个用户的购物车列表"""
@@ -71,7 +68,8 @@ class ShopcarView(APIView):
                         quantity = request.POST['num']
                         desc = request.POST['desc']
                         car, create = CartItem.objects.get_or_create(rule = rule, user=user )
-                        car.quantity += int(quantity )
+                        if not create:
+                            car.quantity += int(quantity )
                         car.desc = desc
                         car.save()
                         result['status'] = 'ok'

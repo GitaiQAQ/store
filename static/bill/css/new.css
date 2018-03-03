@@ -83,7 +83,7 @@ section.ware{
 }
 
 .img-rounded{
-width: 19%;
+width: 6%;
 margin-right:12px;
 }
 .ware .pull-right{
@@ -100,5 +100,11 @@ margin-right:12px;
 .all_price .pull-right{
 margin-right: 25px;
 }
+.item-content{
+    background-color: white;
+}
 
-
+.submit-holder{
+    padding-top: 40px;
+    padding-bottom: 40px;
+}

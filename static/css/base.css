@@ -128,3 +128,11 @@ border-bottom: 1px solid #ddd;
     font-size: 10px;
     text-align: center;
 }
+/*公共输入框*/
+.com-input{
+    border: 1px solid #ddd;
+    line-height: 35px;
+    border-radius: 5px;
+    padding-left: 10px;
+    outline: none;
+}
