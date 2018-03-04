@@ -1,0 +1,30 @@
+{% load areas %}
+ 
+<input id="intemplate" value="1" type="hidden" />
+    {% if addresses %}
+        {% for address in addresses %}
+            <div class="address black col-xs-3" addressid="{{address.id}}">
+                    <div class="name"><span class="name">{{address.receiver}}</div>
+                    <div >电话号135********</div>
+                    <div >
+                            {{address.area|areas}}{{address.area.short_name}}[县\区]  {{address.detail}}
+                    </div>
+                    <div> 
+                            <button  class="address_modify" url="{% url 'address:addresses' %}?addressid={{address.id}}&template">  
+                                    <i class="fa fa-pencil-square-o pull-right f20" aria-hidden="true"></i>
+                            </button>
+                    </div>
+            </div> 
+        {% endfor %}
+    {% else %}
+        没有创建任何地址
+    {% endif %}
+
+
+<!-- 新建地址按钮 -->
+<button  class="address_new"  url="{% url 'address:addresses' %}?new=&template">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+        新建地址
+</button>
+
+

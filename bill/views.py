@@ -66,7 +66,7 @@ class BillView(View):
             if isMble:
                 return render(request, 'bill/m_unpayed.html', content)
             else:
-                return render(request, 'bill/m_unpayed.html', content)
+                return render(request, 'bill/unpayed.html', content)
         else:
             if isMble:
                 return render(request, 'bill/m_lists.html', content)

@@ -17,9 +17,11 @@ $(document).ready(function () {
 
 
     //  创建地址按钮    >>> 点击事件
-    $('.create-btn').click(function () {
+    $('body').on('click','.create-btn',function(){ 
+        var intemplate = $("#intemplate");//表明是嵌入式的还是非嵌入式的
+
         var areaid = $.trim($('#counties').val());
-        var phone = $.trim($('#phone').val());
+        var phone = $.trim($('#new_phone').val());
         var receiver = $.trim($('#receiver').val());
         var detail = $.trim($('#detail').val());
         // 验证数据有效性
@@ -62,10 +64,24 @@ $(document).ready(function () {
             data: data,
             success: function (result) {
                 if (result['status'] == 'ok') {
-                    $().message(result['msg']);
-                    setTimeout(function () {//三秒返回
-                        location.href='/address/addresses/';
-                    }, 3000);
+                    if (intemplate.length >= 1){
+                        //嵌入式网页，在订单提交的时候
+                        $.ajax({
+                            type: 'get',
+                            url: '/address/addresses/?template', 
+                            success: function (result) {
+                                $("#item-address").empty();
+                                $('#addressModal').modal({ show: false});
+                                $("#item-address").append(result);
+                            }
+                        }); 
+                    }
+                    else{
+                        $().message(result['msg']);
+                        setTimeout(function () {//三秒返回
+                            location.href='/address/addresses/';
+                        }, 3000);
+                    }
                 } else {
                     $().errormessage(result['msg']);
                 }
@@ -118,4 +134,31 @@ $('body').on('click','.address_wrap',function(){
     };
     CookieUtil.set("aAddress", JSON.stringify(aAddress), '', "/");
     history.back();
+})
+
+/* 修改 */
+$('body').on('click','.address_modify',function(){
+    var url = $(this).attr('url');
+    $.ajax({
+        type: 'get',
+        url: url, 
+        success: function (result) {
+            $(".modal-body").html(result);
+            $('#addressModal').modal('show');
+        }
+    });  
+//  提交订单
+})
+
+$('body').on('click','.address_new',function(){
+    var url = $(this).attr('url');
+    $.ajax({
+        type: 'get',
+        url: url, 
+        success: function (result) {
+            $(".modal-body").html(result);
+            $('#addressModal').modal('show');
+        }
+    });  
+//  提交订单
 })

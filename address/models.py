@@ -14,5 +14,7 @@ class Address(models.Model):
     receiver = models.CharField(_('Receiver'), max_length = 256, null = True) 
     #收货人电话
     phone = models.CharField(_('Phone'), max_length = 128, null = True) 
+    class Meta:
+        ordering = ['-id']
 
  

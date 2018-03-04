@@ -82,19 +82,25 @@ $(document).ready(function(){
     /* 
     *地址栏text
     */
+    
     var addressIcon = '<i class="fa fa-map-marker" aria-hidden="true"></i>:';
     if (oAdress) {
         $('#name').text('' + oAdress.name);
         $('#phone').text('' + oAdress.phone);
-        $('#address').html(' <div id="address">' + addressIcon + oAdress.address + '</div>');
+        $('#address').html(' <div id="address">' + oAdress.address + '</div>');
     } else {
         $('#name').text('姓名：');
         $('#phone').text('电话：');
         $('#address').html(' <div id="address">' + addressIcon + '</div>');
     }
 
-
-
+    $.ajax({
+            type: 'get',
+            url: '/address/addresses/?template', 
+            success: function (result) {
+                $("#item-address").append(result);
+            }
+        });  
     //  提交订单
     mark = false;
     $('.submit-btn').click(function () {

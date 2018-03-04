@@ -21,10 +21,16 @@ class AddressView(View):
         addresses = Address.objects.filter(user = request.user)
         content['addresses'] = addresses
         if 'new' in request.GET:
-            if isMble:
-                return render(request, 'address/m_new.html', content)
+            if 'template' in request.GET:
+                if isMble:
+                    return render(request, 'address_template/m_new.html', content)
+                else:
+                    return render(request, 'address_template/m_new.html', content)
             else:
-                return render(request, 'address/new.html', content)
+                if isMble:
+                    return render(request, 'address/m_new.html', content)
+                else:
+                    return render(request, 'address/m_new.html', content)
         if 'addressid' in request.GET:
             addressid = request.GET['addressid']
             try:
@@ -33,12 +39,19 @@ class AddressView(View):
                  
             except Address.DoesNotExist:
                 pass
-            if isMble:
-                return render(request, 'address/m_new.html', content)
-            else:
-                return render(request, 'address/new.html', content)
+            if 'template' in request.GET: 
+                return render(request, 'address_template/m_new.html', content)
+            else: 
+                if isMble:
+                    return render(request, 'address/m_new.html', content)
+                else:
+                    return render(request, 'address/m_new.html', content)
         else: 
-            return render(request, 'address/address.html', content)
+            if 'template' in request.GET:
+                content['addresses'] = addresses[:4]
+                return render(request, 'address_template/address.html', content)
+            else:
+                return render(request, 'address/address.html', content)
     
     @method_decorator(login_required)
     @method_decorator(csrf_exempt)
