@@ -73,6 +73,7 @@ $('.submit ').click(function () {
             // 修改
             obj_para['ruleid'] = $(this).attr('ruleid');
             obj_para['name'] = $(this).find('.key>input').val(); 
+            obj_para['color_name'] = $(this).find('.color_name>input').val(); 
         }
         
         parameters.push(obj_para);
@@ -123,8 +124,10 @@ $('.submit ').click(function () {
 $('#add-pro').click(function () {
     $(".alert-text").remove();
     var pro = $('#pro').val();
+    var color_name = $('#color_name').val();
     var proTr = '<tr class="parameter_tr" ruleid="-1">' +
         '<td class="key "><input type="text"   value="' + pro + '"/></td>' + 
+        '<td class="color_name"><input type="text"   value="' + color_name + '"/></td>' + 
         '<td><i class="fa fa-trash-o" aria-hidden="true"></i></td>' +
         '</tr>';
 

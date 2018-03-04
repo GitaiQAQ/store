@@ -48,10 +48,11 @@
 
     <div class="form-group gray-white">
         <label for="message" class="col-sm-2 control-label">{{vicerulename}}：</label>
-        <div class="col-sm-4 format">
+        <div class="col-sm-5 format">
             <div class="form-inline"> 
                 <div class="form-group">
-                    <input type="text" class="form-control" id="pro" placeholder="{{vicerulename}}">
+                    <input type="text" class="form-control" id="pro" placeholder="{{vicerulename}}值：如：#EADF01">
+                    <input type="text" class="form-control" id="color_name" placeholder="{{vicerulename}}名称：如：黑色">
                 </div>
                 <button id="add-pro" type="button " class="btn btn-primary blue-btn">
                     <i class="fa fa-plus " aria-hidden="true "></i>
@@ -60,7 +61,8 @@
             </div>
             <table class="table table-hover table-bordered " id="pro-table">
                 <tr>
-                    <th>{{vicerulename}}<i class="fa fa-pencil" aria-hidden="true"></i></th>
+                    <th>{{vicerulename}}值<i class="fa fa-pencil" aria-hidden="true"></i></th>
+                    <th>{{vicerulename}}名称<i class="fa fa-pencil" aria-hidden="true"></i></th>
                   
                     <th>删除</th>
                 </tr>
@@ -68,6 +70,7 @@
                 {% if not rule.price %}
                     <tr class="parameter_tr " ruleid="{{rule.id}}">
                         <td class="name key"  ><input type="text" value="{{rule.name}}" title="点击修改"/></td>  
+                        <td class="name color_name"  ><input type="text" value="{{rule.color_name}}" title="点击修改"/></td> 
                         <td class="operate">
                             <i class="fa fa-trash-o " aria-hidden="true" title="删除"></i>
                         </td>

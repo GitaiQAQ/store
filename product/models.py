@@ -159,10 +159,10 @@ class Rule(models.Model):
     OP_REDUCE_TYPE_REAL = 1  # 减物理库存
     OP_REDUCE_TYPE_ALL = 2   # 同时减少可用库存和物理库存
     
-    product = models.ForeignKey(AdaptorProduct) 
+    product = models.ForeignKey(AdaptorProduct, on_delete=models.SET_NULL, null=True) 
     rule_title =models.CharField(_('rule title'), max_length=1024, default='')
     # 规格名称 ：标准版、黑金版、
-    name = models.CharField(_('name'), max_length=1024)
+    name = models.CharField(_('name'), max_length=1024) 
     # 价格:6999
     price = models.DecimalField(_('price'), max_digits=9, decimal_places=2, null=True)
 
@@ -258,6 +258,8 @@ class Rule(models.Model):
 
 class AdaptorRule(Rule):
     """Rule 适配器"""
+    # 表带颜色名称
+    color_name = models.CharField(_('color name'), max_length=64, null=True) 
     objects = AdaptorRuleManager()
     def __str__(self):
         return self.name  

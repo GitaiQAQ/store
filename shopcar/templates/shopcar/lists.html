@@ -40,7 +40,7 @@
                     <td class="shop-msg">
                         <div class="carlist_name">{{car.rule.product.title|truncatechars:"20"}}
                         </div>
-                        <div class="rule_content grey">规格：{{car.rule.name}}
+                        <div class="rule_content grey">{% if car.desc %}规格：{{car.desc}} {% endif %}
                         </div>
                     </td>
                 <!-- 名称型号 end -->

@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'sitecontent',
     'comment',
     'piclab',
+    'coupon',
 ]
 
 MIDDLEWARE = [

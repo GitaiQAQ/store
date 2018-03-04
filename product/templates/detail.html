@@ -64,8 +64,8 @@
             {% if product.adaptorrule_set.all %}  
             {% for rule in product.adaptorrule_set.all %}
                 {% if not rule.price %}
-                <span class="b_color "  ruleid="{{rule.id}}" 
-                data-color="{{rule.name}}"></span>
+                <span class="b_color"  ruleid="{{rule.id}}" 
+                data-color="{{rule.name}}" data-color-title="{{rule.color_name}}"></span>
                 {% endif %}
             {% endfor %} 
             {% endif %}

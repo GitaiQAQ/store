@@ -68,7 +68,8 @@ $('.submit button').click(function() {
     var parameters_tr = $('.parameter_tr');
     var obj_para = {};
     parameters_tr.each(function() {
-        obj_para['key'] = $(this).find('.key').text(); 
+        obj_para['key'] = $(this).find('.key').val(); 
+        obj_para['color_name'] = $(this).find('.color_name').val(); 
         parameters.push(obj_para);
         obj_para = {};
     });
@@ -120,8 +121,10 @@ $('.submit button').click(function() {
 $('#add-pro').click(function() {
     $(".alert-text").remove();
     var pro = $('#pro').val();
+    var color_name = $('#color_name').val();
     var proTr = '<tr class="parameter_tr">'+
         '<td><input class="key" type="text" value="'+pro+'"/></td>'+
+        '<td><input class="color_name" type="text" value="'+color_name+'"/></td>'+
         '<td><i class="fa fa-trash-o" aria-hidden="true"></i></td>' +
         '</tr>';
 

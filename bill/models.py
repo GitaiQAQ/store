@@ -41,7 +41,7 @@ class Bill(BaseDate):
     # 收货人姓名
     reciever = models.CharField(_('reciever'), max_length=120, null = True)
   
-    #订单金额
+    #应付金额
     money = models.DecimalField(_('Money'), max_digits = 9, decimal_places = 2, default = 0.0)
 
     # 订单状态
@@ -56,6 +56,7 @@ class Bill(BaseDate):
 
     class Meta:
         abstract = True
+        ordering = ['-date']
 
 class AdaptorBill(Bill):
     objects = AdaptorBillManager()
@@ -67,9 +68,9 @@ class BillItem(models.Model):
     # 订单主表
     bill = models.ForeignKey(AdaptorBill)
 
-    # 产品名称
+    # 产品名称:ASU 手表
     product_title = models.CharField(_('Address'), max_length = 4096, null = True) 
-    # 规格名称
+    # 规格名称：黑金版，红色
     rule_title = models.CharField(_('Rule'), max_length = 4096, null = True) 
     
     # 外键，规格和产品都有可能被删除和编辑，所以这里的外键仅作为减库存时的依据
@@ -88,3 +89,32 @@ class BillItem(models.Model):
 
 class AdaptorBillItem(BillItem):
     objects = AdaptorBillItemManager()
+
+class CouponItem(models.Model):
+    """
+    订单中优惠劵减免记录
+    """  
+    # 订单主表
+    bill = models.ForeignKey(AdaptorBill)
+
+    # 优惠劵码
+    code = models.CharField(_('Address'), max_length = 4096, null = True) 
+    # 规格名称：黑金版，红色
+    rule_title = models.CharField(_('Rule'), max_length = 4096, null = True) 
+    
+    # 外键，规格和产品都有可能被删除和编辑，所以这里的外键仅作为减库存时的依据
+    # 如果在减库存的时候，
+    rule = models.ForeignKey(AdaptorRule, on_delete=models.SET_NULL, null = True)
+    product = models.ForeignKey(AdaptorProduct, on_delete=models.SET_NULL, null = True)
+
+    # 下订单时的价格
+    price = models.DecimalField(_('Price'), max_digits = 9, decimal_places = 2, default = 0.0)
+    # 订单中某商品的数量
+    num = models.PositiveIntegerField(_('Number'))
+ 
+    class Meta:
+        abstract = True
+
+
+class AdaptorCouponItem(CouponItem):
+    pass

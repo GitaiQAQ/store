@@ -6,8 +6,7 @@ from datetime import datetime
 
 register = template.Library()
 
-def assitant(obj):
-    pdb.set_trace()
+def assitant(obj): 
     tag_string = ''
     childs = obj.adaptorpagecomment_set.all()
     if childs.count() == 0:

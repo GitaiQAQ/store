@@ -11,6 +11,7 @@ $(document).ready(function(){
      */
     $('#sum_price').text(nSum_price);
 
+    $('#all_sum_price').text(nSum_price);
     /* 
      *显示总件数
      *图片显示
@@ -19,8 +20,35 @@ $(document).ready(function(){
     var oImg = $('img.thumbnail');
     var counter = 0;
     //for (var i = 0; i < Math.max(oImg.length,aProducts.length); i++) {
+    var html = '<tr class="car-list">  '+
+        '<td class="img-wrap text-center">'+
+        '    <img class="img-rounded" src="#img">'+
+        '</td> '+
+        '<td class="shop-msg">'+
+        '    <div class="carlist_name">#productname'+
+        '   </div>'+
+        '   <div class="rule_content grey">#rule'+
+        '   </div>'+
+        '</td> '+
+        '<td class="w159 text-center" carid="{{car.id}}">'+
+        '           <i class="fa fa-jpy" aria-hidden="true"></i>'+
+        '           <span class="carprice">#num_and_price</span>'+
+        '</td> '+
+        '<td class="w159 text-right">'+
+        '        <i class="fa fa-jpy" aria-hidden="true"></i>'+
+        '       <span class="small_sum">#total_money</span>'+
+        '</td> '+
+    '</tr>';
     for (var i = 0; i < aProducts.length; i++) {
-        counter++;
+        tmp = html;
+        
+        tmp = tmp.replace("#img", aProducts[i].img );
+        tmp = tmp.replace("#productname", aProducts[i].name);
+        tmp = tmp.replace("#rule", aProducts[i].rule);
+        tmp = tmp.replace("#num_and_price", aProducts[i].Price+' x '+ aProducts[i].num);
+        tmp = tmp.replace("#total_money", aProducts[i].Price * aProducts[i].num);
+        $("#tb_items").append(tmp);
+        /*
         if (aProducts.length == 1) {
             $('.ware').children().remove();
             $('.ware').append('<img class="img-rounded pull-left" src="" />' +
@@ -40,7 +68,6 @@ $(document).ready(function(){
             $(aList[i]).find('.product_rull').text(aProducts[i].rule);
             $(aList[i]).find('.product_price').text(aProducts[i].Price);
             $(aList[i]).find('.product_numb').text('x' + aProducts[i].num + '件');
-
         };
         if (aProducts[i]) {
             $(oImg[i]).css('display', 'block');
@@ -48,16 +75,17 @@ $(document).ready(function(){
             var aSrc = aProducts[i].img;
             $(oImg[i]).attr('src', aSrc);
         }
+        */
     };
-    $('#sum_number').text('共' + sum_number + '件');
+    $('.sum_num').text( sum_number);
 
     /* 
     *地址栏text
     */
     var addressIcon = '<i class="fa fa-map-marker" aria-hidden="true"></i>:';
     if (oAdress) {
-        $('#name').text('姓名：' + oAdress.name);
-        $('#phone').text('电话：' + oAdress.phone);
+        $('#name').text('' + oAdress.name);
+        $('#phone').text('' + oAdress.phone);
         $('#address').html(' <div id="address">' + addressIcon + oAdress.address + '</div>');
     } else {
         $('#name').text('姓名：');

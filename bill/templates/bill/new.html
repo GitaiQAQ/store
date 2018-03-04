@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 {% block fixed_menu_class %}fixed_menu_class{%endblock%}
+{% block pagetitle%}提交订单{% endblock%} 
 {% block css %} {% load staticfiles %}
 <link href="/static/bill/css/new.css" rel="stylesheet">
-<link type="text/css" rel="stylesheet" href="/static/css/HoldOn.css">
+<link type="text/css" rel="stylesheet" href="/static/css/HoldOn.css"> 
 {% endblock %} 
 {% block content %}
-<div class="container">
-    <div class="row">
-        <div class="container-car">
+<div class="container"> 
+        <div class="col-xs-12 container-car">
             <!-- 收货地址 -->
             <div  >
                 <div class="car-title col-xs-12">收货地址</div>
@@ -33,8 +33,11 @@
                 <div class="car-title col-xs-12">发票信息</div>
                 <div class="all_price col-xs-12 item-content">
                     <div>
-                        <input type="radio" name="invoice" class="invoice_type"  value="1" checked="checked" />个人
-                        <input name="invoice" class="invoice_type" type="radio" value="0" />企业
+                        <input type="radio" name="invoice" class="invoice_type"  value="1" checked="checked" />
+                        <span class="grey"> 个人</span>
+                        <input name="invoice" class="invoice_type" type="radio" value="0" />
+                        <span class="grey"> 企业</span>
+                         <br/>
                          <br/>
                         <input type="text" placeholder="填写发票抬头" class="com-input" id="invoice_title" value=""/>
                         <input type="text" class="com-input invoice_company" placeholder="纳税人识别号" id="invoice_code" value=""/>
@@ -44,41 +47,55 @@
             </div> 
             <div>
                 <div class="car-title col-xs-12">购物清单</div> 
-                <div class="all_price col-xs-12 item-content">
-                    <a href="{% url 'bill:detail' 12 %}">
-                        <div class="ware">
-                            <img class="thumbnail pull-left ">
-                        <img class="thumbnail pull-left ">
-                            <img class="thumbnail pull-left ">
-                            <img class="thumbnail pull-left ">
-                            <span class="pull-right" id='sum_number'></span>
-                            <i class="fa fa-angle-right" aria-hidden="true"></i> 
-                        </div>
-                    </a>
-               </div>
+                <div class="return-link col-xs-12">
+                            <span class="product-title">商品</span>
+                            <a class="return-shopcar pull-right" href="{% url 'shopcar:shopcar_detail' %}">返回购物车></a>
+                         
+                </div>  
+                <div class="col-items">
+                    <table class="shop-car item-content" id="tb_items">
+                        <!-- 购物车列表详情 -->  
+                        <!-- 购物车列表详情end -->
+                    </table>
+                </div> 
             </div>
             <!-- <input class="message com-input" type="text" placeholder="选填：买家留言"/>-->
-            <div class="  col-xs-12 item-content">
+            <div class="  col-xs-12 item-content div-sum-money">
                 <div class="pull-right">
-                    <div class="grey">
-                        <div>商品件数：<span class="price f16 ">2</span>件</div>
-                        <div>商品总价：<span id="sum_price" class="price f16"><i class="fa fa-jpy" aria-hidden="true"></i> 0.00</span></div>
-                        <div>快递费用：<span class="price f16"><i class="fa fa-jpy" aria-hidden="true"></i> 0.00</span></div>
+                    <div class="grey  pull-right sum_money">
+                        <div>商品件数：<span class="f16 sum_num">0</span> 件</div>
+                        <div>金额合计：<i class="fa fa-jpy" aria-hidden="true"></i> <span id="sum_price" class="price f16"> 0.00</span> 元</div>
+                        <div>运费：<i class="fa fa-jpy" aria-hidden="true"></i> <span class="price f16">0.00</span> 元</div>
                     </div> 
                       
                 </div>
             </div>
-            <div class="submit-holder col-xs-12 item-content">
-                    <div class="pull-right"> 
-                        <div> 
-                            <span class="grey" >商品总价：</span><span id="sum_price" class="price fs24 orange"><i class="fa fa-jpy" aria-hidden="true"></i> 0.00</span>
-                            <button class=" submit-btn submit-btn-test common-btn white orange-bg"  id="submit-bill">提交订单</button> 
+            <div class="submit-holder col-xs-12 item-content div-delivery ">
+                    <div class="pull-right">  
+                        <div class="div-submit"> 
+                            <table>
+                                <tr>
+                                    <td><p class="grey" >应付金额： <i class="fa fa-jpy fs24 orange" aria-hidden="true"></i> </p></td>
+                                    <td><p class="grey" ><span id="all_sum_price" class="price fs24 orange"> 0.00</span></p></td>
+                                    <td><button class="submit-btn submit-btn-test common-btn white orange-bg"  id="submit-bill">提交订单</button> </td>
+                                </tr> 
+                            </table>
+                                
                         </div>   
+                    </div>
+            </div>
+            <div class="  col-xs-12 item-content div-delivery">
+                    <div class="pull-right">
+                        <div class="  pull-right sum_money">
+                            <div>配送方式</div>
+                            <div class="grey">顺丰快递|周一至周五16:00之前的订单当天发货，16:00知道的第二天发货，周六日的周一发货（如遇活动，七天之内发出）</div>
+                        </div> 
+                          
                     </div>
             </div>
 
         </div>
-    </div>
+     
 </div>
 {% endblock %}
 {% block js %}

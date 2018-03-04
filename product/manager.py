@@ -46,9 +46,9 @@ class RuleManager(models.Manager):
             if mainrule:
                 self.create(product = product, name=rule['name'], price = float(rule['price']),
                 rule_title=rule_title)
-            else:
-                self.create(product = product, name=rule['key'] , rule_title=rule_title)
-    
+            else: 
+                self.create(product = product, name=rule['key'], color_name=rule['color_name'], rule_title=rule_title)
+             
    
     def mul_modify(self, rules_str, product, rule_title, mainrule = True):
         """
@@ -64,15 +64,20 @@ class RuleManager(models.Manager):
                     obj = self.create(product = product, name=rule['name'], rule_title=rule_title,
                      price = float(rule['price']) )
                 else:
-                    obj = self.create(product = product, name=rule['name'] , rule_title=rule_title )
+                    obj = self.create(product = product, name=rule['name'], color_name=rule['color_name'] , rule_title=rule_title )
             else:
                 obj, created = self.get_or_create(product = product, pk = rule['ruleid'])
                 obj.name = rule['name']
+                
                 if mainrule:
                     obj.price = float(rule['price']) 
+                  
                 obj.rule_title = rule_title
                 obj.deleted = 0 # 代表这个字段没有被用户删除
-                obj.save()
+            
+            if 'color_name' in rule:
+                    obj.color_name=rule['color_name']
+            obj.save()
         
         return error_list
             

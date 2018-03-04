@@ -141,12 +141,14 @@ function ajaxSubmit() {
         csrfmiddlewaretoken = $('input[name=csrfmiddlewaretoken]').val(),
         ruleid = $('.edition.active-rule').attr('ruleid'),
         quantity =$('#carnum').val(),
-        desc=$('item_name').text()+$('.active-rule').text()+$('.active-color').text(),
+        title =  $('.item_name').text(),
+        desc=$('.active-rule').text()+$('.active-color').attr("data-color-title"),
         data = {
         'method': 'create',
         'ruleid': ruleid,
         'num': quantity,
         'desc':desc,
+        'title':title,
         'csrfmiddlewaretoken': csrfmiddlewaretoken
         }
 

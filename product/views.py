@@ -311,7 +311,7 @@ class ProductView(View):
                     mainrulename = request.POST['mainrulename'].strip()
                     rules = request.POST['rules'].strip()
                     AdaptorRule.objects.mul_mainrule_create(rules, product, mainrulename)
-                if 'parameters' in request.POST:
+                if 'parameters' in request.POST: 
                     parameters = request.POST['parameters'].strip()
                     vicerulename = request.POST['vicerulename'].strip()
                     AdaptorRule.objects.mul_mainrule_create(parameters, product, vicerulename, mainrule=False)
@@ -388,7 +388,7 @@ class ProductView(View):
                     if len(undeleted_list) > 0:
                         result['undeleted_list'] = undeleted_list
                         result['undeleted_msg'] = _('There are unpayed bill for this item')
-                if 'parameters' in request.POST:
+                if 'parameters' in request.POST: 
                     parameters = request.POST['parameters'].strip()
                     vicerulename = request.POST['vicerulename'].strip()
                     AdaptorRule.objects.mul_modify(parameters, product, vicerulename, mainrule=False)

@@ -120,7 +120,7 @@ $('a#buy').click(function() {
     //创建商品列表数组，每个元素是一个商品对象
     var products = new Array();
     for (var i = 0; i < selectList.length; i++) {
-        var aName = $(selectList[i]).find('.car-list_name'),
+        var aName = $(selectList[i]).find('.carlist_name'),
             aRule = $(selectList[i]).find('.rule_content'),
             aImg = $(selectList[i]).find('img'),
             aPrice = $(selectList[i]).find('.carprice'),
@@ -131,7 +131,7 @@ $('a#buy').click(function() {
         product.img = aImg.attr('src');
         product.Price = aPrice.text();
         product.ruleid = aCarnum.attr('ruleid');
-        product.num = aCarnum.val();
+        product.num = aCarnum.text();
         products.push(product);
     }
     //商品列表数组保存到cookie

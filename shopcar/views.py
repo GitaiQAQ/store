@@ -67,10 +67,12 @@ class ShopcarView(APIView):
                         # create 
                         quantity = request.POST['num']
                         desc = request.POST['desc']
+                        title = request.POST['title']
                         car, create = CartItem.objects.get_or_create(rule = rule, user=user )
                         if not create:
                             car.quantity += int(quantity )
                         car.desc = desc
+                        car.title = title
                         car.save()
                         result['status'] = 'ok'
                         result['msg']    = _('Add successfully....') # '添加成功...' 
