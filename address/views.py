@@ -10,7 +10,8 @@ from django.http import QueryDict
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-
+from django.db.models import Q
+from area.models      import  Area
 from mobile.detectmobilebrowsermiddleware import DetectMobileBrowser
 dmb     = DetectMobileBrowser()
 
@@ -22,6 +23,8 @@ class AddressView(View):
         content['addresses'] = addresses
         if 'new' in request.GET:
             if 'template' in request.GET:
+                provinces = Area.objects.filter(Q(level = 1) | Q(name='北京市'))
+                content['provinces'] = provinces
                 if isMble:
                     return render(request, 'address_template/m_new.html', content)
                 else:

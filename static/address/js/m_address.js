@@ -71,7 +71,7 @@ $(document).ready(function () {
                             url: '/address/addresses/?template', 
                             success: function (result) {
                                 $("#item-address").empty();
-                                $('#addressModal').modal({ show: false});
+                                $('#addressModal').modal('toggle');
                                 $("#item-address").append(result);
                             }
                         }); 
@@ -97,11 +97,14 @@ $(document).ready(function () {
 /* 
  *省份change获取市
  */
-$('#province').change(function () {
+$('body').on('change','#province',function(){
+//$('#province').change(function () {
     $('#city').val('');
     $.get('/area/get_city_list/?provinceid=' + this.value, function (data) {
+        $('#city').empty();
         for (var i = 0; i < data.length; i++) {
             var oCity = data[i];
+            
             $('#city').append('<option value=' + oCity.id + '>' + oCity.short_name + '</option>');
         };
     });
@@ -110,11 +113,14 @@ $('#province').change(function () {
 /* 
  *市change获取县区
  */
-$('#city').change(function () {
+$('body').on('change','#city',function(){
+//$('#city').change(function () {
     $('#counties').val('');
     $.get('/area/get_county_list/?cityid=' + this.value, function (data) {
+        $('#counties').empty();
         for (var i = 0; i < data.length; i++) {
             var oCounties = data[i];
+            
             $('#counties').append('<option value=' + oCounties.id + '>' + oCounties.short_name + '</option>');
         };
     });
