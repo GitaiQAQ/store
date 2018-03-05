@@ -2,27 +2,33 @@
 {% block fixed_menu_class %}fixed_menu_class{%endblock%}
 {% block pagetitle%}提交订单{% endblock%} 
 {% block css %} {% load staticfiles %}
+<link type="text/css" rel="stylesheet" href="/static/css/HoldOn.css">
 <link href="/static/bill/css/new.css" rel="stylesheet">
-<link type="text/css" rel="stylesheet" href="/static/css/HoldOn.css"> 
 {% endblock %} 
 {% block content %}
 <div class="container"> 
         <div class="col-xs-12 container-car">
             <!-- 收货地址 -->
-            <div  >
+            <div>
                 <div class="car-title col-xs-12">收货地址</div>
-                <div class="col-xs-12 item-contnt " id="item-address"> 
-                        <div class="address black col-xs-3">
-                                <div id="name" class="name">姓名</div>
-                                <div id="phone">电话号135********</div>
-                                <div id="address">
-                                    陕西省西安市雁塔区某街道
-                                </div>
-                                <div> 
-                                </div>
+                <div class="col-xs-12 item-contnt " id="item-address">
+                    <div class="black col-xs-3 address-wrap">
+                        <div class="address">
+                            <div id="name" class="name">姓名</div>
+                            <div id="phone">手机号</div>
+                            <div id="address" class="a-detail">
+                                地址
+                            </div>
+                            <div class="address-footer row">
+                                <div class="col-xs-6">修改</div>
+                                <div class="col-xs-6">删除</div>
+                            </div>
                         </div>
-                        
-                        <a href="{% url 'address:addresses' %}"><i class="fa fa-angle-right" aria-hidden="true"></i> </a>
+                    </div>
+            
+                    <a href="{% url 'address:addresses' %}">
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
                 </div>
             </div>
             <!-- 发票信息 -->
@@ -99,8 +105,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h4 class="modal-title" id="myModalLabel">添加/修改收货地址</h4>
+                    <div class="modal-title fs16" id="myModalLabel">添加&nbsp;/&nbsp;修改收货地址</div>
                 </div>
                 <div class="modal-body">点击关闭按钮检查事件功能。</div>
                 

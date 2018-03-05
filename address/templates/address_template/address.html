@@ -3,17 +3,24 @@
 <input id="intemplate" value="1" type="hidden" />
     {% if addresses %}
         {% for address in addresses %}
-            <div class="address black col-xs-3" addressid="{{address.id}}">
-                    <div class="name"><span class="name">{{address.receiver}}</div>
-                    <div >电话号135********</div>
-                    <div >
-                            {{address.area|areas}}{{address.area.short_name}}[县\区]  {{address.detail}}
-                    </div>
-                    <div> 
-                            <button  class="address_modify" url="{% url 'address:addresses' %}?addressid={{address.id}}&template">  
-                                    <i class="fa fa-pencil-square-o pull-right f20" aria-hidden="true"></i>
-                            </button>
-                    </div>
+            <div class="black col-xs-3 address-wrap" addressid="{{address.id}}">
+                        <div class="address">
+                                <div class="name">
+                                        <span class="name">{{address.receiver}}</div>
+                                <div>电话号135********</div>
+                                <div class="a-detail">
+                                        {{address.area|areas}}{{address.area.short_name}}[县\区] {{address.detail}}
+                                </div>
+                                <div class="address-footer row">
+
+                                        <button class="address_modify col-xs-6" url="{% url 'address:addresses' %}?addressid={{address.id}}&template">
+                                                修改
+                                        </button>
+                                        <div class="col-xs-6">删除</div>
+                                </div>
+                        </div>
+
+                    
             </div> 
         {% endfor %}
     {% else %}
@@ -22,9 +29,12 @@
 
 
 <!-- 新建地址按钮 -->
-<button  class="address_new"  url="{% url 'address:addresses' %}?new=&template">
-        <i class="fa fa-plus" aria-hidden="true"></i>
-        新建地址
-</button>
+
+<div class="black col-xs-3 address-wrap">
+                <button class="new-address address_new" url="{% url 'address:addresses' %}?new=&template">
+                    <div class="add-new">＋</div>
+                    添加新地址
+                </button>
+</div>
 
 

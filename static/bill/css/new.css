@@ -6,26 +6,14 @@ body{
     padding: 0px;
     border:1px solid #ddd;
 }
-.address-wrap{
-    padding: 20px 30px;
-    background-color:#fff;
-}
-.address-wrap>.col-xs-3{
-    margin-right: 30px;
-}
-.new-address{
-    background-color: rgb(247, 247, 247);
-    border:1px solid #ddd;
-}
+
 .car-title{
     padding: 20px 30px;
     background-color: rgb(242, 242, 242);
     font-size: 16px;
 }
 
-.address{
-    border:1px solid #ddd;
-}
+
 
 #sum_number{
     color: #777;
@@ -43,6 +31,106 @@ body{
 .header i {
     height: 100%;
     line-height: 40px;
+}
+/* 地址 */
+div.address{
+    border:1px solid #ddd;
+    padding: 15px 15px 0 15px;
+    border-radius: 4px;
+    height: 154px;
+}
+.address-wrap{
+    padding: 30px 15px;
+    background-color:#fff;
+}
+
+.new-address{
+    background-color: rgb(247, 247, 247);
+    border:1px solid #ddd;
+    padding: 15px 15px 0 15px;
+    border-radius: 4px;
+    display: block;
+    text-align: center;
+    width: 100%;
+    height: 154px;
+}
+.add-new{
+background-color: rgb(201, 201, 202);
+width: 24px;
+height: 24px;
+border-radius: 50%;
+color: #fff;
+font-size: 18px;
+margin: 0 auto 10px;
+}
+.address-footer{
+    border-top: 1px solid #ddd;
+    padding: 5px 0;
+    text-align: center;
+    margin-top: 15px;
+    cursor: pointer;
+}
+.address-footer>.col-xs-6:first-child{
+    border-right: 1px solid #ddd;
+}
+.name{
+    margin-bottom: 10px;
+}
+.address_modify{
+    border: none;
+    outline: none;
+    background: none;
+}
+.a-detail{
+    height: 40px;
+    overflow: hidden;
+}
+.modal-content{
+    border-radius: 0px;
+}
+.modal-header{
+    border: none;
+    padding: 20px 15px 0px;
+}
+.check{
+    padding-top: 4px;
+}
+.default{
+    font-weight: 100;
+    margin: 0;
+}
+.grey-btn{
+    margin-left: 10px;
+}
+#receiver{
+    width: 35%;
+    margin-right: 2%;
+}
+#new_phone{
+    width: 63%;
+}
+select.common-inp{
+    width: 32%;
+    float: left;
+}
+select.common-inp{
+    margin-left: 2%;
+}
+select.m-n{
+    margin-left:0!important;
+}
+@media (min-width: 768px){
+    .modal-dialog {
+        width: 500px;
+        margin: 30px auto;
+    }
+}
+#detail{
+    display: block;
+    width: 100%;
+}
+.common-inp{
+    margin-bottom: 15px;
 }
 
 
@@ -144,9 +232,7 @@ table.shop-car td{
     padding:15px;
     border: 1px solid #ddd;
 }
-.check{
-    width: 73px;
-}
+
 .img-wrap{
     width: 100px;
 }
@@ -186,7 +272,7 @@ margin-left: 30px;
     border-top: 1px solid #ddd;
 }
 input[type=checkbox], input[type=radio]{
-    margin: 0;
+    margin: 0 0 2px;
     vertical-align: middle; 
 }
 input[type=checkbox].checked{
