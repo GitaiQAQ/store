@@ -45,7 +45,18 @@ class AddressView(View):
                 pass
             if 'template' in request.GET: 
                 provinces = Area.objects.filter(Q(level = 1) | Q(name='北京市'))
+                cities = Area.objects.filter(id = address.area.parent_id)
+                counties = Area.objects.filter(parent_id = address.area.parent_id)
                 content['provinces'] = provinces
+                content['cities'] = cities
+                content['counties'] = counties
+                city = Area.objects.get(id = address.area.parent_id)
+                province = Area.objects.get(id = city.parent_id)
+                content['address_provice'] = province.id
+                content['address_city'] = address.area.parent_id
+                content['address_county'] = address.area.id
+
+
                 return render(request, 'address_template/m_new.html', content)
             else: 
                 if isMble:
@@ -114,8 +125,7 @@ class AddressView(View):
                     address.receiver = receiver
                 if 'detail' in data:
                     detail = data['detail']
-                    address.detail = detail
-                pdb.set_trace()
+                    address.detail = detail 
                 if 'default' in data: 
                     default = data['default']
                     if default == '1':
