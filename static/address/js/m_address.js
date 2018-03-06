@@ -9,7 +9,6 @@ $(document).ready(function () {
             var oProvince = data[i];
             $('#province').append('<option value=' + oProvince.id + '>' + oProvince.short_name + '</option>');
         };
-
     });
 
 

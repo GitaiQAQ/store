@@ -176,3 +176,44 @@ $(document).ready(function(){
         }
     })
 });
+$('body').on('click','.delete_address',function(){ 
+    var delete_address = $(this),//当前删除按钮
+    id = delete_address.parents('.address-wrap').attr('addressid'),
+    url = '/address/addresses/';
+    /* data = {
+        'method': 'delete',
+        'addressid': id,
+        'csrfmiddlewaretoken': getCookie('csrftoken'),
+    }; */
+    function deleteAddress(){
+        delete_address.parents('.address-wrap').remove();
+    }
+    data = {
+        'method': 'delete',  
+        'id':id, 
+        'csrfmiddlewaretoken': getCookie('csrftoken')
+    };
+    $.ajax({
+        type: 'post',
+        url: url,
+        data:data,
+        success: function (result) {
+            if (result['status'] == 'ok') {
+                $().message(result['msg']);
+                deleteAddress();
+            } else {
+                $().errormessage(result['msg']);
+            }
+            
+        },
+        error: function () {
+            // 500
+            alert('server is down!')
+        }
+    }); 
+
+
+
+
+    
+}) 

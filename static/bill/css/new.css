@@ -83,7 +83,8 @@ margin: 0 auto 10px;
 }
 .a-detail{
     height: 40px;
-    overflow: hidden;
+    overflow:hidden;/* 内容超出宽度时隐藏超出部分的内容 */
+    text-overflow:ellipsis;/* 当对象内文本溢出时显示省略标记(...)*/
 }
 .modal-content{
     border-radius: 0px;
