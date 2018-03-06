@@ -37,13 +37,18 @@ $(document).ready(function () {
             return;
         }
         // 验证数据有效性 结束
-
+        if ($("#default").is(':checked')){
+            addr_default = 1;
+        }else{
+            addr_default = 0;
+        }
         data = {
             'method': 'create',
             'areaid': areaid,
             'phone': phone,
             'receiver': receiver,
             'detail': detail,
+            'default':addr_default,
             'csrfmiddlewaretoken': getCookie('csrftoken'),
         };
         var addressid = $('#addressid');

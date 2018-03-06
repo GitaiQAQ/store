@@ -14,7 +14,11 @@ class Address(models.Model):
     receiver = models.CharField(_('Receiver'), max_length = 256, null = True) 
     #收货人电话
     phone = models.CharField(_('Phone'), max_length = 128, null = True) 
+    # 默认地址
+    # 1 是默认地址
+    # 0 是非默认地址
+    default = models.PositiveIntegerField(default = 0)
     class Meta:
-        ordering = ['-id']
+        ordering = ['-default', '-id']
 
  

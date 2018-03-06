@@ -36,6 +36,7 @@ class AddressView(View):
                     return render(request, 'address/m_new.html', content)
         if 'addressid' in request.GET:
             addressid = request.GET['addressid']
+            
             try:
                 address = Address.objects.get(user = request.user, id = addressid)
                 content['address'] = address
@@ -43,6 +44,8 @@ class AddressView(View):
             except Address.DoesNotExist:
                 pass
             if 'template' in request.GET: 
+                provinces = Area.objects.filter(Q(level = 1) | Q(name='北京市'))
+                content['provinces'] = provinces
                 return render(request, 'address_template/m_new.html', content)
             else: 
                 if isMble:
@@ -51,7 +54,7 @@ class AddressView(View):
                     return render(request, 'address/m_new.html', content)
         else: 
             if 'template' in request.GET:
-                content['addresses'] = addresses[:4]
+                content['addresses'] = addresses[:3]
                 return render(request, 'address_template/address.html', content)
             else:
                 return render(request, 'address/address.html', content)
@@ -112,6 +115,15 @@ class AddressView(View):
                 if 'detail' in data:
                     detail = data['detail']
                     address.detail = detail
+                pdb.set_trace()
+                if 'default' in data: 
+                    default = data['default']
+                    if default == '1':
+                        address.default = 1
+                        addresses = Address.objects.filter(user=request.user)
+                        
+                        addresses.update(default = 0)
+
                 address.save()
              
                 result['status'] ='ok'

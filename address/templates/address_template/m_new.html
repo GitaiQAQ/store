@@ -13,13 +13,20 @@
         <select class="common-inp m-n" id="province" type="text">
                 <option class="grey">省份</option>
                 {% for　province in provinces %}
-                <option value="{{province.id}}">{{province.short_name}}</option>
+                <option value="{{province.id}}" {% if address_provice == 　province.id %}  selected="selected" {% endif %}>{{province.short_name}}</option>
                 {% endfor %}
         </select>
         <select class="common-inp" id="city" placeholder="手机号" type="text">
                 <option >城市</option>
+                {% for　city in cities %}
+                <option value="{{city.id}}" {% if address_city == city.id %}  selected="selected" {% endif %}>{{city.short_name}}</option>
+                {% endfor %}
         </select>
-        <select class="common-inp" id="counties" type="text"><option>区县</option>
+        <select class="common-inp" id="counties" type="text">
+                <option>区县</option>
+                {% for　county in counties %}
+                <option value="{{county.id}}" {% if address_county == county.id %}  selected="selected" {% endif %}>{{county.short_name}}</option>
+                {% endfor %}
         </select>
     
     <input class="common-inp" type="text" id="detail" placeholder="详细地址" value="{{address.detail}}" />
