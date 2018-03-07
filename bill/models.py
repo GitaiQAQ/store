@@ -7,7 +7,7 @@ from basedatas.models import BaseDate
 from bill.manager import AdaptorBillManager, AdaptorBillItemManager
 from product.models import AdaptorProduct, AdaptorRule
 from address.models import Address
-
+from invoice.models import Invoice
 import threading
 
 class Bill(BaseDate):
@@ -18,13 +18,15 @@ class Bill(BaseDate):
     STATUS_SUBMITTED = -2 # 订单已提交
     STATUS_UNPAYED = 0 # 未支付
     STATUS_PAYED = 1   # 已支付
-    STATUS_FINISHED = 2# 已完成
+    STATUS_DELIVERIED = 2   # 已发货
+    STATUS_FINISHED = 3# 已完成
 
     STATUS_CHOICES = (
         (STATUS_FAILED, _('failed')),
         (STATUS_SUBMITTED, _('submitted')),
         (STATUS_UNPAYED, _('unpayed')),
         (STATUS_PAYED, _('payed')),
+        (STATUS_DELIVERIED, _('deliveried')),
         (STATUS_FINISHED, _('finished')),
     )
 
@@ -53,6 +55,8 @@ class Bill(BaseDate):
 
     # 备注
     remark = models.TextField(_('Remark'), null=True)
+    # 发票信息
+    invoice = models.ForeignKey(Invoice, null = True) 
 
     class Meta:
         abstract = True
@@ -69,7 +73,7 @@ class BillItem(models.Model):
     bill = models.ForeignKey(AdaptorBill)
 
     # 产品名称:ASU 手表
-    product_title = models.CharField(_('Address'), max_length = 4096, null = True) 
+    product_title = models.CharField(_('Title'), max_length = 4096, null = True) 
     # 规格名称：黑金版，红色
     rule_title = models.CharField(_('Rule'), max_length = 4096, null = True) 
     
@@ -82,6 +86,8 @@ class BillItem(models.Model):
     price = models.DecimalField(_('Price'), max_digits = 9, decimal_places = 2, default = 0.0)
     # 订单中某商品的数量
     num = models.PositiveIntegerField(_('Number'))
+    
+    
  
     class Meta:
         abstract = True

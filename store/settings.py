@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'comment',
     'piclab',
     'coupon',
+    'invoice',
 ]
 
 MIDDLEWARE = [

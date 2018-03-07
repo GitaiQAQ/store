@@ -4,15 +4,19 @@
     {% if addresses %}
         {% for address in addresses %}
             <div class="black col-xs-3 address-wrap" addressid="{{address.id}}">
-                        <div class="address">
+                        <div class="address {% if address.default == 1 %} act_address  {% endif %}" addressid="{{address.id}}">
                                 <div class="msg-list p-r">
                                     <div class="name">
-                                        <span class="name">{{address.receiver}}{% if address.default == 1 %}【默认地址】{% endif %}</div>
-                                <div>{{address.phone}}</div>
-                                <div class="a-detail">
-                                        {{address.area|areas}}{{address.area.short_name}}[县\区] {{address.detail}}
-                                </div>
-                                </div>
+                                        <span class="name">{{address.receiver}}</span>
+                                    </div>
+                                    <div>{{address.phone}}</div>
+                                    <div class="a-detail">
+                                            {{address.area|areas}}{{address.area.short_name}}[县\区] {{address.detail}}
+                                    </div>
+                                    {% if address.default == 1 %}
+                                    <div class="act orange"><i class="fa fa-check" aria-hidden="true"></i></div>
+                                    {% endif %}
+                         </div>
                                 <div class="address-footer row">
 
                                         <button class="address_modify col-xs-6" url="{% url 'address:addresses' %}?addressid={{address.id}}&template">
@@ -20,7 +24,7 @@
                                         </button>
                                         <div class="col-xs-6 delete_address">删除</div>
                                 </div>
-                        </div>
+                      </div>
 
                     
             </div> 

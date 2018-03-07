@@ -39,17 +39,27 @@
             </div> 
             
             <!-- <input class="message com-input" type="text" placeholder="选填：买家留言"/>-->
-            <div class="  col-xs-12 item-content div-sum-money">
-                <div class="pull-right">
-                     
-                                <p class="grey" >应付金额： <i class="fa fa-jpy fs24 orange" aria-hidden="true"></i>
-                                <span id="all_sum_price" class="price fs24 orange"> 0.00</span></p>
-                      
+            <div class="  col-xs-12 item-content div-sum-money"> 
+                <div class="  pull-right"> 
+                    <p class="grey" >应付金额： <i class="fa fa-jpy fs24 orange" aria-hidden="true"></i>
+                    <span id="all_sum_price" class="price fs24 orange"> 0.00</span></p>
                 </div>
             </div> 
             <div class="  col-xs-12 item-content item-pay">
                     <div class="pull-right">  
                             <button class="submit-btn submit-btn-test common-btn white orange-bg"  id="submit-bill">现在支付</button> 
+                    </div> 
+            </div>
+            <div class="  col-xs-12 item-content item-pay">
+                    <div class="">  
+                        <h1>收货地址：</h1>
+                        {{bill.address.receiver}}
+                        {{bill.address.phone}}
+                        {{bill.address.detail}}
+                        <h1>发票信息</h1>
+                        {{bill.invoice.title}}
+                        {{bill.invoice.code}} 
+                            
                     </div> 
             </div>
 

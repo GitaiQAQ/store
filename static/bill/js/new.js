@@ -2,6 +2,7 @@ $(document).ready(function(){
     /* 
      *获取cookid数据
      */
+    
     var nSum_price = JSON.parse(CookieUtil.get("sum_price"));//总价格
     var aProducts = JSON.parse(CookieUtil.get("products"));//商品
     var oAdress = JSON.parse(CookieUtil.get("aAddress"));//快递地址
@@ -48,6 +49,7 @@ $(document).ready(function(){
         tmp = tmp.replace("#num_and_price", aProducts[i].Price+' x '+ aProducts[i].num);
         tmp = tmp.replace("#total_money", aProducts[i].Price * aProducts[i].num);
         $("#tb_items").append(tmp);
+        sum_number += parseInt(aProducts[i].num);
         /*
         if (aProducts.length == 1) {
             $('.ware').children().remove();
@@ -97,8 +99,9 @@ $(document).ready(function(){
     $.ajax({
             type: 'get',
             url: '/address/addresses/?template', 
-            success: function (result) {
+            success: function (result) { 
                 $("#item-address").append(result);
+                address_id = $('.act_address').attr("addressid");
             }
         });
         
@@ -109,7 +112,9 @@ $(document).ready(function(){
         if (mark == true) {
             return;
         }
+        if (address_id == ''){
 
+        }
         var timeout =  (500 * 2) * 3 /500;//3 second
         
         var options = {
@@ -129,12 +134,23 @@ $(document).ready(function(){
             }
             items.push(item);
         };
+        /* 获取发票信息*/
+        var title = $('#invoice_title').val();
+        var code = $('#invoice_code').val();
+        var invoicetype = $('input[name=invoicetype]:checked').val();
+
+
         data = {
             'method': 'create',
-            'address_id': oAdress.address_id,
+            'address_id': address_id,
             'phone': oAdress.phone,
             'reciever': '大哥',
             'items': JSON.stringify(items),
+
+            'invoicetype':invoicetype,
+            'title':title,
+            'code':code,
+
             'csrfmiddlewaretoken': getCookie('csrftoken')
         };
         $.ajax({
@@ -211,10 +227,12 @@ $('body').on('click', '.delete_address', function () {
 }) 
 /* 点击地址框，选中变红 */
 $('.container-car').on('click', '.msg-list', function () {
+    
     $('.address').removeClass('act_address');
     $('.act.orange').remove();//清楚样式
     $(this).parent().addClass('act_address');
-    $(this).append('<div class="act orange"><i class="fa fa-check" aria-hidden="true"></i></div>')
+    $(this).append('<div class="act orange"><i class="fa fa-check" aria-hidden="true"></i></div>');
+    address_id = $('.act_address').attr("addressid");
 })
 /* $(document).ready(function(){
     $('.address:first').addClass('act_address');

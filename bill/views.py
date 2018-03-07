@@ -23,9 +23,40 @@ from product.models import AdaptorRule, AdaptorProduct
 from django.utils.translation import ugettext as _
 from mobile.detectmobilebrowsermiddleware import DetectMobileBrowser
 from rabbitmq.publisher import Publisher
+from invoice.models import Invoice
+from address.models import Address
 
 dmb     = DetectMobileBrowser()
 
+def web_callback(request):
+    """
+    网页前端查询这个接口来查看订单是否已经支付完成
+    """
+    retult = {}
+    result['status']='error'
+    result['msg'] = "支付未完成"
+    if 'billno' in request.GET:
+        billno = request.GET['billno']
+        try:
+            bill = AdaptorBill.objects.get(no=no)
+            if bill.status == AdaptorBill.STATUS_PAYED:
+                result['status']='ok'
+                result['msg'] = "订单已支付"
+        except AdaptorBill.DoesNotExist:
+            raise Http404
+    else:
+        result['请提供订单号']
+
+    return HttpResponse(json.dumps(result), content_type='application/json')
+
+
+def pay_callback(request):
+    """
+    支付接口回调接口
+    支付接口完成支付后调用该函数来更新我们的数据库
+    """
+
+    return HttpResponse("done")
    
 class BillView(View):
     
@@ -134,8 +165,18 @@ class BillView(View):
                         return  self.httpjson(result)
                 
                 # 创建订单分表
-                AdaptorBillItem.objects.createitem(bill, items)
-                
+                AdaptorBillItem.objects.createitem(bill, items) 
+                # 写发票信息
+                invoice = Invoice.objects.add(request.POST, request.user)
+                bill.invoice = invoice
+
+                # 写地址信息
+                address_id = request.POST['address_id']
+                address = Address.objects.get(id = address_id)
+                bill.address = address
+
+                bill.save()
+
                 # 提交到queue中
                 q_bill={}
                 q_bill['billid'] = bill.id 
