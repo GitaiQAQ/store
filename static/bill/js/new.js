@@ -81,7 +81,7 @@ $(document).ready(function(){
 
     /* 
     *地址栏text
-    */
+    
     
     var addressIcon = '<i class="fa fa-map-marker" aria-hidden="true"></i>:';
     if (oAdress) {
@@ -100,7 +100,8 @@ $(document).ready(function(){
             success: function (result) {
                 $("#item-address").append(result);
             }
-        });  
+        });
+        */
     //  提交订单
     mark = false;
     $('.submit-btn').click(function () {
@@ -164,39 +165,36 @@ $(document).ready(function(){
     
     $('.invoice_company').hide();
     //发票：切换个人与企业
-    $('.invoice_type').click(function(){
+    $('.invoice_type').click(function () {
         var val = $(this).val();
-        if (val == 0){
+        if (val == 0) {
             //代表类型为企业,需要纳税号
             $('.invoice_company').show('slow');
         }
-        else{
+        else {
             //代表类型为个人，不需要纳税号
             $('.invoice_company').hide('slow');
         }
     })
+    
 });
-$('body').on('click','.delete_address',function(){ 
-    var delete_address = $(this),//当前删除按钮
-    id = delete_address.parents('.address-wrap').attr('addressid'),
-    url = '/address/addresses/';
-    /* data = {
-        'method': 'delete',
-        'addressid': id,
-        'csrfmiddlewaretoken': getCookie('csrftoken'),
-    }; */
-    function deleteAddress(){
+/* 地址框删除按钮功能 */
+$('body').on('click', '.delete_address', function () {
+    var delete_address = $(this),
+        id = delete_address.parents('.address-wrap').attr('addressid'),
+        url = '/address/addresses/';
+    function deleteAddress() {
         delete_address.parents('.address-wrap').remove();
     }
     data = {
-        'method': 'delete',  
-        'id':id, 
+        'method': 'delete',
+        'id': id,
         'csrfmiddlewaretoken': getCookie('csrftoken')
     };
     $.ajax({
         type: 'post',
         url: url,
-        data:data,
+        data: data,
         success: function (result) {
             if (result['status'] == 'ok') {
                 $().message(result['msg']);
@@ -204,16 +202,20 @@ $('body').on('click','.delete_address',function(){
             } else {
                 $().errormessage(result['msg']);
             }
-            
         },
         error: function () {
             // 500
             alert('server is down!')
         }
-    }); 
-
-
-
-
-    
+    });
 }) 
+/* 点击地址框，选中变红 */
+$('.container-car').on('click', '.msg-list', function () {
+    $('.address').removeClass('act_address');
+    $('.act.orange').remove();//清楚样式
+    $(this).parent().addClass('act_address');
+    $(this).append('<div class="act orange"><i class="fa fa-check" aria-hidden="true"></i></div>')
+})
+/* $(document).ready(function(){
+    $('.address:first').addClass('act_address');
+}) */

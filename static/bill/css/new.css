@@ -38,6 +38,12 @@ div.address{
     padding: 15px 15px 0 15px;
     border-radius: 4px;
     height: 154px;
+    cursor: pointer;
+}
+.act.orange{
+    position: absolute;
+    top: 0;
+    right: 0;
 }
 .address-wrap{
     padding: 30px 15px;
@@ -68,7 +74,6 @@ margin: 0 auto 10px;
     padding: 5px 0;
     text-align: center;
     margin-top: 15px;
-    cursor: pointer;
 }
 .address-footer>.col-xs-6:first-child{
     border-right: 1px solid #ddd;
@@ -133,27 +138,10 @@ select.m-n{
 .common-inp{
     margin-bottom: 15px;
 }
-
-
-/******************** 买家留言 ********************/
-.message{
-    border-radius: 0px;
-    border-left: 0px;
-    border-right: 0px;
-    height: 44px;
-    outline: 0px;
-    -webkit-appearance: none;
+div.act_address{
+    border:1px solid #ea5014;
 }
 
-.fa-angle-right{
-    color:#777;
-    position: absolute;
-    right: 0px;
-    top: 50%;
-    transform: translateY(-50%);
-    margin-right: 10px;
-    font-size: 20px;
-}
 
 /******************** 购买的商品 ********************/
 section.ware{

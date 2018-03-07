@@ -5,11 +5,13 @@
         {% for address in addresses %}
             <div class="black col-xs-3 address-wrap" addressid="{{address.id}}">
                         <div class="address">
-                                <div class="name">
+                                <div class="msg-list p-r">
+                                    <div class="name">
                                         <span class="name">{{address.receiver}}{% if address.default == 1 %}【默认地址】{% endif %}</div>
                                 <div>{{address.phone}}</div>
                                 <div class="a-detail">
                                         {{address.area|areas}}{{address.area.short_name}}[县\区] {{address.detail}}
+                                </div>
                                 </div>
                                 <div class="address-footer row">
 

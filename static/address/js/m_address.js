@@ -11,7 +11,7 @@ $(document).ready(function () {
         };
     });
 
-
+    $('.address:first').addClass('act_address');
     //  创建地址按钮    >>> 点击事件
     $('body').on('click','.create-btn',function(){ 
         var intemplate = $("#intemplate");//表明是嵌入式的还是非嵌入式的
