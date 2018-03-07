@@ -81,7 +81,7 @@ $(document).ready(function(){
 
     /* 
     *地址栏text
-    
+    */
     
     var addressIcon = '<i class="fa fa-map-marker" aria-hidden="true"></i>:';
     if (oAdress) {
@@ -101,7 +101,7 @@ $(document).ready(function(){
                 $("#item-address").append(result);
             }
         });
-        */
+        
     //  提交订单
     mark = false;
     $('.submit-btn').click(function () {
