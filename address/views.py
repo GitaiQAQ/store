@@ -160,7 +160,7 @@ class AddressView(View):
                 address = Address.objects.get(id=addressid) 
                 address.delete() 
                 result['status'] ='ok'
-                result['msg'] ='Done'
+                result['msg'] ='已完成'
             except Address.DoesNotExist:
                 result['status'] ='error'
                 result['msg'] ='404 Not found the id' 
