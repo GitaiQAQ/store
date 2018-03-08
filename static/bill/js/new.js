@@ -143,7 +143,7 @@ $(document).ready(function(){
         data = {
             'method': 'create',
             'address_id': address_id,
-            'phone': oAdress.phone,
+            'phone': '',
             'reciever': '大哥',
             'items': JSON.stringify(items),
 
