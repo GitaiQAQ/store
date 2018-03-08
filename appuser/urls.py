@@ -20,11 +20,11 @@ urlpatterns = [
     url(r'^list_users/$', views_api.list_users, name='list_users'),
     url(r'^admin_list_users/$', views_api.admin_list_users, name='admin_list_users'),
     url(r'^upload_fake_portrait/$', views_api.upload_fake_portrait, name='upload_fake_portrait'), 
-
-
+ 
     url(r'^login/$', views_ui.login, name='login'),  
     url(r'^logout/$', views_ui.logout, name='logout'),  
     url(r'^register/$', views_ui.register, name='register'),  
     url(r'^mine/$', views_ui.mine, name='mine'),
+    url(r'^usercenter/$', views_ui.usercenter, name='usercenter'),
     #url(r'^save_portrait/$', views.save_portrait, name='save_portrait'),#save portrait
 ]

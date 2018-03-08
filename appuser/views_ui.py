@@ -119,8 +119,7 @@ def register(request):
 
 @login_required
 def mine(request):
-    isMble  = dmb.process_request(request)
-    
+    isMble  = dmb.process_request(request) 
     user = request.user
     content = {
         'user':user,
@@ -130,3 +129,19 @@ def mine(request):
         return render(request, 'user/m_mine.html', content)
     else:  
         return render(request, 'user/mine.html', content)
+
+@login_required
+def usercenter(request):
+    """
+    用户中心
+    """
+    isMble  = dmb.process_request(request) 
+    user = request.user
+    content = {
+        'user':user,
+        'mine':'menu-act'
+        }
+    if isMble: 
+        return render(request, 'user/m_usercenter.html', content)
+    else:  
+        return render(request, 'user/usercenter.html', content)
