@@ -5,47 +5,96 @@
 <link href="/static/appuser/css/usercenter.css" rel="stylesheet">
 {% endblock %} 
 {% block content %}
-<div class="container container-user"> 
-    <div class="col-xs-2  ">
-    {% block usercentermenu %}
-    <table class="usercenter-tb">
-        <tr>
-            <td>18612323233</td>
-        </tr>
-        <tr>
-            <td>
-                    <i class="fa fa-file-alt"></i>我的订单
-            </td>
-        </tr>
-        <tr>
-            <td>
-                    <i class="fa fa-file-alt"></i>售后服务
-            </td>
-        </tr>
-        <tr>
-            <td>
-                    <i class="fa fa-file-alt"></i>我的优惠劵
-            </td>
-        </tr>
-        <tr>
-            <td>
-                    <i class="fa fa-file-alt"></i>收货地址
-            </td>
-        </tr>
-        <tr>
-            <td>
-                    <i class="fa fa-file-alt"></i>退出登录
-            </td>
-        </tr>
-    </table>
-    {% endblock %}
+<div class="container m60"> 
+    <div class="col-xs-2 submenu">
+        {% block usercentermenu %}
+        <img class="head_portrait" src="/static/img/noavatar.png" alt="">
+        <div>18612323233</div>
+    
+        <table class="usercenter-tb">
+            <tr>
+                <td class="active">
+                    <img src="/static/img/icon/center1.svg" alt="">我的订单
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="/static/img/icon/center2.svg" alt="">售后服务
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="/static/img/icon/center3.svg" alt="">我的优惠劵
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="/static/img/icon/center4.svg" alt="">收货地址
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="/static/img/icon/center5.svg" alt="">退出登录
+                </td>
+            </tr>
+        </table>
+        {% endblock %}
     </div>
-    <div class="col-xs-10 ">
-    {% block usercentercontent %}
-    <div class="usercentercontent">
-            售后服务
-    </div>
-    {% endblock %}
+    <div class="col-xs-10">
+        {% block usercentercontent %}
+        <div class="usercentercontent">
+                <div class="car-title clearfix">
+                        <div class="pull-left">我的订单</div>
+                        <div class="pull-right">
+                            <a href="javascript:;">
+                                <span class="black">已完成</span>
+                            </a>
+                            <a href="javascript:;">
+                                <span class="black">未完成</span>
+                            </a>
+                            <a href="javascript:;">
+                                <span class="black">已关闭</span>
+                            </a>
+                        </div>
+                    </div>
+            <table class="order-form text-center">
+                <tr>
+                    <th class="text-left">2018-02-22</th>
+                    <th class="text-left">订单号：<span class="orange">ASU12345677777</span></th>
+                    <th>单价</th>
+                    <th>数量</th>
+                    <th>状态</th>
+                    <th>应付总额</th>
+                    <th><a href=""><span class="orange">查看详情</span></a></th>
+                </tr>
+                <tr>
+                    <td class="img-wrap text-left"><img class="img-rounded" src="/static/img/watch_g.png"></td>
+                    <td class="shop-name text-left">
+                        <a href="javascript:;">
+                            <div class="carlist_name black">ASU Watch 智能手表</div>
+                            <div class="rule_content grey">规格： 黑金版 黑色</div>
+                        </a>
+                    </td>
+                    <td>¥&nbsp;2999</td>
+                    <td>1</td>
+                    <td>发起售后服务</td>
+                    <td>¥&nbsp;2999</td>
+                    <td><a class="order-form-btn common-btn" href="javascript;"><span class="black">已完成</span></a></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+
+            </table>
+        </div>
+        {% endblock %}
     </div>
 </div>
 
