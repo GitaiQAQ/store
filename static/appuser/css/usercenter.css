@@ -287,3 +287,14 @@ th{
 .w110{
     width: 110px;
 }
+td[colspan="7"]{
+    padding: 0 30px;
+}
+.cut_line:last-child{
+    display: none;  
+}
+td[colspan="7"] div{
+    border-top: 1px solid #ddd;
+    content: '';
+    height: 1px;
+}
