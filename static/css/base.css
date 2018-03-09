@@ -77,6 +77,7 @@ th{
 .orange-bg
 {
     background-color: #ea5014;
+    border:none!important;
 }
 .orange-bg:link,.orange-bg:visited,.orange-bg:hover,.orange-bg:active{
     text-decoration: none;
