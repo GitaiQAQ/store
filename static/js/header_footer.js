@@ -2,10 +2,11 @@
  *菜单下边线的样式
  */
 $(document).ready(function () {
+
     var leftValue = $('.point:first').offset().left,
+        width = $('body').width()-leftValue;
     topValue = $('.point:first').offset().top;
-    
-    $('.bottom-line').css('left', leftValue + 'px').css('top', topValue + 2 + 'px');
+    $('.bottom-line').css('width',width+ 'px').css('left', leftValue + 'px').css('top', topValue + 2 + 'px');
 })
 $(window).resize(function() {
     var leftValue =$('.point:first').offset().left;

@@ -21,69 +21,92 @@
         {% endif %}
     {% block menu %}
      <!--菜单开始-->
-     <div class="menu-holder {% block fixed_menu_class %}{%endblock%}" >
+    <div class="menu-holder {% block fixed_menu_class %}{%endblock%}">
         <div class="container nav-container">
-          <table class="menu" >
-            <tr>
-            <td>
-                <div>
-                  <a href="/">
-                  <img class="logo" src="/static/img/logo.png"/>
-                  </a>
-                </div>
-            </td>
-            <td>
-                <div class="pull-right menu-list">
-                      <table>
-                        <tr>
-                          <td class="{% if productpage %}active{% endif %}">
-                            <a href="">Watch</a>
-                            <div class="point"></div>
-                          </td>
-                          <td class="{% if mallpage %}active{% endif %} ">
-                              <a href="">商城</a>
-                              <div class="point"></div>
-                          </td>
-                          <td class="{% if communitypage %}active{% endif %} ">
-                              <a href="">社区</a>
-                              <div class="point"></div>
-                          </td>   
-                          <td class="{% if storepage %}active{% endif %} ">
-                              <a href="">体验店</a>
-                              <div class="point"></div>
-                          </td>
-                          <td class="{% if servicepage %}active{% endif %} ">
-                            <a href="">服务</a>
-                            <div class="point"></div>
-                          </td>
-                          <td class="small-padding">
-                            <button><i class="fa fa-search" aria-hidden="true"></i></button>
-                            <button>
-                                <a href="{% url 'users:usercenter' %}" >
-                                   <i class="fa fa-user" aria-hidden="true"></i>
-                                </a>
-                            </button>
-                            <a class="p-r"  href="{% url 'shopcar:shopcar_detail'%}">
-                                <i class="fa fa-shopping-cart" aria-hidden="true">
-                                </i>
-                                <div class="hint orange-bg white">12</div>
+            <table class="menu">
+                <tr>
+                    <td>
+                        <div>
+                            <a href="/">
+                                <img class="logo" src="/static/img/logo.png" />
                             </a>
-                          </td>
-                      
-                        </tr>
-                      </table>
-                      
-                      
-                      </div>
-                      <!-- 左侧菜单结束-->
-                      </td>
-                      </tr>
-                      </table>
-          
+                        </div>
+                    </td>
+                    <td>
+                        <div class="pull-right menu-list">
+                            <table>
+                                <tr>
+                                    <td class="{% if productpage %}active{% endif %}">
+                                        <a href="">Watch</a>
+                                        <div class="point"></div>
+                                    </td>
+                                    <td class="{% if mallpage %}active{% endif %} ">
+                                        <a href="">商城</a>
+                                        <div class="point"></div>
+                                    </td>
+                                    <td class="{% if communitypage %}active{% endif %} ">
+                                        <a href="">社区</a>
+                                        <div class="point"></div>
+                                    </td>
+                                    <td class="{% if storepage %}active{% endif %} ">
+                                        <a href="">体验店</a>
+                                        <div class="point"></div>
+                                    </td>
+                                    <td class="{% if servicepage %}active{% endif %} ">
+                                        <a href="">服务</a>
+                                        <div class="point"></div>
+                                    </td>
+                                    <td class="small-padding">
+                                        <a href="javascript:;">
+                                            <i class="fa fa-search" aria-hidden="true"></i>
+                                        </a>
+                                        <a href="{% url 'users:usercenter' %}">
+                                            <i class="fa fa-user" aria-hidden="true"></i>
+                                        </a>
+                                        <ul id="center">
+                                            <a href="">
+                                                <li>
+                                                    <img src="/static/img/icon/center1.svg" alt="">我的订单</li>
+                                            </a>
+                                            <a href="">
+                                                <li>
+                                                    <img src="/static/img/icon/center2.svg" alt="">售后服务</li>
+                                            </a>
+                                            <a href="">
+                                                <li>
+                                                    <img src="/static/img/icon/center3.svg" alt="">我的优惠劵</li>
+                                            </a>
+                                            <a href="">
+                                                <li>
+                                                    <img src="/static/img/icon/center4.svg" alt="">收货地址</li>
+                                            </a>
+                                            <a href="">
+                                                <li>
+                                                    <img src="/static/img/icon/center5.svg" alt="">退出登录</li>
+                                            </a>
+                                        </ul>
+    
+                                        <a class="p-r" href="{% url 'shopcar:shopcar_detail'%}">
+                                            <i class="fa fa-shopping-cart" aria-hidden="true">
+                                            </i>
+                                            <div class="hint orange-bg white">12</div>
+                                        </a>
+                                    </td>
+    
+                                </tr>
+                            </table>
+    
+    
+                        </div>
+                        <!-- 左侧菜单结束-->
+                    </td>
+                </tr>
+            </table>
+    
         </div>
         <div class="bottom-line">
-          </div>
         </div>
+    </div>
       <!--菜单结束-->
     
     {% endblock %} {% block content %} {% endblock %}

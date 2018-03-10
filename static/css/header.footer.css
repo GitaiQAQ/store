@@ -8,7 +8,6 @@
     position: relative;
     top: 0;
     z-index: 10;
-    overflow: hidden;
 }
 .menu table
 {
@@ -77,7 +76,6 @@
     overflow: hidden;
     border-top: 1px solid rgb(181, 182, 182);
     z-index: -1;
-    width: 100%;
 }
 
 .menu .active *{
@@ -91,7 +89,7 @@
 {
     height: 34px;
 }
-.small-padding button {
+.small-padding .fa {
     background-color: transparent;
     border: none;
     outline: none;
@@ -108,7 +106,21 @@
     background-color: rgb(52, 52, 52);
     position: relative!important;
 }
-
+#center{
+    width: 120px;
+    padding:0 15px 15px;
+    position: absolute;
+    top: 83px;
+    left: -26px;
+    background-color: rgb(52, 52, 52);
+}
+#center li{
+    border-bottom: 1px solid #aaa;
+}
+#center img{
+    width: 16px;
+    margin-right: 10px;
+}
 /* 菜单结束*/
 
 /* 页脚开始 */

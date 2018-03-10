@@ -302,3 +302,9 @@ td[colspan="7"] div{
     content: '';
     height: 1px;
 }
+a.apply-for-btn{
+    padding: 2px 12px;
+}
+.usercentercontent>ul{
+    padding: 20px 30px;
+}
