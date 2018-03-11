@@ -31,16 +31,13 @@
     line-height: 40px;
 }
 .menu-list td{
-    padding: 0 15px;
+    min-width: 70px;
+    text-align: center;
 }
 .menu-list td:last-child{
     padding-right:0px!important;
+    text-align: right;
 }
-
-.menu td a{
-    width: 40px;
-}
-
 .menu td.small-padding{
     padding: 0 10px;
     font-size: 12px;
@@ -60,8 +57,8 @@
 {
     position: static !important;
 }
-.menu  .td_mall a{
-        margin-left: 13px;
+.menu .td_mall a{
+    margin-left: 13px;
 }
 .point{
     width: 5px;
@@ -111,8 +108,10 @@
     padding:0 15px 15px;
     position: absolute;
     top: 83px;
-    left: -26px;
+    left: -18px;
     background-color: rgb(52, 52, 52);
+    text-align: left;
+    display: none;
 }
 #center li{
     border-bottom: 1px solid #aaa;

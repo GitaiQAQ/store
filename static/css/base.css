@@ -15,6 +15,7 @@ src: url('/static/font/lanting.ttf');
     -ms-user-select: none;
     user-select: none;
  }
+
 body{
     margin: 0px;
     padding: 0px;
@@ -60,10 +61,10 @@ th{
     position: relative;
 }
 .white{
-    color:#fff;
+    color:#fff!important;
 }
 .orange{
-    color:#ea5014
+    color:#ea5014!important;;
 }
 .black{
     color:#333;
@@ -76,7 +77,7 @@ th{
 }
 .orange-bg
 {
-    background-color: #ea5014;
+    background-color: #ea5014!important;;
     border:none!important;
 }
 .orange-bg:link,.orange-bg:visited,.orange-bg:hover,.orange-bg:active{
@@ -104,20 +105,22 @@ a:link,a:visited,a:hover,a:active{
     color: #333;
     background-color: #fff;
     background-image: none;
-    border: 1px solid #ccc;
+    border: 1px solid #ddd;
     border-radius: 4px;     
-    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+     /*-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
     box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
     -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
     -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s; */
 }
+
 .common-inp:focus {
-    border-color: #ea5014;
-    outline: 0;
+    border-color:transparent;
+    outline-color: #ea5014;
+    /* 输入框阴影
     -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(234, 80, 20,.6);
-    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(234, 80, 20,.6);
-}
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(234, 80, 20,.6);*/
+} 
 .common-btn {
     display: inline-block;
     padding: 4px 12px;
@@ -159,12 +162,32 @@ border-bottom: 1px solid #ddd;
 }
 .hint{
     position: absolute;
-    left: 40%;
-    bottom: 40%;
-    width: 15px;
-    height: 15px;
+    left: 50%;
+    bottom: 68%;
+    width: 5px;
+    height: 5px;
     border-radius: 50%;
     line-height: 15px;
     font-size: 10px;
     text-align: center;
+}
+/* 删除下拉框箭头 */
+/*IE 10 */
+select::-ms-expand{
+    display: none;
+}
+select{
+    /* Chrome */
+    -webkit-appearance: none;
+    /* Firefox */
+    -moz-appearance: none;
+    text-indent: 0.01px;
+    text-overflow: ' '; /* space */
+}
+select.common-inp{
+    padding-right: 35px;
+    background-image: url(/static/img/xiala.png);
+    background-position: center right;
+    background-repeat:no-repeat;
+    cursor: pointer;
 }

@@ -1,4 +1,4 @@
-$(document).ready(function(){
+$(function(){
     /* 循环得出小计 */
     /* for(var i=0;i<$('.item').length;i++){
         var number =$('.price-sum').eq(i).parents('.item').find('.nub').text(),
@@ -12,4 +12,9 @@ $(document).ready(function(){
             sum = number*price
             $(this).text(sum);
       });
+
+      /* 关闭弹出窗 */
+      $('#cancel').on('click',function () {
+          $(this).parents('.pop_wrap').hide();
+      })
 })

@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'piclab',
     'coupon',
     'invoice',
+    'aftersales',
 ]
 
 MIDDLEWARE = [

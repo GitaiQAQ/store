@@ -1,0 +1,19 @@
+{% extends 'base.html' %} 
+{% block fixed_menu_class %}fixed_menu_class{%endblock%}
+{% block pagetitle%}用户中心{% endblock%} 
+{% block css %}
+<link href="/static/appuser/css/usercenter.css" rel="stylesheet">
+{% endblock %} 
+{% block content %}
+<div class="pop_wrap">
+        <div class="pop-box">
+                请在发起售后申请前，首先拨打客服热线
+                <div class="orange fs18"><img src="/static/img/icon/kefu.svg" alt="">400-608-0106</div>
+                <p>客服将为您提供相关售后咨询</p>
+                  <a class="common-btn orange-bg white" href="">确定</a><span id="cancel" class="common-btn grey-btn">取消</span>
+              </div>
+</div>
+{% endblock %}
+{% block js %}
+<script src="/static/appuser/js/usercenter.js"></script>
+{% endblock %}
