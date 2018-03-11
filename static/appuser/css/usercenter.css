@@ -308,3 +308,86 @@ a.apply-for-btn{
 .usercentercontent>ul{
     padding: 20px 30px;
 }
+.information,.receipt{
+    padding:30px;
+    border-bottom: 1px solid #ddd;
+}
+.information input.common-inp{
+    margin-right:15px;
+    float: left;
+}
+input[name="address"]{
+    width: 780px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+input[name="name"]{
+    width: 180px;
+}
+input[name="phone"]{
+    width: 200px;
+}
+input[name="email"]{
+    width: 370px;
+}
+input[name="rule"]{
+    width: 240px;
+    margin-bottom: 15px;
+}
+input[name="color"]{
+    width: 160px;
+    margin-bottom: 15px;
+}
+input[name="number"]{
+    width: 350px;
+    margin-bottom: 15px;
+}
+input[name="date"]{
+    width: 240px;
+}
+input[name="dealer"]{
+    width: 525px;
+}
+#picture{
+    display: none;
+}
+label[for="picture"]{
+    margin:0 0 20px 15px;
+    font-weight: 100;
+    cursor: pointer;
+}
+.fa-arrow-circle-up{
+    margin-left: 8px;
+}   
+textarea[rows="4"]{
+    display: block;
+    width: 780px;
+    height: auto;
+    resize: none;
+}
+input[type="submit"]{
+    min-width: 100px;
+}
+.submit{
+    padding: 30px;
+}
+.genre{
+    margin: 15px 15px 15px auto;
+}
+input[name="logistics_name"],input[name="logistics_nub"]{
+    display: block;
+    width: 50%;
+    margin-bottom: 15px;
+}
+.msg{
+    margin: 20px auto 20px;
+    line-height: 1.6;
+}
+.sec_msg{
+    min-height: 360px;
+    padding-top:90px
+}
+
+.sec_msg .orange.fs16{
+    margin: 20px auto; 
+}
