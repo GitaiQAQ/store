@@ -391,3 +391,41 @@ input[name="logistics_name"],input[name="logistics_nub"]{
 .sec_msg .orange.fs16{
     margin: 20px auto; 
 }
+.pop-box{
+    text-align: center;
+    padding: 60px 0;
+    position: fixed;
+    left: 50%;
+    top:50%;
+    transform: translate(-50%,-50%);
+    width: 400px;
+    background: #fff;
+    box-shadow: 0 2px 8px 0 rgba(0,0,0,0.2), 0 0 0 1px rgba(0,0,0,0.08);z-index: 1001;
+}
+.pop_wrap{
+    position: fixed;
+    height: 100%;
+    width: 100%;
+   background:rgba(0,0,0,0.5);
+   z-index: 999;
+}
+.pop-box img{
+    height: 18px;
+    margin: 0 8px 5px auto;
+}
+.pop-box .orange,.pop-box p{
+    margin: 15px auto;
+}
+#cancel{
+    margin-left: 10px;
+}
+.serve-none{
+    padding-top: 50px ;
+    min-height: 360px;
+}
+.serve-icon{
+    width:160px ;
+}
+.serve-none .grey{
+    margin: 50px auto 15px;
+}

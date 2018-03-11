@@ -1,0 +1,63 @@
+{% extends 'base.html' %} 
+{% block fixed_menu_class %}fixed_menu_class{%endblock%}
+{% block pagetitle%}用户中心{% endblock%} 
+{% block css %}
+<link href="/static/appuser/css/usercenter.css" rel="stylesheet">
+{% endblock %} 
+{% block content %}
+<div class="container m60"> 
+    <div class="col-xs-2 submenu">
+        {% block usercentermenu %}
+        <img class="head_portrait" src="/static/img/noavatar.png" alt="">
+        <div>18612323233</div>
+    
+        <table class="usercenter-tb">
+            <tr>
+                <td>
+                    <img src="/static/img/icon/center1.svg" alt="">我的订单
+                </td>
+            </tr>
+            <tr>
+                <td class="active">
+                    <img src="/static/img/icon/center2.svg" alt="">售后服务
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="/static/img/icon/center3.svg" alt="">我的优惠劵
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="/static/img/icon/center4.svg" alt="">收货地址
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="/static/img/icon/center5.svg" alt="">退出登录
+                </td>
+            </tr>
+        </table>
+        {% endblock %}
+    </div>
+    <div class="col-xs-10">
+        {% block usercentercontent %}
+        <div class="usercentercontent">
+                <div class="car-title clearfix">
+                        售后服务
+                        <a class="apply-for-btn orange-bg common-btn" href="">申请售后服务</a>
+                </div>
+                <div class="text-center serve-none">
+                    <img class="serve-icon" src="/static/img/fuwu.png" alt="">
+                    <div class="grey fs16">您目前还没有此类服务</div>
+                    <a href=""><span class="common-btn grey-btn">返回首页</span></a>
+                </div>
+        </div>
+        {% endblock %}
+    </div>
+</div>
+
+{% endblock %}
+{% block js %}
+<script src="/static/appuser/js/usercenter.js"></script>
+{% endblock %}
