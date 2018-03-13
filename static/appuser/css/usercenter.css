@@ -429,3 +429,60 @@ input[name="logistics_name"],input[name="logistics_nub"]{
 .serve-none .grey{
     margin: 50px auto 15px;
 }
+.cash-coupon-inp{
+    margin: 0 15px;
+}
+.cash-coupon-btn{
+    padding: 7px 12px;
+}
+
+.cash-coupon{
+    width: 360px;
+    margin-top: 30px;
+    overflow: hidden;
+    position: relative;
+}
+.cash-coupon::before{
+    width: 16px;
+    height: 16px;
+    border: 1px solid #ddd;
+    z-index: 10;
+    border-radius: 50%;
+    background: #fff;
+    content: '';
+    position: absolute;
+    transform: translateX(-50%);
+    top: 92px;
+
+}
+.cash-coupon::after{
+    width: 16px;
+    height: 16px;
+    border: 1px solid #ddd;
+    z-index: 10;
+    border-radius: 50%;
+    background: #fff;
+    content: '';
+    position: absolute;
+    transform: translateX(50%);
+    top: 92px;
+    right:0;
+}
+.cash-coupon-msg{
+    border-bottom:1px  dashed transparent!important;
+    border: 1px solid #ddd;
+}
+.instructions{
+    background-color: rgb(252, 252, 252);
+    border-top:1px  dashed #ddd!important;
+    border: 1px solid #ddd;
+}
+.cash-coupon-wrap{
+    margin-top: 30px;
+    padding-top: 30px;
+    border-top: 1px solid #ddd;
+}
+.price{
+    font-size: 28px;
+    padding: 0 10px 0 4px;
+}

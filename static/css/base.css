@@ -75,6 +75,9 @@ th{
 .grey{
     color: rgb(181, 182, 182);
 }
+.gray{
+    color: gray;
+}
 .orange-bg
 {
     background-color: #ea5014!important;;
