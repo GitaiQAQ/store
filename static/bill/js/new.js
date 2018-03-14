@@ -129,8 +129,9 @@ $(document).ready(function(){
         for (var i = 0; i < aProducts.length; i++) {
             item = {
                 'ruleid': aProducts[i].ruleid,
-                //'num': aProducts[i].num
-                'num': 1
+                'num': aProducts[i].num,
+                'rulename': aProducts[i].rulename
+                //'num': 1
             }
             items.push(item);
         };

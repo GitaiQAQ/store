@@ -1,0 +1,94 @@
+{% extends 'base.html' %} 
+{% block fixed_menu_class %}fixed_menu_class{%endblock%}
+{% block pagetitle%}我的订单{% endblock%} 
+{% block css %}
+<link href="/static/appuser/css/usercenter.css" rel="stylesheet">
+{% endblock %} 
+{% block content %}
+{%csrf_token%} 
+<div class="container m60"> 
+    {% include "usercenter/menu.html" %}
+    <div class="col-xs-10">
+        {% block usercentercontent %}
+        <div class="usercentercontent">
+                <div class="car-title clearfix">
+                        <div class="pull-left">我的订单</div>
+                        <div class="pull-right">
+                            <a href="javascript:;">
+                                <span class="black">已完成</span>
+                            </a>
+                            <a href="javascript:;">
+                                <span class="black">未完成</span>
+                            </a>
+                            <a href="javascript:;">
+                                <span class="black">已关闭</span>
+                            </a>
+                        </div>
+                </div>
+                {% if bills %}
+                    <table class="order-form text-center">
+                            {% for bill in bills %}
+                            <tr>
+                                <th class="text-left usercenter-tb">
+                                        <img src="/static/img/icon/center5.svg" class="orange delete" alt="" billid="{{ bill.id }}"> 
+                                    {{ bill.date|date:"Y年m月d日" }}
+                                </th>
+                                <th class="text-left">订单号：
+                                    <span class="orange">{{bill.no}}</span>
+                                </th>
+                                <th>单价</th>
+                                <th>数量</th>
+                                <th>状态</th>
+                                <th>应付总额</th>
+                                <th>
+                                    <a href="{% url 'bill:detail' bill.id %}">
+                                        <span class="orange">查看详情</span>
+                                    </a>
+                                </th>
+                            </tr>
+                            {% for item in bill.adaptorbillitem_set.all %}
+                                <tr class="item">
+                                        <td class="img-wrap text-left">
+                                            <img class="img-rounded" src="{{mediaroot}}{{item.rule.product.thumbnail}}">
+                                        </td>
+                                        <td class="shop-name text-left">
+                                            <a href="javascript:;">
+                                                <div class="carlist_name black">{{item.rule.product.title}}</div>
+                                                <div class="rule_content grey">规格： {{item.rule_title}} </div>
+                                            </a>
+                                        </td>
+                                        <td class="w110">¥&nbsp;<span class="price">{{item.rule.price}}</span></td>
+                                        <td class="w110 nub">{{item.num}}</td>
+                                        <td class="w110 orange">{{bill.get_status_display}}</td>
+                                        <td class="w110">¥&nbsp;<span class="price-sum"></span></td>
+                                        <td class="w110">
+                                            {% if bill.status == -2 and forloop.counter == 1 %}
+                                            <a class="order-form-btn orange-bg common-btn" href="javascript;">
+                                                <span class="white">立即支付</span>
+                                            </a>
+                                            {% endif %}
+                                        </td>
+                                </tr>
+                            {% endfor %}
+                            {% endfor %}
+                            <tr class="cut_line">
+                                    <td colspan="7">
+                                        <div></div>
+                                    </td>
+                            </tr>
+                    </table>
+                {% else %}
+                {% include "usercenter/nothing.html" %}
+                {% endif %}
+            
+            
+        </div>
+        {% endblock %}
+    </div>
+</div>
+
+{% endblock %}
+{% block js %}
+<script src="/static/appuser/js/usercenter.js"></script>
+<script src="/static/bill/js/mybill.js"></script>
+{% endblock %}

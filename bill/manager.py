@@ -33,7 +33,8 @@ class BillItemManager(models.Manager):
         """  
         for item in items: 
             rule = item['rule']
-            self.create(bill = bill, rule=rule, product=rule.product, num=item['num'])
+            rulename = item['rulename']  
+            self.create(bill = bill, rule=rule, rule_title=rulename, product=rule.product, num=item['num'])
              
 class AdaptorBillItemManager(BillItemManager):
     pass

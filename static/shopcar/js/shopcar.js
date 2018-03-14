@@ -131,6 +131,7 @@ $('a#buy').click(function() {
         product.img = aImg.attr('src');
         product.Price = aPrice.text();
         product.ruleid = aCarnum.attr('ruleid');
+        product.rulename = aCarnum.attr('desc');
         product.num = aCarnum.text();
         products.push(product);
     }

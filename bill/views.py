@@ -65,6 +65,7 @@ class BillView(View):
         isMble  = dmb.process_request(request)
         content = {} 
         bills = AdaptorBill.objects.filter(owner = request.user) 
+        content['mediaroot'] = settings.MEDIA_URL
         content['bills'] = bills
         if 'new' in request.GET:
             if isMble:
@@ -100,9 +101,9 @@ class BillView(View):
                 return render(request, 'bill/unpayed.html', content)
         else:
             if isMble:
-                return render(request, 'bill/m_lists.html', content)
+                return render(request, 'usercenter/usercenter_mybill.html', content)
             else:
-                return render(request, 'bill/m_lists.html', content)
+                return render(request, 'usercenter/usercenter_mybill.html', content)
     
     @method_decorator(login_required)
     @method_decorator(csrf_exempt)
@@ -157,7 +158,8 @@ class BillView(View):
                 for item in items:
                     try:
                         rule = AdaptorRule.objects.get(pk = item['ruleid'])
-                        item['rule'] = rule
+                        item['rule'] = rule 
+                        item['rulename'] = item['rulename'] 
                     except AdaptorRule.DoesNotExist:
                         result['status'] ='error'
                         result['msg'] ='订单创建失败，未找到商品...' 
@@ -169,7 +171,6 @@ class BillView(View):
                 # 写发票信息
                 invoice = Invoice.objects.add(request.POST, request.user)
                 bill.invoice = invoice
-
                 # 写地址信息
                 address_id = request.POST['address_id']
                 address = Address.objects.get(id = address_id)
@@ -255,28 +256,7 @@ class BillView(View):
 
         return self.httpjson(result)
 
-    def delete(self, request):
-        """
-        删除指定订单
-        """
-        result = {}
-        data = QueryDict(request.body.decode('utf-8')) 
-        if 'id' in data:
-            productid = data['id'] 
-            try: 
-                product = AdaptorProduct.objects.get(id=productid)
-                product.delete() 
-                result['status'] ='ok'
-                result['msg'] ='Done'
-            except AdaptorProduct.DoesNotExist:
-                result['status'] ='error'
-                result['msg'] ='404 Not found the id {}'.format(productid) 
-        else:
-            result['status'] ='error'
-            result['msg'] ='Need id in POST'
-
-        return self.httpjson(result)
-
+     
     def cancel(self, request):
         """取消订单"""
         result = {}
@@ -403,40 +383,50 @@ class BillDetailView(APIView):
             }
             return HttpResponse(json.dumps(result), content_type='application/json')
         if isMble:
-            return render(request, 'bill/m_lists_products.html', content)
+            return render(request, 'usercenter/usercenter_billdetail.html', content)
         else:
-            return render(request, 'bill/m_lists_products.html', content)
+            return render(request, 'usercenter/usercenter_billdetail.html', content)
 
 
     @method_decorator(csrf_exempt)
+    @method_decorator(login_required)
     def post(self, request, pk, format=None):
-        product = self.get_object(pk)
-         
-        content={
-            'product':product
-        } 
+        bill = self.get_object(pk)
         result = {}	
         if request.method == 'POST': 
             user = request.user
             if 'method' in request.POST:
                 method = request.POST['method']
-                if method == 'delete':
-                    picid = request.POST['picid']
-                    productpic = ProductPic.objects.get(pk = picid)
-                    productpic.delete()
+                if method == 'delete': 
+                    items = AdaptorBillItem.objects.filter(bill = bill)
+                    items.delete()
+                    bill.delete()
                     result['status'] = 'OK'
-                    result['msg']    = '删除成功...'  
-            else: 
-                code    = ''.join(random.choice(string.ascii_letters + string.digits) for i in range(4))
-                filename = handle_uploaded_file(request.FILES['pic'], str(user.id)+'_'+ code)
-                
-                ProductPic.objects.create(product=product, url=filename.replace('\\', '/'))
-                
-                result['status'] = 'OK'
-                result['msg']    = '上传成功...' 
+                    result['msg']    = '删除成功...'   
         else:
             result['status'] = 'ERROR'
             result['msg']    = 'Method error..'
-                  
+                
         return HttpResponse(json.dumps(result), content_type='application/json')
-         
+    
+    def delete(self, request):
+        """
+        删除指定订单
+        """
+        result = {}
+        data = QueryDict(request.body.decode('utf-8')) 
+        if 'id' in data:
+            productid = data['id'] 
+            try: 
+                product = AdaptorProduct.objects.get(id=productid)
+                product.delete() 
+                result['status'] ='ok'
+                result['msg'] ='Done'
+            except AdaptorProduct.DoesNotExist:
+                result['status'] ='error'
+                result['msg'] ='404 Not found the id {}'.format(productid) 
+        else:
+            result['status'] ='error'
+            result['msg'] ='Need id in POST'
+
+        return self.httpjson(result)
