@@ -32,6 +32,7 @@ urlpatterns = [
     url(r'^comment/', include('comment.urls', namespace="comment")),
     url(r'^pic/', include('piclab.urls', namespace="piclab")),
     url(r'^apis/', include('apis.urls', namespace="apis")),
-    url(r'^ckeditor/', include('ckeditor_uploader.urls')),
+    url(r'^ckeditor/', include('ckeditor_uploader.urls' )),
+    url(r'^aftersales/', include('aftersales.urls', namespace="aftersales")),
     url(r'^$', views.home, name='home'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

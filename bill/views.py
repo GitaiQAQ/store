@@ -67,6 +67,7 @@ class BillView(View):
         bills = AdaptorBill.objects.filter(owner = request.user) 
         content['mediaroot'] = settings.MEDIA_URL
         content['bills'] = bills
+        content['menu'] = 'bill'
         if 'new' in request.GET:
             if isMble:
                 return render(request, 'bill/m_new.html', content)

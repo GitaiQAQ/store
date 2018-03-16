@@ -23,6 +23,7 @@ from django.utils.translation import ugettext as _
 from sitecontent.comm import handle_uploaded_file
 from aftersales.models import AdaptorAfterSales as AfterSales
 from aftersales.models import AdaptorMainainCode as MainainCode
+from bill.models import AdaptorBill, AdaptorBillItem
 
 from mobile.detectmobilebrowsermiddleware import DetectMobileBrowser
 dmb     = DetectMobileBrowser()
@@ -168,9 +169,31 @@ class AfterSalesView(View):
         isMble  = dmb.process_request(request)
         content = {} 
         aftersale_items = AfterSales.objects.filter(user = request.user)
+        
+        # 已完成的或者已发货的订单可以发起售后
+        finished_bills = AdaptorBill.objects.filter(owner = request.user, \
+                   #status__in = (AdaptorBill.STATUS_DELIVERIED, AdaptorBill.STATUS_FINISHED))
+                   status__in = (AdaptorBill.STATUS_DELIVERIED, AdaptorBill.STATUS_SUBMITTED, AdaptorBill.STATUS_FINISHED))
      
         content['aftersale_items'] = aftersale_items
-        #content['mediaroot'] = settings.MEDIA_URL
+        content['mediaroot'] = settings.MEDIA_URL
+        
+        for finished_bill in finished_bills:
+            finished_bill.item = []
+            for item in finished_bill.adaptorbillitem_set.all(): 
+                sales = AfterSales.objects.filter(bill_item = item, user = request.user)
+          
+                if len( sales ) == 0: 
+                    item.status = AfterSales.STATUS_CHOICES[AfterSales.START][1]
+                elif len( sales ) == 1:
+                    item.status = AfterSales.STATUS_CHOICES[sales[0].status][1]
+                else: 
+                    item.status = "未知售后状态"
+                
+                finished_bill.item.append(item)
+
+        content['bills'] = finished_bills
+        content['menu'] = 'service'
         if 'new' in request.GET:
             if isMble:
                 return render(request, 'aftersales/usercenter.html', content)
@@ -178,9 +201,9 @@ class AfterSalesView(View):
                 return render(request, 'aftersales/usercenter.html', content)
         else:
             if isMble:
-                return render(request, 'aftersales/lists.html', content)
+                return render(request, 'usercenter/usercenter_aftersales_list.html', content)
             else:
-                return render(request, 'aftersales/lists.html', content)
+                return render(request, 'usercenter/usercenter_aftersales_list.html', content)
     
     @method_decorator(login_required)
     @method_decorator(csrf_exempt)

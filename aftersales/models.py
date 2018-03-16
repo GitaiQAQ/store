@@ -7,7 +7,7 @@ from category.models import Category
 from django.utils.translation import ugettext_lazy as _
 from basedatas.models import BaseDate
 from django.db.models import F
-
+from bill.models import AdaptorBill, AdaptorBillItem
 
 class MainainCode(BaseDate):
     """
@@ -72,12 +72,23 @@ class AfterSales(BaseDate):
 
     # 寄修预约码
     maintain_code = models.ForeignKey(AdaptorMainainCode, null=True) 
+    
+    # 待维修的商品，支持一个订单中不同的商品单独申请售后
+    bill_item = models.ForeignKey(AdaptorBillItem, null=True) 
 
     # 默认0
     START = 0 # 发起
     CODE = 1 # 已获取寄修号码
     DELIVERIED = 2 # 已发货
     FINISHED = 3 # 已完成
+
+    STATUS_CHOICES = (
+        (START, '发起售后'),
+        (CODE, '已获取寄修号码'),
+        (DELIVERIED, '已发货'),
+        (FINISHED, '售后已完成')
+    )
+
     status = models.SmallIntegerField(default = START)
   
 
