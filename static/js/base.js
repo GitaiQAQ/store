@@ -36,3 +36,13 @@ function fnLimited(inputLimited){
 
 var bodyHeight=window.innerHeight;
 $('body').css('min-height',bodyHeight+'px');
+
+$(function(){
+    $(".fa-user").on('click',function(e){
+        $('#center').slideDown();
+        e.stopPropagation();
+    })
+    jQuery(document).click(function () {
+        $('#center').slideUp();
+    })
+})
