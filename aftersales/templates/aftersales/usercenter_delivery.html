@@ -1,0 +1,55 @@
+{% extends 'base.html' %} 
+{% block fixed_menu_class %}fixed_menu_class{%endblock%}
+{% block pagetitle%}录入物流信息{% endblock%} 
+{% block css %}
+<link href="/static/appuser/css/usercenter.css" rel="stylesheet">
+{% endblock %} 
+{% block content %}
+<div class="container m60"> 
+        {% include "usercenter/menu.html" %}
+    <div class="col-xs-10">
+        {% block usercentercontent %}
+        <div class="usercentercontent">
+            <div class="car-title clearfix">
+                <div class="pull-left">录入物流信息</div>
+            </div>
+            <form method="post"  action="">
+                <div class="submit">
+                    <div>您的寄修预约号：<span class="fs18">{{code}}</span></div>
+                    <p class="msg">
+                        请拨打合作物流公司的客服人员寄送，寄送时请注意：
+                        <br>a.妥善包装，在包装盒附纸条写明用户姓名、联系方式、寄修预约号，
+                        <br>b.选择“运费到付”的方式将故障产品返回维修工厂，在物流单上请注明预约号'{{code}}'
+                    </p>
+                    <input class="common-inp" type="text" name="logistics_name" id="" placeholder="请输入物流公司名称">
+                    <input class="common-inp" type="text" name="logistics_nub" id="" placeholder="请输入物流单号">
+                    上传运单照片
+                    <label class="common-inp grey-btn" for="picture">上传附件<i class="fa fa-arrow-circle-up" aria-hidden="true"></i></label>
+                    <input type="file" name="picture" id="picture">
+                    <div>
+                            <input class="common-inp orange-bg white" type="submit" value="提交">
+                    </div>
+                </div>
+            </form>
+            
+        </div>
+        {% endblock %}
+    </div>
+</div>
+
+{% endblock %}
+{% block js %}
+<script src="/static/appuser/js/usercenter.js"></script>
+<script>
+    /* 验证手机号 */
+    $(function () {
+            $('form').submit(function(e){
+            if($('input[type="text"]').val()==''){
+                $().errormessage('请完善资料');
+                e.preventDefault();
+            }
+        })
+        })
+        
+</script>
+{% endblock %}

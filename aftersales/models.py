@@ -62,7 +62,7 @@ class AfterSales(BaseDate):
     # 姓名
     name = models.CharField(_('name'), max_length = 128)
     phone = models.CharField(_('phone'), max_length = 11)
-    email = models.CharField(_('email'), max_length = 11, null= True)
+    email = models.CharField(_('email'), max_length = 128, null= True)
     back_addr = models.CharField('回寄地址', max_length = 1024)
 
     device_type = models.CharField('型号', max_length = 128, null= True)
@@ -96,13 +96,13 @@ class AfterSales(BaseDate):
     FINISHED = 3 # 已完成
 
     STATUS_CHOICES = (
-        (START, '未申请售后'),
-        (CODE, '已获取寄修号码'),
+        (START, '已提交'),
+        (CODE, '已输入预约服务码'),
         (DELIVERIED, '已发货'),
         (FINISHED, '售后已完成')
     )
 
-    status = models.SmallIntegerField(default = START)
+    status = models.SmallIntegerField( choices=STATUS_CHOICES, default = START)
   
 
     class Meta:
