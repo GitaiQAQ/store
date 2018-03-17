@@ -62,6 +62,7 @@ margin-right: 25px;
 }
 img.delete{
     cursor: pointer;
+    width:16px;
 }
 .submit-holder{
     padding-top: 0px;
@@ -500,7 +501,7 @@ input[name="logistics_name"],input[name="logistics_nub"]{
 .billdetail td[colspan="5"]{
     padding: 15px 0 0 0; 
 }
-.billdetail tr td:last-child{
+.billdetail tr td:last-child,table.order-form.address tr td:last-child{
     padding-right: 30px!important;
 }
 .w320{
@@ -519,6 +520,31 @@ input[name="logistics_name"],input[name="logistics_nub"]{
 table.order-form.address th{
     text-align: left;
 }
-table.order-form.address tr{
-    padding: 0 30px;
+
+/* 新建联系人开始 */
+#receiver{
+    width: 150px;
 }
+#phone{
+    width: 300px;
+}
+form.new_address select{
+    width:144px
+}
+form.new_address input,form.new_address select{
+    margin-right: 15px;
+    margin-bottom: 15px;
+}
+#detail{
+    width: 469px;
+}
+.default{
+    font-weight: 100;
+    margin-right: 15px;
+    margin-bottom: 15px;
+}
+input#default[type=checkbox]{
+    vertical-align: text-top;
+    margin-right: 6px;
+}
+/* 新建联系人结束 */
