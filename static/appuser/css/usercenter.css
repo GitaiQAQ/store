@@ -58,7 +58,7 @@ margin-right: 25px;
 }
 .item-content{
     background-color: white;
-    padding: 20px 29px;
+    padding: 30px 30px 30px;
 }
 
 .submit-holder{
@@ -194,7 +194,6 @@ p.grey {
 }
 .div-sum-money{
     padding-bottom: 0px;
-    border-top: 1px solid #ddd;
 }
 .col-items{
     padding-left: 21px;
@@ -483,6 +482,27 @@ input[name="logistics_name"],input[name="logistics_nub"]{
     border-top: 1px solid #ddd;
 }
 .price{
-    font-size: 28px;
     padding: 0 10px 0 4px;
+}
+.tracking{
+    margin-top: 10px;
+    padding: 15px 30px;
+    background-color: rgb(249, 249, 248);
+}
+
+.billdetail{
+    border-top:1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+.billdetail td[colspan="5"]{
+    padding: 15px 0 0 0; 
+}
+.billdetail tr td:last-child{
+    padding-right: 30px!important;
+}
+.w320{
+    width: 320px;
+}
+.w200{
+    width: 200px;
 }
