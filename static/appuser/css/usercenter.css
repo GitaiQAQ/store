@@ -76,6 +76,7 @@ table.order-form tr{
 }
 table.order-form th{
     background-color: rgb(247, 247, 247);
+    font-weight: 100;
 }
 .wrap-border{
     border-bottom: 1px solid #ddd;
@@ -507,4 +508,17 @@ input[name="logistics_name"],input[name="logistics_nub"]{
 }
 .w200{
     width: 200px;
+}
+.white-btn{
+    padding:2px 12px;
+    display: inline-block;
+    background-color: #fff;
+    border-radius: 4px;
+    font-size: 14px;
+}
+table.order-form.address th{
+    text-align: left;
+}
+table.order-form.address tr{
+    padding: 0 30px;
 }

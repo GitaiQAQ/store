@@ -1,35 +1,49 @@
 {% extends 'm_base.html' %} {% block css %} {% load staticfiles %}
 {% load areas %}
+<link href="/static/appuser/css/usercenter.css" rel="stylesheet">
 <link href="/static/address/css/m_address.css" rel="stylesheet"> {% endblock %} {% block content %}
 <!-- 顶部 -->
-<header class="header">
-    <i class="fa fa-angle-left pull-left back f26" aria-hidden="true"></i> 地址管理
-</header>
-<!-- 地址列表 --> 
-<section class="address">
-    {% if addresses %}
-    {% for address in addresses %}
-        <div class="address_wrap" addressid="{{address.id}}">
-                <div>
-                    姓名:<span class="name">{{address.receiver}}</span>
-                    电话: <span class="ph_number">{{address.phone}}</span>
-                </div>
-                <div class="pull-left s_address">{{address.area|areas}}{{address.area.short_name}}[县\区]  {{address.detail}}</div>
-                <a  href="{% url 'address:addresses' %}?addressid={{address.id}}">  
-                <i class="fa fa-pencil-square-o pull-right f20" aria-hidden="true"></i>
-                </a>
-        </div>
-        {% endfor %}
-    {% else %}
-        没有创建任何地址
-    {% endif %}
-</section>
+<div class="container m60"> 
+            <div class="col-xs-10">
+                    <div class="usercentercontent">
+                            <div class="car-title clearfix">
+                                <div class="pull-left">
+                                        地址列表
+                                </div>
+                                <a class=" white-btn pull-right common-btn" href="{% url 'address:addresses' %}?new=">+添加新地址</a>
+                            </div>
+                            <table class="order-form address">
+                                <tr>
+                                    <th>姓名</th>
+                                    <th>详细地址</th>
+                                    <th colspan="2">电话</th>
+                                </tr>
+                                {% if addresses %}
+                                    {% for address in addresses %}
+                                <tr class="text-left">
+                                    <td><span class="name">{{address.receiver}}</span></td>
+                                    <td><div class="pull-left s_address">{{address.area|areas}}{{address.area.short_name}}[县\区]  {{address.detail}}</div></td>
+                                    <td><span class="ph_number">{{address.phone}}</span></td>
+                                    <td class="text-right">
+                                            <a  href="{% url 'address:addresses' %}?addressid={{address.id}}">  
+                                                    <i class="fa fa-pencil-square-o pull-right f20" aria-hidden="true"></i>
+                                                    </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                {% else %}
+                                    <tr>
+                                        <td colspan="4">
+                                                没有创建任何地址
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                            </table>
+                    </div>
 
-<!-- 新建地址按钮 -->
-<a class="btn btn-danger btn-block" id="" type="button" href="{% url 'address:addresses' %}?new=">
-        <i class="fa fa-plus" aria-hidden="true"></i>
-        新建地址
-</a>
+            </div>
+</div>
+       
 {% block menu %}{% endblock %}{% endblock %}{% block js %}
 <script src="/static/address/js/m_address.js">
 </script>
