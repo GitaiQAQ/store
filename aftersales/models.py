@@ -14,13 +14,14 @@ class MainainCode(BaseDate):
     寄修预约号
     """
     creator = models.ForeignKey(User)
-    code = models.CharField('寄修预约号', max_length = 56, unique = True)
+    code = models.CharField('寄修预约号', max_length = 20, unique = True)
     phone = models.CharField('预约手机号码', max_length = 11)
     class Meta:
         permissions = (
             ('aftersaler_code', u'售后客服-生成预约码'),
         ) 
         abstract = True
+        ordering = ()
 
 class AdaptorMainainCode(MainainCode):
     """MainainCode 适配器"""
@@ -83,7 +84,7 @@ class AfterSales(BaseDate):
     FINISHED = 3 # 已完成
 
     STATUS_CHOICES = (
-        (START, '发起售后'),
+        (START, '未申请售后'),
         (CODE, '已获取寄修号码'),
         (DELIVERIED, '已发货'),
         (FINISHED, '售后已完成')

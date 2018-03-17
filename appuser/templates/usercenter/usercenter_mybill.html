@@ -82,7 +82,11 @@
                             </tr>
                     </table>
                 {% else %}
-                {% include "usercenter/nothing.html" %}
+                    <div class="text-center serve-none">
+                        <img class="serve-icon" src="/static/img/fuwu.png" alt="">
+                        <div class="grey fs16">您目前还没有此类订单</div>
+                        <a href="/"><span class="common-btn grey-btn">返回首页</span></a>
+                </div>
                 {% endif %}
             
             

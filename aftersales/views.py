@@ -36,20 +36,34 @@ class MainainCodeView(View):
     def get(self, request):
         isMble  = dmb.process_request(request)
         content = {} 
-        aftersale_items = MainainCode.objects.filter(user = request.user)
-     
-        content['aftersale_items'] = aftersale_items
-        #content['mediaroot'] = settings.MEDIA_URL
-        if 'new' in request.GET:
-            if isMble:
-                return render(request, 'maintaincode/usercenter.html', content)
+        user = request.user
+        aftersale_items = MainainCode.objects.filter(user = user)
+        service_man = user.has_perm('aftersales.aftersaler_code')
+        if service_man:# 客服人员
+            content['aftersale_items'] = aftersale_items
+             
+            if 'new' in request.GET:
+                if isMble:
+                    return render(request, 'maintaincode/usercenter.html', content)
+                else:
+                    return render(request, 'maintaincode/usercenter.html', content)
             else:
-                return render(request, 'maintaincode/usercenter.html', content)
+                if isMble:
+                    return render(request, 'maintaincode/lists.html', content)
+                else:
+                    return render(request, 'maintaincode/lists.html', content)
         else:
-            if isMble:
-                return render(request, 'maintaincode/lists.html', content)
+            content['aftersale_items'] = aftersale_items 
+            if 'new' in request.GET:
+                if isMble:
+                    return render(request, 'maintaincode/usercenter.html', content)
+                else:
+                    return render(request, 'maintaincode/usercenter.html', content)
             else:
-                return render(request, 'maintaincode/lists.html', content)
+                if isMble:
+                    return render(request, 'maintaincode/lists.html', content)
+                else:
+                    return render(request, 'maintaincode/lists.html', content)
     
     @method_decorator(login_required)
     @method_decorator(csrf_exempt)
