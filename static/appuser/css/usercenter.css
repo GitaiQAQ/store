@@ -60,7 +60,9 @@ margin-right: 25px;
     background-color: white;
     padding: 30px 30px 30px;
 }
-
+img.delete{
+    cursor: pointer;
+}
 .submit-holder{
     padding-top: 0px;
     padding-bottom: 0px;
