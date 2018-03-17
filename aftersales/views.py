@@ -253,19 +253,48 @@ class AfterSalesView(View):
                     item.status = "未知售后状态"
                 
                 finished_bill.item.append(item)
-
+ 
         content['bills'] = finished_bills
         content['menu'] = 'service'
-        if 'new' in request.GET:
+        if 'new' in request.GET: 
+            content['choices'] = AfterSales.AFTERSALES_CHOICES
             if isMble:
-                return render(request, 'aftersales/usercenter.html', content)
+                return render(request, 'aftersales/usercenter_apply.html', content)
             else:
-                return render(request, 'aftersales/usercenter.html', content)
+                return render(request, 'aftersales/usercenter_apply.html', content)
+        elif 'aftersaleid' in request.GET and 'status' in request.GET: 
+            aftersaleid = request.GET['aftersaleid']
+            status = request.GET['status']
+            code = ''
+            try:
+                aftersale = AfterSales.objects.get(id = aftersaleid)
+                if aftersale.status == 0:
+                    # 刚填写了信息，还没有输入预约号码
+                    # 现在系统自动匹配预约号码
+                    # 本人未使用的
+                    codes = MainainCode.objects.filter(phone = user.phone, used = 0)
+                    if len(codes) > 0:
+                        code = codes[0].code
+                        aftersale.maintain_code = code
+                        aftersale.status = AfterSales.CODE
+                        aftersale.save()
+                    
+
+            except AfterSales.DoesNotExist:
+                aftersale = []
+            content['aftersale'] = aftersale
+            content['code'] = code
+            if isMble:
+                return render(request, 'aftersales/usercenter_delivery.html', content)
+            else:
+                return render(request, 'aftersales/usercenter_delivery.html', content)
         else:
+            aftersales = AfterSales.objects.filter(user = user)
+            content['aftersales'] = aftersales
             if isMble:
-                return render(request, 'usercenter/usercenter_aftersales_list.html', content)
+                return render(request, 'aftersales/usercenter_aftersales_list.html', content)
             else:
-                return render(request, 'usercenter/usercenter_aftersales_list.html', content)
+                return render(request, 'aftersales/usercenter_aftersales_list.html', content)
     
     @method_decorator(login_required)
     @method_decorator(csrf_exempt)
@@ -290,39 +319,45 @@ class AfterSalesView(View):
         result = {} 
         
         if 'name' in request.POST and 'phone' in request.POST and \
-            'back_addr' in request.POST and 'proudct_code' in request.POST and \
-             'buy_date' in request.POST and  'description' in request.POST and \
+            'address' in request.POST and 'number' in request.POST and \
+             'date' in request.POST and  'description' in request.POST and \
              'service_type' in request.POST : 
 
             name = request.POST['name'].strip() 
             phone = request.POST['phone'].strip() 
-            back_addr = request.POST['back_addr'].strip() 
+            back_addr = request.POST['address'].strip() 
 
-            proudct_code = request.POST['proudct_code'].strip() 
-            buy_date = request.POST['buy_date'].strip() 
+            proudct_code = request.POST['number'].strip() #产品系列号
+            buy_date = request.POST['date'].strip()  #购买日期
             description = request.POST['description'].strip() 
- 
+
+            service_type = request.POST['service_type']
+            pdb.set_trace()
             aftersale = AfterSales.objects.create(user=user, name=name,
                         phone = phone,  back_addr=back_addr, proudct_code = proudct_code,
-                        buy_date = buy_date, description = description )
-            
+                        buy_date = buy_date, description = description, service_type=service_type )
+            pdb.set_trace()
             if 'email' in request.POST  :
                 email = request.POST['email'].strip()
                 aftersale.email = email
-  
-            if 'invoice' in request.FILES:
-                invoice = request.FILES['invoice'] 
-                invoice_url = handle_uploaded_file(invoice, user.id)
-                aftersale.invoice = invoice_url
-
-            if 'device_color' in request.POST:
-                saller = request.POST['device_color'].strip() 
+    
+            if 'color' in request.POST:
+                device_color = request.POST['color'].strip() 
                 aftersale.device_color = device_color
 
-            if 'saller' in request.POST:
-                saller = request.POST['saller'].strip() 
+            if 'dealer' in request.POST:
+                saller = request.POST['dealer'].strip() 
                 aftersale.saller = saller
-             
+            
+            if 'invoice' in request.FILES:
+                code    = ''.join(random.choice(string.ascii_letters + string.digits) for i in range(4))
+                filename = handle_uploaded_file(request.FILES['invoice'], str(user.id)+'_'+ code)
+                aftersale.invoice = filename
+            
+            if 'rule' in request.POST:
+                device_type = request.POST['rule'].strip() 
+                aftersale.device_type = device_type
+            
             aftersale.save()
             result['id'] = aftersale.id
             result['status'] ='ok'

@@ -12,11 +12,11 @@
         <div class="usercentercontent">
                 <div class="car-title clearfix">
                         售后服务
-                        <a class="apply-for-btn orange-bg common-btn" href="">申请售后服务</a>
+                        <a class="apply-for-btn orange-bg common-btn" href="{% url 'aftersales:aftersales' %}?new">申请售后服务</a>
                 </div>
             <table class="order-form text-center">
                
-                {% if bills %}
+                {% if bills or aftersales %}
                 <table class="order-form text-center">
                         {% for bill in bills %}
                         <tr>
@@ -54,12 +54,46 @@
                                     </td>
                             </tr>
                         {% endfor %}
-                        {% endfor %}
                         <tr class="cut_line">
                                 <td colspan="7">
                                     <div></div>
                                 </td>
                         </tr>
+                        {% endfor %}
+                        
+                </table>
+
+                <table class="order-form text-center">
+                        <tr>
+                                <th class="text-left usercenter-tb"> 姓名</th>
+                                <th class="text-left">电话</th>
+                                <th>产品序列号</th>
+                                <th>状态</th>
+                                <th>
+                                    <a href="">
+                                        <span class="orange">查看详情</span>
+                                    </a>
+                                </th>
+                        </tr>
+                        {% for aftersale in aftersales %}
+                        <tr>
+                            <td class="text-left usercenter-tb" aftersaleid="{{aftersale.id}}">{{aftersale.name}}</td>
+                            <td class="text-left">{{aftersale.phone}}</td>
+                            <td>{{aftersale.proudct_code}}</td>
+                            <td>{{aftersale.get_status_display}}</td>
+                            <td>
+                                {% if aftersale.status == 0 %}
+                                <a href="/aftersales/aftersales/?aftersaleid={{aftersale.id}}&status={{aftersale.status}}">
+                                    <span class="orange">输入预约服务号</span>
+                                </a>
+                                {% elif aftersale.status == 1  %}
+                                <a href="/aftersales/aftersales/?aftersaleid={{aftersale.id}}&status={{aftersale.status}}">
+                                    <span class="orange">填写发货信息</span>
+                                </a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
                 </table>
                 {% else %}
                 {% include "usercenter/nothing.html" %}
