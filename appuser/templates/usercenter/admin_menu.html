@@ -1,0 +1,38 @@
+<div class="col-xs-2 submenu"> 
+    <img class="head_portrait" src="/static/img/noavatar.png" alt="">
+    <div>{{request.user.phone}}</div>
+
+    <table class="usercenter-tb">
+        <tr>
+            <td {% if menu == 'bill' %}class="active"{% endif %}>
+              <a class="black" href="{% url 'bill:bills' %}"> 
+                   <img src="/static/img/icon/center1.svg" alt=""><span>销售订单</span>
+              </a>
+            </td>
+        </tr>
+        <tr>
+            <td {% if menu == 'service' %}class="active"{% endif %}>
+                <a class="black" href="{% url 'aftersales:aftersales' %}"> 
+                    <img src="/static/img/icon/center2.svg" alt="">售后订单
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td {% if menu == 'coupon' %}class="active"{% endif %}>
+                <img src="/static/img/icon/center3.svg" alt="">优惠劵管理
+            </td>
+        </tr>
+        <tr>
+            <td {% if menu == 'address' %}class="active"{% endif %}>
+                <a class="black" href="{% url 'address:addresses' %}"> 
+                    <img src="/static/img/icon/center4.svg" alt="">销售统计
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td >
+                <img src="/static/img/icon/center5.svg" alt="">退出登录
+            </td>
+        </tr>
+    </table> 
+</div>
