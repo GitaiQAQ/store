@@ -49,10 +49,64 @@
                 <div class="submit">
                     物流跟踪
                     <div class="tracking">
-                        
+                        <p>12月2日 出库。。。。</p>
                     </div>
                 </div>
-               
+            <table class="order-form billdetail">
+                <tr>
+                    <td colspan="5">订单号：1232137218973298173</td>
+                </tr>
+                <tr>
+                    <td class="img-wrap"> <img class="img-rounded" src="{{mediaroot}}{{item.rule.product.thumbnail}}"></td>
+                    <td class="w320 text-left">
+                        <a href="javascript:;">
+                            <div class="carlist_name black">{{item.rule.product.title}}</div>
+                            <div class="rule_content grey">规格： {{item.rule_title}} </div>
+                        </a>
+                    </td>
+                    <td class="w200">
+                        ¥&nbsp;<span class="price">{{item.rule.price}}2999
+                    </td>
+                    <td class="nub">
+                        {{item.num}}1
+                    </td>
+                    <td class="w200 text-right">¥&nbsp;<span class="price">{{item.rule.price}}2999</td>
+                </tr>
+            </table>
+            <div class="  col-xs-12 item-content div-sum-money">
+                <div class="pull-right">
+                    <div class="grey  pull-right sum_money">
+                        <div>商品件数：<span class="f16 sum_num">0</span> 件</div>
+                        <div>金额合计：<i class="fa fa-jpy" aria-hidden="true"></i> <span id="sum_price" class="price f16"> 0.00</span> 元</div>
+                        <div>运费：<i class="fa fa-jpy" aria-hidden="true"></i> <span class="price f16">0.00</span> 元</div>
+                    </div> 
+                      
+                </div>
+            </div>
+            <div class="submit-holder col-xs-12 item-content div-delivery ">
+                    <div class="pull-right">  
+                        <div class="div-submit"> 
+                            <table>
+                                <tr>
+                                    <td><p class="grey" >应付金额： <i class="fa fa-jpy fs24 orange" aria-hidden="true"></i> </p></td>
+                                    <td><p class="grey" ><span id="all_sum_price" class="price fs24 orange"> 0.00</span></p></td>
+                                    <td><button class="submit-btn submit-btn-test common-btn white orange-bg"  id="submit-bill">提交订单</button> </td>
+                                </tr> 
+                            </table>
+                                
+                        </div>   
+                    </div>
+            </div>
+            <div class="  col-xs-12 item-content div-delivery">
+                    <div class="pull-right">
+                        <div class="  pull-right sum_money">
+                            <div>配送方式</div>
+                            <div class="grey">顺丰快递|周一至周五16:00之前的订单当天发货，16:00知道的第二天发货，周六日的周一发货（如遇活动，七天之内发出）</div>
+                        </div> 
+                          
+                    </div>
+            </div> 
+        </div>
         
         </div>
         {% endblock %}
