@@ -14,61 +14,69 @@
                 <div class="car-title clearfix">
                     <div class="pull-left">售后订单</div> 
                 </div>
+                 
+                    <h3 >生成预约服务号</h3>
+                    <input type="text" id="phone" value="" placeholder="手机号" />
+                    <p class="grey">温馨提示：系统自动生成的预约服务号会和以下内容发送至用户手机</p>
+                    <textarea class="form-control" id="address">{{address}}</textarea>
+                    {% csrf_token %} 
+                    
+                    <button class="order-form-btn orange-bg common-btn" id="generate">
+                        <span class="white">生成,并发送短信</span>
+                    </button>
+                 <hr>
+                 <h3 >查询预约服务号</h3>
+                 <form action="" method="get">
+                        <input type="text" name="code" value="{{code}}" placeholder="预约服务号" />
+                        <input type="text" name="phone" value="{{phone}}" placeholder="手机号" />
+                        <br/>
+                        <button class="order-form-btn orange-bg common-btn" type="submit">
+                            <span class="white">查询</span>
+                        </button>
+                 </form>
                 {% if codes %}
                     <table class="order-form text-center">
-                            {% for code in codes %}
-                            <tr>
-                                <th class="text-left usercenter-tb">
-                                        <img src="/static/img/icon/center5.svg" class="orange delete" alt="" billid="{{ code.id }}"> 
-                                    {{ bill.date|date:"Y-m-d" }}
-                                </th>
-                                <th class="text-left">订单号：
-                                    <span class="orange">{{bill.no}}</span>
-                                </th>
-                                <th>单价</th>
-                                <th>数量</th>
-                                <th>状态</th>
-                                <th>应付总额</th>
-                                <th>
-                                    <a href="{% url 'bill:detail' bill.id %}">
-                                        <span class="orange">查看详情</span>
-                                    </a>
-                                </th>
-                            </tr>
-                            {% for item in bill.adaptorbillitem_set.all %}
-                                <tr class="item">
-                                        <td class="img-wrap text-left">
-                                            <img class="img-rounded" src="{{mediaroot}}{{item.rule.product.thumbnail}}">
+                                <tr> 
+                                    <th class="text-left">预约服务号：
+                                        <span class="orange">{{bill.no}}</span>
+                                    </th>
+                                    <th>商品名称</th>
+                                    <th>手机号</th>
+                                    <th>发起时间</th>
+                                    <th>是否已使用</th> 
+                                </tr> 
+                            {% for code in codes %} 
+                                <tr  > 
+                                        <td class="text-left"> 
+                                            <div class="carlist_name black">{{code.code}}</div>  
                                         </td>
-                                        <td class="shop-name text-left">
-                                            <a href="javascript:;">
-                                                <div class="carlist_name black">{{item.rule.product.title}}</div>
-                                                <div class="rule_content grey">规格： {{item.rule_title}} </div>
-                                            </a>
-                                        </td>
-                                        <td class="w110">¥&nbsp;<span class="price">{{item.rule.price}}</span></td>
-                                        <td class="w110 nub">{{item.num}}</td>
-                                        {% if bill.status == -2 and forloop.counter == 1 %}
-                                        <td class="w110 orange">{{bill.get_status_display}}</td>
-                                        {% else %}
-                                        <td class="w110 orange"></td>
-                                        {% endif %}
-                                        <td class="w110">¥&nbsp;<span class="price-sum"></span></td>
-                                        <td class="w110">
-                                            {% if bill.status == -2 and forloop.counter == 1 %}
-                                            <a class="order-form-btn orange-bg common-btn" href="javascript;">
-                                                <span class="white">立即支付</span>
-                                            </a>
+                                        <td  >
+                                            {% if code.used == 1 %}
+                                            <span class="price">已使用</span>
+                                            {% else %}
+                                            <span class="price">未绑定商品</span>
                                             {% endif %}
+                                        </td>
+                                        <td class="  nub">{{code.phone}}</td>
+                                        
+                                        <td class="w110 ">{{code.date | date:'Y-m-d'}}</td>
+                                        
+                                        <td class="w110">
+                                                {% if code.used == 1 %}
+                                                <span class="price">已使用</span>
+                                                {% else %}
+                                                <span class="price">未使用</span>
+                                                {% endif %}
+                                        </td>
+                                      
+                                </tr>
+                                <tr class="cut_line">
+                                        <td colspan="7">
+                                            <div></div>
                                         </td>
                                 </tr>
                             {% endfor %}
-                            {% endfor %}
-                            <tr class="cut_line">
-                                    <td colspan="7">
-                                        <div></div>
-                                    </td>
-                            </tr>
+                            
                     </table>
                 {% else %}
                     <div class="text-center serve-none">
@@ -85,7 +93,6 @@
 </div>
 
 {% endblock %}
-{% block js %}
-<script src="/static/appuser/js/usercenter.js"></script>
-<script src="/static/bill/js/mybill.js"></script>
+{% block js %} 
+<script src="/static/aftersales/js/code_new.js"></script>
 {% endblock %}

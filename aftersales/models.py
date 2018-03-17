@@ -31,7 +31,14 @@ class MainainCode(BaseDate):
 class AdaptorMainainCode(MainainCode):
     """MainainCode 适配器"""
     def __str__(self):
-        return self.code  
+        return self.code 
+
+class Notify(models.Model):
+    """
+    售后生成预约码之后，会发短信给用户，短信里包含预约码+回寄地址，这个类中保存的就是回寄地址
+    """
+    # 回寄地址
+    address = models.TextField()
 
 
 class AfterSales(BaseDate):

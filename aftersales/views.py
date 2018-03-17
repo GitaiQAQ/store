@@ -5,6 +5,7 @@ import random
 import string
 import os
 from datetime import datetime
+from datetime import timedelta
 
 from django.shortcuts import render
 from django.http import HttpResponse
@@ -25,6 +26,7 @@ from django.urls import reverse
 from sitecontent.comm import handle_uploaded_file
 from aftersales.models import AdaptorAfterSales as AfterSales
 from aftersales.models import AdaptorMainainCode as MainainCode
+from aftersales.models import Notify  
 from bill.models import AdaptorBill, AdaptorBillItem
 
 from mobile.detectmobilebrowsermiddleware import DetectMobileBrowser
@@ -42,9 +44,29 @@ class MainainCodeView(View):
        
         service_man = user.has_perm('aftersales.aftersaler_code')
          
-        content['menu'] = 'bill'    
+        content['menu'] = 'service'    
         if service_man:# 客服人员
-            codes = MainainCode.objects.all()
+            kwargs = {}
+            if 'code' in request.GET and 'phone' in request.GET:
+                code = request.GET['code'].strip() 
+                phone = request.GET['phone'].strip() 
+                if code:
+                    kwargs['code'] = code
+                    content['code'] = code
+                if phone:
+                    kwargs['phone'] = phone
+                    content['phone'] = phone
+ 
+            if kwargs:
+                codes = MainainCode.objects.filter(**kwargs)
+            else:
+                codes = MainainCode.objects.all()
+            notifies = Notify.objects.all()
+
+
+            if len(notifies) > 0:
+                content['address'] = notifies[0].address
+                 
             content['codes'] = codes
              
             if 'new' in request.GET:
@@ -88,18 +110,38 @@ class MainainCodeView(View):
             return self.get(request)
 
     def create(self, request):
-        """创建寄修服务单""" 
+        """创建预约号""" 
         # 创建时：
         user = request.user
         result = {} 
         
         if 'phone' in request.POST : 
             phone = request.POST['phone'].strip() 
-            code  = ''.join(random.choice(string.digits) for i in range(6))
-            code += datetime.now().strftime('%Y%m%d%H%M%S') 
+            address = request.POST['address'].strip() 
+            if address:
+                notifies = Notify.objects.all()
+                notifies.delete()
+                Notify.objects.create(address=address)
+            code  = 'A'
+            code += datetime.now().strftime('%Y%m%d') 
+            today = datetime.today().date() 
+            yestoday = today + timedelta(days = -1)
+            mainaincodes = MainainCode.objects.filter(date__gt = yestoday) 
+            counter = len(mainaincodes)
+            counter += 1 
+            if counter < 10:
+                num = str(counter).zfill(4)
+            elif counter < 100:
+                num = str(counter).zfill(3)
+            elif counter < 1000:
+                num = str(counter).zfill(2)
+            else:
+                num = str(counter)
+            
+            code += num
+            print(code)
  
-            maintaincode = MainainCode.objects.create(creator=user, name=name,
-                        phone = phone, code = code ) 
+            maintaincode = MainainCode.objects.create(creator=user,  phone = phone, code = code ) 
             maintaincode.save()
             result['code'] = maintaincode.code
             result['status'] ='ok'
@@ -108,10 +150,7 @@ class MainainCodeView(View):
             result['status'] ='error'
             result['msg'] ='Need title  in POST'
 
-        if isMble:
-            return render(request, 'maintaincode/detail.html', result)
-        else:
-            return render(request, 'maintaincode/detail.html', result)
+        return self.httpjson(result)
     
     def put(self, request):
         """修改""" 
@@ -185,8 +224,7 @@ class AfterSalesView(View):
     @method_decorator(login_required)
     def get(self, request):
         user = request.user
-        service_man = user.has_perm('aftersales.aftersaler_code')
-        pdb.set_trace()
+        service_man = user.has_perm('aftersales.aftersaler_code') 
         if service_man:# 售后客服人员直接进入预约码页面
             return redirect('/aftersales/maintaincode')
 
