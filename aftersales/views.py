@@ -42,7 +42,7 @@ class MainainCodeView(View):
        
         service_man = user.has_perm('aftersales.aftersaler_code')
          
-        content['menu'] = active    
+        content['menu'] = 'bill'    
         if service_man:# 客服人员
             codes = MainainCode.objects.all()
             content['codes'] = codes
