@@ -26,8 +26,8 @@
                         </div>
                 </div>
                 {% if bills %}
-                    <table class="order-form text-center">
-                            {% for bill in bills %}
+                   
+                            {% for bill in bills %} <table class="order-form text-center">
                             <tr>
                                 <th class="text-left usercenter-tb">
                                         <img src="/static/img/icon/center5.svg" class="orange delete" alt="" billid="{{ bill.id }}"> 
@@ -73,14 +73,15 @@
                                             {% endif %}
                                         </td>
                                 </tr>
-                            {% endfor %}
-                            {% endfor %}
-                            <tr class="cut_line">
+                                <tr class="cut_line">
                                     <td colspan="7">
                                         <div></div>
                                     </td>
-                            </tr>
-                    </table>
+                                </tr>
+                            {% endfor %}  </table>
+                            {% endfor %}
+                           
+                  
                 {% else %}
                 {% include "usercenter/nothing.html" %}
                 {% endif %}
