@@ -14,14 +14,19 @@ class MainainCode(BaseDate):
     寄修预约号
     """
     creator = models.ForeignKey(User)
+    # 格式：A日期+4位顺序码，A201307230001
     code = models.CharField('寄修预约号', max_length = 20, unique = True)
     phone = models.CharField('预约手机号码', max_length = 11)
+    # 预约码是否使用
+    # 默认0， 未使用，
+    # 1 已使用
+    used = models.SmallIntegerField(default = 0)
     class Meta:
         permissions = (
             ('aftersaler_code', u'售后客服-生成预约码'),
         ) 
         abstract = True
-        ordering = ()
+        ordering = ('used',)
 
 class AdaptorMainainCode(MainainCode):
     """MainainCode 适配器"""

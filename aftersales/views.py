@@ -19,7 +19,9 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status 
 from django.utils.translation import ugettext as _
- 
+from django.shortcuts import redirect
+from django.urls import reverse
+
 from sitecontent.comm import handle_uploaded_file
 from aftersales.models import AdaptorAfterSales as AfterSales
 from aftersales.models import AdaptorMainainCode as MainainCode
@@ -37,10 +39,13 @@ class MainainCodeView(View):
         isMble  = dmb.process_request(request)
         content = {} 
         user = request.user
-        aftersale_items = MainainCode.objects.filter(user = user)
+       
         service_man = user.has_perm('aftersales.aftersaler_code')
+         
+        content['menu'] = active    
         if service_man:# 客服人员
-            content['aftersale_items'] = aftersale_items
+            codes = MainainCode.objects.all()
+            content['codes'] = codes
              
             if 'new' in request.GET:
                 if isMble:
@@ -53,6 +58,7 @@ class MainainCodeView(View):
                 else:
                     return render(request, 'maintaincode/lists.html', content)
         else:
+            codes = MainainCode.objects.filter(phone = user.phone)
             content['aftersale_items'] = aftersale_items 
             if 'new' in request.GET:
                 if isMble:
@@ -172,20 +178,24 @@ class MainainCodeView(View):
         return HttpResponse(json.dumps(result), content_type="application/json")
 
 
-
-
 class AfterSalesView(View):
     """
     售后服务类
     """
     @method_decorator(login_required)
     def get(self, request):
+        user = request.user
+        service_man = user.has_perm('aftersales.aftersaler_code')
+        pdb.set_trace()
+        if service_man:# 售后客服人员直接进入预约码页面
+            return redirect('/aftersales/maintaincode')
+
         isMble  = dmb.process_request(request)
         content = {} 
-        aftersale_items = AfterSales.objects.filter(user = request.user)
+        aftersale_items = AfterSales.objects.filter(user = user)
         
         # 已完成的或者已发货的订单可以发起售后
-        finished_bills = AdaptorBill.objects.filter(owner = request.user, \
+        finished_bills = AdaptorBill.objects.filter(owner = user, \
                    #status__in = (AdaptorBill.STATUS_DELIVERIED, AdaptorBill.STATUS_FINISHED))
                    status__in = (AdaptorBill.STATUS_DELIVERIED, AdaptorBill.STATUS_SUBMITTED, AdaptorBill.STATUS_FINISHED))
      
@@ -195,7 +205,7 @@ class AfterSalesView(View):
         for finished_bill in finished_bills:
             finished_bill.item = []
             for item in finished_bill.adaptorbillitem_set.all(): 
-                sales = AfterSales.objects.filter(bill_item = item, user = request.user)
+                sales = AfterSales.objects.filter(bill_item = item, user = user)
           
                 if len( sales ) == 0: 
                     item.status = AfterSales.STATUS_CHOICES[AfterSales.START][1]

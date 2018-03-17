@@ -7,25 +7,19 @@
 {% block content %}
 {%csrf_token%} 
 <div class="container m60"> 
-    {% include "usercenter/menu.html" %}
+    {% include "usercenter/admin_menu.html" %}
     <div class="col-xs-10">
         {% block usercentercontent %}
         <div class="usercentercontent">
                 <div class="car-title clearfix">
-                        <div class="pull-left">预约码</div>
-                        <div class="pull-right">
-                            <a href="javascript:;">
-                                <span class="black">已完成</span>
-                            </a>
-                           
-                        </div>
+                    <div class="pull-left">售后订单</div> 
                 </div>
-                {% if bills %}
+                {% if codes %}
                     <table class="order-form text-center">
-                            {% for bill in bills %}
+                            {% for code in codes %}
                             <tr>
                                 <th class="text-left usercenter-tb">
-                                        <img src="/static/img/icon/center5.svg" class="orange delete" alt="" billid="{{ bill.id }}"> 
+                                        <img src="/static/img/icon/center5.svg" class="orange delete" alt="" billid="{{ code.id }}"> 
                                     {{ bill.date|date:"Y-m-d" }}
                                 </th>
                                 <th class="text-left">订单号：
