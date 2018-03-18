@@ -1,0 +1,7 @@
+.adress-text{
+    width: 100%;
+    resize: none;
+}
+input,textarea{
+    margin: 15px 15px 15px 0;
+}
