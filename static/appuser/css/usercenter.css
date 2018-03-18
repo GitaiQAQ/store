@@ -501,7 +501,7 @@ input[name="logistics_name"],input[name="logistics_nub"]{
 .billdetail td[colspan="5"]{
     padding: 15px 0 0 0; 
 }
-.billdetail tr td:last-child,table.order-form.address tr td:last-child{
+.billdetail tr td:last-child,table.order-form.address_list tr td:last-child{
     padding-right: 30px!important;
 }
 .w320{
@@ -517,7 +517,7 @@ input[name="logistics_name"],input[name="logistics_nub"]{
     border-radius: 4px;
     font-size: 14px;
 }
-table.order-form.address th{
+table.order-form.address_list th{
     text-align: left;
 }
 

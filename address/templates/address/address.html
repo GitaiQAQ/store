@@ -1,4 +1,4 @@
-{% extends 'm_base.html' %} {% block css %} {% load staticfiles %}
+{% extends 'base.html' %}  {% block css %} {% load staticfiles %}
 {% load areas %}
 <link href="/static/appuser/css/usercenter.css" rel="stylesheet">{% endblock %} {% block content %}
 <!-- 顶部 -->
@@ -9,9 +9,9 @@
                                 <div class="pull-left">
                                         地址列表
                                 </div>
-                                <a class=" white-btn pull-right common-btn" href="{% url 'address:addresses' %}?new=">+添加新地址</a>
+                                <a class=" white-btn pull-right common-btn" href="{% url 'address:addresses' %}?new="><span class="black">+添加新地址</span></a>
                             </div>
-                            <table class="order-form address">
+                            <table class="order-form address_list">
                                 <tr>
                                     <th>姓名</th>
                                     <th>详细地址</th>
