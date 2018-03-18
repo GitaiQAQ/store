@@ -3,6 +3,7 @@
 {% block pagetitle%}预约码管理{% endblock%} 
 {% block css %}
 <link href="/static/appuser/css/usercenter.css" rel="stylesheet">
+<link href="/static/appuser/css/after_sale.css" rel="stylesheet">
 {% endblock %} 
 {% block content %}
 {%csrf_token%} 
@@ -14,23 +15,24 @@
                 <div class="car-title clearfix">
                     <div class="pull-left">售后订单</div> 
                 </div>
-                 
-                    <h3 >生成预约服务号</h3>
-                    <input type="text" id="phone" value="" placeholder="手机号" />
-                    <p class="grey">温馨提示：系统自动生成的预约服务号会和以下内容发送至用户手机</p>
-                    <textarea class="form-control" id="address">{{address}}</textarea>
+                <div class="gray submit">
+                     
+                    <div class="fs16">生成预约服务号</div>
+                    <input class="common-inp" type="text" id="phone" value="" placeholder="手机号" />
+                    <div class="grey">温馨提示：系统自动生成的预约服务号会和以下内容发送至用户手机</div>
+                    <textarea rows="4" class="common-inp adress-text" id="address" placeholder="{{address}}"></textarea>
                     {% csrf_token %} 
                     
-                    <button class="order-form-btn orange-bg common-btn" id="generate">
+                    <button class=" orange-bg common-btn" id="generate">
                         <span class="white">生成,并发送短信</span>
                     </button>
                  <hr>
-                 <h3 >查询预约服务号</h3>
+                 <div class="fs16">查询预约服务号</div>
                  <form action="" method="get">
-                        <input type="text" name="code" value="{{code}}" placeholder="预约服务号" />
-                        <input type="text" name="phone" value="{{phone}}" placeholder="手机号" />
-                        <br/>
-                        <button class="order-form-btn orange-bg common-btn" type="submit">
+                        <input class="common-inp" type="text" name="code" value="{{code}}" placeholder="预约服务号" />
+                        <input class="common-inp" type="text" name="phone" value="{{phone}}" placeholder="手机号" />
+                       
+                        <button class=" orange-bg common-btn" type="submit">
                             <span class="white">查询</span>
                         </button>
                  </form>
@@ -85,6 +87,7 @@
                         <a href="/"><span class="common-btn grey-btn">返回首页</span></a>
                 </div>
                 {% endif %}
+                </div>
             
             
         </div>
