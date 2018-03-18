@@ -26,7 +26,7 @@ class MainainCode(BaseDate):
             ('aftersaler_code', u'售后客服-生成预约码'),
         ) 
         abstract = True
-        ordering = ('used',)
+        ordering = ('used','-date')
 
 class AdaptorMainainCode(MainainCode):
     """MainainCode 适配器"""
@@ -74,6 +74,7 @@ class AfterSales(BaseDate):
     invoice = models.CharField('发票路径', max_length = 128, null= True)
     delivery_company = models.CharField('物流公司名称', max_length = 128, null= True) 
     delivery_number = models.CharField('物流单号', max_length = 64, null= True)
+    delivery_pic = models.CharField('物流单号图片路径', max_length = 128, null= True)
     # 故障描述
     description = models.TextField(null=True)
     # 返修类型
@@ -88,6 +89,15 @@ class AfterSales(BaseDate):
     
     # 待维修的商品，支持一个订单中不同的商品单独申请售后
     bill_item = models.ForeignKey(AdaptorBillItem, null=True) 
+    
+    # 输入预约码的时间
+    code_date = models.DateTimeField( null=True)
+
+    # 发货的时间
+    delivery_date = models.DateTimeField( null=True)
+ 
+    # 售后完成的时间
+    finished_date = models.DateTimeField( null=True)
 
     # 默认0
     START = 0 # 发起

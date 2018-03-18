@@ -66,6 +66,7 @@
                 <table class="order-form text-center">
                         <tr>
                                 <th class="text-left usercenter-tb"> 姓名</th>
+                                <th class="text-left usercenter-tb"> 申请日期</th>
                                 <th class="text-left">电话</th>
                                 <th>产品序列号</th>
                                 <th>状态</th>
@@ -78,6 +79,7 @@
                         {% for aftersale in aftersales %}
                         <tr>
                             <td class="text-left usercenter-tb" aftersaleid="{{aftersale.id}}">{{aftersale.name}}</td>
+                            <td class="text-left  ">{{aftersale.date|date:'Y-m-d'}}</td>
                             <td class="text-left">{{aftersale.phone}}</td>
                             <td>{{aftersale.proudct_code}}</td>
                             <td>{{aftersale.get_status_display}}</td>
@@ -89,6 +91,10 @@
                                 {% elif aftersale.status == 1  %}
                                 <a href="/aftersales/aftersales/?aftersaleid={{aftersale.id}}&status={{aftersale.status}}">
                                     <span class="orange">填写发货信息</span>
+                                </a>
+                                {% elif aftersale.status == 2  %}
+                                <a href="/aftersales/aftersales/?aftersaleid={{aftersale.id}}&detail">
+                                    <span class="orange">查看进度</span>
                                 </a>
                                 {% endif %}
                             </td>
