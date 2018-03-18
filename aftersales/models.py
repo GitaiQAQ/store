@@ -78,8 +78,7 @@ class AfterSales(BaseDate):
     # 故障描述
     description = models.TextField(null=True)
     # 返修类型
-    service_type = models.CharField(max_length=2,
-                choices=AFTERSALES_CHOICES, default = MAINTAIN_MAIN)
+    service_type = models.SmallIntegerField( choices=AFTERSALES_CHOICES, default = MAINTAIN_MAIN)
 
     # 创建者
     user = models.ForeignKey(User) 
@@ -113,8 +112,10 @@ class AfterSales(BaseDate):
     )
 
     status = models.SmallIntegerField( choices=STATUS_CHOICES, default = START)
-  
-
+    
+    # 是否已删除，默认0，表示没有删除， 1 表示已删除
+    deleted = models.SmallIntegerField( default = 0)
+   
     class Meta:
         permissions = (
            ( 'aftersaler', u'售后客服-填写寄修单'),

@@ -22,6 +22,7 @@ from rest_framework import status
 from django.utils.translation import ugettext as _
 from django.shortcuts import redirect
 from django.urls import reverse
+import requests
 
 from sitecontent.comm import handle_uploaded_file
 from aftersales.models import AdaptorAfterSales as AfterSales
@@ -143,6 +144,11 @@ class MainainCodeView(View):
  
             maintaincode = MainainCode.objects.create(creator=user,  phone = phone, code = code ) 
             maintaincode.save()
+
+            # 发送验证寄修短信信息
+            content = "预约服务号："+code+" 寄修信息："+address+"【" + settings.PROJECTNAME + "】"
+            req = requests.get(settings.SMS_API.format(phone,content)) 
+        
             result['code'] = maintaincode.code
             result['status'] ='ok'
             result['msg'] = "提交成功..." 
@@ -231,8 +237,8 @@ class AfterSalesView(View):
 
         isMble  = dmb.process_request(request)
         content = {} 
-        aftersale_items = AfterSales.objects.filter(user = user)
-        
+        aftersale_items = AfterSales.objects.filter(user = user, deleted = 0)
+ 
         # 已完成的或者已发货的订单可以发起售后
         finished_bills = AdaptorBill.objects.filter(owner = user, \
                    #status__in = (AdaptorBill.STATUS_DELIVERIED, AdaptorBill.STATUS_FINISHED))
@@ -278,6 +284,9 @@ class AfterSalesView(View):
                         codes = MainainCode.objects.filter(phone = user.phone, used = 0)
                         if len(codes) > 0:
                             code = codes[0].code
+                            codes[0].used = 1
+                            codes[0].save()
+
                             aftersale.maintain_code = codes[0]
                             aftersale.status = AfterSales.CODE
                             aftersale.code_date = datetime.today()
@@ -310,9 +319,8 @@ class AfterSalesView(View):
                     return render(request, 'aftersales/usercenter_detail.html', content)
                 else:
                     return render(request, 'aftersales/usercenter_detail.html', content)
-        else:
-            aftersales = AfterSales.objects.filter(user = user)
-            content['aftersales'] = aftersales
+        else: 
+            content['aftersales'] = aftersale_items
             if isMble:
                 return render(request, 'aftersales/usercenter_aftersales_list.html', content)
             else:
@@ -458,23 +466,7 @@ class AfterSalesView(View):
                 title = request.POST['title'].strip()
                 aftersale.title = title
             
-            if 'pic' in request.FILES:
-                pic = request.FILES['pic'] 
-                pic_url = handle_uploaded_file(pic, user.id)
-                aftersale.pic = pic_url
-
-            if  'url' in request.POST  :
-                url = request.POST['url'].strip()
-                aftersale.url = url
-            
-            if 'mark' in request.POST:
-                mark = request.POST['mark'].strip() 
-                if mark:
-                    aftersale.mark = mark
-            
-            if 'status' in request.POST:
-                status = request.POST['status'].strip()   
-                aftersale.status = int(status)
+           
             
             aftersale.save()
             result['id'] = aftersale.id
@@ -488,11 +480,12 @@ class AfterSalesView(View):
     def delete(self, request):
         user = request.user
         result = {}
-        if 'id' in request.POST : 
-            aftersales_id = request.POST['id'].strip() 
+        if 'aftersalsesid' in request.POST : 
+            aftersalsesid = request.POST['aftersalsesid'].strip() 
             try:
-                aftersale = AfterSales.objects.get(pk = aftersales_id)
-                aftersale.delete()
+                aftersale = AfterSales.objects.get(pk = aftersalsesid)
+                aftersale.deleted  = 1 # 非真正删除
+                aftersale.save() 
                 result['status'] ='ok'
                 result['msg'] = "已删除..."
             except AfterSales.DoesNotExist:
@@ -500,7 +493,7 @@ class AfterSalesView(View):
                 result['msg'] = _('Not found')
         else:
             result['status'] ='error'
-            result['msg'] = 'Need title  in POST'
+            result['msg'] = 'Need aftersalsesid  in POST'
         
         return self.httpjson(result)
 

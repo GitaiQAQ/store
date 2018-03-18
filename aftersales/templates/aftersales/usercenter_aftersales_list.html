@@ -52,6 +52,7 @@
                                             <span class="white">立即支付</span>
                                         </a> 
                                     </td>
+                                    
                             </tr>
                         {% endfor %}
                         <tr class="cut_line">
@@ -68,20 +69,23 @@
                                 <th class="text-left usercenter-tb"> 姓名</th>
                                 <th class="text-left usercenter-tb"> 申请日期</th>
                                 <th class="text-left">电话</th>
-                                <th>产品序列号</th>
+                                <th>预约服务码</th>
                                 <th>状态</th>
                                 <th>
                                     <a href="">
                                         <span class="orange">查看详情</span>
                                     </a>
                                 </th>
+                                <th>删除</th>
                         </tr>
+                        {% csrf_token %} 
                         {% for aftersale in aftersales %}
+                        
                         <tr>
                             <td class="text-left usercenter-tb" aftersaleid="{{aftersale.id}}">{{aftersale.name}}</td>
                             <td class="text-left  ">{{aftersale.date|date:'Y-m-d'}}</td>
                             <td class="text-left">{{aftersale.phone}}</td>
-                            <td>{{aftersale.proudct_code}}</td>
+                            <td>{{aftersale.maintain_code.code}}</td>
                             <td>{{aftersale.get_status_display}}</td>
                             <td>
                                 {% if aftersale.status == 0 %}
@@ -98,11 +102,21 @@
                                 </a>
                                 {% endif %}
                             </td>
+                            <td class="usercenter-tb">
+                                <img src="/static/img/icon/center5.svg" class="orange delete aftersales-delete" data-toggle="modal"
+                                 data-target="#confirm-delete" alt="" aftersalsesid="{{aftersale.id}}"> 
+                            </td>
+                        </tr>
+                        <tr class="cut_line">
+                                <td colspan="7">
+                                    <div></div>
+                                </td>
                         </tr>
                         {% endfor %}
                 </table>
                 {% else %}
                 {% include "usercenter/nothing.html" %}
+
                 {% endif %}
                
             </table>
@@ -110,8 +124,9 @@
         {% endblock %}
     </div>
 </div>
-
+{% include "delete.confirm.html" %}
 {% endblock %}
 {% block js %}
 <script src="/static/appuser/js/usercenter.js"></script>
+<script src="/static/aftersales/js/list.js"></script>
 {% endblock %}
