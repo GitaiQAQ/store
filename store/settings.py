@@ -257,9 +257,15 @@ SMTP_SERVER_USER    ='postmaster@map2family.com'
 SMTP_SERVER_PWD     ='Youxiang889886'  
 
 
-PROJECTNAME = '共享商城'
+PROJECTNAME = '一数科技商城'
 
 LOGIN_URL = '/users/login/'
 
 FILE_MAX_SIZE = 512*1024 #
 FILE_COMPRESSION_RIO = 75 #75%, [0-100]
+
+SMS = {
+    'SMS_SN' : "SDK-BBX-010-22746",
+    'SMS_PWD' : "76D7DAAC410AF587F0DEEE4F5FA86795",
+}
+SMS_API = "http://sdk2.entinfo.cn:8061/mdsmssend.ashx?sn=SDK-BBX-010-22746&pwd=76D7DAAC410AF587F0DEEE4F5FA86795&mobile={0}&content={1}"

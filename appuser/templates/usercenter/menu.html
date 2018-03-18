@@ -31,9 +31,15 @@
         </tr>
         <tr>
             <td >
-               <a class="black" href="/users/logout/"> 
-                <img src="/static/img/icon/center5.svg" alt="">退出登录
-                 </a>
+                    {% if request.user.is_anonymous %}
+                    <a class="black" href="/users/login/"> 
+                            <img src="/static/img/icon/center5.svg" alt="">登录
+                    </a>
+                    {% else %}
+                    <a class="black" href="/users/logout/"> 
+                            <img src="/static/img/icon/center5.svg" alt="">退出登录 
+                    </a>
+                    {% endif %}
             </td>
         </tr>
     </table> 

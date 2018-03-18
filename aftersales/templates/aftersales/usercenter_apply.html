@@ -3,8 +3,11 @@
 {% block pagetitle%}用户中心{% endblock%} 
 {% block css %}
 <link href="/static/appuser/css/usercenter.css" rel="stylesheet">
+<link href="/static/plugins//bootstrap-datepicker/css/datepicker.css" rel="stylesheet" />
+<link href="/static/plugins/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet" />
 {% endblock %} 
 {% block content %}
+{% include "aftersales/usercenter_msg.html" %}
 <div class="container m60"> 
      {% include "usercenter/menu.html" %}
     <div class="col-xs-10">
@@ -17,13 +20,13 @@
                     {% csrf_token %} 
                 <div class="information clearfix">
                     <input class="common-inp" type="text" name="name" id="" placeholder="姓名">
-                    <input class="common-inp" type="text" name="phone" id="phone" value="{{request.user.phone}}" placeholder="电话">
+                    <input class="common-inp" type="text" name="phone" id="myphone" value="{{request.user.phone}}" placeholder="电话">
                     <input class="common-inp" type="text" name="email" id="" placeholder="邮箱">
                     <input class="common-inp" type="text" name="address" id="" placeholder="寄回地址">
                     <input class="common-inp" type="text" name="rule" id="" placeholder="型号">
                     <input class="common-inp" type="text" name="color" id="" placeholder="颜色">
                     <input class="common-inp" type="text" name="number" id="" placeholder="产品系列号(PSN)">
-                    <input class="common-inp" type="text" name="date" id="" placeholder="购买日期">
+                    <input class="common-inp" type="text" name="date" id="buy_date" placeholder="购买日期">
                     <input class="common-inp" type="text" name="dealer" id="" placeholder="购买经销商">
                 </div>
                 <div class="receipt">
@@ -50,20 +53,23 @@
         </div>
         {% endblock %}
     </div>
+    
 </div>
 
 {% endblock %}
 {% block js %}
 <script src="/static/appuser/js/usercenter.js"></script>
+<script src="/static/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script src="/static/plugins/bootstrap-datepicker/js/locales/bootstrap-datepicker.zh-CN.js" charset="UTF-8"></script>
 <script>
     /* 验证手机号 */
     $(function () {
-            $('#phone').blur(function () {
+            $('#myphone').blur(function () {
                 var myreg =/^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
                 if (!myreg.test($(this).val())||!$(this).length==11) {
-                    $('#phone').css('border-color',"#ddd");
+                    $('#myphone').css('border-color',"#ddd");
                     $().errormessage('手机号格式不正确请重新输入');
-                    $('#phone').css('border-color',"#ea5014");
+                    $('#myphone').css('border-color',"#ea5014");
                 }
             })
 
@@ -74,6 +80,13 @@
             }
         })
         })
+        $( "#buy_date" ).datepicker({ 
+            defaultDate: "+1w",
+            changeMonth: true,
+            changeYear: true,
+            language:'zh-CN', 
+            format:'yyyy-mm-dd', 
+        }); 
         
 </script>
 {% endblock %}

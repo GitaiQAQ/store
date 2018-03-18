@@ -68,7 +68,7 @@
                                                 <li>
                                                     <img src="/static/img/icon/center1.svg" alt="">我的订单</li>
                                             </a>
-                                            <a href="">
+                                            <a href="{% url 'aftersales:aftersales' %}">
                                                 <li>
                                                     <img src="/static/img/icon/center2.svg" alt="">售后服务</li>
                                             </a>
@@ -80,10 +80,18 @@
                                                 <li>
                                                     <img src="/static/img/icon/center4.svg" alt="">收货地址</li>
                                             </a>
+                                            {% if request.user.is_anonymous %}
+                                            <a href="/users/login/">
+                                                <li>
+                                                    <img src="/static/img/icon/center5.svg" alt="">登录</li>
+                                            </a>
+                                            {% else %}
                                             <a href="/users/logout/">
                                                 <li>
                                                     <img src="/static/img/icon/center5.svg" alt="">退出登录</li>
                                             </a>
+                                            {% endif %}
+                                            
                                         </ul>
     
                                         <a class="p-r" href="{% url 'shopcar:shopcar_detail'%}">
