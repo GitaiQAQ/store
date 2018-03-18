@@ -223,6 +223,7 @@ class AfterSalesView(View):
     """
     @method_decorator(login_required)
     def get(self, request):
+        
         user = request.user
         service_man = user.has_perm('aftersales.aftersaler_code') 
         if service_man:# 售后客服人员直接进入预约码页面
@@ -262,32 +263,53 @@ class AfterSalesView(View):
                 return render(request, 'aftersales/usercenter_apply.html', content)
             else:
                 return render(request, 'aftersales/usercenter_apply.html', content)
-        elif 'aftersaleid' in request.GET and 'status' in request.GET: 
+        elif 'aftersaleid' in request.GET : 
             aftersaleid = request.GET['aftersaleid']
-            status = request.GET['status']
-            code = ''
-            try:
-                aftersale = AfterSales.objects.get(id = aftersaleid)
-                if aftersale.status == 0:
-                    # 刚填写了信息，还没有输入预约号码
-                    # 现在系统自动匹配预约号码
-                    # 本人未使用的
-                    codes = MainainCode.objects.filter(phone = user.phone, used = 0)
-                    if len(codes) > 0:
-                        code = codes[0].code
-                        aftersale.maintain_code = code
-                        aftersale.status = AfterSales.CODE
-                        aftersale.save()
-                    
-
-            except AfterSales.DoesNotExist:
-                aftersale = []
-            content['aftersale'] = aftersale
-            content['code'] = code
-            if isMble:
-                return render(request, 'aftersales/usercenter_delivery.html', content)
-            else:
-                return render(request, 'aftersales/usercenter_delivery.html', content)
+            
+            if 'status' in request.GET: # 发货
+                status = request.GET['status']
+                code = ''
+                try:
+                    aftersale = AfterSales.objects.get(id = aftersaleid)
+                    if aftersale.status == AfterSales.START:
+                        # 刚填写了信息，还没有输入预约号码
+                        # 现在系统自动匹配预约号码
+                        # 本人未使用的
+                        codes = MainainCode.objects.filter(phone = user.phone, used = 0)
+                        if len(codes) > 0:
+                            code = codes[0].code
+                            aftersale.maintain_code = codes[0]
+                            aftersale.status = AfterSales.CODE
+                            aftersale.code_date = datetime.today()
+                            aftersale.save()
+                    elif aftersale.status == AfterSales.CODE:
+                        # 已经获得预约服务号
+                        code = aftersale.maintain_code.code
+                    elif aftersale.status == AfterSales.DELIVERIED:
+                        # 已发货
+                        code = aftersale.maintain_code.code
+                    else:
+                        # 已完成
+                        code = aftersale.maintain_code.code
+                        
+                except AfterSales.DoesNotExist:
+                    aftersale = []
+                content['aftersale'] = aftersale
+                content['code'] = code
+                if isMble:
+                    return render(request, 'aftersales/usercenter_delivery.html', content)
+                else:
+                    return render(request, 'aftersales/usercenter_delivery.html', content)
+            elif 'detail' in request.GET: # 查看售后详情 
+                try:
+                    aftersale = AfterSales.objects.get(id = aftersaleid)
+                except AfterSales.DoesNotExist:
+                    aftersale = []
+                content['aftersale'] = aftersale
+                if isMble:
+                    return render(request, 'aftersales/usercenter_detail.html', content)
+                else:
+                    return render(request, 'aftersales/usercenter_detail.html', content)
         else:
             aftersales = AfterSales.objects.filter(user = user)
             content['aftersales'] = aftersales
@@ -309,15 +331,65 @@ class AfterSalesView(View):
             elif method == 'delete': # 删除
                 return self.delete(request) 
         else:
-            self.create(request)
-            return self.get(request)
+            if 'aftersaleid' in request.POST:
+                return self.add_delivery_info(request)
+            else:
+                self.create(request)
+                return self.get(request)
+
+    def add_delivery_info(self, request):
+        """
+        添加货运信息
+        """
+        user = request.user
+        result = {} 
+        isMble  = dmb.process_request(request)
+        if 'logistics_name' in request.POST and 'logistics_nub' in request.POST  :
+            
+            logistics_name = request.POST['logistics_name'].strip() # 物流公司名称
+            logistics_nub = request.POST['logistics_nub'].strip() # 物流单号
+            if logistics_name and logistics_nub:
+                aftersaleid = request.POST['aftersaleid']  
+                aftersale = AfterSales.objects.get(id = aftersaleid)  
+
+                if 'pictrue' in request.FILES:
+                    code    = ''.join(random.choice(string.ascii_letters + string.digits) for i in range(4))
+                    filename = handle_uploaded_file(request.FILES['pictrue'], str(user.id)+'_'+ code)
+                    aftersale.delivery_pic = filename
+    
+                aftersale.status = AfterSales.DELIVERIED
+                aftersale.delivery_company = logistics_name
+                aftersale.delivery_number = logistics_nub
+
+                aftersale.delivery_date = datetime.today()
+                aftersale.save()
+
+                result['status'] ='ok'
+                result['msg'] = "提交成功..." 
+                if isMble:
+                    return render(request, 'aftersales/usercenterl_apply_done.html', result)
+                else:
+                    return render(request, 'aftersales/usercenterl_apply_done.html', result)
+            else:
+                result['status'] ='error'
+                result['msg'] ='请填写物流公司和物流单号...'
+                if isMble:
+                    return render(request, 'aftersales/usercenter_delivery.html', result)
+                else:
+                    return render(request, 'aftersales/usercenter_delivery.html', result)
+        else:
+            result['status'] ='error'
+            result['msg'] ='Need logistics_name and logistics_nub  in POST'
+
+        
 
     def create(self, request):
         """创建寄修服务单""" 
         # 创建时：
         user = request.user
         result = {} 
-        
+        isMble  = dmb.process_request(request)
+
         if 'name' in request.POST and 'phone' in request.POST and \
             'address' in request.POST and 'number' in request.POST and \
              'date' in request.POST and  'description' in request.POST and \
@@ -332,11 +404,11 @@ class AfterSalesView(View):
             description = request.POST['description'].strip() 
 
             service_type = request.POST['service_type']
-            pdb.set_trace()
+            
             aftersale = AfterSales.objects.create(user=user, name=name,
                         phone = phone,  back_addr=back_addr, proudct_code = proudct_code,
                         buy_date = buy_date, description = description, service_type=service_type )
-            pdb.set_trace()
+            
             if 'email' in request.POST  :
                 email = request.POST['email'].strip()
                 aftersale.email = email

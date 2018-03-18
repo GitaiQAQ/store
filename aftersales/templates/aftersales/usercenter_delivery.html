@@ -13,9 +13,12 @@
             <div class="car-title clearfix">
                 <div class="pull-left">录入物流信息</div>
             </div>
-            <form method="post"  action="">
+            <form method="post"  action="" enctype="multipart/form-data">
+                    {% csrf_token %} 
                 <div class="submit">
                     <div>您的寄修预约号：<span class="fs18">{{code}}</span></div>
+                    <input type="hidden" name="delivery" >
+                    <input type="hidden" name="aftersaleid"  value="{{aftersale.id}}">
                     <p class="msg">
                         请拨打合作物流公司的客服人员寄送，寄送时请注意：
                         <br>a.妥善包装，在包装盒附纸条写明用户姓名、联系方式、寄修预约号，
@@ -31,7 +34,6 @@
                     </div>
                 </div>
             </form>
-            
         </div>
         {% endblock %}
     </div>
@@ -45,7 +47,7 @@
     $(function () {
             $('form').submit(function(e){
             if($('input[type="text"]').val()==''){
-                $().errormessage('请完善资料');
+                $().errormessage('请填写物流公司名称和运单号...');
                 e.preventDefault();
             }
         })

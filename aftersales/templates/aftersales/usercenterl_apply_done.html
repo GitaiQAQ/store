@@ -1,0 +1,37 @@
+{% extends 'base.html' %} 
+{% block fixed_menu_class %}fixed_menu_class{%endblock%}
+{% block pagetitle%}用户中心{% endblock%} 
+{% block css %}
+<link href="/static/appuser/css/usercenter.css" rel="stylesheet">
+{% endblock %} 
+{% block content %}
+<div class="container m60"> 
+        {% include "usercenter/menu.html" %}
+    <div class="col-xs-10">
+        {% block usercentercontent %}
+        <div class="usercentercontent">
+            <div class="car-title clearfix">
+                <div class="pull-left">录入成功</div>
+            </div>
+            <div class="text-center sec_msg">
+                <img src="/static/img/right.gif" alt="">
+                <div class="orange fs16">寄修信息已提交成功</div>
+                <a href=""><span class="black">三秒后页面将自动跳转到售后服务，您可在售后服务跟踪后续服务状态更新。</span></a>
+            </div>
+            
+        </div>
+        {% endblock %}
+    </div>
+</div>
+
+{% endblock %}
+{% block js %}
+<script>
+      
+window.onload = function(){
+    setTimeout(function () {//三秒返回
+            location.href='/aftersales/aftersales/';
+    }, 3000);
+  }  
+</script>
+{% endblock %}
