@@ -21,6 +21,8 @@ class AddressView(View):
         content = {}
         addresses = Address.objects.filter(user = request.user)
         content['addresses'] = addresses
+        content['menu'] = 'address'
+        
         if 'new' in request.GET:
             if 'template' in request.GET:
                 provinces = Area.objects.filter(Q(level = 1) | Q(name='北京市'))
@@ -93,6 +95,15 @@ class AddressView(View):
             phone = request.POST['phone'].strip()
             receiver = request.POST['receiver'].strip()
             detail = request.POST['detail'].strip() 
+
+            if 'default' in request.POST: 
+                default = data['default']
+                if default == '1':
+                    address.default = 1  
+                    addresses = Address.objects.filter(user=request.user)
+                    addresses.update(default = 0)
+
+
             address = Address.objects.create(user = request.user, area_id=areaid, phone=phone, 
                                            receiver=receiver, detail = detail)
             result['id'] = address.id
@@ -130,8 +141,7 @@ class AddressView(View):
                     default = data['default']
                     if default == '1':
                         address.default = 1
-                        addresses = Address.objects.filter(user=request.user)
-                        
+                        addresses = Address.objects.filter(user=request.user) 
                         addresses.update(default = 0)
 
                 address.save()
