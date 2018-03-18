@@ -82,7 +82,7 @@ class MainainCodeView(View):
                     return render(request, 'maintaincode/lists.html', content)
         else:
             codes = MainainCode.objects.filter(phone = user.phone)
-            content['aftersale_items'] = aftersale_items 
+            #content['aftersale_items'] = aftersale_items 
             if 'new' in request.GET:
                 if isMble:
                     return render(request, 'maintaincode/usercenter.html', content)

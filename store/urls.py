@@ -34,5 +34,6 @@ urlpatterns = [
     url(r'^apis/', include('apis.urls', namespace="apis")),
     url(r'^ckeditor/', include('ckeditor_uploader.urls' )),
     url(r'^aftersales/', include('aftersales.urls', namespace="aftersales")),
+    url(r'^coupon/', include('coupon.urls', namespace="coupon")),
     url(r'^$', views.home, name='home'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

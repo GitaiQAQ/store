@@ -98,6 +98,7 @@ th{
 }
 a:link,a:visited,a:hover,a:active{
     text-decoration: none;
+    color: #333;
 }
 .common-inp{
     display: inline-block;

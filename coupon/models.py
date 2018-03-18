@@ -9,6 +9,7 @@ class Coupon(BaseDate):
     """ 
     优惠劵类： 
     """ 
+    # 哪个用户
     owner = models.ForeignKey(User, related_name="owner")
     creator = models.ForeignKey(User, related_name="creator")
     date_added = models.DateTimeField(auto_now_add=True) 
@@ -26,12 +27,15 @@ class Coupon(BaseDate):
     used = models.PositiveIntegerField(default = 0)
     # 满足的金额
     top_price = models.DecimalField(_('price'), max_digits=9, decimal_places=0, null=True) 
-    # 优惠金额   
+    # 优惠金额 或者 直减金额
     price = models.DecimalField(_('price'), max_digits=9, decimal_places=0, null=True) 
 
     class Meta: 
         ordering = ['-date'] 
         abstract = True
+        permissions = (
+           ( 'manager_coupon', u'管理优惠劵：删除-创建'),
+        ) 
 
 class AdaptorCoupon(Coupon):
      
