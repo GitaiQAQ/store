@@ -1,0 +1,104 @@
+{% extends 'base.html' %} 
+{% block fixed_menu_class %}fixed_menu_class{%endblock%}
+{% block pagetitle%}预约码管理{% endblock%} 
+{% block css %}
+<link href="/static/appuser/css/usercenter.css" rel="stylesheet">
+<link href="/static/appuser/css/after_sale.css" rel="stylesheet">
+{% endblock %} 
+{% block content %}
+{%csrf_token%} 
+<div class="container m60"> 
+    {% include "usercenter/admin_menu.html" %}
+    <div class="col-xs-10">
+        {% block usercentercontent %}
+        <div class="usercentercontent">
+                <div class="car-title clearfix">
+                    <div class="pull-left">优惠券</div> 
+                </div>
+                <div class="gray submit">
+                     
+                    
+                    <textarea rows="4" class="common-inp adress-text" id="address" placeholder="使用说明"></textarea>
+                    {% csrf_token %} 
+                    <input class="common-inp" type="text" name="code" value="" placeholder="金额" />
+                    <input class="common-inp" type="text" name="code" value="" placeholder="数量" />
+                    <input class="common-inp" type="text" name="code" value="" placeholder="有效期截止" />
+                    <div>优惠类别：
+                        <input type="radio" name="preferential" id="all">
+                        <label for="all">全部</label>
+                        <input type="radio" name="preferential" id="product">
+                        <label for="product">产品</label>
+                        <input type="radio" name="preferential" id="accessory ">
+                        <label for="accessory ">配件</label>
+                    </div>
+                    <button class=" orange-bg common-btn" id="generate">
+                        <span class="white">创建</span>
+                    </button>
+                 <hr>
+                <a href=""><span class="orange">优惠券列表</span></a>
+                <a href="">全部</a>
+                <a href="">已使用</a>
+                <a href="">未使用</a>
+                {% if codes %}
+                    <table class="order-form text-center">
+                                <tr> 
+                                    <th class="text-left">预约服务号：
+                                        <span class="orange">{{bill.no}}</span>
+                                    </th>
+                                    <th>商品名称</th>
+                                    <th>手机号</th>
+                                    <th>发起时间</th>
+                                    <th>是否已使用</th> 
+                                </tr> 
+                            {% for code in codes %} 
+                                <tr  > 
+                                        <td class="text-left"> 
+                                            <div class="carlist_name black">{{code.code}}</div>  
+                                        </td>
+                                        <td  >
+                                            {% if code.used == 1 %}
+                                            <span class="price">已使用</span>
+                                            {% else %}
+                                            <span class="price">未绑定商品</span>
+                                            {% endif %}
+                                        </td>
+                                        <td class="  nub">{{code.phone}}</td>
+                                        
+                                        <td class="w110 ">{{code.date | date:'Y-m-d'}}</td>
+                                        
+                                        <td class="w110">
+                                                {% if code.used == 1 %}
+                                                <span class="price">已使用</span>
+                                                {% else %}
+                                                <span class="price">未使用</span>
+                                                {% endif %}
+                                        </td>
+                                      
+                                </tr>
+                                <tr class="cut_line">
+                                        <td colspan="7">
+                                            <div></div>
+                                        </td>
+                                </tr>
+                            {% endfor %}
+                            
+                    </table>
+                {% else %}
+                    <div class="text-center serve-none">
+                        <img class="serve-icon" src="/static/img/fuwu.png" alt="">
+                        <div class="grey fs16">您目前还没有此类订单</div>
+                        <a href="/"><span class="common-btn grey-btn">返回首页</span></a>
+                </div>
+                {% endif %}
+                </div>
+            
+            
+        </div>
+        {% endblock %}
+    </div>
+</div>
+
+{% endblock %}
+{% block js %} 
+<script src="/static/aftersales/js/code_new.js"></script>
+{% endblock %}
