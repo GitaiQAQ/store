@@ -1,11 +1,27 @@
+/* 初始化 */
+label{
+    margin: 0px;
+}
 body{
     background-color:#f9f9f8;
 }
+/* 初始化---end */
 
+/* 通用 */
+.last-td-pd tr td:last-child,.last-td-pd tr th:last-child{
+    padding-right: 30px;
+}
 .address-wrap{
     padding: 20px 30px;
     background-color:#fff;
 }
+.address{
+    border:1px solid #ddd;
+}
+
+
+
+
 .address-wrap>.col-xs-3{
     margin-right: 30px;
 }
@@ -19,23 +35,10 @@ body{
     font-size: 16px;
     margin-bottom: 5px;
 }
-
-.address{
-    border:1px solid #ddd;
-}
-
 #sum_number{
     color: #777;
 }
 
-.header {
-    height: 44px;
-    font-size: 16px;
-    text-align: center;
-    line-height: 44px;  
-    background-color: #fff;
-    border-bottom: 1px solid #ddd;
-}
 
 .header i {
     height: 100%;

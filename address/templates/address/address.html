@@ -26,7 +26,7 @@
                                     <td><span class="ph_number">{{address.phone}}</span></td>
                                     <td class="text-right">
                                         <a href="{% url 'address:addresses' %}?addressid={{address.id}}">
-                                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                            <img src="/static/img/icon/edit.svg" class="orange delete" alt="" billid="{{ bill.id }}">
                                         </a>
                                         <img src="/static/img/icon/center5.svg" class="orange delete" alt="" billid="{{ bill.id }}">
                                     </td>

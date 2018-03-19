@@ -5,3 +5,13 @@
 input,textarea{
     margin: 15px 15px 15px 0;
 }
+.last-td-pd{
+    margin-bottom: 30px;
+}
+.new-btn{
+    margin-top: 15px;
+}
+.links a+a{
+    display: inline-block;
+    margin-left: 15px;
+}

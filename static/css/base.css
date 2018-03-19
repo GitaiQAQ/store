@@ -15,7 +15,9 @@ src: url('/static/font/lanting.ttf');
     -ms-user-select: none;
     user-select: none;
  }
-
+ label{
+    font-weight: 300;
+}
 body{
     margin: 0px;
     padding: 0px;
