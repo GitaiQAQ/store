@@ -13,6 +13,9 @@ class Category(models.Model):
     # 顶级分类可以没有父类别
     parent = models.ForeignKey('Category', on_delete=models.CASCADE , null = True)
     objects = AdaptorCategoryManager()
-
+    class Meta:  
+        permissions = (
+           ( 'manager_category', u'管理商品类别'),
+        ) 
     def __str__(self):
         return self.name

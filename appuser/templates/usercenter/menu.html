@@ -19,7 +19,9 @@
         </tr>
         <tr>
             <td {% if menu == 'coupon' %}class="active"{% endif %}>
-                <img src="/static/img/icon/center3.svg" alt="">我的优惠劵
+                <a class="black" href="{% url 'coupon:coupons' %}">
+                   <img src="/static/img/icon/center3.svg" alt="">我的优惠劵
+                </a>
             </td>
         </tr>
         <tr>

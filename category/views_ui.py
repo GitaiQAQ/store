@@ -6,20 +6,33 @@ from django.http import HttpResponse
 from django.views import View
 from category.models import Category
 from django.http import QueryDict
+from django.utils.decorators import method_decorator
+from django.http import HttpResponseForbidden
+from django.contrib.auth.decorators import login_required
 
 class CategoryView(View):
 
+    @method_decorator(login_required)
     def get(self, request):
+        user = request.user
+        perm = user.has_perm('category.manager_category')
+        if not perm:
+            return HttpResponseForbidden()
         content = {}
         categories = Category.objects.filter(level=1)
         content['categories'] = categories
         return render(request, 'category.html', content)
 
+    @method_decorator(login_required)
     def post(self, request):
         """
         新建分类名称
         """
         result = {}
+        perm = user.has_perm('category.manager_category')
+        if not perm:
+            return HttpResponseForbidden()
+
         if 'method' in request.POST:
             method = request.POST['method'].lower()
             if method == 'put':# 修改

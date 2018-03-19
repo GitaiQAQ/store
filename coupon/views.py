@@ -4,6 +4,7 @@ import json
 import random
 import string
 import os
+import uuid
 from datetime import datetime
 from datetime import timedelta
 
@@ -16,6 +17,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.generic.detail import DetailView
 from django.conf import settings
+from django.db.utils import IntegrityError
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status 
@@ -23,9 +25,10 @@ from django.utils.translation import ugettext as _
 from django.shortcuts import redirect
 from django.urls import reverse
 import requests
- 
+from django.core.exceptions import ValidationError
+
 from coupon.models import AdaptorCoupon as Coupon
- 
+from category.models import Category
 
 from mobile.detectmobilebrowsermiddleware import DetectMobileBrowser
 dmb     = DetectMobileBrowser()
@@ -36,22 +39,39 @@ class CouponView(View):
     优惠劵类
     """
     @method_decorator(login_required)
-    def get(self, request): 
+    def get(self, request):
+        content = {} 
         user = request.user
-        service_man = user.has_perm('aftersales.aftersaler_code') 
-        if service_man:# 售后客服人员直接进入预约码页面
-            return redirect('/aftersales/maintaincode')
-
         isMble  = dmb.process_request(request)
-           
-        if isMble:
-            return render(request, 'coupon/usercenter_aftersales_list.html', content)
+        perm = user.has_perm('coupon.manager_coupon') 
+         
+        content['menu'] = 'coupon'
+        coupons = self.pagination(request) 
+        content['coupons'] =coupons
+        if perm:# 管理人员 
+            content['categories'] = self.get_categories()
+            if isMble:
+                return render(request, 'coupon/lists.html', content)
+            else:
+                return render(request, 'coupon/lists.html', content) 
+        else: # 普通用户查看自己的优惠劵
+            if isMble:
+                return render(request, 'coupon/mycoupon.html', content)
+            else:
+                return render(request, 'coupon/mycoupon.html', content)
+
+         
+    def get_categories(self, ids = []):
+        if ids :
+            categories = Category.objects.filter(level = Category.TOP_LEVEL, id__in = ids) 
         else:
-            return render(request, 'coupon/usercenter_aftersales_list.html', content)
+            categories = Category.objects.filter(level = Category.TOP_LEVEL) 
+        return categories
     
     @method_decorator(login_required)
     @method_decorator(csrf_exempt)
     def post(self,request ): 
+        user = request.user
         if 'method' in request.POST:
             method = request.POST['method'].lower()
             if method == 'put':# 修改
@@ -61,101 +81,86 @@ class CouponView(View):
                 return self.create(request) 
             elif method == 'delete': # 删除
                 return self.delete(request) 
-        else:
-            if 'aftersaleid' in request.POST:
-                return self.add_delivery_info(request)
-            else:
-                self.create(request)
-                return self.get(request)
-
-    def add_delivery_info(self, request):
-        """
-        添加货运信息
-        """
-        user = request.user
-        result = {} 
-        isMble  = dmb.process_request(request)
-        if 'logistics_name' in request.POST and 'logistics_nub' in request.POST  :
+        else: 
+            perm = user.has_perm('coupon.manager_coupon') 
+            if perm:
+                # 创建优惠劵
+                return self.create(request)
             
-            logistics_name = request.POST['logistics_name'].strip() # 
-            if logistics_name and logistics_nub:
-                aftersaleid = request.POST['aftersaleid']  
-                aftersale = AfterSales.objects.get(id = aftersaleid)  
-
-                if 'pictrue' in request.FILES:
-                    code    = ''.join(random.choice(string.ascii_letters + string.digits) for i in range(4))
-                    filename = handle_uploaded_file(request.FILES['pictrue'], str(user.id)+'_'+ code)
-                    aftersale.delivery_pic = filename
-     
-                aftersale.delivery_date = datetime.today()
-                aftersale.save()
-
-                result['status'] ='ok'
-                result['msg'] = "提交成功..." 
-                if isMble:
-                    return render(request, 'aftersales/usercenterl_apply_done.html', result)
-                else:
-                    return render(request, 'aftersales/usercenterl_apply_done.html', result)
-            else:
-                result['status'] ='error'
-                result['msg'] ='请填写物流公司和物流单号...'
-                if isMble:
-                    return render(request, 'aftersales/usercenter_delivery.html', result)
-                else:
-                    return render(request, 'aftersales/usercenter_delivery.html', result)
-        else:
-            result['status'] ='error'
-            result['msg'] ='Need logistics_name and logistics_nub  in POST'
-
-        
-
     def create(self, request):
         """创建寄修服务单""" 
         # 创建时：
         user = request.user
         result = {} 
         isMble  = dmb.process_request(request)
+        result['categories'] = self.get_categories()
+        
+        if 'money' in request.POST and 'num' in request.POST and 'rule' in request.POST and \
+            'date' in request.POST and 'categories' in request.POST : 
 
-        if 'name' in request.POST and 'phone' in request.POST and \
-            'address' in request.POST and 'number' in request.POST and \
-             'date' in request.POST and  'description' in request.POST and \
-             'service_type' in request.POST : 
+            money = request.POST['money'].strip() 
+            rule = request.POST['rule'].strip() 
+            try:
+                num = int(request.POST['num'].strip() )
+            except :
+                result['status'] ='error'
+                result['msg'] ='优惠劵数量不正确'
+                coupons = self.pagination(request)
+                result['coupons'] =coupons
+                if isMble:
+                    return render(request, 'coupon/lists.html', result) 
+                else:
+                    return render(request, 'coupon/lists.html', result)
 
-            name = request.POST['name'].strip() 
-            phone = request.POST['phone'].strip() 
-            back_addr = request.POST['address'].strip() 
+            date = request.POST['date'].strip() 
+            category_ids = request.POST.getlist('categories') #产品系列号
+            categories = self.get_categories(category_ids)
 
-            proudct_code = request.POST['number'].strip() #产品系列号
-            buy_date = request.POST['date'].strip()  #购买日期
-            description = request.POST['description'].strip() 
-
-            service_type = request.POST['service_type']
-            
-            aftersale = AfterSales.objects.create(user=user )
-            
-         
-            if 'invoice' in request.FILES:
-                code    = ''.join(random.choice(string.ascii_letters + string.digits) for i in range(4))
-                filename = handle_uploaded_file(request.FILES['invoice'], str(user.id)+'_'+ code)
-                aftersale.invoice = filename
-            
-            if 'rule' in request.POST:
-                device_type = request.POST['rule'].strip() 
-                aftersale.device_type = device_type
-            
-            aftersale.save()
-            result['id'] = aftersale.id
+            # 64 位UUID作为优惠劵号码
+            for i in range(num): 
+                code = uuid.uuid1().int>>64  
+                while True:
+                    # 防止优惠码出现重复的情况，
+                    # 当出现重复情况之后，再次生成新的，直到没有重复的
+                    try:
+                        coupon = Coupon.objects.create(code = code, price=money, 
+                            creator=user, deanline=date, rule = rule)
+                  
+                        coupon.categories.add(*list(categories))
+                        break
+                    except IntegrityError:
+                        code = uuid.uuid1().int>>64 
+                    except ValidationError as e:
+                        result['status'] ='error'
+                        result['msg'] = e
+                        break 
             result['status'] ='ok'
-            result['msg'] = "提交成功..." 
+            result['msg'] = "创建成功..." 
         else:
             result['status'] ='error'
             result['msg'] ='Need title  in POST'
-
-        if isMble:
-            return render(request, 'aftersales/lists.html', result)
-        else:
-            return render(request, 'aftersales/lists.html', result)
     
+
+        coupons = self.pagination(request)
+        result['coupons'] =coupons
+        if isMble:
+            return render(request, 'coupon/lists.html', result) 
+        else:
+            return render(request, 'coupon/lists.html', result) 
+    
+    def pagination(self, request):
+        page = 1
+        if 'page' in request.GET:
+            try:
+                pageindex = request.GET['page'].strip() 
+                page = int(pageindex)
+            except :
+                pass
+        
+        pagenum = 20 
+        coupons = Coupon.objects.all()[(page-1)*pagenum : page*pagenum]
+        return coupons
+
     def put(self, request):
         """修改""" 
         # 修改时：blockid字段是必须的,title\url\pic\mark\status是可选字段
