@@ -4,6 +4,9 @@
 font-family: lanting;
 src: url('/static/font/lanting.ttf');
 }
+.lanting{
+    font-family: lanting;
+}
 .p-n{
     padding: unset;
 }
@@ -24,8 +27,8 @@ body{
     min-width: 1200px;
     font-family: "Helvetica Neue", Helvetica, Arial, Verdana, STHeiti, "Microsoft Yahei", sans-serif;
 }
-.fs32{
-    font-size:32px;
+.fs34{
+    font-size:34px;
 }
 .fs24{
     font-size: 24px;

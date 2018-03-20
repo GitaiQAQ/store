@@ -14,7 +14,6 @@
   background: url(/static/img/sider/sider1.jpg);
 }
   .sider .shop-link {
-    color: #fff;
     position: absolute;
   }
   .shop-link ul>li{
@@ -23,13 +22,11 @@
       border-left: 1px solid #ccc;
       line-height: .9;
   }
-  .shop-link ul>li:first-child{
+  .shop-link0 ul>li:first-child{
       border: none;
       padding-left: 0px!important;
   }
-  .shop-link .fs40{
-    font-family: lanting;
-  }
+
 
   .shop-link0{
     bottom: 50%;
@@ -37,6 +34,11 @@
     right: 50%;
   }
 
+.shop-link1{
+  bottom: 50%;
+  transform: translateY(50%);
+  right: 60%;
+}
   
 .learn_more{
   padding-bottom: 4px;
@@ -52,7 +54,7 @@
   sider a:hover,sider a:visited,sider a:active{
     color: inherit;
   }
-  .orange.fs32{
+  .orange.fs34{
     margin-bottom: 12px;
     font-family: lanting;
   }
