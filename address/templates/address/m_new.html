@@ -3,7 +3,8 @@
 {% block pagetitle%}新建地址{% endblock%}  
  {% block css %} {% load staticfiles %}
 <link href="/static/appuser/css/usercenter.css" rel="stylesheet"> 
-<link href="/static/appuser/css/new.css" rel="stylesheet">{% endblock %} {% block content %}
+<link href="/static/appuser/css/new.css" rel="stylesheet">{% endblock %} 
+{% block content %}
 <!-- 顶部 -->
 
 <!-- 顶部 -->
@@ -51,7 +52,7 @@
     </div>
 </div>
 
-{% block menu %}{% endblock %}{% endblock %}{% block js %}
+{% endblock %}{% block js %}
 <script src="/static/address/js/address.js">
 </script>
 {% endblock %}
