@@ -55,6 +55,8 @@ class CouponView(View):
             else:
                 return render(request, 'coupon/lists.html', content) 
         else: # 普通用户查看自己的优惠劵
+            coupons = Coupon.objects.filter(owner = user)
+            content['coupons'] = coupons
             if isMble:
                 return render(request, 'coupon/mycoupon.html', content)
             else:
@@ -75,8 +77,7 @@ class CouponView(View):
         if 'method' in request.POST:
             method = request.POST['method'].lower()
             if method == 'put':# 修改
-                self.put(request)
-                return   self.get(request)
+                return self.put(request) 
             elif method == 'create': # 创建
                 return self.create(request) 
             elif method == 'delete': # 删除
@@ -149,6 +150,9 @@ class CouponView(View):
             return render(request, 'coupon/lists.html', result) 
     
     def pagination(self, request):
+        """
+        分页
+        """
         page = 1
         if 'page' in request.GET:
             try:
@@ -162,28 +166,34 @@ class CouponView(View):
         return coupons
 
     def put(self, request):
-        """修改""" 
-        # 修改时：blockid字段是必须的,title\url\pic\mark\status是可选字段
+        """激活优惠券""" 
         user = request.user
+        isMble  = dmb.process_request(request)
         result = {}
-        if 'blockid' in request.POST : 
-            blockid = request.POST['blockid'].strip() 
+        if 'code' in request.POST : 
+            code = request.POST['code'].strip() 
 
-            # 创建Block 
-            aftersale = models.AdaptorBaseBlock.objects.get(pk = blockid)
-            
-            if  'title' in request.POST  :
-                title = request.POST['title'].strip()
-                aftersale.title = title
+            # 查找未使用的code
+            try:
+                coupon = Coupon.objects.get(code = code, used = 0)
+                coupon.owner =  user
+                coupon.save()
+                result['status'] ='ok'
+                result['msg'] = '激活成功...'
+            except Coupon.DoesNotExist:
+                result['status'] ='error'
+                result['msg'] ='激活失败...'
              
-            aftersale.save()
-            result['id'] = aftersale.id
-            result['status'] ='ok'
-            result['msg'] = _('Saved completely!') 
+            coupons = Coupon.objects.filter(owner = user)
+            result['coupons'] = coupons 
         else:
             result['status'] ='error'
             result['msg'] ='Need title  in POST'
-        return self.httpjson(result)
+
+        if isMble:
+            return render(request, 'coupon/mycoupon.html', result) 
+        else:
+            return render(request, 'coupon/mycoupon.html', result)
 
     def delete(self, request):
         user = request.user

@@ -99,59 +99,6 @@
 </div>
 <!-- end 商品 -->
 <!-- 功能 -->
-<ul class="hide_menu"><a href="{% url 'category:categories' %}">
-    <li class="pull-left submenu">
-        类别
-    </li>
-    </a>
-    <a href="{% url 'product:products' %}">
-    <li class="pull-left submenu">
-        商品
-    </li>
-    </a>
-    <a href="{% url 'product:products' %}?new">
-    <li class="pull-left submenu">
-        创建商品
-    </li>
-    </a>
-    <a href="{% url 'product:products' %}?pic">
-    <li class="pull-left submenu">
-        创建商品图片
-    </li>
-    </a>
-    <a href="{% url 'product:products' %}">
-    <li class="pull-left submenu">
-        商品列表
-    </li>
-    </a>
-    <a href="{% url 'users:logout' %}">
-    <li class="pull-left submenu">
-        退出
-    </li>
-    </a>
-    <a href="{% url 'bill:bills' %}">
-    <li class="pull-left submenu">
-        我的订单
-    </li>
-    </a>
-    
-    <a href=" {% url 'apis:apis' %}">
-    <li class="pull-left submenu">
-        API
-    </li>
-    </a>
-    <a href=" {% url 'sitecontent:blockcontents' %}?new">
-    <li class="pull-left submenu">
-       | 网站模块管理
-    </li>
-    </a>
-    <a href=" {% url 'sitecontent:blockitemcontents' %}?new">
-        <li class="pull-left submenu">
-           |     网站模块内容管理 |
-        </li>
-        </a></ul>
- 
-<div class="aj"> {% if request.user.is_anonymous %}未登录{%else%} {{request.user.username}}{% endif%}</div>
 
 {% endblock %} {% block js %}
 <script type="text/javascript " src="/static/js/swiper-3.4.2.jquery.min.js "></script>
