@@ -6,10 +6,10 @@
 #phone{
     width: 300px;
 }
-form.new_address select{
+.new_address select{
     width:144px
 }
-form.new_address input,form.new_address select{
+.new_address input,.new_address select{
     margin-right: 15px;
     margin-bottom: 15px;
 }

@@ -95,17 +95,15 @@ class AddressView(View):
             phone = request.POST['phone'].strip()
             receiver = request.POST['receiver'].strip()
             detail = request.POST['detail'].strip() 
-
+            address = Address.objects.create(user = request.user, area_id=areaid, phone=phone, 
+                                           receiver=receiver, detail = detail)
             if 'default' in request.POST: 
-                default = data['default']
+                default = request.POST['default']
                 if default == '1':
                     address.default = 1  
                     addresses = Address.objects.filter(user=request.user)
                     addresses.update(default = 0)
-
-
-            address = Address.objects.create(user = request.user, area_id=areaid, phone=phone, 
-                                           receiver=receiver, detail = detail)
+ 
             result['id'] = address.id
             result['status'] ='ok'
             result['msg'] ='保存成功'

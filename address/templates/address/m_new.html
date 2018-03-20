@@ -15,7 +15,7 @@
                     添加新地址
                 
             </div>
-            <form class="submit new_address">
+            <div class="submit new_address">
                 {% if address %}
                 <input type="hidden" id="addressid" value="{{address.id}}" /> {% endif %}
                 <div>
@@ -29,10 +29,10 @@
                         <option class="grey">省份</option>
                     </select>
                     <select class="common-inp" id="city" type="text">
-                        <option>城市</option>
+                        <!-- <option>城市</option> -->
                     </select>
                     <select class="common-inp" id="counties" type="text">
-                        <option>县区</option>
+                        <!-- <option>县区</option> -->
                     </select>
                 </div>
 
@@ -42,16 +42,16 @@
                     <label class="default" for="default">设为默认地址</label>
                 </div>
                 <!-- 新建地址按钮 -->
-                <button class="common-btn orange-bg create-btn white create-btn" type="submit">
+                <button class="common-btn orange-bg white create-btn" type="submit">
                     保存使用
                 </button>
-            </form>
+            </div>
         </div>
 
     </div>
 </div>
 
 {% block menu %}{% endblock %}{% endblock %}{% block js %}
-<script src="/static/address/js/m_address.js">
+<script src="/static/address/js/address.js">
 </script>
 {% endblock %}
