@@ -35,14 +35,14 @@
                     {% endif %}
                     </form>
                     
-                    <div class="cash-coupon-wrap">
-                        我的代金券
+                    <div class="cash-coupon-wrap clearfix">
+                        <div>我的代金券</div>
                         {% if coupons %}
                         {% for coupon in coupons %}
-                        <div class="cash-coupon ">
+                        <div class="cash-coupon pull-left">
                             <div class="submit cash-coupon-msg">
                                 <span class="fs18">¥
-                                </span><span class="price">{{coupon.price}}</span>激活码：{{coupon.code}}</div>
+                                </span><span class="price fs26">{{coupon.price}}222</span>激活码：{{coupon.code}}</div>
                             <div class="submit instructions grey">
                                 <p>优惠类型：现金券</p>
                                 <p>使用规则：{{coupon.rule}}</p>

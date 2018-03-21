@@ -9,7 +9,10 @@ $(document).ready(function(){
        autoplay : 5000,
        loop : true
    });
-   /* 轮播图箭头位置 */
+   
+})
+$(window).load(function(){
+    /* 轮播图箭头位置 */
    var abslut = $('.logo').offset().left;
    $('.swiper-button-prev').css('left', abslut+'px');
    $('.swiper-button-next').css('right', abslut+'px');

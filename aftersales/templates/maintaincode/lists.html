@@ -26,18 +26,19 @@
                     <button class=" orange-bg common-btn" id="generate">
                         <span class="white">生成,并发送短信</span>
                     </button>
-                 <hr>
+                 <div class="row"><div class="row"><hr></div></div>
                  <div class="fs16">查询预约服务号</div>
                  <form action="" method="get">
-                        <input class="common-inp" type="text" name="code" value="{{code}}" placeholder="预约服务号" />
+                        <input class="common-inp" type="text" name="code" value="{{code}}" placeholder="预约号" />
                         <input class="common-inp" type="text" name="phone" value="{{phone}}" placeholder="手机号" />
-                       
-                        <button class=" orange-bg common-btn" type="submit">
+                       <br>
+                        <button class="orange-bg common-btn" type="submit">
                             <span class="white">查询</span>
                         </button>
                  </form>
+                </div>
                 {% if codes %}
-                    <table class="order-form text-center">
+                    <table class="order-form text-center last-td-pd">
                                 <tr> 
                                     <th class="text-left">预约服务号：
                                         <span class="orange">{{bill.no}}</span>
@@ -87,7 +88,7 @@
                         <a href="/"><span class="common-btn grey-btn">返回首页</span></a>
                 </div>
                 {% endif %}
-                </div>
+                
             
             
         </div>

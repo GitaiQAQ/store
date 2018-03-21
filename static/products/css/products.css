@@ -79,9 +79,9 @@
   }
   .introduce{
       text-align: center;
-      margin: 60px auto 30px;
-      padding-bottom: 5px;
-      border-bottom: 1px solid #ea5014;
+      margin: 60px auto 40px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(234, 80, 20,.6);
   }
   .fs20{
       font-size: 20px;

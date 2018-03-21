@@ -107,8 +107,8 @@ a:link,a:visited,a:hover,a:active{
 }
 .common-inp{
     display: inline-block;
-    height: 34px;
-    padding: 6px 12px;
+    height: 38px;
+    padding: 8px 12px;
     font-size: 14px;
     line-height: 1.42857143;
     color: #333;

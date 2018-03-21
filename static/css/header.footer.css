@@ -196,9 +196,7 @@ footer a:hover{
     width: 100%;
 }
 .qrcode{
-    padding: 6px;
     width: 104px;
-    background-color: #fff;
     position: relative;
     margin-left: 50px;
 }
