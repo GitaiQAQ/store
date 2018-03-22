@@ -202,11 +202,12 @@ footer a:hover{
 }
 
 .online-div{
+    font-size: 12px;
     line-height: initial!important;
     color: rgb(181, 182, 182);
 }
 .online-div p{
-    margin: 4px 0 6px;
+    margin: 6px 0 14px;
 }
 a.custom-service{
     color: #fff;
