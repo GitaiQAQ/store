@@ -64,8 +64,8 @@ div.address{
 }
 .add-new{
 background-color: rgb(201, 201, 202);
-width: 24px;
-height: 24px;
+width: 25px;
+height: 25px;
 border-radius: 50%;
 color: #fff;
 font-size: 18px;
@@ -247,8 +247,8 @@ margin-left: 30px;
     padding: 0 10px;
 }
 .r-btn{
-    width: 17px;
-    height: 17px;
+    width: 18px;
+    height: 18px;
     border: 1px solid #b5b6b6;
     color: #b5b6b6;
     text-align: center;

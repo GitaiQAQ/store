@@ -91,18 +91,20 @@ margin-right:12px;
     right: 25px;
 
 }
-
-.product_price{
-    color:rgb(201,22,35);
-    font-size: 16px;
-}
-
 .all_price .pull-right{
 margin-right: 25px;
 }
 .item-content{
     background-color: white;
-    padding: 20px 29px;
+    padding: 20px 30px;
+}
+.sec{
+    background-color: white;
+    padding: 90px 0px;
+}
+.sec>img{
+    width:26px;
+    margin-right: 6px;
 }
 
 .submit-holder{
@@ -170,8 +172,8 @@ margin-left: 30px;
     padding: 0 10px;
 }
 .r-btn{
-    width: 17px;
-    height: 17px;
+    width: 18px;
+    height: 18px;
     border: 1px solid #b5b6b6;
     color: #b5b6b6;
     text-align: center;
@@ -265,7 +267,7 @@ p.grey {
     border-bottom: none;
 }
 .show-sucess{
-    font-size: 25px;
+    font-size: 24px;
     margin: 0 ;
     vertical-align: middle;
     margin-left: 5px !important; 
