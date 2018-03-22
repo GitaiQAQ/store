@@ -159,7 +159,7 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'media'),
 )
 
-AUTHENTICATION_BACKENDS=['django.contrib.auth.backends.ModelBackend']
+AUTHENTICATION_BACKENDS=['store.third_party_backend.PhoneBackend', 'django.contrib.auth.backends.ModelBackend']
 SOCIALOAUTH_SITES = (  
     ('weibo', 'socialoauth.sites.weibo.Weibo', u'新浪微博',
         {
@@ -269,3 +269,12 @@ SMS = {
     'SMS_PWD' : "76D7DAAC410AF587F0DEEE4F5FA86795",
 }
 SMS_API = "http://sdk2.entinfo.cn:8061/mdsmssend.ashx?sn=SDK-BBX-010-22746&pwd=76D7DAAC410AF587F0DEEE4F5FA86795&mobile={0}&content={1}"
+
+
+# 第三方用户登录信息
+LOGIN_MASTER = "http://127.0.0.1:7000"
+STORE_LOGIN = 'http://127.0.0.1:9000'
+LOGIN_APPID = "17ad0726-c535-4acd-96d8-c7cba0784424"
+LOGIN_SECRET = "113e2570-970f-4214-87c1-913a765a4bfc"
+THIRD_LOGIN_URL = LOGIN_MASTER + "/users/login/?appid="+LOGIN_APPID+"&redirect_url="+STORE_LOGIN+"/users/login/"
+THIRD_AUTH_URL = LOGIN_MASTER + "/users/oauth2/authorize/"

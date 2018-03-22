@@ -16,7 +16,7 @@ class BaseUser(BaseDate, AbstractBaseUser, PermissionsMixin):
     email   = models.EmailField(
         verbose_name= u'电子邮箱',
         max_length=255,
-        unique=True,
+        null=True,
     )
 	  
     is_active       = models.BooleanField( u'是否有效',default=True)
@@ -51,7 +51,7 @@ class BaseUser(BaseDate, AbstractBaseUser, PermissionsMixin):
     
     
 
-    USERNAME_FIELD       = 'email'
+    USERNAME_FIELD       = 'phone'
     REQUIRED_FIELDS      = ['username']
 
     def get_name(self):
@@ -108,7 +108,7 @@ class BaseUser(BaseDate, AbstractBaseUser, PermissionsMixin):
 class StoreUser(BaseUser): 
     # 用户购物车中商品的种类数量，即表达购物车中有几种商品
     cart_num = models.IntegerField(default = 0)
-    phone = models.CharField(max_length = 15)
+    phone = models.CharField(max_length = 15, unique=True)
     class Meta:
         abstract = True
 

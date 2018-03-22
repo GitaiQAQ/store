@@ -31,7 +31,7 @@ class Coupon(BaseDate):
     # 优惠金额 或者 直减金额
     price = models.DecimalField(_('price'), max_digits=9, decimal_places=0, null=True) 
     # 适用类别
-    categories = models.ManyToManyField(Category, null=True)
+    categories = models.ManyToManyField(Category)
     # 使用规则
     rule = models.TextField(null=True)
     class Meta: 
