@@ -11,8 +11,7 @@ class PhoneBackend(ModelBackend):
         """
             the third party user authentication
         """ 
-        try: 
-            pdb.set_trace()
+        try:  
             user = User.objects.get(phone=phone)  
             return user
         except User.DoesNotExist:

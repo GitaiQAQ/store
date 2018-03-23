@@ -55,16 +55,13 @@ def login(request):
                     user = User.objects.get(phone = phone)  
                 except User.DoesNotExist: 
                     password = str(uuid.uuid4())
-                    pdb.set_trace() 
-                    try: 
-                        user = User(username= username, phone=phone,  password=password)
-                        if email:
-                            user.email = email
-                        user.save() 
-                    except Exception as e:
-                        return HttpResponse('[error]',e)
+                  
+                    user = User(username= username, phone=phone, email = '',  password=password)
+                    if email:
+                        user.email = email
+                    user.save() 
+                  
                 #log the User in our web site
-                pdb.set_trace()
                 auth.logout(request)  
                 user =  authenticate(phone = phone) 
                 request.user = user 
