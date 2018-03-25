@@ -142,7 +142,10 @@ function ajaxSubmit() {
         ruleid = $('.edition.active-rule').attr('ruleid'),
         quantity =$('#carnum').val(),
         title =  $('.item_name').text(),
-        desc=$('.active-rule').text()+$('.active-color').attr("data-color-title"),
+        desc=$('.active-rule').text();
+        if ($('.active-color').attr("data-color-title") != undefined){
+            desc += $('.active-color').attr("data-color-title");
+        }
         data = {
         'method': 'create',
         'ruleid': ruleid,

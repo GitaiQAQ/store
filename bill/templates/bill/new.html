@@ -48,14 +48,30 @@
                 </div> 
             </div>
             <!-- <input class="message common-inp" type="text" placeholder="选填：买家留言"/>-->
-            <div class="  col-xs-12 item-content div-sum-money">
+            <div class="  col-xs-6 item-content div-sum-money">
+                    <div class=" ">
+                        <div >
+                            <div><img src="/static/bill/img/plus.png" class="plus"/>使用优惠劵：</div>
+                            <div>
+                                <input type="text" placeholder="填写优惠劵" class="common-inp coupon-inp" id="coupon-number" value=""/>
+                                <button class="coupon-submit-btn  common-btn white orange-bg"  id="submit-coupon">提交</button> 
+                            </div> 
+                            <div class="coupon-msg" id="coupon-msg"> 
+                                        
+                            </div>
+                        </div> 
+                    </div>
+            </div>
+
+            <div class="col-xs-6 item-content div-sum-money div-product">
                 <div class="pull-right">
                     <div class="grey  pull-right sum_money">
                         <div>商品件数：<span class="f16 sum_num">0</span> 件</div>
-                        <div>金额合计：¥</i> <span id="sum_price" class="price f16"> 0.00</span> 元</div>
+                        <div>优惠劵抵扣：¥</i> <span id="coupon_price" class="price f16"> 0.00</span> 元</div>
                         <div>运费：¥</i> <span class="price f16">0.00</span> 元</div>
+                        <div>金额合计：¥</i> <span id="sum_price" class="price f16"> 0.00</span> 元</div>
+                        
                     </div> 
-                      
                 </div>
             </div>
             <div class="submit-holder col-xs-12 item-content div-delivery ">

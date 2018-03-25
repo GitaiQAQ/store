@@ -104,7 +104,8 @@ $(document).ready(function(){
                 address_id = $('.act_address').attr("addressid");
             }
         });
-        
+
+    
     //  提交订单
     mark = false;
     $('.submit-btn').click(function () {
@@ -124,8 +125,10 @@ $(document).ready(function(){
             textColor: "white"
         };
         HoldOn.open(options);
+        var number = $("#coupon-number").val();
         mark = true;
         var items = Array();
+        var couponitems = Array();
         for (var i = 0; i < aProducts.length; i++) {
             item = {
                 'ruleid': aProducts[i].ruleid,
@@ -133,7 +136,11 @@ $(document).ready(function(){
                 'rulename': aProducts[i].rulename
                 //'num': 1
             }
+            couponitem = {
+                'ruleid': aProducts[i].ruleid,
+            }
             items.push(item);
+            couponitems.push(couponitem);
         };
         /* 获取发票信息*/
         var title = $('#invoice_title').val();
@@ -147,7 +154,8 @@ $(document).ready(function(){
             'phone': '',
             'reciever': '大哥',
             'items': JSON.stringify(items),
-
+            'number': number, 
+            'couponitems': JSON.stringify(couponitems), 
             'invoicetype':invoicetype,
             'title':title,
             'code':code,
@@ -204,9 +212,45 @@ $(document).ready(function(){
     }); 
     
     $('.invoice_company').hide();
+
+
     
-    
-    
+    $('#submit-coupon').click(function () {
+        var number = $("#coupon-number").val();
+        var items = Array();
+        for (var i = 0; i < aProducts.length; i++) {
+            item = {
+                'ruleid': aProducts[i].ruleid, 
+            }
+            items.push(item);
+        };
+        data = {
+            'number': number, 
+            'items': JSON.stringify(items),  
+        };
+        var  html= '   <div class="alert alert-danger" role="alert">#### </div> ';
+        $.ajax({
+            type: 'get',
+            url: '/coupon/coupon/',
+            data: data,
+            success: function (result) {
+                if (result['status'] == 'ok') {
+                    $("#coupon_price").text(result['price']);
+                    var coupon_price = parseInt(result['price']);
+                    $('#sum_price, #all_sum_price').text(nSum_price- coupon_price);  
+                }else{
+                    $("#coupon-msg").empty();
+                    html = html.replace('####',result['msg'] );
+                    $("#coupon-msg").append(html);
+                }
+                html= '   <div class="alert alert-danger" role="alert">#### </div> ';
+            },
+            error: function () { 
+                alert('server is down!') ;
+            } 
+        }); 
+    });
+
 });
 /* 地址框删除按钮功能 */
 $('body').on('click', '.delete_address', function () {

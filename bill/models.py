@@ -8,6 +8,7 @@ from bill.manager import AdaptorBillManager, AdaptorBillItemManager
 from product.models import AdaptorProduct, AdaptorRule
 from address.models import Address
 from invoice.models import Invoice
+from coupon.models import AdaptorCoupon as Coupon
 import threading
 
 class Bill(BaseDate):
@@ -55,7 +56,7 @@ class Bill(BaseDate):
     # 备注
     remark = models.TextField(_('Remark'), null=True)
     # 发票信息
-    invoice = models.ForeignKey(Invoice, null = True) 
+    invoice = models.ForeignKey(Invoice, null = True)  
 
     class Meta:
         abstract = True
@@ -103,19 +104,7 @@ class CouponItem(models.Model):
     bill = models.ForeignKey(AdaptorBill)
 
     # 优惠劵码
-    code = models.CharField(_('Address'), max_length = 4096, null = True) 
-    # 规格名称：黑金版，红色
-    rule_title = models.CharField(_('Rule'), max_length = 4096, null = True) 
-    
-    # 外键，规格和产品都有可能被删除和编辑，所以这里的外键仅作为减库存时的依据
-    # 如果在减库存的时候，
-    rule = models.ForeignKey(AdaptorRule, on_delete=models.SET_NULL, null = True)
-    product = models.ForeignKey(AdaptorProduct, on_delete=models.SET_NULL, null = True)
-
-    # 下订单时的价格
-    price = models.DecimalField(_('Price'), max_digits = 9, decimal_places = 2, default = 0.0)
-    # 订单中某商品的数量
-    num = models.PositiveIntegerField(_('Number'))
+    coupon = models.ForeignKey(Coupon, null = True)   
  
     class Meta:
         abstract = True

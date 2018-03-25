@@ -19,10 +19,11 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from bill.models import AdaptorBill, AdaptorBillItem
+from bill.models import AdaptorCouponItem as CouponItem
 from product.models import AdaptorRule, AdaptorProduct
 from django.utils.translation import ugettext as _
 from mobile.detectmobilebrowsermiddleware import DetectMobileBrowser
-from rabbitmq.publisher import Publisher
+from coupon.models import AdaptorCoupon as Coupon
 from invoice.models import Invoice
 from address.models import Address
 
@@ -178,12 +179,39 @@ class BillView(View):
                 bill.address = address
 
                 bill.save()
+                if 'number' in request.POST and 'couponitems' in request.POST:
+                    number = request.POST['number']
+                    couponitems = json.loads(request.POST['couponitems'])
+                    try:
+                        coupon = Coupon.objects.get(code = number)
+                        bill_categoryid = set()
+                        for item in items: 
+                            rule = AdaptorRule.objects.get(id = item['ruleid'])
+                            bill_categoryid.add(rule.product.category.id)
+                        
+                        coupon_categoriesid = set()
+                        
+                        coupon_categories = coupon.categories.all()
+                        for category in coupon_categories: 
+                            coupon_categoriesid.add(category.id) 
+            
+                        if bill_categoryid < coupon_categoriesid or bill_categoryid == coupon_categoriesid: 
+                            # 优惠劵可以使用
+                            CouponItem.objects.get_or_create(bill = bill, coupon = coupon)
+                            coupon.used = 1
+                            coupon.save()
+                        else: 
+                            print( 'error:该优惠劵不能在本次订单中使用，使用规则：' + coupon.rule)
+                            
+                    except Coupon.DoesNotExist: 
+                        print( 'error:{0}该优惠劵不存在...'.format(coupon.code))
 
+                """
                 # 提交到queue中
                 q_bill={}
                 q_bill['billid'] = bill.id 
                 q_bill['items'] = items_str
-                """
+                
                 # 推到消息队列
 
                 p = Publisher()
@@ -373,6 +401,7 @@ class BillDetailView(APIView):
         content={
             'bill':bill
         }
+        
         content['mediaroot'] = settings.MEDIA_URL
         if 'status' in request.GET:
             # 查询订单状态

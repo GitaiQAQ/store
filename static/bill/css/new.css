@@ -12,9 +12,20 @@ body{
     background-color: rgb(242, 242, 242);
     font-size: 16px;
 }
-
-
-
+.container-car{
+    background-color: white;
+}
+.coupon-inp{
+    margin-top: 15px;
+}
+.coupon-submit-btn{
+    margin-left: 5px;
+    line-height: 26px;
+    
+}
+.div-product{
+    height: 115px;
+}
 #sum_number{
     color: #777;
 }

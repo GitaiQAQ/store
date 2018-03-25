@@ -29,6 +29,7 @@ from django.core.exceptions import ValidationError
 
 from coupon.models import AdaptorCoupon as Coupon
 from category.models import Category
+from product.models import AdaptorRule as Rule
 
 from mobile.detectmobilebrowsermiddleware import DetectMobileBrowser
 dmb     = DetectMobileBrowser()
@@ -46,6 +47,37 @@ class CouponView(View):
         perm = user.has_perm('coupon.manager_coupon') 
          
         content['menu'] = 'coupon'
+
+        if 'number' in request.GET and 'items' in request.GET:
+            result = {}
+            number = request.GET['number']
+            items = json.loads(request.GET['items'])
+            
+            try:
+                coupon = Coupon.objects.get(code = number)
+                bill_categoryid = set()
+                for item in items: 
+                    rule = Rule.objects.get(id = item['ruleid'])
+                    bill_categoryid.add(rule.product.category.id)
+                
+                coupon_categoriesid = set()
+                
+                coupon_categories = coupon.categories.all()
+                for category in coupon_categories: 
+                    coupon_categoriesid.add(category.id) 
+      
+                if bill_categoryid < coupon_categoriesid or bill_categoryid == coupon_categoriesid:
+                    result['status'] = 'ok'
+                    result['price'] =  str(coupon.price)
+                else:
+                    result['status'] = 'error'
+                    result['msg'] = '该优惠劵不能在本次订单中使用，使用规则：' + coupon.rule
+                    
+            except Coupon.DoesNotExist:
+                result['status'] = 'error'
+                result['msg'] = '该优惠劵不存在...'
+            
+            return self.httpjson(result)
         coupons = self.pagination(request) 
         content['coupons'] =coupons
         if perm:# 管理人员 
@@ -62,7 +94,11 @@ class CouponView(View):
             else:
                 return render(request, 'coupon/mycoupon.html', content)
 
-         
+    def sublist(self, lst1, lst2):
+        ls1 = [element for element in lst1 if element in lst2]
+        ls2 = [element for element in lst2 if element in lst1]
+        return ls1 == ls2     
+
     def get_categories(self, ids = []):
         if ids :
             categories = Category.objects.filter(level = Category.TOP_LEVEL, id__in = ids) 
@@ -125,7 +161,7 @@ class CouponView(View):
                     # 当出现重复情况之后，再次生成新的，直到没有重复的
                     try:
                         coupon = Coupon.objects.create(code = code, price=money, 
-                            creator=user, deanline=date, rule = rule)
+                            creator=user, deadline=date, rule = rule)
                   
                         coupon.categories.add(*list(categories))
                         break
