@@ -4,7 +4,7 @@
 {% block css %} {% load staticfiles %}
 
 <link href="/static/shopcar/css/shopcar.css" rel="stylesheet">
-
+<link href="/static/plugins/icheck/skins/flat/red.css" rel="stylesheet">
 {% endblock %} 
 {% block content %}
 
@@ -27,7 +27,7 @@
                 <tr class="car-list">
 
                 <!-- 商品勾选 -->
-                    <td class="check text-center"><input class="checked" type="checkbox"></td>
+                    <td class="check text-center"><input class="checked ichecked_item" type="checkbox"></td>
                 <!-- 商品勾选 end -->
 
                 <!--商品图 -->
@@ -107,8 +107,10 @@
 </div>
  {% endblock %} {% block js %}
  <script type="text/javascript " src="/static/js/login.js "></script>
- <script type="text/javascript" src="/static/js/cookie.js"></script>
+ <script type="text/javascript" src="/static/js/cookie.js"></script> 
+ <script type="text/javascript " src="/static/plugins/icheck/icheck.min.js "></script> 
 <script type="text/javascript" src="/static/shopcar/js/shopcar.js"></script>
+
 <script>
     var sum = 0;
     {%if ruleitems %} {% for rule in ruleitems %}
@@ -118,4 +120,7 @@
     {% endif %}
     $('.sum_price').text(sum);
     
-</script> {% endblock %}
+</script> 
+
+
+{% endblock %}

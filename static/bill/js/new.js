@@ -178,11 +178,14 @@ $(document).ready(function(){
         });  
 
     });
-
     
-    $('.invoice_company').hide();
+    /*
+    $('.invoice_type').on('ifChecked', function(){ 
+        show_invoice();
+    });
+*/
     //发票：切换个人与企业
-    $('.invoice_type').click(function () {
+    $('.invoice_type').on('ifClicked', function(){
         var val = $(this).val();
         if (val == 0) {
             //代表类型为企业,需要纳税号
@@ -192,7 +195,17 @@ $(document).ready(function(){
             //代表类型为个人，不需要纳税号
             $('.invoice_company').hide('slow');
         }
-    })
+    });
+
+    $('.invoice_type').iCheck({
+        checkboxClass: 'icheckbox_flat-red',
+        radioClass: 'iradio_flat-red', 
+        increaseArea : '20%' 
+    }); 
+    
+    $('.invoice_company').hide();
+    
+    
     
 });
 /* 地址框删除按钮功能 */

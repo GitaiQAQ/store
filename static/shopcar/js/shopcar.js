@@ -9,6 +9,7 @@
  *checkbox click
  *全选/反选
  */
+/*
 $("#all_checked").click(function() {
     if (this.checked) {
         $("input.checked").prop("checked", true);
@@ -16,25 +17,75 @@ $("#all_checked").click(function() {
         $("input.checked").prop("checked", false);
     }
 });
+*/
+$('#all_checked').on('ifChecked', function(){
+    //全选勾选
+    $('.ichecked_item').iCheck('check');
+});
+
+$('#all_checked').on('ifUnchecked', function(){
+    //全选取消勾选
+    if ( $('#all_checked').attr("remove")=="undefined"){
+        // 如果之前全选了，现在其中某个选项不需要选了，这时不需要触发ifUnchecked事件
+        $('.ichecked_item').iCheck('uncheck');
+    }
+});
+
     /* 按钮选中显示总价*/
 var selectList = '';
+/*
 $('body').on("click", "input[type='checkbox']", function() {
     selectList = $("input.checked:checked").parents('.car-list');
-    cal_sum();
+    //cal_sum();
     var sum = cal_sum();
     $('.sum_price').text(sum);
     var nub =nub_sum();
     $('.nub-sum').text(nub);
 });
+ */
+
+ function itemcheck(){
+    selectList = $("input.checked:checked").parents('.car-list');
+    
+   var sum = cal_sum();
+   $('.sum_price').text(sum);
+   var nub =nub_sum();
+   $('.nub-sum').text(nub);
+ }
+
+ 
+$('.ichecked_item').on('ifChecked', function(){
+    if($('.ichecked_item:checked').length == $('.ichecked_item').length){
+        //全部都被选中了
+        $('#all_checked').iCheck('check');
+    }
+    itemcheck();
+});
+
+$('.ichecked_item').on('ifUnchecked', function(){
+    //$('#all_checked').parents().removeClass("checked");
+    
+    $('#all_checked').attr("remove","1");
+    $('#all_checked').iCheck('uncheck');
+    
+    //$('#all_checked').parents().removeClass("checked");
+    itemcheck();
+});
+ 
 
 
 
+$('.ichecked_item, #all_checked').iCheck({
+    checkboxClass: 'icheckbox_flat-red',
+    radioClass: 'iradio_flat-red', 
+    increaseArea : '20%' 
+}); 
 /* 
  *加载完跟新价格
  */
 window.onload = function() {
         var selectList = $("input.checked:checked").parents('.car-list');
-        cal_sum();
+        //cal_sum();
         var sum = cal_sum();
         $('.sum_price').text(sum);
         var nub =nub_sum();

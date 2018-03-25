@@ -41,7 +41,7 @@
                                         <div class="point"></div>
                                     </td>
                                     <td class="{% if mallpage %}active{% endif %} ">
-                                        <a href="">商城</a>
+                                        <a href="/">商城</a>
                                         <div class="point"></div>
                                     </td>
                                     <td class="{% if communitypage %}active{% endif %} ">
@@ -60,6 +60,11 @@
                                         <a href="javascript:;">
                                             <i class="fa fa-search" aria-hidden="true"></i>
                                         </a>
+                                        {% if request.user.is_anonymous %}
+                                        <a href="/users/login/">
+                                            <i class="fa fa-user" aria-hidden="true"></i>
+                                        </a>
+                                         {% else %}
                                         <a href="javascript:;">
                                             <i class="fa fa-user" aria-hidden="true"></i>
                                         </a>
@@ -80,21 +85,13 @@
                                             <a class="black" href="{% url 'address:addresses' %}"> 
                                                 <li>
                                                     <img src="/static/img/icon/center4.svg" alt="">收货地址</li>
-                                            </a>
-                                            {% if request.user.is_anonymous %}
-                                            <a href="/users/login/">
-                                                <li>
-                                                    <img src="/static/img/icon/center5.svg" alt="">登录</li>
-                                            </a>
-                                            {% else %}
+                                            </a>  
                                             <a href="/users/logout/">
                                                 <li>
                                                     <img src="/static/img/icon/center5.svg" alt="">退出登录</li>
-                                            </a>
-                                            {% endif %}
-                                            
+                                            </a>  
                                         </ul>
-    
+                                        {% endif %}
                                         <a class="p-r" href="{% url 'shopcar:shopcar_detail'%}">
                                   <i class="fa fa-shopping-cart" aria-hidden="true">
                                             </i>
