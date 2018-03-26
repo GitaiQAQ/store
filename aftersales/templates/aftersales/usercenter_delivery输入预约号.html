@@ -5,13 +5,24 @@
 <link href="/static/appuser/css/usercenter.css" rel="stylesheet">
 {% endblock %} 
 {% block content %}
+<div class="pop_wrap">
+    <div class="pop-box">
+            请在发起售后申请前，首先拨打客服热线
+            <div class="orange fs18"><img src="/static/img/icon/kefu.svg" alt="">400-608-0106</div>
+            <p>客服将为您提供相关售后咨询</p>
+            <span class="common-btn orange-bg white"  id="cancel">确定</span>
+            <a   href="/aftersales/aftersales/">
+                <span  class="common-btn grey-btn">取消</span>
+            </a>
+    </div>
+</div>
 <div class="container m60"> 
         {% include "usercenter/menu.html" %}
     <div class="col-xs-10">
         {% block usercentercontent %}
         <div class="usercentercontent">
             <div class="car-title clearfix">
-                <div class="pull-left">录入物流信息</div>
+                <div class="pull-left">输入预约号</div>
             </div>
             <form method="post"  action="" enctype="multipart/form-data">
                     {% csrf_token %} 
@@ -20,15 +31,11 @@
                     <input type="hidden" name="delivery" >
                     <input type="hidden" name="aftersaleid"  value="{{aftersale.id}}">
                     <p class="msg">
-                        请拨打合作物流公司的客服人员寄送，寄送时请注意：
-                        <br>a.妥善包装，在包装盒附纸条写明用户姓名、联系方式、寄修预约号，
-                        <br>b.选择“运费到付”的方式将故障产品返回维修工厂，在物流单上请注明预约号'{{code}}'
+                        请输入您的预约号
                     </p>
-                    <input class="common-inp" type="text" name="logistics_name" id="" placeholder="请输入物流公司名称">
-                    <input class="common-inp" type="text" name="logistics_nub" id="" placeholder="请输入物流单号">
-                    上传运单照片
-                    <label class="common-inp grey-btn" for="picture">上传附件<i class="fa fa-arrow-circle-up" aria-hidden="true"></i></label>
-                    <span class="picture-warp"><input type="file" name="picture" id="picture"></span>
+                    
+                    <input class="common-inp" type="text" name="logistics_nub" id="" placeholder="请输入预约号">
+                   
                     <div>
                             <input class="common-inp orange-bg white" type="submit" value="提交">
                     </div>

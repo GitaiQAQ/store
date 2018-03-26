@@ -283,6 +283,9 @@ table{
 table.order-form tr td:first-child,table.order-form tr th:first-child{
 padding-left: 30px;
 }
+table.order-form tr td:last-child, table.order-form tr th:last-child{
+    padding-right: 30px;
+}
 .order-form-btn{
     padding: 4px 12px;
     border:1px solid #ddd;
