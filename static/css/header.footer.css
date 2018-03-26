@@ -73,6 +73,7 @@
     overflow: hidden;
     border-top: 1px solid rgb(181, 182, 182);
     z-index: -1;
+    left: 100%;
 }
 
 .menu .active *{
@@ -221,8 +222,7 @@ a.custom-service{
     margin-bottom: 3px;
 }
 .f-logo{
-    width: 14px;
-    height: 16px;
+    height: 15px;
     vertical-align:sub;
 }
 footer .pull-left{

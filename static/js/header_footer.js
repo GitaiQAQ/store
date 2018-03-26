@@ -6,10 +6,14 @@ $(window).load(function () {
     var leftValue = $('.point:first').offset().left,
         width = $('body').width()-leftValue;
     topValue = $('.point:first').offset().top;
-    $('.bottom-line').css('width',width+ 'px').css('left', leftValue + 'px').css('top', topValue + 2 + 'px');
+    $('.bottom-line').css('width',width+ 'px').css('top', topValue + 2 + 'px');
+    /* $('.bottom-line').animate({left:leftValue+'px'},600); */
+    $('.bottom-line').css('left',leftValue+'px');
 })
 $(window).resize(function() {
-    var leftValue =$('.point:first').offset().left;
+    var leftValue =$('.point:first').offset().left,
+    width = $('body').width()-leftValue;
+    $('.bottom-line').css('width',width+ 'px');
     $('.bottom-line').css('left',leftValue+'px');
 });
 /* -----------------------------------------------------------------------------

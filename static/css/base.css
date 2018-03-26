@@ -10,6 +10,25 @@ src: url('/static/font/lanting.ttf');
 .p-n{
     padding: unset;
 }
+/* 警告框 */
+.jquery-error-message {
+    font-size: 14px;
+    position: fixed;
+    bottom: 100px;
+    left: 20%;
+    width: 60%;
+    padding: 8px;
+    color: white;
+    background-color: #ea5014;
+    text-align: center;
+    display: none;
+    opacity: 0;
+    border-radius: 4px;
+    box-shadow: 12px 0px 20px -2px rgba(0, 0, 0, .2);
+    box-shadow: 12px 0px 20px -2px rgba(0, 0, 0, .2);
+    box-shadow: 12px 0px 20px -2px rgba(0, 0, 0, .2);
+    z-index: 100000;
+}
 /* 禁止选择文本 */
 .unselect{
     -moz-user-select: -moz-none;

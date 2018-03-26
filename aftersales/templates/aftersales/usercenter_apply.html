@@ -32,7 +32,7 @@
                 <div class="receipt">
                     上传机构发
                     <label class="common-inp grey-btn" for="picture">上传附件<i class="fa fa-arrow-circle-up" aria-hidden="true"></i></label>
-                    <input type="file" name="invoice" id="picture">
+                    <span class="picture-warp"><input type="file" name="invoice" id="picture"></span>
                     <textarea class="common-inp" name="description" rows="4" placeholder="故障现象">
                     </textarea>
                 </div>
@@ -70,6 +70,17 @@
                     $('#myphone').css('border-color',"#ddd");
                     $().errormessage('手机号格式不正确请重新输入');
                     $('#myphone').css('border-color',"#ea5014");
+                }
+            })
+            $('input[name=email]').blur(function () {
+                var myreg =/^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+                if($(this).val()==''){
+                    $().errormessage('E_mail不能为空！');
+                    $(this).css('border-color',"#ea5014");
+                }else if (!myreg.test($(this).val())) {
+                    $('#myphone').css('border-color',"#ddd");
+                    $().errormessage('请输入有效的E_mail！');
+                    $(this).css('border-color',"#ea5014");
                 }
             })
 

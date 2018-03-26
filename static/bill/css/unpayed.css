@@ -133,7 +133,7 @@ table.shop-car tr{
     padding-left: 32px; 
 } 
 table.shop-car td{
-    padding:15px 0;
+    padding:25px 0;
 }
 .wrap-border{
     border-bottom: 1px solid #ddd;
@@ -244,6 +244,7 @@ input[type=checkbox].checked{
 }
 .sum_money{
     text-align: right;
+    line-height: 2;
 }
 p.grey {
     padding-top: 15px;

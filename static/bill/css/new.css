@@ -23,9 +23,7 @@ body{
     line-height: 26px;
     
 }
-.div-product{
-    height: 115px;
-}
+
 #sum_number{
     color: #777;
 }
@@ -50,7 +48,7 @@ div.address{
     border:1px solid #ddd;
     padding: 15px 15px 0 15px;
     border-radius: 4px;
-    height: 154px;
+    height: 174px;
     cursor: pointer;
 }
 .act.orange{
@@ -71,7 +69,7 @@ div.address{
     display: block;
     text-align: center;
     width: 100%;
-    height: 154px;
+    height: 174px;
 }
 .add-new{
 background-color: rgb(201, 201, 202);
@@ -100,7 +98,7 @@ margin: 0 auto 10px;
     background: none;
 }
 .a-detail{
-    height: 40px;
+    height: 60px;
     overflow:hidden;/* 内容超出宽度时隐藏超出部分的内容 */
     text-overflow:ellipsis;/* 当对象内文本溢出时显示省略标记(...)*/
 }
@@ -221,7 +219,7 @@ table.shop-car tr{
     padding-left: 32px; 
 } 
 table.shop-car td{
-    padding:15px 0;
+    padding:25px 0;
 }
 .wrap-border{
     border-bottom: 1px solid #ddd;
@@ -330,6 +328,7 @@ input[type=checkbox].checked{
 }
 .sum_money{
     text-align: right;
+    line-height: 2;
 }
 p.grey {
     padding-top: 15px;

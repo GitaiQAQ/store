@@ -12,7 +12,7 @@ for (var i = 0; i < aProducts.length; i++) {
          '<div class="product_name">商品名称</div>'+
           '<div class="product_rull font-grey">商品说明</div>'+
           '<div class="pull-left">'+
-              '<i class="fa fa-jpy" aria-hidden="true"></i>'+
+              '¥'+
               '<span class="product_price">价格</span>'+
           '</div>'+
           '<div class="product_numb font-grey pull-right">件数'+

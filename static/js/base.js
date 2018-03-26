@@ -34,8 +34,7 @@ function fnLimited(inputLimited){
     });
 }
 
-var bodyHeight=window.innerHeight;
-$('body').css('min-height',bodyHeight+'px');
+
 
 $(function(){
     $(".fa-user").on('click',function(e){
@@ -45,4 +44,10 @@ $(function(){
     jQuery(document).click(function () {
         $('#center').slideUp();
     })
+    var docHeight=$('body').height();//整个网页的高度
+    var windowHeight= $(window).height();//浏览器可视窗口的高度
+    if(docHeight<windowHeight){
+        $('.linkitems').css({'position':'fixed','bottom':'40px','width':'100%'});
+        $('footer').css({'position':'fixed','bottom':'0px','width':'100%'});
+    }
 })

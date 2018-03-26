@@ -18,7 +18,9 @@ body{
 .address{
     border:1px solid #ddd;
 }
-
+input[type=file]:focus,、{
+    outline:none;
+}
 
 
 
@@ -67,6 +69,9 @@ img.delete,img.edit{
     cursor: pointer;
     width:16px;
 }
+img.edit{
+    margin-right: 6px;
+}
 .submit-holder{
     padding-top: 0px;
     padding-bottom: 0px;
@@ -76,7 +81,7 @@ table.order-form tr{
     padding-left: 32px; 
 } 
 .order-form td,.order-form th{
-    padding:15px 0;
+    padding:25px 0;
 }
 table.order-form th{
     background-color: rgb(247, 247, 247);
@@ -192,6 +197,7 @@ input[type=checkbox].checked{
 }
 .sum_money{
     text-align: right;
+    line-height: 2;
 }
 
 .div-delivery{
@@ -246,7 +252,7 @@ table{
     margin-right: 10px;
 }
 .usercenter-tb td{
-    padding: 15px 0 15px 54px;
+    padding: 25px 0 25px 54px;
     text-align: left;
     cursor: pointer;
 }
@@ -269,6 +275,7 @@ table{
 }
 .col-xs-10{
     padding-left: 30px;
+    padding-right: 0px;
 }
 .car-title .black{
     margin-left: 10px;
@@ -342,14 +349,21 @@ input[name="number"]{
     width: 350px;
     margin-bottom: 15px;
 }
-input[name="date"]{
+input[name="date"],input[name="code"]{
     width: 240px;
 }
 input[name="dealer"]{
     width: 525px;
 }
+
+.picture-warp{
+    display: inline-block;
+    overflow: hidden;
+    vertical-align:middle;
+}
 #picture{
-    display: none;
+    display: inline-block;
+    transform: translateX(-76px);
 }
 label[for="picture"]{
     margin:0 0 20px 15px;
@@ -420,14 +434,14 @@ input[name="logistics_name"],input[name="logistics_nub"]{
     margin: 15px auto;
 }
 #cancel{
-    margin-left: 10px;
+    margin-right: 10px;
 }
 .serve-none{
     padding-top: 50px ;
     min-height: 360px;
 }
 .serve-icon{
-    width:160px ;
+    height:150px ;
 }
 .serve-none .grey{
     margin: 50px auto 15px;
