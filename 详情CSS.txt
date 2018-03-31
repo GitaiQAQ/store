@@ -1,0 +1,24 @@
+<style>
+    .list-wrap {
+        margin-left: 70px;
+        font-size: 15px;
+    }
+
+    .list-wrap .col-xs-8,
+    .cut-off .col-xs-8 {
+        margin-left: 60px;
+    }
+
+    .list-wrap>.col-xs-8>div {
+        margin-bottom: 15px;
+    }
+
+    .cut-off {
+        margin: 0 0 30px 70px;
+    }
+
+    .cut-off>div {
+        border-bottom: 1px solid #ddd;
+        height: 15px
+    }
+</style>

@@ -1,0 +1,37 @@
+<div class="list-wrap clearfix gray">
+                    <div class="col-xs-2">概括</div>
+                    <div class="col-xs-8">
+                        <div>首个全金属蓝牙外壳</div>
+                    </div>
+                </div>
+                <div class="cut-off clearfix">
+                    <div class="col-xs-2"></div>
+                    <div class="col-xs-8"></div>
+                </div>
+                <div class="list-wrap clearfix gray">
+                    <div class="col-xs-2">包装清单</div>
+                    <div class="col-xs-8">
+                        <div>蓝牙耳机*1、蓝牙耳机充电底座*1</div>
+                    </div>
+                </div>
+                <div class="cut-off clearfix">
+                    <div class="col-xs-2"></div>
+                    <div class="col-xs-8"></div>
+                </div>
+                <div class="list-wrap clearfix gray">
+                    <div class="col-xs-2">技术参数</div>
+                    <div class="col-xs-8">
+                        <div>蓝牙4.1</div>
+                        <div>支持协议：A2DP,&nbsp;AVRCP,&nbsp; HFP, &nbsp;HSP</div>
+                        <div>降噪：CVC降噪</div>
+                        <div>音乐时长：约2h</div>
+                        <div>通话时长：约2h</div>
+                        <div>待机时长：约180h</div>
+                        <div>充电时间：约1.5h</div>
+                        <div>充电电压：4.2v/25mA</div>
+                        <div>电池类型：锂离子电池（3.7V/35mA）</div>
+                        <div>喇叭单元：8mm动圈单元</div>
+                        <div>频率响应：20Hz-20kHz</div>
+                        <div>产品尺寸：W18×D16.5×H35.8mm</div>
+                    </div>
+                </div>

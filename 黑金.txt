@@ -1,0 +1,62 @@
+<div class="list-wrap clearfix gray">
+                    <div class="col-xs-2">概括</div>
+                    <div class="col-xs-8">
+                        <div>精密抛光玫瑰金LOGO键和按键，彰显高格调</div>
+                        <div>精密乌黑陶瓷</div>
+                        <div>乌黑361L不锈钢PVD表框</div>
+                        <div>全铝机身，高达90%以上的金属占比</div>
+                    </div>
+                </div>
+                <div class="cut-off clearfix">
+                    <div class="col-xs-2"></div>
+                    <div class="col-xs-8"></div>
+                </div>
+                <div class="list-wrap clearfix gray">
+                    <div class="col-xs-2">包装清单</div>
+                    <div class="col-xs-8">
+                        <div>ASU Watch 黑金版*1、充电器*1、USB连接线*1、充电底座*1、蓝牙耳机*1、蓝牙耳机充电底座*1</div>
+                        <div>用户指南*1、产品三包凭证*1、产品安全说明手册*1、镭射标签*1</div>
+                    </div>
+                </div>
+                <div class="cut-off clearfix">
+                    <div class="col-xs-2"></div>
+                    <div class="col-xs-8"></div>
+                </div>
+                <div class="list-wrap clearfix gray">
+                    <div class="col-xs-2">技术参数</div>
+                    <div class="col-xs-8">
+                        <div class="row">
+                            <div class="col-xs-3">显示</div>
+                            <div class="col-xs-9">
+                                <p>物理屏：1.54″,240*240</p>
+                                <p>虚拟屏：2.3″,480*850</p>
+                                <p>投影亮度：18lm</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3">性能</div>
+                            <div class="col-xs-9">
+                                <p>使用时长：1天（650mAh）</p>
+                                <p>存储：1GB RAM+8GB ROM</p>
+                                <p>CPU：高通4核处理器，最高主频1.2GHz</p>
+                                <p>防水防尘：IP65</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3">网络</div>
+                            <div class="col-xs-9">
+                                <p>GSM：1800</p>
+                                <p>WCDMA：band1</p>
+                                <p>4G-LTE：Band1/3/38/39/40/41</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3">无线&传感器</div>
+                            <div class="col-xs-9">
+                                <p>GPS：yes</p>
+                                <p>Wi-Fi：yes </p>
+                                <p>蓝牙：BT4.1,支持BLE</p>
+                                <p>心率传感器：yes</p>
+                                <p>电子指南针/重力感应器/陀螺仪:yes</p>
+                            </div>
+                        </div>
