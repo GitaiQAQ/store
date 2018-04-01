@@ -6,3 +6,5 @@ django-filter
 django-cors-headers
 mysqlclient
 requests
+openunipay
+python-alipay-sdk
