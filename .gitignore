@@ -6,6 +6,7 @@
 /static/plugins/
 /media/
 *.json
+*.sql
 */docs/* 
 settings.py
 docs/通用商城设计文档.docx
