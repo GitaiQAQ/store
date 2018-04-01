@@ -1,7 +1,7 @@
 """store URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/1.11/topics/http/urls/
+    https:#docs.djangoproject.com/en/1.11/topics/http/urls/
 Examples:
 Function views
     1. Add an import:  from my_app import views
@@ -16,8 +16,11 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from store import views
+from store import views_pay
 from django.conf import settings
 from django.conf.urls.static import static
+
+from openunipay.api import views_alipay, views_weixin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -36,4 +39,13 @@ urlpatterns = [
     url(r'^aftersales/', include('aftersales.urls', namespace="aftersales")),
     url(r'^coupon/', include('coupon.urls', namespace="coupon")),
     url(r'^$', views.home, name='home'),
+
+    url(r'^notify/weixin/$', views_weixin.process_notify), #用户使用微信付款后，微信服务器会调用这个接口。详细流程参看微信支付文档
+    url(r'^qrnotify/weixin/$', views_weixin.process_qr_notify), #微信扫码支付， 用户扫描二维码后，微信服务器会调用这个接口。详细流程请参考微信扫码支付文档
+    url(r'^notify/alipay/$', views_alipay.process_notify), #支付宝支付后，支付宝服务器会调用这个接口。详细流程参看支付宝文档
+
+    #url(r"^pay/$",views_pay.alipay),
+    url(r"^alipay_check_pay$", views_pay.alipay_check_pay),
+    url(r"^alipay_notify$", views_pay.alipay_notify),
+
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

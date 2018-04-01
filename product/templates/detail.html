@@ -13,13 +13,13 @@
     <div class="col-xs-6 p-n img-wrap">
         <div class="swiper-container">
             <div class="swiper-wrapper">
-                {% for pic in product.productpic_set.all %}
-                <div class="swiper-slide">
-                    <div class="sider">
-                        <img class="product-pic" src="{{mediaroot}}{{pic.url}}" alt="">
-                    </div>
-                    <div class="pagination grey">1／2</div>
-                </div>
+                {% for pic in pics %} 
+                        <div class="swiper-slide">
+                            <div class="sider">
+                                <img class="product-pic" src="{{mediaroot}}{{pic.url}}" alt="">
+                            </div>
+                            <div class="pagination grey">{{forloop.counter}}／{{pics.count}}</div>
+                        </div> 
                 {% endfor %}
         
             </div>

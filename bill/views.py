@@ -15,6 +15,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.generic.detail import DetailView
 from django.conf import settings
+from django.shortcuts import redirect 
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -26,6 +27,9 @@ from mobile.detectmobilebrowsermiddleware import DetectMobileBrowser
 from coupon.models import AdaptorCoupon as Coupon
 from invoice.models import Invoice
 from address.models import Address
+from bill.apis import get_bill_money
+from store.views_pay import alipay
+
 
 dmb     = DetectMobileBrowser()
 
@@ -92,6 +96,33 @@ class BillView(View):
                 try:  
                     bill = AdaptorBill.objects.get(no = billno, owner = request.user) 
                     content['bill'] = bill
+                    content['money'] = get_bill_money(bill) 
+                    print(bill.money, content['money'])
+                except AdaptorBill.DoesNotExist:
+                    content['bill'] = False
+                    content['error'] = _("Not Found...") 
+            else:
+                content['error'] = _("Need billno, Not Found...")
+            if isMble:
+                return render(request, 'bill/m_unpayed.html', content)
+            else:
+                return render(request, 'bill/unpayed.html', content)
+        if 'payed' in request.GET:
+            # 给客户展示订单支付页面
+            # 需要订单号 
+            if 'billno' in request.GET and 'payway' in request.GET:
+                billno = request.GET['billno']
+                payway = request.GET['payway'].strip()
+                
+                try:  
+                    bill = AdaptorBill.objects.get(no = billno, owner = request.user) 
+                    content['bill'] = bill
+                    content['money'] = get_bill_money(bill)
+                    if payway == 'weixin':# 支付方式
+                        return redirect(alipay(bill.no, content['money'], bill.no)) 
+                    else:
+                        return redirect(alipay(bill.no, content['money'], bill.no))
+                      
                 except AdaptorBill.DoesNotExist:
                     content['bill'] = False
                     content['error'] = _("Not Found...") 

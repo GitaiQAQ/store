@@ -335,7 +335,13 @@ class AfterSalesView(View):
                 self.put(request)
                 return   self.get(request)
             elif method == 'create': # 创建
-                return self.create(request) 
+                aftersaleid = self.create(request) 
+                try:
+                    aftersaleid = int (aftersaleid)
+                    return self.get(request)
+                except ValueError:
+                    return aftersaleid 
+                    
             elif method == 'delete': # 删除
                 return self.delete(request) 
         else:
@@ -439,9 +445,12 @@ class AfterSalesView(View):
                 aftersale.device_type = device_type
             
             aftersale.save()
+            return aftersale.id
+            """
             result['id'] = aftersale.id
             result['status'] ='ok'
             result['msg'] = "提交成功..." 
+            """
         else:
             result['status'] ='error'
             result['msg'] ='Need title  in POST'

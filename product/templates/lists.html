@@ -29,6 +29,8 @@
                                 <i class="fa fa-jpy" aria-hidden="true"></i>
                                 {{product.adaptorrule_set.all.0.price}}
                             </p>
+                            <a href="{% url 'product:change' product.id %}">修改</a>
+                            <a href="{% url 'product:change' product.id %}?pic">修改图片</a>
                         </div>
                     </div>
                 </div>

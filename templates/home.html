@@ -63,39 +63,30 @@
 
 <!-- 商品 -->
 <div class="container product-warp">
-   <div class="col-xs-12">
-       <div class="classify-name">产品</div>
-   </div>
-   <div class="col-xs-6">
-       <div class="product-list text-center">
-           <a href="/product/products/15/">
-                <img class="product-pic" src="/static/img/watch.png" alt="">
-                <div class="fs16 black">ASU&nbsp;Watch&nbsp;激光投影手表</div>
-                <div class="orange">¥&nbsp;3699</div>
-            </a>
-       </div>
-   </div>
-   <div class="col-xs-6">
-    <div class="product-list text-center">
-            <a href="/product/products/4/">
-                <img class="product-pic" src="/static/img/watch_g.png" alt="">
-                <div class="fs16 black">ASU&nbsp;Watch&nbsp;激光投影手表&nbsp;黑金版</div>
-                <div class="orange">¥&nbsp;8888</div>
-            </a>
+   {% for category in categories %}
+    <div class="col-xs-12">
+        <div class="classify-name">{{category.name}}</div>
     </div>
-</div>
-   <div class="col-xs-12">
-    <div class="classify-name">配件</div>
-   </div>
-   <div class="col-xs-6">
-    <div class="product-list text-center">
-            <a href="/product/products/17/">
-                <img class="product-pic" src="/static/img/earphone.png" alt="">
-                <div class="fs16 black">ASU&nbsp;蓝牙耳机</div>
-                <div class="orange">¥&nbsp;199</div>
-            </a>
-    </div>
-</div>
+        {% for product in  products %}
+            {% if product.category == category %}
+                    <div class="col-xs-6">
+                        <div class="product-list text-center">
+                            <a href="{% url 'product:detail' product.id %}">
+                                <img class="product-pic" src="{{mediaroot}}/{{product.thumbnail}}" alt="">
+                                <div class="fs16 black">{{product.title}}</div>
+                                <div class="orange">¥&nbsp;
+                                    {% for rule in product.adaptorrule_set.all %}
+                                        {% if rule.price %}
+                                           {{rule.price}}
+                                        {% endif %}
+                                    {% endfor %} 
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                {% endif %}
+        {% endfor %} 
+   {% endfor %} 
 </div>
 <!-- end 商品 -->
 <!-- 功能 -->

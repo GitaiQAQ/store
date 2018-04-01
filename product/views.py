@@ -98,9 +98,12 @@ class ProductDetailView(APIView):
         content={
             'product':product
         }
+        pics = product.productpic_set.exclude(url = product.thumbnail)
+
         content['mediaroot'] = settings.MEDIA_URL
+        content['pics'] = pics
         if isMble:
-            return render(request, 'm_detail.html', content)
+            return render(request, 'detail.html', content)
         else:
             return render(request, 'detail.html', content)
 

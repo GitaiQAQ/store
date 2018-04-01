@@ -45,7 +45,7 @@
             </div> 
             <div class="  col-xs-12 item-content item-pay">
                     <div class="pull-right">  
-                            <button class="submit-btn submit-btn-test common-btn white orange-bg"  id="submit-bill">现在支付</button> 
+                            <button id="submit-pay"  class="submit-btn submit-btn-test common-btn white orange-bg"  >现在支付</button> 
                     </div> 
             </div>
             <div class="  col-xs-12 item-content item-pay">
@@ -80,5 +80,15 @@
     {% endfor %}
     $("#all_sum_price").text(totalmoney);
 </script>
+<script>
+    $("#submit-pay").click(function(){
+        //pay
+       var payway = $('input[name="payway"]:checked').val() ;
+       url = "{% url 'bill:bills' %}?payed&billno={{bill.no}}&payway="+payway;
+       //window.location = url;
+       window.open(url);
+    });
+</script>
+
 {% endblock %}
  

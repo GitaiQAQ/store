@@ -21,6 +21,7 @@ class Bill(BaseDate):
     STATUS_PAYED = 1   # 已支付
     STATUS_DELIVERIED = 2   # 已发货
     STATUS_FINISHED = 3# 已完成
+    STATUS_BAD = 4 #异常订单
 
     STATUS_CHOICES = (
         (STATUS_FAILED, '失败'),
@@ -28,6 +29,7 @@ class Bill(BaseDate):
         (STATUS_PAYED, '已支付，未发货'),
         (STATUS_DELIVERIED, '已发货'),
         (STATUS_FINISHED, '已完成'),
+        (STATUS_BAD, '异常订单'),
     )
 
     
@@ -57,6 +59,22 @@ class Bill(BaseDate):
     remark = models.TextField(_('Remark'), null=True)
     # 发票信息
     invoice = models.ForeignKey(Invoice, null = True)  
+
+    # 支付信息
+    ALIPAY = 'zhifubao' #支付宝
+    WEIXINPAY = 'weixin' #微信
+ 
+    PAY_CHOICES = (
+        (WEIXINPAY, '微信'),
+        (ALIPAY, '支付宝'), 
+    )
+    # 支付方式
+    pay_way = models.CharField( choices=PAY_CHOICES, max_length = 128, null =True)
+    # 支付金额
+    payed_money = models.DecimalField(_('Payed Money'), max_digits = 9, decimal_places = 2, null =True)
+    # 微信或者支付宝的支付编号
+    trade_no = models.CharField(_('trade no'), max_length = 4096, null = True) 
+    pay_datetime = models.DateTimeField(_('pay date'),null = True) 
 
     class Meta:
         abstract = True
