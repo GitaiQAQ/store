@@ -18,3 +18,8 @@ $(function(){
           $(this).parents('.pop_wrap').hide();
       })
 })
+//显示上传的
+$('#picture').change(function(){
+    var name=  $(this).val();
+    $(this).prev().text(name);
+})

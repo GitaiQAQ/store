@@ -7,11 +7,6 @@ body{
     border:1px solid #ddd;
 }
 
-.car-title{
-    padding: 20px 30px;
-    background-color: rgb(242, 242, 242);
-    font-size: 16px;
-}
 .container-car{
     background-color: white;
 }
@@ -195,6 +190,9 @@ margin-right: 25px;
     background-color: white;
     padding: 20px 29px;
 }
+.item-content input,.rule_content.grey{
+    font-size: 12px;
+}
 
 .submit-holder{
     padding-top: 0px;
@@ -212,7 +210,7 @@ body{
 .car-title{
     padding: 20px 30px;
     background-color: rgb(242, 242, 242);
-    font-size: 16px;
+    font-size: 14px;
 }
 table.shop-car{
     width: 100%; 
@@ -234,13 +232,16 @@ table.shop-car td{
     height: 100px;
     padding:15px;
     border: 1px solid #ddd;
+    margin-left: 30px
 }
-
+.car-list .text-right{
+    padding-right: 30px;
+}
 .img-wrap{
-    width: 100px;
+    width: 130px;
 }
 .shop-msg{
-    width: 520px;
+    width: 490px;
 }
 
 .title-name{
@@ -259,11 +260,6 @@ table.shop-car td{
 .r-btn{
     width: 18px;
     height: 18px;
-    border: 1px solid #b5b6b6;
-    color: #b5b6b6;
-    text-align: center;
-    border-radius: 50%;
-    font-size: 12px;
     display: inline-block;
     cursor: pointer;
 }

@@ -127,11 +127,6 @@ margin-left: 30px;
 .r-btn{
     width: 18px;
     height: 18px;
-    border: 1px solid #b5b6b6;
-    color: #b5b6b6;
-    text-align: center;
-    border-radius: 50%;
-    font-size: 12px;
     display: inline-block;
     cursor: pointer;
 }
@@ -359,14 +354,13 @@ input[name="dealer"]{
     width: 525px;
 }
 
-.picture-warp{
+/* .picture-warp{
     display: inline-block;
     overflow: hidden;
     vertical-align:middle;
-}
+} */
 #picture{
-    display: inline-block;
-    transform: translateX(-76px);
+    display: none;
 }
 label[for="picture"]{
     margin:0 0 20px 15px;
