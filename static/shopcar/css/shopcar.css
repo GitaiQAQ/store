@@ -70,6 +70,9 @@ margin-left: 30px;
     background-color: #fff;
     border-top: 1px solid #ddd;
 }
+.car-footer .col-xs-6{
+    width: 52%;
+}
 input[type=checkbox], input[type=radio]{
     margin: 0;
     vertical-align: middle; 

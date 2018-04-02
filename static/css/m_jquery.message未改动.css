@@ -12,7 +12,7 @@
  *   http://www.gnu.org/licenses/gpl.html
  */
 .jquery-message {
-    font: normal 14px/150%;
+    font: normal 14px/150% Helvetica, Arial, Sans-Serif;
     position: fixed;
 	bottom: 100px;
     left: 10%;
@@ -20,16 +20,19 @@
     padding-top:4px;
     padding-bottom:4px;
     color: white;
-    background-color: #ea5014;
+    background-color: rgba(0, 128, 0, 0.9);
     text-align: center;
     display: none;
     opacity: 0; 
     border-radius: 4px;
+    box-shadow:  12px 0px 20px -2px #003333;
+    -moz-box-shadow:  12px 0px 20px -2px #003333;
+    -webkit-box-shadow:  5px 5px 20px -2px #003333;
     z-index: 100000;
 }
 .jquery-error-message
 { 
-    font: normal 120%/ 150%;
+    font: normal 120%/ 150% Helvetica, Arial, Sans-Serif;
     position: fixed;
 	bottom: 100px;
     left: 10%;
@@ -37,11 +40,14 @@
     padding-top:4px;
     padding-bottom:4px;
     color: white;
-    background-color: #ea5014;
+    background-color: rgba(255, 0, 0, 0.9);
     text-align: center;
     display: none;
     opacity: 0; 
     border-radius: 4px;
+    box-shadow:  12px 0px 20px -2px #003333;
+    -moz-box-shadow:  12px 0px 20px -2px #003333;
+    -webkit-box-shadow:  5px 5px 20px -2px #003333;
     z-index: 100000;
 }
 .jquery-message .round, .jquery-error-message .round { 

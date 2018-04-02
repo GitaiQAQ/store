@@ -17,13 +17,16 @@ body{
 }
 .coupon-inp{
     margin-top: 15px;
+    width: 200px;
 }
 .coupon-submit-btn{
     margin-left: 5px;
     line-height: 26px;
     
 }
-
+.mr-20{
+    margin-right:20px;
+}
 #sum_number{
     color: #777;
 }
@@ -239,9 +242,7 @@ table.shop-car td{
 .shop-msg{
     width: 520px;
 }
-.shop-msg>div{
-margin-left: 30px;
-}
+
 .title-name{
     padding-left: 30px!important;
 }

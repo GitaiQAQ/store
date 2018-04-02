@@ -213,6 +213,7 @@ $('.car-list').on('click','.delete',function(){
         success: function(result) {
             if (result['status'] == 'ok'){
                 fa_times.parents('.car-list').remove();
+                fixedFooter();
             }
         },
         error: function(){
@@ -238,7 +239,7 @@ $('#all-delete').click(function(){
                     data: data,
                     success: function(result) {
                         if (result['status'] == 'ok'){
-                            
+                            fixedFooter();
                         }
                     },
                     error: function(){

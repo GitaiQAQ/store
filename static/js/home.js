@@ -9,7 +9,9 @@ $(document).ready(function(){
        autoplay : 5000,
        loop : true
    });
-   
+   var positionValue = $('.logo').offset().left;
+    $('.shop-link1').css('left',  positionValue +60+ 'px');
+    $('.shop-link0').css('right',  positionValue +60+ 'px');
 })
 $(window).load(function(){
     /* 轮播图箭头位置 */

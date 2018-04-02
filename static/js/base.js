@@ -44,10 +44,13 @@ $(function(){
     jQuery(document).click(function () {
         $('#center').slideUp();
     })
+    fixedFooter();
+})
+function fixedFooter(){//页面过小时，底部固定
     var docHeight=$('body').height();//整个网页的高度
     var windowHeight= $(window).height();//浏览器可视窗口的高度
     if(docHeight<windowHeight){
         $('.linkitems').css({'position':'fixed','bottom':'40px','width':'100%'});
         $('footer').css({'position':'fixed','bottom':'0px','width':'100%'});
     }
-})
+}
