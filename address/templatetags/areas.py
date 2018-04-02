@@ -13,6 +13,9 @@ def areas(area):
         province = city
     else:
         province = Area.objects.get(id = city.parent_id)
-    string = province.short_name + '省 '+ city.short_name + '市 ' 
+    if province.id in bigcity:
+        string = city.short_name + '市 ' 
+    else:
+        string = province.short_name + '省 '+ city.short_name + '市 ' 
     return string
      
