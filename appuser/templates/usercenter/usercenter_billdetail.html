@@ -8,10 +8,11 @@
 <div class="container m60"> 
     {% include "usercenter/menu.html" %}
     <div class="col-xs-10">
+            <div class="usercentercontent">
         {% if bill.status == 1 %}
             <div  >
-                    <div class="car-title col-xs-12">支付订单</div>
-                    <div class="col-xs-12 sec text-center"> 
+                    <div class="car-title">支付订单</div>
+                    <div class="submit sec text-center"> 
                            <img src="/static/img/right.gif" /><span class="show-sucess">订单已支付</span>
                            <div> 
                                 <br/><span class="deliverytime">72小时内发货</span>
@@ -23,14 +24,13 @@
             </div>
         {% endif %}
         {% block usercentercontent %}
-        <div class="usercentercontent">
+        
                 <div class="car-title clearfix">
                         订单详情
                 </div>
                 <div class="submit">
                     物流跟踪
                     <div class="tracking">
-                        <p>12月2日 出库。。。。</p>
                         <p>12月2日 出库。。。。</p>
                         <p>12月2日 出库。。。。</p>
                     </div>
@@ -71,28 +71,35 @@
                         <div class="div-submit"> 
                             <table>
                                 <tr>
-                                    <td><p class="grey" >应付金额： <i class="fa fa-jpy fs24 orange" aria-hidden="true"></i> </p></td>
-                                    <td><p class="grey" ><span id="all_sum_price" class="price fs24 orange"> 0.00</span></p></td>
-                                    <td><button class="submit-btn submit-btn-test common-btn white orange-bg"  id="submit-bill">提交订单</button> </td>
+                                    <td><p class="grey" >应付金额：</p></td>
+                                    <td><p class="fs24 orange"> ¥<span id="all_sum_price" class="price"> 0.00</span></p></td>
+                                    
                                 </tr> 
                             </table>
                                 
                         </div>   
                     </div>
             </div>
-            <div class="clearfix item-content div-delivery">
-                    <div class="pull-right">
-                        <div class="  pull-right sum_money">
-                            <div>配送方式</div>
-                            <div class="grey">顺丰快递&nbsp;|&nbsp;周一至周五16:00之前的订单当天发货，16:00之后的第二天发货，周六日的周一发货</div>
-                        </div> 
-                          
-                    </div>
-            </div> 
+
+
+            <!-- 售后信息 -->
+            <div class="billdetail submit gray">
+                <h5 class="black">收货信息</h5>
+                <p>收货人</p>
+                <P>联系电话：13899999999</P>
+                <p>收货地址:北京市</p>
+            </div>
+            <div class="submit gray">
+                    <h5 class="black">发票</h5>
+                    <p>发票类型：电子发票</p>
+                    <P>发票抬头：个人</P>
+                    <p>发票内容:北购买商品明细</p>
+            </div>
+            {% endblock %}
         </div>
         
         </div>
-        {% endblock %}
+        
     </div>
 </div>
 
