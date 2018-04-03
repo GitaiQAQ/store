@@ -311,6 +311,15 @@ td[colspan="7"] div{
     content: '';
     height: 1px;
 }
+.td_line {
+    padding: 0 30px !important;
+}
+
+.td_line div{
+    border-top: 1px solid #ddd;
+    content: '';
+    height: 1px;
+}
 a.apply-for-btn{
     padding: 2px 12px;
 }
@@ -351,9 +360,14 @@ input[name="number"]{
     width: 350px;
     margin-bottom: 15px;
 }
-input[name="date"],input[name="code"]{
-    width: 240px;
+input[name="code"]{
+    width: 400px;
 }
+
+input[name="date"]{
+    width: 160px;
+}
+
 input[name="dealer"]{
     width: 525px;
 }

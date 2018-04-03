@@ -10,30 +10,54 @@
     <div class="col-xs-10">
         {% block usercentercontent %}
         <div class="usercentercontent">
+            {% if aftersale.status == 0 %}
             <div class="car-title clearfix">
-                <div class="pull-left">录入物流信息</div>
-            </div>
-            <form method="post"  action="" enctype="multipart/form-data">
-                    {% csrf_token %} 
-                <div class="submit">
-                    <div>您的寄修预约号：<span class="fs18">{{code}}</span></div>
-                    <input type="hidden" name="delivery" >
-                    <input type="hidden" name="aftersaleid"  value="{{aftersale.id}}">
-                    <p class="msg">
-                        请拨打合作物流公司的客服人员寄送，寄送时请注意：
-                        <br>a.妥善包装，在包装盒附纸条写明用户姓名、联系方式、寄修预约号，
-                        <br>b.选择“运费到付”的方式将故障产品返回维修工厂，在物流单上请注明预约号'{{code}}'
-                    </p>
-                    <input class="common-inp" type="text" name="logistics_name" id="" placeholder="请输入物流公司名称">
-                    <input class="common-inp" type="text" name="logistics_nub" id="" placeholder="请输入物流单号">
-                    上传运单照片
-                    <label class="common-inp grey-btn" for="picture">上传附件<i class="fa fa-arrow-circle-up" aria-hidden="true"></i></label>
-                    <span class="picture-warp"><input type="file" name="picture" id="picture"></span>
-                    <div>
-                            <input class="common-inp orange-bg white" type="submit" value="提交">
-                    </div>
+                    <div class="pull-left">寄修信息已提交</div>
                 </div>
-            </form>
+                <form method="get"  action="?" >
+                        <input type="hidden" name="status"  value="{{aftersale.status}}">
+                        <input type="hidden" name="aftersaleid"  value="{{aftersale.id}}">
+                    <div class="submit">
+                        <div>您的寄修预约号：<span class="fs18">{{code|default:'--------------------------'}}</span></div>
+                        <p class="msg">
+                                您的售后信息已经提交成功，请保持电话畅通，等待客服联系。
+                            <br>或者您可拔打:400-608-0106, 联系客服获得预约服务号。 
+                            <br>获取预约服务码后，点击下面按钮刷新页面即可自动关联预约服务号。
+                        </p> 
+                        <div>
+                                <input class="common-inp orange-bg white" type="submit" value="刷新">
+                        </div>
+                    </div>
+                </form>
+            {% else %}
+            
+                <div class="car-title clearfix">
+                    <div class="pull-left">录入物流信息</div>
+                </div>
+                <form method="post"  action="" enctype="multipart/form-data">
+                        {% csrf_token %} 
+                    <div class="submit">
+                        <div>您的寄修预约号：<span class="fs18">{{code}}</span></div>
+                        <input type="hidden" name="delivery" >
+                        <input type="hidden" name="aftersaleid"  value="{{aftersale.id}}">
+                        <p class="msg">
+                            请拨打合作物流公司的客服人员寄送，寄送时请注意：
+                            <br>a.妥善包装，在包装盒附纸条写明用户姓名、联系方式、寄修预约号，
+                            <br>b.选择“运费到付”的方式将故障产品返回维修工厂，在物流单上请注明预约号'{{code}}'
+                        </p>
+                        <input class="common-inp" type="text" name="logistics_name" id="" placeholder="请输入物流公司名称">
+                        <input class="common-inp" type="text" name="logistics_nub" id="" placeholder="请输入物流单号">
+                        上传运单照片
+                        <label class="common-inp grey-btn" for="picture">上传附件<i class="fa fa-arrow-circle-up" aria-hidden="true"></i></label>
+                        <span class="picture-warp"><input type="file" name="picture" id="picture"></span>
+                        <div>
+                                <input class="common-inp orange-bg white" type="submit" value="提交">
+                        </div>
+                    </div>
+                </form>
+            {% endif %}
+
+
         </div>
         {% endblock %}
     </div>

@@ -59,6 +59,13 @@ class AfterSales(BaseDate):
         (EXCHANGE, '换机')
     )
 
+    AFTERSALES_MSG = (
+        (TURNBACK, '退机必须整包装，不能缺附件'),
+        (MAINTAIN_MAIN, '换机只返主机'),
+        (MAINTAIN_SUB, '维修只返主机'),
+        (EXCHANGE, '附件只返有故障的附件')
+    )
+
     # 姓名
     name = models.CharField(_('name'), max_length = 128)
     phone = models.CharField(_('phone'), max_length = 11)

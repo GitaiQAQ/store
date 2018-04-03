@@ -239,3 +239,8 @@ select.common-inp{
     background-repeat:no-repeat;
     cursor: pointer;
 }
+
+.modal-title, .pointer{
+    cursor: pointer;
+    
+}

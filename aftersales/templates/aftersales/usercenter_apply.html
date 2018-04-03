@@ -16,16 +16,16 @@
             <div class="car-title clearfix">
                 <div class="pull-left">录入寄修信息</div>
             </div>
-            <form method="post"  action="" enctype="multipart/form-data">
+            <form method="post" id="newaftersales" action="" enctype="multipart/form-data">
                     {% csrf_token %} 
                 <div class="information clearfix">
-                    <input class="common-inp" type="text" name="name" id="" placeholder="姓名">
+                    <input class="common-inp" type="text" name="name" id="name" placeholder="姓名">
                     <input class="common-inp" type="text" name="phone" id="myphone" value="{{request.user.phone}}" placeholder="电话">
-                    <input class="common-inp" type="text" name="email" id="" placeholder="邮箱">
-                    <input class="common-inp" type="text" name="address" id="" placeholder="寄回地址">
-                    <input class="common-inp" type="text" name="rule" id="" placeholder="产品名称">
-                    <input class="common-inp" type="text" name="color" id="" placeholder="颜色">
-                    <input class="common-inp" type="text" name="number" id="" placeholder="产品系列号(PSN)">
+                    <input class="common-inp" type="text" name="email" id="email" placeholder="邮箱">
+                    <input class="common-inp" type="text" name="address" id="address" placeholder="寄回地址">
+                    <input class="common-inp" type="text" name="rule" id="productname" placeholder="产品名称">
+                    <!--<input class="common-inp" type="text" name="color" id="" placeholder="颜色">-->
+                    <input class="common-inp" type="text" name="number" id="number" placeholder="产品系列号(PSN)">
                     <input class="common-inp" type="text" name="date" id="buy_date" placeholder="购买日期">
                     <input class="common-inp" type="text" name="dealer" id="" placeholder="购买经销商">
                 </div>
@@ -33,20 +33,23 @@
                     上传购机发票
                     <label class="common-inp grey-btn" for="picture">上传附件<i class="fa fa-arrow-circle-up" aria-hidden="true"></i></label>
                    <input type="file" name="invoice" id="picture">
-                    <textarea class="common-inp" name="description" rows="4" placeholder="故障现象">
-                    </textarea>
+                  
+                    <textarea class="common-inp" name="description" id="description" rows="4" placeholder="故障现象"></textarea>
                 </div>
                 <div class="submit">
                     <div>申请售后类别</div>
                     <div>
-                        <select class="common-inp genre" name="service_type" id="">
-                                {% for choice in choices %}
-                                <option value="{{choice.0}}">{{choice.1}}</option>
-                                {% endfor %}
+                        <select class="common-inp genre" id="maintaince_type" name="service_type" id=""> 
+                                <option value="0" msg="退机必须整包装，不能缺附件">7日内退机</option>
+                                <option value="3" msg="换机只返主机">换机</option>
+                                <option value="1" msg="维修只返主机">返修主机</option>
+                                <option value="2" msg="附件只返有故障的附件">返修配件</option> 
                         </select>
+                        <span class="showmsg">
                         退机必须整包装，不能缺附件
+                        </span>
                     </div>
-                        <input class="common-inp orange-bg white" type="submit" value="提交">
+                        <input class="common-inp orange-bg white" id="submit" type="submit" value="提交">
                 </div>
             </form>
             
@@ -61,43 +64,10 @@
 <script src="/static/appuser/js/usercenter.js"></script>
 <script src="/static/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 <script src="/static/plugins/bootstrap-datepicker/js/locales/bootstrap-datepicker.zh-CN.js" charset="UTF-8"></script>
+<script src="/static/aftersales/js/aftersales.js"></script>
 <script>
-    /* 验证手机号 */
-    $(function () {
-            $('#myphone').blur(function () {
-                var myreg =/^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
-                if (!myreg.test($(this).val())||!$(this).length==11) {
-                    $('#myphone').css('border-color',"#ddd");
-                    $().errormessage('手机号格式不正确请重新输入');
-                    $('#myphone').css('border-color',"#ea5014");
-                }
-            })
-            $('input[name=email]').blur(function () {
-                var myreg =/^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
-                if($(this).val()==''){
-                    $().errormessage('E_mail不能为空！');
-                    $(this).css('border-color',"#ea5014");
-                }else if (!myreg.test($(this).val())) {
-                    $('#myphone').css('border-color',"#ddd");
-                    $().errormessage('请输入有效的E_mail！');
-                    $(this).css('border-color',"#ea5014");
-                }
-            })
-
-            $('form').submit(function(e){
-            if($('input[type="text"]').val()==''){
-                $().errormessage('请完善资料');
-                e.preventDefault();
-            }
-        })
-        })
-        $( "#buy_date" ).datepicker({ 
-            defaultDate: "+1w",
-            changeMonth: true,
-            changeYear: true,
-            language:'zh-CN', 
-            format:'yyyy-mm-dd', 
-        }); 
-        
+   $("#submit").click(function(){
+       //newaftersales
+   })
 </script>
 {% endblock %}

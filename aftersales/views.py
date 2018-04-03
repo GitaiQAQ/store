@@ -263,6 +263,7 @@ class AfterSalesView(View):
  
         content['bills'] = finished_bills
         content['menu'] = 'service'
+  
         if 'new' in request.GET: 
             content['choices'] = AfterSales.AFTERSALES_CHOICES
             if isMble:
@@ -271,6 +272,11 @@ class AfterSalesView(View):
                 return render(request, 'aftersales/usercenter_apply.html', content)
         elif 'aftersaleid' in request.GET : 
             aftersaleid = request.GET['aftersaleid']
+            try:
+                    aftersale = AfterSales.objects.get(id = aftersaleid)
+            except AfterSales.DoesNotExist:
+                    aftersale = []
+            content['aftersale'] = aftersale
             
             if 'status' in request.GET: # 发货
                 status = request.GET['status']
@@ -291,6 +297,10 @@ class AfterSalesView(View):
                             aftersale.status = AfterSales.CODE
                             aftersale.code_date = datetime.today()
                             aftersale.save()
+                        else:
+                            # 预约号匹配失败，用户还没有预约号码
+                            pass
+
                     elif aftersale.status == AfterSales.CODE:
                         # 已经获得预约服务号
                         code = aftersale.maintain_code.code
@@ -303,7 +313,7 @@ class AfterSalesView(View):
                         
                 except AfterSales.DoesNotExist:
                     aftersale = []
-                content['aftersale'] = aftersale
+                
                 content['code'] = code
                 if isMble:
                     return render(request, 'aftersales/usercenter_delivery.html', content)
@@ -315,10 +325,12 @@ class AfterSalesView(View):
                 except AfterSales.DoesNotExist:
                     aftersale = []
                 content['aftersale'] = aftersale
-                if isMble:
-                    return render(request, 'aftersales/usercenter_detail.html', content)
-                else:
-                    return render(request, 'aftersales/usercenter_detail.html', content)
+            if isMble:
+                return render(request, 'aftersales/usercenter_detail.html', content)
+            else:
+                return render(request, 'aftersales/usercenter_detail.html', content)
+            
+
         else: 
             content['aftersales'] = aftersale_items
             if isMble:
