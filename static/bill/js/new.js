@@ -110,11 +110,13 @@ $(document).ready(function(){
     mark = false;
     $('.submit-btn').click(function () {
         //loading
+        var address_id = $('.act_address').attr("addressid");
         if (mark == true) {
             return;
         }
-        if (address_id == ''){
-
+        if (!address_id){
+            $().message('未选中地址！');
+            return;
         }
         var timeout =  (500 * 2) * 3 /500;//3 second
         
@@ -173,6 +175,9 @@ $(document).ready(function(){
                     billno = result['no'];
                     url = '/bill/bills/?unpayed&billno='+billno; //API
                     location.href=url; 
+                }else{
+                    HoldOn.close();
+                    $().message(result['msg']);
                 }
             },
             error: function () {
