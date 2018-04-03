@@ -243,7 +243,10 @@ table.shop-car td{
 .shop-msg{
     width: 490px;
 }
-
+.plus{
+    height: 15px;
+    margin: 0 6px 2px 0;
+}
 .title-name{
     padding-left: 30px!important;
 }

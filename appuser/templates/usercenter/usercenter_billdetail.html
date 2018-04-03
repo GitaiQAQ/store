@@ -8,10 +8,11 @@
 <div class="container m60"> 
     {% include "usercenter/menu.html" %}
     <div class="col-xs-10">
+            <div class="usercentercontent">
         {% if bill.status == 1 %}
             <div  >
-                    <div class="car-title col-xs-12">支付订单</div>
-                    <div class="col-xs-12 sec text-center"> 
+                    <div class="car-title">支付订单</div>
+                    <div class="submit sec text-center"> 
                            <img src="/static/img/right.gif" /><span class="show-sucess">订单已支付</span>
                            <div> 
                                 <br/><span class="deliverytime">72小时内发货</span>
@@ -23,7 +24,7 @@
             </div>
         {% endif %}
         {% block usercentercontent %}
-        <div class="usercentercontent">
+        
                 <div class="car-title clearfix">
                         订单详情
                 </div>
@@ -89,10 +90,11 @@
                           
                     </div>
             </div> 
+            {% endblock %}
         </div>
         
         </div>
-        {% endblock %}
+        
     </div>
 </div>
 
