@@ -130,6 +130,10 @@ margin-left: 30px;
     display: inline-block;
     cursor: pointer;
 }
+#all_sum_price{
+    padding:0px;
+}
+
 .car-footer{
     padding: 30px 15px;
     background-color: #fff;
