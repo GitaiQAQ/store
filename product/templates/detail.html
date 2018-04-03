@@ -37,7 +37,7 @@
         <div>
             {% for rule in product.adaptorrule_set.all %}
             {% if rule.price %}
-                {{rule.rule_title}}：
+                {{rule.rule_title}}
             {% endif %}
             {% endfor %}
            
@@ -56,7 +56,7 @@
         <div>
             {% for rule in product.adaptorrule_set.all %}
             {% if not rule.price %}
-                {{rule.rule_title}}：
+                {{rule.rule_title}}
             {% endif %}
             {% endfor %}
 
