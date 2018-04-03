@@ -244,3 +244,13 @@ select.common-inp{
     cursor: pointer;
     
 }
+.alert-danger,.alert{
+    border: none;
+    color: #ea5014;
+    margin: 3px 0 0 0;
+    font-size: 14px;
+    padding-left: 20px;
+    background: url(/static/img/icon/jinggao.gif) no-repeat left 3px;
+    background-size: 14px;
+    padding: 0 0 0 16px;
+}
