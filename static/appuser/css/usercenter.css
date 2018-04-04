@@ -61,6 +61,7 @@ input[type=file]:focus,、{
 .all_price .pull-right{
 margin-right: 25px;
 }
+
 .item-content{
     background-color: white;
     padding: 30px 30px 30px;
@@ -300,13 +301,17 @@ th{
 .w110{
     width: 110px;
 }
-td[colspan="7"]{
+.cut_line td[colspan="7"]{
     padding: 0 30px;
 }
-.cut_line:last-child{
-    display: none;  
+
+.aggregate .common-btn{
+margin-left: 15px;
 }
-td[colspan="7"] div{
+.aggregate>span{
+    margin-right: 15px;
+    }
+.cut_line div{
     border-top: 1px solid #ddd;
     content: '';
     height: 1px;
@@ -526,6 +531,10 @@ input[name="logistics_name"],input[name="logistics_nub"]{
 
 .billdetail{
     border-top:1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+table.billdetail{
+    border-top:none;
     border-bottom: 1px solid #ddd;
 }
 .billdetail td[colspan="5"]{
