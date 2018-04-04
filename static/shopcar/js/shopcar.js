@@ -84,7 +84,7 @@ $('.ichecked_item, #all_checked').iCheck({
  *加载完跟新价格
  */
 window.onload = function () {
-    var selectList = $("input.checked:checked").parents('.car-list');
+    selectList = $("input.checked:checked").parents('.car-list');
     //cal_sum();
     var sum = cal_sum();
     $('.sum_price').text(sum);
@@ -214,7 +214,7 @@ $('.car-list').on('click', '.delete', function () {
             if (result['status'] == 'ok') {
                 fa_times.parents('.car-list').remove();
                 fixedFooter();//如果网页高度不够底部固定。
-                var selectList = $("input.checked:checked").parents('.car-list');
+                selectList = $("input.checked:checked").parents('.car-list');
                 var sum = cal_sum();
                 $('.sum_price').text(sum);
                 var nub = nub_sum();
@@ -245,7 +245,7 @@ $('#all-delete').click(function () {
                 success: function (result) {
                     if (result['status'] == 'ok') {
                         fixedFooter();
-                        var selectList = $("input.checked:checked").parents('.car-list');
+                        selectList = $("input.checked:checked").parents('.car-list');
                         var sum = cal_sum();
                         $('.sum_price').text(sum);
                         var nub = nub_sum();
