@@ -1,3 +1,8 @@
+
+//优惠券去掉提示框
+$('#coupon-number').on('focus',function(){
+    $('#coupon-msg').children('.alert').remove();
+})
 $(document).ready(function(){
     /* 
      *获取cookid数据

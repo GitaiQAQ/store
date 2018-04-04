@@ -52,6 +52,9 @@ body{
 .fs24{
     font-size: 24px;
 }
+button{
+    outline:none;
+    }
 .fs12{
     font-size: 12px;
 }

@@ -96,11 +96,11 @@ margin-right: 25px;
 }
 .item-content{
     background-color: white;
-    padding: 20px 30px;
+    padding: 30px 30px;
 }
 .sec{
     background-color: white;
-    padding: 90px 0px;
+    padding: 60px 0px;
 }
 .sec>img{
     width:26px;
@@ -124,6 +124,9 @@ body{
     padding: 20px 30px;
     background-color: rgb(242, 242, 242);
     font-size: 16px;
+}
+h5{
+    margin: 20px auto 10px;    
 }
 table.shop-car{
     width: 100%; 
@@ -241,9 +244,7 @@ input[type=checkbox].checked{
     text-align: right;
     line-height: 2;
 }
-p.grey {
-    padding-top: 15px;
-}
+
 .div-delivery{
     padding-top: 0px;
 }
@@ -279,5 +280,9 @@ p.grey {
     margin-right: 30px;
 }
 .item-pay{
-    padding-top:0px;
+    padding: 0 30px 30px;
+    background-color: #fff;
+}
+.mt15{
+    margin-top: 15px;
 }
