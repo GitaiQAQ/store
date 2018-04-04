@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load areas %}
 {% block fixed_menu_class %}fixed_menu_class{%endblock%}
 {% block pagetitle%}支付-订单号：{{bill.no}}{% endblock%} 
 {% block css %} {% load staticfiles %}
@@ -42,19 +43,24 @@
                     <p class="grey" >应付金额： <span class="fs24 orange">¥</span>
                     <span id="all_sum_price" class="price fs24 orange"> 0.00</span></p>
                     <button id="submit-pay"  class="submit-btn submit-btn-test common-btn white orange-bg"  >现在支付</button> 
+                    <br/>
+                    <br/>
                 </div>
+                
             </div> 
+            
+           <!--
             <div class="col-xs-12 item-pay gray">
                         <h5 class="fs16 black">收货信息</h5>
                         姓名：{{bill.address.receiver}}<br>
                         电话：{{bill.address.phone}}<br>
-                        地址：{{bill.address.detail}}
+                        地址：{{bill.address.detail}}{{bill.address.detail}}
                         <h5 class="fs16 black">发票信息：</h5>
                         {{bill.invoice.title}}
                         {{bill.invoice.code}} 
                         {{bill.adaptorcouponitem_set.all.0.coupon.price}} 
             </div>
-
+        -->
         </div>
      
 </div>

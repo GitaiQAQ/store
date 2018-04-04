@@ -30,9 +30,7 @@
                                 <th>状态</th>
                                 <th>应付总额</th>
                                 <th>
-                                    <a href="{% url 'bill:detail' bill.id %}">
-                                        <span class="orange">查看详情</span>
-                                    </a>
+                                    
                                 </th>
                             </tr>
                             {% for item in bill.adaptorbillitem_set.all %}
@@ -55,24 +53,37 @@
                                         {% endif %}
                                         <td class="w110">¥&nbsp;<span class="price-sum"></span></td>
                                         <td class="w110">
-                                            {% if bill.status == -2 and forloop.counter == 1 %}
-                                            <a  class="order-form-btn orange-bg common-btn" href="{% url 'bill:bills' %}?unpayed&billno={{bill.no}}">
-                                                <span class="white">立即支付</span>
-                                            </a>
-                                            {% endif %}
-                                            {% if bill.status == 1 and forloop.counter == 1 %}
-                                            <a  class="order-form-btn orange-bg common-btn" href="{% url 'bill:detail' bill.id %}">
-                                                <span class="white">已付款</span>
-                                            </a>
-                                            {% endif %}
+                                            
                                         </td>
                                 </tr>
-                                <tr class="cut_line">
+                                <tr>
+                                    合计：XXXX
+                                    {% endfor %} 
+                                    {% if bill.adaptorcouponitem_set.all %}
+                                    优惠：{{bill.adaptorcouponitem_set.all.0.coupon.price}}元
+                                    {% endif %}
+                                    实付款：
+
+                                    {% if bill.status == -2   %}
+                                    <a  class="order-form-btn orange-bg common-btn" href="{% url 'bill:bills' %}?unpayed&billno={{bill.no}}">
+                                        <span class="white">立即支付</span>
+                                    </a>
+                                    {% endif %}
+                                    {% if bill.status == 1  %}
+                                    <a  class="order-form-btn orange-bg common-btn" href="{% url 'bill:detail' bill.id %}">
+                                        <span class="white">已付款</span>
+                                    </a>
+                                    {% endif %}
+                                    <a href="{% url 'bill:detail' bill.id %}">
+                                            <span class="orange">查看详情</span>
+                                    </a>
+                                </tr>
+                            <tr class="cut_line">
                                     <td colspan="7">
                                         <div></div>
                                     </td>
-                                </tr>
-                            {% endfor %}  </table>
+                            </tr>
+                         </table>
                             {% endfor %}
                            
                   

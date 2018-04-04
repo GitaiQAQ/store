@@ -29,7 +29,7 @@ from invoice.models import Invoice
 from address.models import Address
 from bill.apis import get_bill_money
 from store.views_pay import alipay
-
+from area.models      import  Area
 
 dmb     = DetectMobileBrowser()
 
@@ -433,6 +433,14 @@ class BillDetailView(APIView):
         content={
             'bill':bill
         }
+
+        city = Area.objects.get(id = bill.address.area.parent_id)
+        bigcity = [110100, 120000, 310000, 500000]
+        if city.id not in bigcity: 
+            province = Area.objects.get(id = city.parent_id)
+            content['province'] =  province
+
+        content['city'] = city 
         
         content['mediaroot'] = settings.MEDIA_URL
         if 'status' in request.GET:
@@ -443,6 +451,7 @@ class BillDetailView(APIView):
                 'billmsg' : bill.errromsg,
                 'billno' : bill.no
             }
+
             return HttpResponse(json.dumps(result), content_type='application/json')
         if isMble:
             return render(request, 'usercenter/usercenter_billdetail.html', content)
