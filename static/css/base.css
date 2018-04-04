@@ -202,6 +202,7 @@ li{
 .grey-btn{
     color:#333;
     background-color: #e5e5e5;
+    border: none!important;
 }
 .container-main{
     margin-top: 60px;
