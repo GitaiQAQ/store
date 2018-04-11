@@ -50,9 +50,9 @@
                 <hr>
                 <div class="links">
                     <a href=""><span class="orange">优惠券列表</span></a>
-                <a href="">全部</a>
-                <a href="">已使用</a>
-                <a href="">未使用</a>
+                <a href="{% url 'coupon:coupons' %}">全部</a>
+                <a href="{% url 'coupon:coupons' %}?used=1" {% if used == '1' %}class="orange"{%endif%}>已使用</a>
+                <a href="{% url 'coupon:coupons' %}?used=0" {% if used == '0' %}class="orange"{%endif%}>未使用</a>
                 </div>
               
                 </div>
@@ -68,17 +68,24 @@
                                 <th>截止时间</th> 
                             </tr> 
                         {% for coupon in coupons %} 
-                            <tr  > 
+                            <tr {% if coupon.used == 1 %} class="grey" {% endif%} > 
                                     <td class="text-left"> 
                                         <div class="carlist_name black">{{coupon.code}}</div>  
                                     </td>
-                                    <td class="  nub">{{coupon.rule}}</td>
+                                    <td class="  nub">
+                                        【
+                                        {% for category in coupon.categories.all %}
+                                        {{category.name}}{% if not forloop.last %} | {% endif %}
+                                        {% endfor %}
+                                        】
+                                        {{coupon.rule}}
+                                    </td>
                                     <td class="  nub">{{coupon.price}}</td>
                                     <td class="w110 ">{{coupon.date | date:'Y-m-d'}}</td>
                                     
                                     <td  >
                                         {% if coupon.used == 1 %}
-                                        <span class="price">已使用</span>
+                                        <span class="price">已使用【{{coupon.owner.username}}】</span>
                                         {% else %}
                                         <span class="price">未使用</span>
                                         {% endif %}

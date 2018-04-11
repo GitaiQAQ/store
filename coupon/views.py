@@ -47,6 +47,9 @@ class CouponView(View):
         perm = user.has_perm('coupon.manager_coupon') 
          
         content['menu'] = 'coupon'
+        if 'used' in request.GET:
+            used = request.GET['used']
+            content['used'] = used
 
         if 'number' in request.GET and 'items' in request.GET:
             result = {}
@@ -198,7 +201,11 @@ class CouponView(View):
                 pass
         
         pagenum = 20 
-        coupons = Coupon.objects.all()[(page-1)*pagenum : page*pagenum]
+        if 'used' in request.GET:
+            used = request.GET['used']
+            coupons = Coupon.objects.filter(used = used)[(page-1)*pagenum : page*pagenum]
+        else:
+            coupons = Coupon.objects.all()[(page-1)*pagenum : page*pagenum]
         return coupons
 
     def put(self, request):

@@ -231,6 +231,7 @@ class BillView(View):
                                 # 优惠劵可以使用
                                 CouponItem.objects.get_or_create(bill = bill, coupon = coupon)
                                 coupon.used = 1
+                                coupon.owner = request.user
                                 coupon.save()
                             else: 
                                 print( 'error:该优惠劵不能在本次订单中使用，使用规则：' + coupon.rule)

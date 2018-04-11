@@ -64,6 +64,9 @@ class Product(BaseDate):
 
 
 class StoreProduct(Product):
+    # 是否有货，默认为1代表有货，没有货时为0 
+    # 没有货时不能下单
+    available =  models.SmallIntegerField(default = 1)
     """商城类的Product适配器""" 
     def fallback(self ):
         """下架商品"""
@@ -116,6 +119,7 @@ class StoreProduct(Product):
 
 class AdaptorProduct(StoreProduct):
     """Product 适配器""" 
+
     objects = AdaptorProductManager() 
     
     def __str__(self):

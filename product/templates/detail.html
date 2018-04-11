@@ -72,15 +72,23 @@
         </div>
         <div class="cut-line"></div>
         <div class="carnum clearfix">
-            <input class="pull-left" onkeypress="if (!/[0-9]/.test(String.fromCharCode(event.keyCode)))event.keyCode=0" id="carnum" type="text" value="1">
+            <input class="pull-left" onkeypress="if (!/[0-9]/.test(String.fromCharCode(event.keyCode)))event.keyCode=0" 
+            id="carnum" type="text" value="1">
             <span class="pull-left grey" role="group">
                 <div id="addition"><i class="fa fa-angle-up" aria-hidden="true"></i></div>
                 <div id="subtraction"><i class="fa fa-angle-down" aria-hidden="true"></i></div>
             </span>
         </div>
-        <div class="grey">邮费：{% if product.mail_price == 0 %}免费{% else %}{{product.mail_price}}{%endif%}<span class="ml30">发货时间:{{product.delivery_time}}</span></div>
+        <div class="grey">邮费：{% if product.mail_price == 0 %}免费{% else %}{{product.mail_price}}{%endif%}
+            <span class="ml30">发货时间:{{product.delivery_time}}</span></div>
         <div>
-            <button class="common-btn white orange-bg" id="add-cart">加入购物车</button><a class="orange ml30" href="{{product.taobaourl}}" target="__blank">了解更多></a>
+            
+            {% if product.available == 0 %}
+            <button class="common-btn white grey-bg" disabled="disabled">已售罄</button>
+            {% else %}
+            <button class="common-btn white orange-bg" id="add-cart">加入购物车</button>
+            {% endif %}
+            <a class="orange ml30" href="{{product.taobaourl}}" target="__blank">了解更多></a>
         </div>
     </div>
     <div class="col-xs-12 orange fs18 introduce"><div>产品概括</div></div>

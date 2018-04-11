@@ -35,7 +35,7 @@ class Coupon(BaseDate):
     # 使用规则
     rule = models.TextField(null=True)
     class Meta: 
-        ordering = ['-date', 'used'] 
+        ordering = [ 'used', '-date',] 
         abstract = True
         permissions = (
            ( 'manager_coupon', u'管理优惠劵：删除-创建'),
