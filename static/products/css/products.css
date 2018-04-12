@@ -79,7 +79,7 @@
   }
   .introduce{
       text-align: center;
-      margin: 60px auto 60px;
+      margin: 120px auto 60px;
       padding-bottom: 10px;
       border-bottom: 1px solid rgba(234, 80, 20,.6);
   }
@@ -95,7 +95,7 @@
   .pagination{
       position: absolute;
       bottom: -5px;
-      left: 5px;
+      left: 15px;
       font-size: 16px;
   }
   .content{

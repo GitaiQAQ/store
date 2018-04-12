@@ -117,6 +117,9 @@
 #center li{
     border-bottom: 1px solid #666;
 }
+#center li:hover{
+    color: #ea5014;
+}
 #center img{
     width: 16px;
     margin-right: 10px;

@@ -225,7 +225,9 @@ table.shop-car td{
 .wrap-border{
     border-bottom: 1px solid #ddd;
 }
-
+.invoice_msg{
+    margin-left: 15px;
+}
 .img-rounded{
     background-color: #fff;
     width: 100px;
@@ -236,6 +238,9 @@ table.shop-car td{
 }
 .car-list .text-right{
     padding-right: 30px;
+}
+#invoice_title,#invoice_code{
+    min-width: 240px;
 }
 .img-wrap{
     width: 130px;

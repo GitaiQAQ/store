@@ -142,8 +142,8 @@ $('.car-list').on("click", '.addition', function () {
 $('.car-list').on("click", '.subtraction', function () {
     var quantity = $(this).prev().text();
     var quantity = parseInt(quantity);
-    if (quantity < 1) {
-        $(this).prev().text(0);
+    if (quantity <= 1) {
+        $(this).prev().text(1);
     } else {
         $(this).prev().text(quantity - 1);
         /* 总价 */

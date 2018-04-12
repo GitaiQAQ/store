@@ -68,16 +68,13 @@
 
                 <table class="order-form text-center">
                         <tr>
-                                <th class="text-left usercenter-tb"> 产品名称</th>
-                                <th class="text-left usercenter-tb"> 姓名</th>
-                                <th class="text-left usercenter-tb"> 申请日期</th>
-                                <th class="text-left">电话</th>
+                                <th class="usercenter-tb"> 产品名称</th>
+                               
+                                <th class="usercenter-tb"> 申请日期</th>
+                                <th>电话</th>
                                 <th>预约服务码</th>
-                                <th>状态</th>
                                 <th>
-                                    <a href="">
                                         <span class="orange">进度及详情</span>
-                                    </a>
                                 </th>
                                 <th>删除</th>
                         </tr>
@@ -85,18 +82,18 @@
                         {% for aftersale in aftersales %}
                         
                         <tr>
-                            <td class="text-left usercenter-tb" aftersaleid="{{aftersale.id}}">
+                            <td class="usercenter-tb" aftersaleid="{{aftersale.id}}">
                                     <a href="/aftersales/aftersales/?aftersaleid={{aftersale.id}}&detail">
                                         <span class="orange">
                                            {{aftersale.device_type}}
                                         </span>
                                     </a>    
                             </td>
-                            <td class="text-left usercenter-tb" aftersaleid="{{aftersale.id}}">{{aftersale.name}}</td>
-                            <td class="text-left  ">{{aftersale.date|date:'Y-m-d'}}</td>
-                            <td class="text-left">{{aftersale.phone}}</td>
+                            <!-- <td class="text-left usercenter-tb" aftersaleid="{{aftersale.id}}">{{aftersale.name}}</td> -->
+                            <td>{{aftersale.date|date:'Y-m-d'}}</td>
+                            <td>{{aftersale.phone}}</td>
                             <td>{{aftersale.maintain_code.code}}</td>
-                            <td>{{aftersale.get_status_display}}</td>
+                           <!--  <td>{{aftersale.get_status_display}}</td> -->
                             <td>
                                 {% if aftersale.status == 0 %}
                                 <a href="/aftersales/aftersales/?aftersaleid={{aftersale.id}}&status={{aftersale.status}}">
