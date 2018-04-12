@@ -23,6 +23,8 @@ class Bill(BaseDate):
     STATUS_FINISHED = 3# 已完成
     STATUS_BAD = 4 #异常订单
 
+    TIMEOUT = 60 * 5 # 5 分钟内支付
+
     STATUS_CHOICES = (
         (STATUS_FAILED, '失败'),
         (STATUS_SUBMITTED, '已提交，未支付'), 

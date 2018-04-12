@@ -2,6 +2,7 @@
 import pdb
 
 from bill.models import AdaptorBill as Bill
+from django.utils import timezone
 
 def get_bill_money(bill):
     """
@@ -18,6 +19,26 @@ def get_bill_money(bill):
         sum -= coupon.coupon.price
 
     return sum
+
+def getavailabletime(bill):
+    """
+    获取订单剩余的支付时间
+    """ 
+    now = timezone.now()
+    seconds = (now - bill.date).seconds
+    result = {}
+    if seconds < bill.TIMEOUT:
+        result['status'] = 'ok'
+        result['timeout'] = False
+    else:
+        # 超时，不能继续支付订单
+        result['status'] = 'error'
+        result['timeout'] = True
+        if bill.status == bill.STATUS_UNPAYED:
+            bill.delete() # 未支付订单，删除
+    
+    return result
+
 
 def pay_bill(billno, pay_way, payed_money, trade_no, pay_datetime):
     """

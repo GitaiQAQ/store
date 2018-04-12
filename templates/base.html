@@ -93,9 +93,11 @@
                                         </ul>
                                         {% endif %}
                                         <a class="p-r" href="{% url 'shopcar:shopcar_detail'%}">
-                                  <i class="fa fa-shopping-cart" aria-hidden="true">
-                                            </i>
+                                            <i class="fa fa-shopping-cart" aria-hidden="true">
+                                            </i> 
+                                            {% if caritems  %}
                                             <div class="hint orange-bg"></div>
+                                            {% endif %}
                                         </a>
                                     </td>
     
