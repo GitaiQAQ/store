@@ -69,7 +69,7 @@ class MainainCodeView(View):
                 content['address'] = notifies[0].address
                  
             content['codes'] = codes
-             
+            content['adminsite'] = service_man    
             if 'new' in request.GET:
                 if isMble:
                     return render(request, 'maintaincode/usercenter.html', content)

@@ -1,6 +1,9 @@
 {% extends 'base.html' %} 
 {% block fixed_menu_class %}fixed_menu_class{%endblock%}
 {% block pagetitle%}优惠券管理{% endblock%} 
+{% block publicmenu %}
+{% include 'admintitle.html' %}
+{% endblock %}
 {% block css %}
 <link href="/static/appuser/css/usercenter.css" rel="stylesheet">
 <link href="/static/plugins//bootstrap-datepicker/css/datepicker.css" rel="stylesheet" />
