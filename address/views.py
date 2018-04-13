@@ -14,7 +14,7 @@ from django.db.models import Q
 from area.models      import  Area
 from mobile.detectmobilebrowsermiddleware import DetectMobileBrowser
 dmb     = DetectMobileBrowser()
-
+bigcity = ['110100', '120000', '310000', '500000']
 class AddressView(View):
     def get(self, request):
         isMble  = dmb.process_request(request)
@@ -52,8 +52,13 @@ class AddressView(View):
                 content['provinces'] = provinces
                 content['cities'] = cities
                 content['counties'] = counties
+                
                 city = Area.objects.get(id = address.area.parent_id)
-                province = Area.objects.get(id = city.parent_id)
+                if str(city.id) in bigcity:
+                    # 直辖市
+                    province = city
+                else:
+                    province = Area.objects.get(id = city.parent_id)
                 content['address_provice'] = province.id
                 content['address_city'] = address.area.parent_id
                 content['address_county'] = address.area.id
