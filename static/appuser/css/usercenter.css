@@ -425,8 +425,8 @@ input[name="logistics_name"],input[name="logistics_nub"]{
 .sec_msg .orange.fs16{
     margin: 20px auto; 
 }
-.fs26{
-    font-size: 26px;
+.fs32{
+    font-size: 32px;
 }
 .pop-box{
     text-align: center;
@@ -490,7 +490,7 @@ input[name="logistics_name"],input[name="logistics_nub"]{
     content: '';
     position: absolute;
     transform: translateX(-50%);
-    top: 91px;
+    top: 99px;
 
 }
 .cash-coupon::after{
@@ -503,7 +503,7 @@ input[name="logistics_name"],input[name="logistics_nub"]{
     content: '';
     position: absolute;
     transform: translateX(50%);
-    top: 91px;
+    top: 99px;
     right:0;
 }
 .cash-coupon-msg{
@@ -514,6 +514,9 @@ input[name="logistics_name"],input[name="logistics_nub"]{
     background-color: rgb(252, 252, 252);
     border-top:1px  dashed #ddd!important;
     border: 1px solid #ddd;
+}
+.instructions p{
+    margin-bottom: 0px;
 }
 .cash-coupon-wrap{
     margin-top: 30px;
