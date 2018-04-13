@@ -161,7 +161,8 @@ function ajaxSubmit() {
         data: data,
         success: function (result) {
             if (result['status'] == 'ok') {
-                $().message(result['msg']);
+                /* $().message(result['msg']); */
+                pop_upMsg(result['msg']);
             }
             else {
                 $().message(result['msg']);

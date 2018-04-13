@@ -2,6 +2,7 @@
 {% block fixed_menu_class %}fixed_menu_class{%endblock%}
 {% block pagetitle%}{{product.title}}{% endblock%} 
 {% block css %}
+<link href="/static/css/pop_up.css" rel="stylesheet">
 <link type="text/css" rel="stylesheet" href="/static/css/swiper.css">
 <link href="/static/products/css/products.css" rel="stylesheet">
 {% endblock %}
@@ -102,14 +103,21 @@
     </div>
     <!-- 商品详情 end -->
 </div>
-
+<div class="pop_up">
+    <div class="fs16 gray">
+       <img src="/static/img/right.gif" alt="">
+       <span id="pop-up-msg">已添加至购物车 </span>
+    </div>
+    <button id="continue" class="grey-btn common-btn">继续购买</button>
+    <a class="common-btn orange-bg" href="/shopcar/shopcars/"><span class="white">现在结算</span></a>
+</div>
 
 {% endblock %}
 {% block js %}
+<script type="text/javascript " src="/static/js/pop_up.js "></script>
 <script type="text/javascript " src="/static/js/swiper-3.4.2.jquery.min.js "></script>
 <script type="text/javascript " src="/static/js/login.js "></script>
 <script type="text/javascript " src="/static/products/js/detail.js"></script>
-<script type="text/javascript " src="/static/js/classify.js "></script> 
 <script>
     /*
     var items = {{ product.parameters | safe }};

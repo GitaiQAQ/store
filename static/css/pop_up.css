@@ -1,0 +1,25 @@
+/* 弹出框样式 */
+
+.pop_up{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+    padding: 30px;
+    min-width: 300px;
+    box-shadow: 0 2px 8px 0 rgba(0,0,0,0.2), 0 0 0 1px rgba(0,0,0,0.1);
+    background-color: #fff;
+    display: none;
+    z-index: 10000;
+}
+.pop_up img{
+    height: 18px;
+    vertical-align: sub;
+}
+.pop_up button{
+    margin-right: 15px;
+}
+.pop_up>div{
+    margin-bottom: 30px;
+}
