@@ -1,7 +1,7 @@
 <style>
     .list-wrap {
         margin-left: 70px;
-        font-size: 15px;
+        font-size: 14px;
     }
 
     .list-wrap .col-xs-8,
