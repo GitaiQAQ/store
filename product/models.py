@@ -61,6 +61,7 @@ class Product(BaseDate):
 
     class Meta:
         abstract = True
+        ordering = ['-date']
 
 
 class StoreProduct(Product):

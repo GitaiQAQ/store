@@ -16,7 +16,7 @@ def home(request):
     content['sitecontents'] = sitecontents
     content['mediaroot'] = settings.MEDIA_URL
     
-    products = Product.objects.all().order_by('category')
+    products = Product.objects.all().order_by('category', '-date')
     categories = Category.objects.all()
     content['products'] = products
     content['categories'] = categories
