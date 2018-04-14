@@ -5,7 +5,7 @@
     <table class="usercenter-tb">
         <tr>
             <td {% if menu == 'bill' %}class="active"{% endif %}>
-              <a class="black" href="#"> 
+              <a class="black" href="{% url 'bill:admin' %}"> 
                    <img src="/static/img/icon/center1.svg" alt=""><span>销售订单</span>
               </a>
             </td>
@@ -25,8 +25,8 @@
             </td>
         </tr>
         <tr>
-            <td {% if menu == 'address' %}class="active"{% endif %}>
-                <a class="black" href="#"> 
+            <td {% if menu == 'sale' %}class="active"{% endif %}>
+                <a class="black" href="{% url 'bill:sales' %}"> 
                     <img src="/static/img/icon/center4.svg" alt="">销售统计
                 </a>
             </td>

@@ -8,4 +8,6 @@ urlpatterns = [
     url(r'^bills/(?P<pk>[0-9]+)/rabbit$', RabbitBillDetailView.as_view(), name='rabbit'),     
     url(r'^bills/pay_callback$', views.pay_callback, name='pay_callback'),
     url(r'^bills/web_callback$', views.web_callback, name='web_callback'),
+    url(r'^bills/admin$', views.admin, name='admin'),
+    url(r'^bills/sales$', views.sales, name='sales'),
 ]

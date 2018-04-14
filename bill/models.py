@@ -111,6 +111,9 @@ class BillItem(models.Model):
  
     class Meta:
         abstract = True
+        permissions = (
+            ('manage_bill', u'订单管理权限'),
+        )
 
 
 class AdaptorBillItem(BillItem):
