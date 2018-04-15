@@ -44,10 +44,16 @@ class RuleManager(models.Manager):
         rules = json.loads(rules_str)
         for rule in rules:  
             if mainrule:
-                self.create(product = product, name=rule['name'], price = float(rule['price']),
-                rule_title=rule_title)
+                if 'inventory' in rule:
+                    inventory = rule['inventory'] 
+                    self.create(product = product, name=rule['name'], price = float(rule['price']),
+                    rule_title=rule_title, inventory = inventory)
+                else:
+                    self.create(product = product, name=rule['name'], price = float(rule['price']),
+                    rule_title=rule_title )
             else: 
-                self.create(product = product, name=rule['key'], color_name=rule['color_name'], rule_title=rule_title)
+                self.create(product = product, name=rule['key'], color_name=rule['color_name'],\
+                 rule_title=rule_title)
              
    
     def mul_modify(self, rules_str, product, rule_title, mainrule = True):

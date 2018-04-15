@@ -171,8 +171,14 @@ class Rule(models.Model):
     # 价格:6999
     price = models.DecimalField(_('price'), max_digits=9, decimal_places=2, null=True)
     # 库存, 只有在支付成功之后才减
+    # 库存为null时，指的是库存无限。
+    # 用户提交订单、加入购物车、支付时，都会检查这个字段来查看库存是否充足
+    # 如果库存不足，则不能提交订单、不能加入购物、不能支付
+    # 用户提交订单成功之后，减本库存，超时未支付的话，退库
+    inventory = models.PositiveIntegerField(_('inventory'), null=True)
+    # 库存, 只有在支付成功之后才减
     # 库存为null时，指的是不库存无限。
-    #inventory = models.PositiveIntegerField(_('inventory'), default = 0, null=True)
+    #looked = models.PositiveIntegerField(_('inventory'), null=True)
 
     # 如果可以随便增加、删除库存，那么没有办法核对库存信息。
     # 要可以核对库存信息，则还需要完善的入库操作

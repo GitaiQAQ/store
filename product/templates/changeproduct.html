@@ -12,7 +12,9 @@
                 <div class="form-group">
                     <input type="text" class="form-control" id="price" placeholder="价格">
                 </div>
-                
+                <div class="form-group"> 
+                    <input type="text" class="form-control" id="inventory" title="不填写库存时，表示库存充足" placeholder="库存,可以不填写">
+                </div>
                 <button type="button" class="btn btn-primary add-rule blue-btn"><i class="fa fa-plus" aria-hidden="true"></i></button>
 
             </div>
@@ -22,6 +24,7 @@
                 <tr>
                     <th>{{rulename}}名称<i class="fa fa-pencil" aria-hidden="true"></i></th> 
                     <th>价格<i class="fa fa-pencil" aria-hidden="true"></i></th>  
+                    <th>库存</th>  
                     <th>操作</th>
                 </tr>
 
@@ -32,6 +35,7 @@
                             <td class="name" ><input type="text" value="{{rule.name}}" title="点击修改"/></td>
                             
                             <td class="price"> <input type="text" value="{{rule.price}}" title="点击修改"/></td> 
+                            <td class="inventory"> <input type="text" value="{{rule.inventory | default:''}}" title="点击修改"/></td> 
                         
                             <td class="operate">
                                 <i class="fa fa-trash-o " aria-hidden="true" title="删除"></i>

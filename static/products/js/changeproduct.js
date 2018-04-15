@@ -1,4 +1,4 @@
-
+''
 //  规格设置    >>> 删除行
 $('#tb_rule').on('click', '.fa-trash-o', function () {
     $(this).parents('tr').remove();
@@ -17,9 +17,11 @@ $('.add-rule').click(function () {
     rule_el = document.getElementById('tb_rule');
     name = $('#name').val();
     price = $('#price').val();
+    inventory = $('#inventory').val();
     newhtml = ' <tr class="tr_rule" ruleid="-1">' +
     '<td class="name"><input type="text" value="' + name + '"/></td>' +
     '<td class="price"><input type="text" value="' + price + '"/></td>' +
+    '<td class="inventory"><input type="text" value="' + inventory + '"/></td>' +
     '<td class="operate"><i class="fa fa-trash-o" aria-hidden="true"></i></td>' +
     '</tr>';
 
@@ -31,7 +33,7 @@ $('.add-rule').click(function () {
     };
     
 });
-
+fnLimited($("#inventory"));
 //  发表+存稿按钮    >>> 点击事件
 $('.submit ').click(function () {
     //loading样式
@@ -61,6 +63,7 @@ $('.submit ').click(function () {
             obj['ruleid'] = $(this).attr('ruleid');
             obj['name'] = $(this).find('.name>input').val(); 
             obj['price'] = $(this).find('.price>input').val(); 
+            obj['inventory'] = $(this).find('.inventory>input').val(); 
         }
         rules.push(obj);
         obj = {};
@@ -161,3 +164,6 @@ $(".ta-wrap input").on('keyup input', function (event) {
 });
 
 ///以下是修改product时用到的js
+$('#inventory').blur(function(){
+    fnLimited($(this));
+})

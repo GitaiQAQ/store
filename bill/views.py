@@ -27,7 +27,7 @@ from mobile.detectmobilebrowsermiddleware import DetectMobileBrowser
 from coupon.models import AdaptorCoupon as Coupon
 from invoice.models import Invoice
 from address.models import Address
-from bill.apis import get_bill_money
+from bill.apis import get_bill_money, check_inventory
 from store.views_pay import alipay
 from area.models import Area
 
@@ -78,11 +78,6 @@ class BillView(View):
                 return render(request, 'bill/m_new.html', content)
             else: 
                 return render(request, 'bill/new.html', content)
-        if 'test' in request.GET:
-            if isMble:
-                return render(request, 'm_new.html', content)
-            else:
-                return render(request, 'test.html', content)
         if 'detail' in request.GET:
             if isMble:
                 return render(request, 'bill/m_detail.html', content)
@@ -198,7 +193,15 @@ class BillView(View):
                         result['msg'] ='订单创建失败，未找到商品...' 
                         bill.delete()
                         return  self.httpjson(result)
-                
+                # 提交订单时，检查库存：
+                # 库存不足时，不允许提交
+                check_result = check_inventory(items)
+                if check_result['status'] == False:
+                    # 库存不足，不能提交
+                    result['status'] ='error'
+                    result['msg'] ='{0}库存不足'.format(check_result['product'])
+                    return self.httpjson(result)
+
                 # 创建订单分表
                 AdaptorBillItem.objects.createitem(bill, items) 
                 # 写发票信息
@@ -260,7 +263,7 @@ class BillView(View):
                 result['msg'] ='Need items in POST' 
         else:
             result['status'] ='error'
-            result['msg'] ='Need  items in POST'
+            result['msg'] ='Need address_id and items in POST'
         return self.httpjson(result)
 
     def put(self, request):

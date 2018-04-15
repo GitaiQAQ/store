@@ -66,3 +66,30 @@ def pay_bill(billno, pay_way, payed_money, trade_no, pay_datetime):
     bill.save()
 
     return result
+
+
+def check_inventory(items):
+    """ 
+    检查订单中是否有库存不足的商品，
+    如果有：result['status'] 返回false，并且在result['items']中返回库存不足的商品
+    如果没有：result['status'] 返回True
+    """
+    result = {} 
+    result['status'] = True
+    for item in items:
+        if item['rule'].inventory == 0:
+            """
+            无库存
+            """
+            result['status'] = False
+            result['product'] = item['rule'].product.title + '|' +  item['rule'].name
+            return result
+        elif item['rule'].inventory > 0 :
+            if item['rule'].inventory < item['num'] :
+                # 库存不足
+                result['status'] = False
+                result['product'] = item['rule'].product.title + '|' +  item['rule'].name
+                return result
+
+    return result
+    

@@ -61,6 +61,7 @@ $('.submit button').click(function() {
         //新建
         obj['name'] =$(this).find('.name').text(); 
         obj['price'] = $(this).find('.price').text(); 
+        obj['inventory'] = $(this).find('.inventory').text();
         rules.push(obj);
         obj = {};
     });
