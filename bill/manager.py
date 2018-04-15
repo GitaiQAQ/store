@@ -35,6 +35,11 @@ class BillItemManager(models.Manager):
             rule = item['rule']
             rulename = item['rulename']  
             self.create(bill = bill, rule=rule, rule_title=rulename, product=rule.product, num=item['num'])
+
+            # 对于需要管理库存的商品，在这里减库存，超时未支付之后，退库存
+            if rule.inventory is not None:
+                rule.inventory = rule.inventory - int(item['num'])
+                rule.save()
              
 class AdaptorBillItemManager(BillItemManager):
     pass

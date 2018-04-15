@@ -23,7 +23,8 @@ class Bill(BaseDate):
     STATUS_FINISHED = 3# 已完成
     STATUS_BAD = 4 #异常订单
 
-    TIMEOUT = 60 * 5 # 5 分钟内支付
+    #TIMEOUT = 24 * 60 * 5 # 24小时内支付
+    TIMEOUT =  60 * 5 # 5 分钟内支付
 
     STATUS_CHOICES = (
         (STATUS_FAILED, '失败'),
@@ -77,7 +78,9 @@ class Bill(BaseDate):
     # 微信或者支付宝的支付编号
     trade_no = models.CharField(_('trade no'), max_length = 4096, null = True) 
     pay_datetime = models.DateTimeField(_('pay date'),null = True) 
-
+    
+    def __str__(self):
+        return self.no
     class Meta:
         abstract = True
         ordering = ['-date']

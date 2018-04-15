@@ -71,6 +71,17 @@ class ShopcarView(APIView):
                         car, create = CartItem.objects.get_or_create(rule = rule, user=user )
                         if not create:
                             car.quantity += int(quantity )
+                        else:
+                            car.quantity = int(quantity)
+                        
+                        # 如何数量大于库存的话，以库存为准 
+                        if  rule.inventory is not None:
+                            if rule.inventory == 0 :
+                                result['status'] = 'error'
+                                result['msg']    = '库存不足...' 
+                                return HttpResponse(json.dumps(result), content_type='application/json')
+                            elif rule.inventory < car.quantity :
+                                car.quantity = rule.inventory
                         car.desc = desc
                         car.title = title
                         car.save()

@@ -54,8 +54,8 @@
 
                 <!-- 数量 -->
                     <td class="w159 text-center unselect">
-                                <img class="addition r-btn" src="/static/img/icon/jia.svg" alt="">
-                                <span class="carnum" ruleid="{{car.rule.id}}" desc="{{car.desc}}">{{car.quantity}}</span>
+                                <img class="addition r-btn" src="/static/img/icon/jia.svg" alt="" inventory="{{car.rule.inventory|default_if_none:'有货'}}">
+                                <span class="carnum" ruleid="{{car.rule.id}}" desc="{{car.desc}}" inventory="{{car.rule.inventory|default_if_none:'有货'}}">{{car.quantity}}</span>
                                 <img class="subtraction r-btn" src="/static/img/icon/jian.svg" alt="">
                     </td>
                <!-- 数量 end -->

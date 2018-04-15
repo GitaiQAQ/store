@@ -9,6 +9,7 @@ from datetime import datetime
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views import View
+from django.utils import timezone
 from django.http import Http404, QueryDict
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
@@ -27,7 +28,7 @@ from mobile.detectmobilebrowsermiddleware import DetectMobileBrowser
 from coupon.models import AdaptorCoupon as Coupon
 from invoice.models import Invoice
 from address.models import Address
-from bill.apis import get_bill_money, check_inventory
+from bill.apis import get_bill_money, check_inventory, check_bill_timeout
 from store.views_pay import alipay
 from area.models import Area
 
@@ -69,15 +70,24 @@ class BillView(View):
     def get(self, request):
         isMble  = dmb.process_request(request)
         content = {} 
-        bills = AdaptorBill.objects.filter(owner = request.user) 
+        
+        # 查看所有已提交未支付的订单是否已过期
+        unpayed_bills = AdaptorBill.objects.filter(status__in = [AdaptorBill.STATUS_SUBMITTED, \
+                          AdaptorBill.STATUS_UNPAYED])
+ 
+        check_bill_timeout(unpayed_bills)
+ 
         content['mediaroot'] = settings.MEDIA_URL
-        content['bills'] = bills
-        content['menu'] = 'bill'
         if 'new' in request.GET:
             if isMble:
                 return render(request, 'bill/m_new.html', content)
             else: 
                 return render(request, 'bill/new.html', content)
+        
+        bills = AdaptorBill.objects.filter(owner = request.user) 
+        content['bills'] = bills
+        content['menu'] = 'bill'
+         
         if 'detail' in request.GET:
             if isMble:
                 return render(request, 'bill/m_detail.html', content)
@@ -90,9 +100,13 @@ class BillView(View):
                 billno = request.GET['billno']
                 try:  
                     bill = AdaptorBill.objects.get(no = billno, owner = request.user) 
+                    now = timezone.now()
+                    seconds = int((now - bill.date).total_seconds())
+                    seconds = AdaptorBill.TIMEOUT - seconds
+                     
+                    content['seconds'] = seconds
                     content['bill'] = bill
-                    content['money'] = get_bill_money(bill) 
-                    print(bill.money, content['money'])
+                    content['money'] = get_bill_money(bill)  
                 except AdaptorBill.DoesNotExist:
                     content['bill'] = False
                     content['error'] = _("Not Found...") 
@@ -194,12 +208,12 @@ class BillView(View):
                         bill.delete()
                         return  self.httpjson(result)
                 # 提交订单时，检查库存：
-                # 库存不足时，不允许提交
+                # 库存不足时，不允许提交 
                 check_result = check_inventory(items)
                 if check_result['status'] == False:
                     # 库存不足，不能提交
                     result['status'] ='error'
-                    result['msg'] ='{0}库存不足'.format(check_result['product'])
+                    result['msg'] ='【{0}】 库存不足'.format(check_result['product'])
                     return self.httpjson(result)
 
                 # 创建订单分表

@@ -139,7 +139,7 @@ $(document).ready(function(){
         for (var i = 0; i < aProducts.length; i++) {
             item = {
                 'ruleid': aProducts[i].ruleid,
-                'num': aProducts[i].num,
+                'num': parseInt(aProducts[i].num),
                 'rulename': aProducts[i].rulename
                 //'num': 1
             }
@@ -183,6 +183,7 @@ $(document).ready(function(){
                 }else{
                     HoldOn.close();
                     $().message(result['msg']);
+                    mark = false;
                 }
             },
             error: function () {

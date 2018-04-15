@@ -3,6 +3,7 @@ import pdb
 
 from bill.models import AdaptorBill as Bill
 from django.utils import timezone
+ 
 
 def get_bill_money(bill):
     """
@@ -12,7 +13,7 @@ def get_bill_money(bill):
     billitems = bill.adaptorbillitem_set.all()
     sum  = 0
     for billitem in billitems:
-        sum += billitem.rule.price
+        sum += billitem.rule.price * billitem.num
 
     coupons = bill.adaptorcouponitem_set.all()
     for coupon in coupons:
@@ -20,24 +21,6 @@ def get_bill_money(bill):
 
     return sum
 
-def getavailabletime(bill):
-    """
-    获取订单剩余的支付时间
-    """ 
-    now = timezone.now()
-    seconds = (now - bill.date).seconds
-    result = {}
-    if seconds < bill.TIMEOUT:
-        result['status'] = 'ok'
-        result['timeout'] = False
-    else:
-        # 超时，不能继续支付订单
-        result['status'] = 'error'
-        result['timeout'] = True
-        if bill.status == bill.STATUS_UNPAYED:
-            bill.delete() # 未支付订单，删除
-    
-    return result
 
 
 def pay_bill(billno, pay_way, payed_money, trade_no, pay_datetime):
@@ -76,7 +59,7 @@ def check_inventory(items):
     """
     result = {} 
     result['status'] = True
-    for item in items:
+    for item in items: 
         if item['rule'].inventory == 0:
             """
             无库存
@@ -92,4 +75,37 @@ def check_inventory(items):
                 return result
 
     return result
+
+def getavailabletime(bill):
+    """
+    获取订单剩余的支付时间
+    """ 
+    now = timezone.now()
+    seconds = int((now - bill.date).total_seconds())
+    result = {}
+    if seconds < bill.TIMEOUT: 
+        result['status'] = 'ok'
+        result['timeout'] = False
+    else:
+        # 超时，不能继续支付订单
+        result['status'] = 'error'
+        result['timeout'] = True 
+        if bill.status == bill.STATUS_UNPAYED or bill.status == bill.STATUS_SUBMITTED:
+            # 有库存管理的商品进行退库
+            billitems = bill.adaptorbillitem_set.all()
+            for billitem in billitems:
+                if billitem.rule.inventory is not None:
+                    billitem.rule.inventory += billitem.num
+                    billitem.rule.save()
+            bill.delete() # 未支付订单，删除
     
+    return result
+
+
+def check_bill_timeout(bills):
+    """
+    查看订单是否已过期，如果过期，则自定删除
+    """
+    for bill in bills:
+        getavailabletime(bill)
+       

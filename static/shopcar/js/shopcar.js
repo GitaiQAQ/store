@@ -121,7 +121,15 @@ function nub_sum() {
  */
 $('.car-list').on("click", '.addition', function () {
     var quantity = $(this).next().text();
-    var quantity = parseInt(quantity);
+    quantity = parseInt(quantity);
+    var inventory = $(this).attr('inventory');
+    if (inventory != '有货'){
+        if (parseInt(inventory) <= quantity)
+        {
+            return false;
+        }
+
+    }
     $(this).next().text(quantity + 1);
     var now_num = $(this).next().text();
 
