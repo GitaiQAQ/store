@@ -29,10 +29,18 @@ if ($(".b_color").length > 0){
  */
 $('.pull-left.grey').on("click", '#addition', function () {
     var quantity = parseInt($('#carnum').val());
-    $('#carnum').val(quantity + 1); 
+    var detection= parseInt($('#inventory').text());
+    $('#carnum').val(quantity + 1);
+    if(!isNaN(detection)){//如果库存是数字
+        if($("#carnum").val()>detection){//个数选到最大库存后不再增长
+            $("#carnum").val(detection);
+        }
+    }
+    
     total();
 });
 
+    
 /* 
  * 减少产品个数
  */
@@ -107,13 +115,15 @@ $('.b_color').on('click',function(){
     };
 });
 
+
 /* 
  * 个数输入--禁止输入除数字之外的其他字符和0
  */
-$("#carnum").keyup(function(){    
-    $(this).val($(this).val().replace(/[^1-9.]/g,''));    
-}).bind("paste",function(){  //CTR+V事件处理    
-    $(this).val($(this).val().replace(/[^1-9.]/g,''));     
+$("#carnum").keyup(function () {
+    
+    $(this).val($(this).val().replace(/[^0-9.]/g, ''));
+}).bind("paste", function () {  //CTR+V事件处理    
+    $(this).val($(this).val().replace(/[^0-9.]/g, ''));
 }).css("ime-mode", "disabled"); //CSS设置输入法不可用
 
 /* 
@@ -123,9 +133,15 @@ $('#carnum').on('focus',function(){
     $('.msg').remove();
 });
 $('#carnum').on('blur',function(){
+    var detection= parseInt($('#inventory').text());
+    
     if($('#carnum').val()==''){
        $('.msg').remove();
        $(this).parent().after('<span class="msg orange fs12">数量不能为空!</span>')
+    }else if(!isNaN(detection)){//如果库存是数字
+        if($("#carnum").val()>detection){//个数选到最大库存后不再增长
+            $("#carnum").val(detection);
+        }
     }else{
         total();
     }

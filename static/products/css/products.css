@@ -40,7 +40,7 @@
       top: 2px;
       cursor: pointer;
   }
-  .carnum span {
+  .carnum span.pull-left.grey {
       display: block;
       height: 40px;
       border-left: 1px solid #ddd;
@@ -113,4 +113,10 @@
   .rulemsg,.colormsg{
     transform:translateX(10px);
     display: inline-block;
+}
+.inventory{
+    position: absolute;
+    left: 110%;
+    bottom: 10px;
+    width: 200px;
 }
