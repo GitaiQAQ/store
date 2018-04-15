@@ -293,7 +293,6 @@ table.order-form tr td:last-child, table.order-form tr th:last-child{
 }
 .order-form-btn{
     padding: 4px 12px;
-    border:1px solid #ddd;
     display: inline;
 }
 
@@ -411,7 +410,7 @@ input[type="submit"]{
     padding: 30px;
 }
 .search input{
-  min-width: 300px;
+  min-width: 200px;
 }
 .genre{
     margin: 15px 15px 15px auto;
@@ -570,6 +569,7 @@ table.billdetail{
     padding:2px 12px;
     display: inline-block;
     background-color: #fff;
+    border-color:#ddd;
     border-radius: 4px;
     font-size: 14px;
 }

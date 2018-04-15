@@ -92,8 +92,7 @@ th{
 }
 .orange-bg
 {
-    background-color: #ea5014!important;;
-    border:none!important;
+    background-color: #ea5014!important;
 }
 .orange-bg:link,.orange-bg:visited,.orange-bg:hover,.orange-bg:active{
     text-decoration: none;
@@ -173,6 +172,10 @@ a:link,a:visited,a:hover,a:active{
     border-radius: 4px;
     min-width: 100px;
 }
+.common-btn.inp-after-btn{
+    padding: 8px 12px;
+    vertical-align: baseline;
+}
 ul{
     padding: 0px;
     margin: 0px;
@@ -183,7 +186,6 @@ li{
 .grey-btn{
     color:#333;
     background-color: #e5e5e5;
-    border: none!important;
 }
 .container-main{
     margin-top: 60px;
