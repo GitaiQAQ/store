@@ -12,9 +12,11 @@ $('.add-rule').click(function() {
     var rule_el = document.getElementById('tb_rule');
     var name = $('#name').val();
     var price = $('#price').val();
+    var inventory = $('#inventory').val();
     var newhtml = ' <tr class="tr_rule" ruleid="-1">' +
         '<td class="name">' + name + '</td>' +
         '<td class="price">' + price + '</td>' +
+        '<td class="inventory">' + inventory + '</td>' +
         ' <td><i class="fa fa-trash-o" aria-hidden="true"></i></td>' +
         ' </tr>';
 
@@ -26,7 +28,7 @@ $('.add-rule').click(function() {
         $('#tb_rule').before(html);
     } else {
         rule_el.innerHTML = rule_el.innerHTML + newhtml;
-        $('#name,#price').val("");
+        $('#name,#price, #inventory').val("");
     }; 
 });
 
@@ -61,6 +63,7 @@ $('.submit button').click(function() {
         //新建
         obj['name'] =$(this).find('.name').text(); 
         obj['price'] = $(this).find('.price').text(); 
+        obj['inventory'] = $(this).find('.inventory').text(); 
         rules.push(obj);
         obj = {};
     });

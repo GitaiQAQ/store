@@ -12,9 +12,11 @@ $('.add-rule').click(function() {
     var rule_el = document.getElementById('tb_rule');
     var name = $('#name').val();
     var price = $('#price').val();
+    var inventory = $('#inventory').val();
     var newhtml = ' <tr class="tr_rule" ruleid="-1">' +
         '<td class="name">' + name + '</td>' +
         '<td class="price">' + price + '</td>' +
+        '<td class="inventory">' + inventory + '</td>' +
         ' <td><i class="fa fa-trash-o" aria-hidden="true"></i></td>' +
         ' </tr>';
 

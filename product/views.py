@@ -313,6 +313,7 @@ class ProductView(View):
                 if 'rules' in request.POST:  
                     mainrulename = request.POST['mainrulename'].strip()
                     rules = request.POST['rules'].strip()
+                    pdb.set_trace()
                     AdaptorRule.objects.mul_mainrule_create(rules, product, mainrulename)
                 if 'parameters' in request.POST: 
                     parameters = request.POST['parameters'].strip()
@@ -383,14 +384,9 @@ class ProductView(View):
                     rules = request.POST['rules'].strip()
                     mainrulename = request.POST['mainrulename'].strip()
                     product.set_undeleted() 
-                    error_list = AdaptorRule.objects.mul_modify(rules, product, mainrulename) 
-                    if len(error_list) > 0:
-                        result['error_list'] = error_list
-                        result['error_list_msg'] = _('The new inventory cannot satisfied with the unpayed bill')
-                    undeleted_list = product.delete_droped_rules() 
-                    if len(undeleted_list) > 0:
-                        result['undeleted_list'] = undeleted_list
-                        result['undeleted_msg'] = _('There are unpayed bill for this item')
+                    AdaptorRule.objects.mul_modify(rules, product, mainrulename) 
+                    product.delete_droped_rules() 
+                   
                 if 'parameters' in request.POST: 
                     parameters = request.POST['parameters'].strip()
                     vicerulename = request.POST['vicerulename'].strip()

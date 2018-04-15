@@ -61,16 +61,17 @@ class RuleManager(models.Manager):
         批量修改规格
         """
         rules = json.loads(rules_str)
-        error_list = []
         
         for rule in rules:   
             if int(rule['ruleid']) == -1:
                 # 新添加的规格
                 if mainrule:
                     obj = self.create(product = product, name=rule['name'], rule_title=rule_title,
-                     price = float(rule['price']) )
+                    price = float(rule['price']) )
                 else:
-                    obj = self.create(product = product, name=rule['name'], color_name=rule['color_name'] , rule_title=rule_title )
+                    obj = self.create(product = product, name=rule['name'], color_name=rule['color_name'] , \
+                    rule_title=rule_title )
+                
             else:
                 obj, created = self.get_or_create(product = product, pk = rule['ruleid'])
                 obj.name = rule['name']
@@ -83,10 +84,11 @@ class RuleManager(models.Manager):
             
             if 'color_name' in rule:
                     obj.color_name=rule['color_name']
+            if 'inventory' in rule:
+                inventory = rule['inventory'] 
+                obj.inventory = inventory
             obj.save()
-        
-        return error_list
-            
+         
 
     def inventory_op(self, rules = None, reduce_type=None, op_type= OP_REDUCE, billstatus=None):
         """

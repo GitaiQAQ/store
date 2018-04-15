@@ -35,7 +35,7 @@
                             <td class="name" ><input type="text" value="{{rule.name}}" title="点击修改"/></td>
                             
                             <td class="price"> <input type="text" value="{{rule.price}}" title="点击修改"/></td> 
-                            <td class="inventory"> <input type="text" value="{{rule.inventory | default:''}}" title="点击修改"/></td> 
+                            <td class="inventory"> <input type="text" value="{{rule.inventory | default_if_none:''}}" title="点击修改"/></td> 
                         
                             <td class="operate">
                                 <i class="fa fa-trash-o " aria-hidden="true" title="删除"></i>

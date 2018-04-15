@@ -33,11 +33,14 @@
     </div>
     <div class="col-xs-6 shop">
         <div class="fs24 item_name"> {{product.title|truncatechars:"100"}}</div>
-        <div class="fs24">¥<span id="total_price">--</span></div>
+        <div class="fs24">¥<span id="total_price">--</span>
+            库存数量：{% for rule in product.adaptorrule_set.all %}{% if rule.price %}{{rule.inventory | default:'有货'}}{%endif%}  {% endfor %}  
+        </div>
         <div class="cut-line"></div>
         <div>
             {% for rule in product.adaptorrule_set.all %}
             {% if rule.price %}
+            
                 {{rule.rule_title}}
             {% endif %}
             {% endfor %}
@@ -46,7 +49,7 @@
             {% if product.adaptorrule_set.all %}
             {% for rule in product.adaptorrule_set.all %}
                 {% if rule.price %} 
-                <span class="edition  " data-price="{{rule.price}}"   ruleid="{{rule.id}}">
+                <span class="edition  " data-price="{{rule.price}}" inventory="{{rule.inventory | default:'有货'}}"   ruleid="{{rule.id}}">
                     {{rule.name}}  
                 </span>
                 {% endif %}
@@ -83,7 +86,7 @@
         <div class="grey">邮费：{% if product.mail_price == 0 %}免费{% else %}{{product.mail_price}}{%endif%}
             <span class="ml30">发货时间:{{product.delivery_time}}</span></div>
         <div>
-            库存数量：{{product.inventory | default:'有货'}}
+            
             {% if product.inventory == 0 %}
             <button class="common-btn white grey-bg" disabled="disabled">已售罄</button>
             {% else %}
