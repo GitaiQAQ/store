@@ -91,7 +91,12 @@ table.order-form th{
 .wrap-border{
     border-bottom: 1px solid #ddd;
 }
-
+.statistics tr td{
+    border-bottom: 1px solid #ddd;
+}
+.statistics tr:last-child td{
+    border-bottom: 1px solid transparent;
+}
 .img-rounded{
     background-color: #fff;
     width: 100px;
@@ -441,6 +446,12 @@ input[name="logistics_name"],input[name="logistics_nub"]{
     width: 400px;
     background: #fff;
     box-shadow: 0 2px 8px 0 rgba(0,0,0,0.2), 0 0 0 1px rgba(0,0,0,0.08);z-index: 1001;
+}
+.statistics th{
+    text-align: inherit;
+}
+.statistics.order-form td,.statistics.order-form th{
+    padding:20px 0;
 }
 .pop_wrap{
     position: fixed;
