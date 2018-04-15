@@ -93,9 +93,17 @@ class CouponView(View):
                 result['msg'] = '该优惠劵不存在...'
             
             return self.httpjson(result)
-        coupons = self.pagination(request) 
-        content['coupons'] =coupons
+        
         if perm:# 管理人员 
+            now = timezone.now()
+            unused_coupons = Coupon.objects.filter(used = 0)
+            for coupon_item in unused_coupons:
+                if coupon_item.deadline < now:
+                    coupon_item.used = 2
+                    coupon_item.save()
+
+            coupons = self.pagination(request) 
+            content['coupons'] =coupons
             content['categories'] = self.get_categories()
             if isMble:
                 return render(request, 'coupon/lists.html', content)

@@ -25,6 +25,7 @@ class Coupon(BaseDate):
     #  
     #     0 未使用
     #     1 已使用
+    #     2 已过期
     used = models.PositiveIntegerField(default = 0)
     # 满足的金额
     top_price = models.DecimalField(_('price'), max_digits=9, decimal_places=0, null=True) 
