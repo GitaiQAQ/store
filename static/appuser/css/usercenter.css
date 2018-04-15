@@ -405,6 +405,9 @@ input[type="submit"]{
 .submit{
     padding: 30px;
 }
+.search input{
+  min-width: 300px;
+}
 .genre{
     margin: 15px 15px 15px auto;
 }

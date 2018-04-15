@@ -14,18 +14,18 @@
                 <div class="car-title">
                     销售订单
                 </div>
-                <form method="get">
-                    <select name="status" >
+                <form class="submit search" method="get">
+                    <select class="common-inp" name="status" >
                         <option value="-1" >订单状态</option>
                         <option value="2" {% if　status == '2' %}selected="selected"{% endif %}>已发货</option>
                         <option value="1" {% if　status == '1' %}selected="selected"{% endif %}>未发货</option>
                     </select>
-                    <input type="text" name="billno" value="{{billno}}" placeholder="订单号"/>
-                    <button type="submit" class="order-form-btn orange-bg common-btn" >
+                    <input class="common-inp" type="text" name="billno" value="{{billno}}" placeholder="订单号"/>
+                    <button type="submit" class="orange-bg common-btn" >
                             <span class="white">搜索</span>
                     </button>
 
-                    <button type="submit" class="order-form-btn orange-bg common-btn" >
+                    <button id="leading_out" type="button" class="orange-bg common-btn" >
                         <span class="white">导出搜索结果</span>
                 </button>
                 </form>

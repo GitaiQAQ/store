@@ -62,8 +62,11 @@ $('.submit ').click(function () {
             // 修改
             obj['ruleid'] = $(this).attr('ruleid');
             obj['name'] = $(this).find('.name>input').val(); 
-            obj['price'] = $(this).find('.price>input').val(); 
-            obj['inventory'] = $(this).find('.inventory>input').val(); 
+            obj['price'] = $(this).find('.price>input').val();
+            if(!$(this).find('.inventory>input').val()==''){
+                obj['inventory'] = $(this).find('.inventory>input').val(); 
+            }
+            
         }
         rules.push(obj);
         obj = {};
@@ -164,6 +167,10 @@ $(".ta-wrap input").on('keyup input', function (event) {
 });
 
 ///以下是修改product时用到的js
-$('#inventory').blur(function(){
-    fnLimited($(this));
+$('#inventory,.inventory>input').on('blur',function(){//验证库存输入框，验证是否为非负整数。
+    var nub=/^\d+$/,
+    con =$(this).val();
+    if(!nub.test(con)){
+        $(this).val('');
+    }
 })

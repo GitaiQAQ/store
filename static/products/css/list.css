@@ -21,6 +21,9 @@ h4>a{
     height: 40px;
     overflow: hidden;
 }
+.thumbnail img{
+    padding: 15px;
+}
 .thumbnail a.orange{
     padding:9px;
 }
