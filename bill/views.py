@@ -223,8 +223,10 @@ class BillView(View):
                 bill.invoice = invoice
                 # 写地址信息
                 address_id = request.POST['address_id']
-                address = Address.objects.get(id = address_id)
-                bill.address = address
+                address = Address.objects.get(id = address_id) 
+                bill.address_detail = address.get_detail()
+                bill.phone = address.phone
+                bill.reciever = address.receiver
 
                 bill.save()
                 if 'number' in request.POST and 'couponitems' in request.POST:
@@ -462,7 +464,7 @@ class BillDetailView(APIView):
             'perm' :perm,
             'menu' :'bill',
         }
-
+        """
         city = Area.objects.get(id = bill.address.area.parent_id)
         bigcity = [110100, 120000, 310000, 500000]
         if city.id not in bigcity: 
@@ -470,6 +472,7 @@ class BillDetailView(APIView):
             content['province'] =  province
 
         content['city'] = city 
+        """
         
         content['mediaroot'] = settings.MEDIA_URL
         if 'status' in request.GET:

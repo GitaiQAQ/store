@@ -44,6 +44,12 @@ def pay_bill(billno, pay_way, payed_money, trade_no, pay_datetime):
         bill.payed_money = payed_money
         bill.trade_no = trade_no
         bill.pay_datetime = pay_datetime
+        for billitem in bill.adaptorbillitem_set.all(): 
+            # 更新 item中的价格
+            billitem.price = billitem.rule.price
+            billitem.product_title = billitem.rule.product.title
+            billitem.save() 
+
         result['status']  = 'ok'
         result['msg'] = "saved"
     bill.save()

@@ -25,8 +25,8 @@ $('.delete').click(function() {
     })
 }); 
 $('#leading_out').on('click',function (e) {
-    /* e.preventDefault(); */
+    e.preventDefault(); 
     var nowUrl=window.location.href;
     window.location.href=nowUrl+'&print=';
-     $('form.search').submit(); 
+   // $('form.search').submit(); 
 })

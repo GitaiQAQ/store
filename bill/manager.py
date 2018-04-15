@@ -16,9 +16,7 @@ class BillManager(models.Manager):
 
         bill_kwargs['owner'] = user
         bill_kwargs['no'] = no
-        if 'address_id' in post:
-            bill_kwargs['address_id'] = post['address_id'].strip()
-          
+         
         bill = self.create( **bill_kwargs )
         return bill
 

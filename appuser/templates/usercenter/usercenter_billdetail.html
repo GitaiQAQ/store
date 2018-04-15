@@ -31,10 +31,9 @@
         {% elif bill.status == -2 %}
        
         {% endif %} 
-        {% block usercentercontent %}
-        
+        {% block usercentercontent %} 
                 <div class="car-title clearfix">
-                        订单详情
+                        订单详情【{{bill.get_status_display}}】
                 </div>
                 {% if bill.status == 2 %}
                 <div class="submit">
@@ -54,7 +53,13 @@
                     <td class="img-wrap"> <img class="img-rounded" src="{{mediaroot}}{{item.rule.product.thumbnail}}"></td>
                     <td class="w320 text-left">
                         <a href="javascript:;">
-                            <div class="carlist_name black">{{item.rule.product.title}}</div>
+                            <div class="carlist_name black">
+                                {% if bill.status == 1 or bill.status == 2 %}
+                                {{item.product_title}}
+                                {% else %}
+                                {{item.rule.product.title}}
+                                {% endif %}
+                            </div>
                             <div class="rule_content grey">规格： {{item.rule_title}} </div>
                         </a>
                     </td>
@@ -98,9 +103,9 @@
             <!-- 售后信息 -->
             <div class="billdetail submit gray">
                 <h5 class="black">收货信息</h5>
-                <p>收货人：{{bill.address.receiver}}</p>
-                <P>联系电话：{{bill.address.phone}}</P>
-                <p>收货地址：{{bill.address.area|areas}}{{bill.address.area.short_name}}[县\区] {{bill.address.detail}}</p>
+                <p>收货人：{{bill.reciever}}</p>
+                <P>联系电话：{{bill.phone}}</P>
+                <p>收货地址：{{bill.address_detail}}</p>
             </div>
             {% if bill.invoice %}
                 <div class="submit gray">

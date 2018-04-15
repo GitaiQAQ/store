@@ -156,6 +156,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static1')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 AUTH_USER_MODEL = 'appuser.AdaptorUser'
+BASE_FILE_PATH = os.path.join(MEDIA_ROOT, 'excel')
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
     os.path.join(BASE_DIR, 'media'),

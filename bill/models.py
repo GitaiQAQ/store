@@ -24,7 +24,7 @@ class Bill(BaseDate):
     STATUS_BAD = 4 #异常订单
 
     #TIMEOUT = 24 * 60 * 5 # 24小时内支付
-    TIMEOUT =  60 * 5 # 5 分钟内支付
+    TIMEOUT =  60 * 15 # 15 分钟内支付
 
     STATUS_CHOICES = (
         (STATUS_FAILED, '失败'),
@@ -42,7 +42,7 @@ class Bill(BaseDate):
     owner = models.ForeignKey(User) 
     
     # 收货人地址
-    address = models.ForeignKey(Address, null = True) 
+    address_detail = models.CharField(_('address_detail'), max_length=1024, null = True) 
     # 收货人电话号码
     phone = models.CharField(_('phone'), max_length=20, null = True) 
     # 收货人姓名
