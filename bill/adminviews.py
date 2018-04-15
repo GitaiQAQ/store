@@ -65,8 +65,11 @@ def admin(request):
     kwargs = {}
     if 'status' in request.GET:
         status = request.GET['status']
-        content['status'] = status  
-        kwargs['status'] = status
+        if status != '-1':
+            content['status'] = status  
+            kwargs['status'] = status
+        else:
+            kwargs['status__in'] = bills_status
     else:
         kwargs['status__in'] = bills_status
 
@@ -74,7 +77,7 @@ def admin(request):
         billno = request.GET['billno']
         content['billno'] = billno  
         kwargs['no__icontains'] = billno
-        
+      
     bills = AdaptorBill.objects.filter( **kwargs ) 
     content['mediaroot'] = settings.MEDIA_URL
     content['bills'] = bills

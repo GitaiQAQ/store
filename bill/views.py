@@ -444,12 +444,23 @@ class BillDetailView(APIView):
             return AdaptorBill.objects.get(pk=pk)
         except AdaptorBill.DoesNotExist:
             raise Http404
+
+    @method_decorator(login_required)
     def get(self, request, pk, format=None):
         bill = self.get_object(pk)
+
+        perm = request.user.has_perm('bill.manage_bill')
+         
+        if not perm:
+            if bill.owner != request.user:
+                return HttpResponse(403)
+
         isMble  = dmb.process_request(request)
         
         content={
-            'bill':bill
+            'bill':bill,
+            'perm' :perm,
+            'menu' :'bill',
         }
 
         city = Area.objects.get(id = bill.address.area.parent_id)

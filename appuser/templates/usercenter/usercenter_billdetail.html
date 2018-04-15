@@ -7,7 +7,12 @@
 {% endblock %} 
 {% block content %}
 <div class="container m60"> 
+    {% if perm %}
+    {% include "usercenter/admin_menu.html" %}
+    {% else %}
     {% include "usercenter/menu.html" %}
+    {% endif %}
+    
     <div class="col-xs-10">
             <div class="usercentercontent">
         {% if bill.status == 1 %}
