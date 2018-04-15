@@ -34,22 +34,22 @@
     <div class="col-xs-6 shop">
         <div class="fs24 item_name"> {{product.title|truncatechars:"100"}}</div>
         <div class="fs24">¥<span id="total_price">--</span>
-            库存数量：{% for rule in product.adaptorrule_set.all %}{% if rule.price %}{{rule.inventory | default:'有货'}}{%endif%}  {% endfor %}  
+            库存数量：<span id="inventory"></span> 
         </div>
         <div class="cut-line"></div>
         <div>
+            <!--
             {% for rule in product.adaptorrule_set.all %}
-            {% if rule.price %}
-            
+            {% if rule.price  %} 
                 {{rule.rule_title}}
             {% endif %}
             {% endfor %}
-           
+            -->
             <!-- 具体版本 -->
             {% if product.adaptorrule_set.all %}
             {% for rule in product.adaptorrule_set.all %}
                 {% if rule.price %} 
-                <span class="edition  " data-price="{{rule.price}}" inventory="{{rule.inventory | default:'有货'}}"   ruleid="{{rule.id}}">
+                <span class="edition  " data-price="{{rule.price}}" inventory="{{rule.inventory | default_if_none:'有货'}}"   ruleid="{{rule.id}}">
                     {{rule.name}}  
                 </span>
                 {% endif %}

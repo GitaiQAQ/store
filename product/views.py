@@ -234,7 +234,11 @@ class ProductView(View):
                 # parameters【可选字段】： 商品的自定义规格，是一个json数据
                 # detail【可选字段】： 商品的详情 
         """ 
-        
+        user = request.user
+        perm = user.has_perm('product.manage_product')
+        if not perm:
+            return HttpResponse("403")
+            
         if 'method' in request.POST:
             method = request.POST['method'].lower()
             if method == 'put':# 修改

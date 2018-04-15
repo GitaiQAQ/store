@@ -18,6 +18,7 @@ $(document).ready(function(){
 if ($(".edition").length > 0){
      $(".edition:first").addClass("active-rule");
      $("#total_price").text($(".edition:first").attr("data-price"));
+     $("#inventory").text($(".edition:first").attr("inventory"));
 }
 if ($(".b_color").length > 0){
     $(".b_color:first").addClass("active-color");
@@ -48,12 +49,13 @@ $('.pull-left.grey').on("click", '#subtraction', function () {
  * ‘型号’点击事件
  */
 $('.edition').on('click',function(){
+    
     $('.rulemsg').remove();
     if( $(this).hasClass('active-rule')){
-        $(this).removeClass('active-rule');
-        $('#total_price').text('0');
+        //$(this).removeClass('active-rule');
+        //$('#total_price').text('0');
     }else{
-        $(this).siblings('edition').removeClass('active-rule');
+        $(this).siblings('.edition').removeClass('active-rule');
         $(this).addClass('active-rule');
         total(); 
     };
@@ -65,9 +67,23 @@ $('.edition').on('click',function(){
 function total(){
     var nub = $('#carnum').val(),
         price = $('.active-rule').attr('data-price'),
+        inventory = $('.active-rule').attr('inventory'),
         totalPrice = nub*price;
     if($('.active-rule').length>0){
         $('#total_price').text(totalPrice);
+        $('#inventory').text(inventory);
+        if (inventory == '0'){
+            $("#add-cart").attr('disabled', 'disabled');
+            $("#add-cart").removeClass('orange-bg');
+            $("#add-cart").addClass('grey-bg');
+            $("#add-cart").text('已售罄');
+        }
+        else{
+            $("#add-cart").removeAttr('disabled');
+            $("#add-cart").addClass('orange-bg');
+            $("#add-cart").removeClass('grey-bg');
+            $("#add-cart").text('加入购物车');
+        }
     }else{
         $('#total_price').text('0');
     };
