@@ -29,7 +29,7 @@ from invoice.models import Invoice
 from address.models import Address
 from bill.apis import get_bill_money
 from store.views_pay import alipay
-from area.models      import  Area
+from area.models import Area
 
 dmb     = DetectMobileBrowser()
 
@@ -62,65 +62,7 @@ def pay_callback(request):
     """
 
     return HttpResponse("done")
-
-@login_required
-def admin(request):
-    """
-    销售订单 
-    """
-    isMble  = dmb.process_request(request)
-    content = {} 
-    bills_status = [AdaptorBill.STATUS_PAYED, AdaptorBill.STATUS_DELIVERIED,
-     AdaptorBill.STATUS_FINISHED, AdaptorBill.STATUS_BAD]
-
-    kwargs = {}
-    if 'status' in request.GET:
-        status = request.GET['status']
-        content['status'] = status  
-        kwargs['status'] = status
-    else:
-        kwargs['status__in'] = bills_status
-
-    if 'billno' in request.GET:
-        billno = request.GET['billno']
-        content['billno'] = billno  
-        kwargs['no__icontains'] = billno
-        
-    bills = AdaptorBill.objects.filter( **kwargs ) 
-    content['mediaroot'] = settings.MEDIA_URL
-    content['bills'] = bills
-    content['menu'] = 'bill'  
-    if isMble:
-        return render(request, 'usercenter/usercenter_adminbill.html', content)
-    else:
-        return render(request, 'usercenter/usercenter_adminbill.html', content)
-
-@login_required
-def sales(request):
-    """
-    销售统计 
-    """
-    isMble  = dmb.process_request(request)
-    content = {} 
-    bills_status = [AdaptorBill.STATUS_PAYED, AdaptorBill.STATUS_DELIVERIED,
-     AdaptorBill.STATUS_FINISHED, AdaptorBill.STATUS_BAD]
-
-    kwargs = {}
-    kwargs['status__in'] = bills_status
-    if 'billno' in request.GET:
-        billno = request.GET['billno']
-        content['billno'] = 'billno'  
-        kwargs['no__icontains'] = billno
-    bills = AdaptorBill.objects.filter( **kwargs ) 
-    content['mediaroot'] = settings.MEDIA_URL
-    content['bills'] = bills
-    content['menu'] = 'sale'  
-    if isMble:
-        return render(request, 'usercenter/usercenter_salesbill.html', content)
-    else:
-        return render(request, 'usercenter/usercenter_salesbill.html', content)
-
-
+ 
 class BillView(View):
     
     @method_decorator(login_required)
