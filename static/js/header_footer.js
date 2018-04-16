@@ -1,20 +1,22 @@
+
 /* 
  *菜单下边线的样式
  */
+function menuLine() {
+    if ($('.point').length > 1) {
+        var leftValue = $('.point:first').offset().left,
+            width = $('body').width() - leftValue,
+        topValue = $('.point:first').offset().top;
+        $('.bottom-line').css('width', width + 'px').css('top', topValue + 2 + 'px');
+        /* $('.bottom-line').animate({left:leftValue+'px'},600); */
+        $('.bottom-line').css('left', leftValue + 'px');
+    }
+}
 $(window).load(function () {
-
-    var leftValue = $('.point:first').offset().left,
-        width = $('body').width()-leftValue;
-    topValue = $('.point:first').offset().top;
-    $('.bottom-line').css('width',width+ 'px').css('top', topValue + 2 + 'px');
-    /* $('.bottom-line').animate({left:leftValue+'px'},600); */
-    $('.bottom-line').css('left',leftValue+'px');
+    menuLine();
 })
-$(window).resize(function() {
-    var leftValue =$('.point:first').offset().left,
-    width = $('body').width()-leftValue;
-    $('.bottom-line').css('width',width+ 'px');
-    $('.bottom-line').css('left',leftValue+'px');
+$(window).resize(function () {
+    menuLine();
 });
 /* -----------------------------------------------------------------------------
  *菜单hover样式
