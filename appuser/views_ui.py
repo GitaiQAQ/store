@@ -40,8 +40,7 @@ def login(request):
         post_data = { 'token' : token,
                   'appid' : appid,
                   'secret' : secret
-                }
-                  
+                }          
         req = requests.post(settings.THIRD_AUTH_URL, data = post_data)
         
         if req.status_code == 200:
@@ -66,8 +65,9 @@ def login(request):
                 user =  authenticate(phone = phone) 
                 request.user = user 
                 auth.login(request, user) 
+                 
                 if 'next' in request.GET: 
-                    next_url = request.GET.get('next')
+                    next_url= request.GET.get('next')
                 else:
                     next_url = '/'
                 return redirect(next_url )
@@ -75,8 +75,14 @@ def login(request):
                 return HttpResponse(userinfo['msg']) 
         else:
             return HttpResponse("用户认证系统异常...") 
-    else:
-        return redirect(settings.THIRD_LOGIN_URL )
+    else: 
+        if 'next' in request.GET: 
+            next_url = request.GET.get('next')
+            return redirect(settings.THIRD_LOGIN_URL + '?next=' + next_url)
+        else:
+            return redirect(settings.THIRD_LOGIN_URL)
+              
+        
     # 第三方登录结束
 
 
