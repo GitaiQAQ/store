@@ -316,8 +316,7 @@ class ProductView(View):
                  
                 if 'rules' in request.POST:  
                     mainrulename = request.POST['mainrulename'].strip()
-                    rules = request.POST['rules'].strip()
-                    pdb.set_trace()
+                    rules = request.POST['rules'].strip() 
                     AdaptorRule.objects.mul_mainrule_create(rules, product, mainrulename)
                 if 'parameters' in request.POST: 
                     parameters = request.POST['parameters'].strip()

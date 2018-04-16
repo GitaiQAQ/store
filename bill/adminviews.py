@@ -14,12 +14,16 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic.detail import DetailView
 from django.conf import settings
 from django.shortcuts import redirect   
+from wsgiref.util import FileWrapper
+
 from bill.models import AdaptorBill, AdaptorBillItem
 from bill.models import AdaptorCouponItem as CouponItem
 from product.models import AdaptorRule, AdaptorProduct
 from django.utils.translation import ugettext as _
 from mobile.detectmobilebrowsermiddleware import DetectMobileBrowser
 from coupon.models import AdaptorCoupon as Coupon 
+from bill import excel_output
+
 dmb     = DetectMobileBrowser()
 
 def web_callback(request):
@@ -79,6 +83,30 @@ def admin(request):
         kwargs['no__icontains'] = billno
       
     bills = AdaptorBill.objects.filter( **kwargs ) 
+    if 'print' in request.GET:
+        userid = request.user.id
+        if not os.path.isdir(settings.BASE_FILE_PATH):
+            os.makedirs(settings.BASE_FILE_PATH)
+
+        filename = os.path.join(settings.BASE_FILE_PATH,'sales.xls' )
+        kwargs = {}
+        kwargs['filename'] = filename 
+        kwargs['bills'] = bills 
+        out_excel = excel_output.write_bill_record(**kwargs)
+       
+        if os.path.isfile(filename):
+            try:
+                wrapper  = FileWrapper(open(filename, 'rb'))
+            except IOError as e:
+                return HttpResponse(e)
+                
+            response    = HttpResponse(wrapper,content_type='application/vnd.ms-excel')
+            response['Content-Disposition'] = 'inline; filename=%s' % os.path.basename( filename )
+            response['Content-Length']      = os.path.getsize(filename)
+            return response
+        else:
+            return HttpResponse(u'未找到文件...')
+         
     content['mediaroot'] = settings.MEDIA_URL
     content['bills'] = bills
     content['menu'] = 'bill'  
