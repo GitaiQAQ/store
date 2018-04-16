@@ -16,7 +16,7 @@
                 <div class="col-xs-12 sec text-center"> 
                        <img src="/static/img/right.gif" /><span class="show-sucess">订单提交成功</span>
                        <div>
-                           <p class="grey mt15">请在<span class="black timeout" timeout="{{seconds}}">24小时</span>内完成支付,超时订单自动取消。
+                           <p class="grey mt15">请在<span class="black timeout" timeout="{{seconds}}"></span>内完成支付,超时订单自动取消。
                             <br/><span class="deliverytime">72小时内发货</span>
                            </p> 
                        </div>
@@ -91,10 +91,27 @@
        window.open(url);
     });
 
-    hours = parseInt ({{seconds}}/60/60);
-    minutes = parseInt(({{seconds}}-hours * 60 * 60)/60);
+   
+
+   
+   $(function(){
+    hours = parseInt ( {{seconds}} /60/60);
+    minutes = parseInt(( {{seconds}} -hours * 60 * 60)/60);
     seconds  = {{seconds}} - hours * 60 * 60 - minutes * 60;
     $('.timeout').text(hours+':'+ minutes +':' +seconds);
+    var nSeconds={{seconds}};
+    var timeOut = setInterval(function(){
+    nSeconds--;
+    hours = parseInt (nSeconds/60/60);
+    minutes = parseInt((nSeconds-hours * 60 * 60)/60);
+    seconds  = nSeconds- hours * 60 * 60 - minutes * 60;
+    $('.timeout').text(hours+':'+ minutes +':' +seconds);
+    if(nSeconds==0){
+        clearInterval(timeOut);//关闭setTimeout()
+        window.location.href='/bill/bills/';//跳转链接
+    }
+    },1000)
+   })
 </script>
 
 {% endblock %}

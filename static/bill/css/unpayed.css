@@ -286,3 +286,6 @@ input[type=checkbox].checked{
 .mt15{
     margin-top: 15px;
 }
+.timeout{
+    padding:0 10px;
+}
