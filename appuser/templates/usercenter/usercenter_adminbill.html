@@ -1,6 +1,9 @@
 {% extends 'base.html' %} 
 {% block fixed_menu_class %}fixed_menu_class{%endblock%}
 {% block pagetitle%}销售订单{% endblock%} 
+{% block publicmenu %}
+{% include 'admintitle.html' %}
+{% endblock %}
 {% block css %}
 <link href="/static/appuser/css/usercenter.css" rel="stylesheet">
 {% endblock %} 
@@ -42,7 +45,7 @@
                                 </th>
                                 <th>单价</th>
                                 <th>数量</th>
-                                <th>状态</th>
+                                
                                 <th>应付总额</th>
                             </tr>
                             {% for item in bill.adaptorbillitem_set.all %}
@@ -58,11 +61,7 @@
                                         </td>
                                         <td class="w110">¥&nbsp;<span class="price">{{item.rule.price}}</span></td>
                                         <td class="w110 nub">{{item.num}}</td>
-                                        {% if bill.status == -2 and forloop.counter == 1 %}
-                                        <td class="w110 orange">{{bill.get_status_display}}</td>
-                                        {% else %}
-                                        <td class="w110 orange"></td>
-                                        {% endif %}
+                                        
                                         <td class="w110">¥&nbsp;<span class="price-sum"></span></td>
                                         
                                 </tr>

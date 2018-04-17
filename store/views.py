@@ -31,6 +31,7 @@ def caritems(request):
     if not request.user.is_anonymous():
         caritems = CartItem.objects.filter(user = request.user)
         counter = len(caritems) 
+        adminperm = request.user.has_perm('product.manage_product')
     else:
         counter = 0 
-    return {'caritems': counter}
+    return {'caritems': counter, 'adminperm':adminperm}

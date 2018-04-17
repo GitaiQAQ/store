@@ -27,6 +27,7 @@ def write_bill_record( **kwargs):
     col_width_b = 256*20
     col_width_s = 256*6
     col_width_m = 256*12
+    col_width_l = 256*60
     
     # 入库记录
     try:
@@ -39,12 +40,13 @@ def write_bill_record( **kwargs):
     sheet1.col(6).width = col_width_t 
     sheet1.col(7).width = col_width_m
     sheet1.col(8).width = col_width_t
+    sheet1.col(9).width = col_width_l
     header =  '订单记录'  
-    sheet1.write_merge(0,1,0,8, header, h1) 
+    sheet1.write_merge(0,1,0,9, header, h1) 
     sheet1.row(0).height_mismatch = True
     sheet1.row(0).height = 21*20 
-    row4  = [u'序号',  u'产品型号',u'日期', u'金额', u'数量', u'总计',  u'订单号', 
-             u'收货人',  u'电话']
+    row4  = [u'序号',  u'产品型号',u'付款日期', u'金额', u'数量', u'总计',  u'订单号', 
+             u'收货人',  u'电话',  u'收货地址']
               
     for i in range(0, len(row4)):
         sheet1.write(2, i, row4[i], text_centre)  
@@ -69,6 +71,7 @@ def write_bill_record( **kwargs):
                 sheet1.write(i, 6, bill.no, text_centre)
                 sheet1.write(i, 7, bill.reciever, text_centre)
                 sheet1.write(i, 8, bill.phone, text_centre)
+                sheet1.write(i, 9, bill.address_detail, text_centre)
                 
                 i += 1
                 j += 1   
