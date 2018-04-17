@@ -150,11 +150,12 @@ class ProductDetailView(APIView):
          
    
 class ProductView(View):
-    
+
+    @method_decorator(login_required)
     def get(self, request):
         isMble  = dmb.process_request(request)
         content = {} 
-        products = AdaptorProduct.objects.all()
+        products = AdaptorProduct.objects.filter(status__in = [0, 1, 2])
         categories = Category.objects.all()
         
         content['products'] = products
@@ -306,6 +307,7 @@ class ProductView(View):
                 if 'detail' in request.POST:
                     detail = request.POST['detail'].strip()
                     product.detail = detail
+                
                 if 'status' in request.POST:
                     status = request.POST['status'].strip()
                     product.status = status
@@ -370,7 +372,7 @@ class ProductView(View):
                 if 'detail' in data:
                     detail = data['detail']
                     product.detail = detail 
-     
+              
                 if 'taobaourl' in request.POST:
                     taobaourl = request.POST['taobaourl'].strip()
                     product.taobaourl = taobaourl
@@ -389,7 +391,11 @@ class ProductView(View):
                     product.set_undeleted() 
                     AdaptorRule.objects.mul_modify(rules, product, mainrulename) 
                     product.delete_droped_rules() 
-                   
+                
+                if 'status' in request.POST:
+                    status = request.POST['status'].strip()
+                    product.status = status
+
                 if 'parameters' in request.POST: 
                     parameters = request.POST['parameters'].strip()
                     vicerulename = request.POST['vicerulename'].strip()

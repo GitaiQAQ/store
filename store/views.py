@@ -15,8 +15,8 @@ def home(request):
     sitecontents = AdaptorBaseBlock.objects.all()#sget_available_content()
     content['sitecontents'] = sitecontents
     content['mediaroot'] = settings.MEDIA_URL
-    
-    products = Product.objects.all().order_by('category', '-date')
+    #products = Product.objects.all().order_by('category', '-date')
+    products = Product.objects.filter(status = Product.PUBLISHED).order_by('category', '-date')
     categories = Category.objects.all()
     content['products'] = products
     content['categories'] = categories

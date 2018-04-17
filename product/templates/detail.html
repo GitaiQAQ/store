@@ -33,7 +33,7 @@
         </div>
     </div>
     <div class="col-xs-6 shop">
-        <div class="fs24 item_name"> {{product.title|truncatechars:"100"}}</div>
+        <div class="fs24 item_name"> {{product.title|truncatechars:"100"}}{% if product.status == 0 %}【未上架】{% endif %}</div>
         <div class="fs24">¥<span id="total_price">--</span>
             
         </div>
@@ -88,13 +88,14 @@
         <div class="grey">邮费：{% if product.mail_price == 0 %}免费{% else %}{{product.mail_price}}{%endif%}
             <span class="ml30">发货时间:{{product.delivery_time}}</span></div>
         <div>
-            
-            {% if product.inventory == 0 %}
-            <button class="common-btn grey-btn" disabled="disabled">已售罄</button>
-            {% else %}
-            <button class="common-btn white orange-bg" id="add-cart">加入购物车</button>
+            {% if product.status == 1 %}
+                {% if product.inventory == 0 %}
+                <button class="common-btn grey-btn" disabled="disabled">已售罄</button>
+                {% else %}
+                <button class="common-btn white orange-bg" id="add-cart">加入购物车</button>
+                {% endif %}
+                <a class="orange ml30" href="{{product.taobaourl}}" target="__blank">了解更多></a>
             {% endif %}
-            <a class="orange ml30" href="{{product.taobaourl}}" target="__blank">了解更多></a>
         </div>
     </div>
     <div class="col-xs-12 orange fs18 introduce"><div>产品概括</div></div>
