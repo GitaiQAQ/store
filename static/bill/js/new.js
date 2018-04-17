@@ -248,7 +248,9 @@ $(document).ready(function(){
                 if (result['status'] == 'ok') {
                     $("#coupon_price").text(result['price']);
                     var coupon_price = parseInt(result['price']);
-                    $('#sum_price, #all_sum_price').text(nSum_price- coupon_price);  
+                    $('#sum_price, #all_sum_price').text(nSum_price- coupon_price); 
+                    $('#coupon-msg').val('');
+                    $('#coupon-msg').children('.alert').remove();
                 }else{
                     $("#coupon-msg").empty();
                     html = html.replace('####',result['msg'] );
