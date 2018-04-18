@@ -395,9 +395,10 @@ label[for="picture"]{
     cursor: pointer;
 }
 label.attachment[for="picture"]{
+    margin:0;
+}
+.last-btn{
     margin:0 20px 0px 20px;
-    font-weight: 100;
-    cursor: pointer; 
 }
 .fa-arrow-circle-up{
     margin-left: 8px;
