@@ -47,3 +47,7 @@ h4>a{
     outline-color: #ea5014;
     border-color: transparent;
 }
+.thumbnail>img{
+    margin-top: 15px;
+    height:200px;
+}

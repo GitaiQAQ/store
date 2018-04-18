@@ -64,7 +64,7 @@ margin-bottom: 20px;
 }
   /* 主要产品列表 */
   .classify-name{
-    margin: 60px 0 20px;
+    margin: 60px 0 0px;
     padding: 0 14px 4px 0;
     border-bottom: 2px  solid rgb(204, 204, 204);
     display: inline-block;
@@ -75,6 +75,7 @@ margin-bottom: 20px;
     margin: 30px auto;
   }
   .product-list{
+    margin-top: 30px;
     border: 1px solid #ddd;
     background: -webkit-linear-gradient(left bottom, #f5f5f5 , #fff); /* Safari 5.1 - 6.0 */
     background: -o-linear-gradient(top right,  #f5f5f5 , #fff); /* Opera 11.1 - 12.0 */
