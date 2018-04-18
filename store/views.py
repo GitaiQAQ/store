@@ -34,4 +34,5 @@ def caritems(request):
         adminperm = request.user.has_perm('product.manage_product')
     else:
         counter = 0 
+        adminperm = False
     return {'caritems': counter, 'adminperm':adminperm}
