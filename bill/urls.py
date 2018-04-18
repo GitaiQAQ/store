@@ -9,5 +9,6 @@ urlpatterns = [
     url(r'^bills/pay_callback$', views.pay_callback, name='pay_callback'),
     url(r'^bills/web_callback$', views.web_callback, name='web_callback'),
     url(r'^bills/admin$', adminviews.admin, name='admin'),
+    url(r'^bills/delivery$', adminviews.delivery, name='delivery'),
     url(r'^bills/sales$', adminviews.sales, name='sales'),
 ]

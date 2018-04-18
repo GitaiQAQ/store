@@ -115,6 +115,68 @@ def admin(request):
     else:
         return render(request, 'usercenter/usercenter_adminbill.html', content)
 
+
+
+@login_required
+def delivery(request):
+    """
+    批量发货 
+    """
+    isMble  = dmb.process_request(request)
+    content = {} 
+    bills_status = [AdaptorBill.STATUS_PAYED, AdaptorBill.STATUS_DELIVERIED,
+     AdaptorBill.STATUS_FINISHED, AdaptorBill.STATUS_BAD]
+
+    kwargs = {}
+    if 'status' in request.GET:
+        status = request.GET['status']
+        if status != '-1':
+            content['status'] = status  
+            kwargs['status'] = status
+        else:
+            kwargs['status__in'] = bills_status
+    else:
+        kwargs['status__in'] = bills_status
+
+    if 'billno' in request.GET:
+        billno = request.GET['billno']
+        content['billno'] = billno  
+        kwargs['no__icontains'] = billno
+      
+    bills = AdaptorBill.objects.filter( **kwargs ) 
+    if 'print' in request.GET:
+        userid = request.user.id
+        if not os.path.isdir(settings.BASE_FILE_PATH):
+            os.makedirs(settings.BASE_FILE_PATH)
+
+        filename = os.path.join(settings.BASE_FILE_PATH,'sales.xls' )
+        kwargs = {}
+        kwargs['filename'] = filename 
+        kwargs['bills'] = bills 
+        out_excel = excel_output.write_bill_record(**kwargs)
+       
+        if os.path.isfile(filename):
+            try:
+                wrapper  = FileWrapper(open(filename, 'rb'))
+            except IOError as e:
+                return HttpResponse(e)
+                
+            response    = HttpResponse(wrapper,content_type='application/vnd.ms-excel')
+            response['Content-Disposition'] = 'inline; filename=%s' % os.path.basename( filename )
+            response['Content-Length']      = os.path.getsize(filename)
+            return response
+        else:
+            return HttpResponse(u'未找到文件...')
+         
+    content['mediaroot'] = settings.MEDIA_URL
+    content['bills'] = bills
+    content['menu'] = 'bill'  
+    if isMble:
+        return render(request, 'usercenter/usercenter_deliverybill.html', content)
+    else:
+        return render(request, 'usercenter/usercenter_deliverybill.html', content)
+
+
 @login_required
 def sales(request):
     """

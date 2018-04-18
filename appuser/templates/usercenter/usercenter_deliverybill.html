@@ -1,6 +1,6 @@
 {% extends 'base.html' %} 
 {% block fixed_menu_class %}fixed_menu_class{%endblock%}
-{% block pagetitle%}销售订单{% endblock%} 
+{% block pagetitle%}批量发货{% endblock%} 
 {% block publicmenu %}
 {% include 'admintitle.html' %}
 {% endblock %}
@@ -15,23 +15,13 @@
         {% block usercentercontent %}
         <div class="usercentercontent">
                 <div class="car-title">
-                    销售订单
+                    批量发货
                 </div>
                 <form class="submit search" method="get">
-                    <select class="common-inp" name="status" >
-                        <option value="-1" >订单状态</option>
-                        <option value="2" {% if　status == '2' %}selected="selected"{% endif %}>已发货</option>
-                        <option value="1" {% if　status == '1' %}selected="selected"{% endif %}>未发货</option>
-                    </select>
-                    <input class="common-inp" type="text" name="billno" value="{{billno}}" placeholder="订单号"/>
-                    <button type="submit" class="orange-bg common-btn inp-after-btn" >
-                            <span class="white">搜索</span>
-                    </button>
-
-                    <button id="leading_out" type="button" class="orange-bg common-btn inp-after-btn" >
-                        <span class="white">导出搜索结果</span>
-                    </button>
-                    <a  href="{% url 'bill:delivery' %}" class="orange-bg common-btn inp-after-btn" >
+                     
+                    <input class="common-inp" type="file" name="file" value="{{billno}}" placeholder="订单号"/>
+                 
+                    <a  href="" class="orange-bg common-btn inp-after-btn" >
                         <span class="white">批量发货</span>
                     </a>
                 </form>
