@@ -394,6 +394,11 @@ label[for="picture"]{
     font-weight: 100;
     cursor: pointer;
 }
+label.attachment[for="picture"]{
+    margin:0 20px 0px 20px;
+    font-weight: 100;
+    cursor: pointer; 
+}
 .fa-arrow-circle-up{
     margin-left: 8px;
 }   
@@ -402,6 +407,9 @@ textarea[rows="4"]{
     width: 780px;
     height: auto;
     resize: none;
+}
+.w20 td{
+width: 20%;
 }
 input[type="submit"]{
     min-width: 100px;

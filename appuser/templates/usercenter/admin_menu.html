@@ -11,6 +11,13 @@
             </td>
         </tr>
         <tr>
+            <td {% if menu == 'delivery' %}class="active"{% endif %}>
+              <a class="black" href="{% url 'bill:delivery' %}"> 
+                   <img src="/static/img/icon/fahuo.svg" alt=""><span>发货</span>
+              </a>
+            </td>
+        </tr>
+        <tr>
             <td {% if menu == 'service' %}class="active"{% endif %}>
                 <a class="black" href="{% url 'aftersales:aftersales' %}"> 
                     <img src="/static/img/icon/center2.svg" alt="">售后订单

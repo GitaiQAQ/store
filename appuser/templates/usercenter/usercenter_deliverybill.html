@@ -17,89 +17,60 @@
                 <div class="car-title">
                     批量发货
                 </div>
-                <form class="submit search" method="get">
-                     
-                    <input class="common-inp" type="file" name="file" value="{{billno}}" placeholder="订单号"/>
-                 
+                <form class="submit search" method="get" enctype="multipart/form-data">
                     <a  href="" class="orange-bg common-btn inp-after-btn" >
-                        <span class="white">批量发货</span>
-                    </a>
+                            <span class="white">批量发货</span>
+                        </a>
+                        <label class="common-inp grey-btn attachment" for="picture">上传附件<i class="fa fa-arrow-circle-up" aria-hidden="true"></i></label>
+                        <input type="file"  name="file" value="{{billno}}" name="invoice" id="picture">
+                 
+                    <span class="gray">已成功导入XX条物流信息，失败XX条</span>
                 </form>
-                {% if bills %}
-                   
-                            {% for bill in bills %} <table class="order-form text-center">
-                            <tr>
-                                <th class="text-left usercenter-tb">
-                                        <img src="/static/img/icon/center5.svg" class="orange delete" alt="" billid="{{ bill.id }}"> 
-                                    {{ bill.date|date:"Y-m-d" }}
-                                </th>
-                                <th class="text-left">订单号：
-                                    <span class="orange">{{bill.no}}</span>
-                                </th>
-                                <th>单价</th>
-                                <th>数量</th>
-                                
-                                <th>应付总额</th>
-                            </tr>
-                            {% for item in bill.adaptorbillitem_set.all %}
-                                <tr class="item">
-                                        <td class="img-wrap text-left">
-                                            <img class="img-rounded" src="{{mediaroot}}{{item.rule.product.thumbnail}}">
-                                        </td>
-                                        <td class="shop-name text-left">
-                                            <a href="javascript:;">
-                                                <div class="carlist_name black">{{item.rule.product.title}}</div>
-                                                <div class="rule_content grey">规格： {{item.rule_title}} </div>
-                                            </a>
-                                        </td>
-                                        <td class="w110">¥&nbsp;<span class="price">{{item.rule.price}}</span></td>
-                                        <td class="w110 nub">{{item.num}}</td>
-                                        
-                                        <td class="w110">¥&nbsp;<span class="price-sum"></span></td>
-                                        
-                                </tr>
-                                <tr class="cut_line">
-                                    <td colspan="7">
-                                        <div></div>
-                                    </td>
-                            </tr>
-                            {% endfor %} 
+                
+                            <table class="order-form statistics text-left w20">
                                 <tr>
-                                        <td colspan="7" class="text-right gray aggregate">
-                                            合计：<span class="total{{bill.id}}">XXX</span>
-                                        {% if bill.adaptorcouponitem_set.all %}
-                                        优惠：<span class="coupon{{bill.id}}">{{bill.adaptorcouponitem_set.all.0.coupon.price}}元</span>
-                                        {% endif %}
-                                        实付款：<span class="real{{bill.id}}">XXX</span>
-    
-                                        {% if bill.status == -2   %}
-                                        <a  class="order-form-btn orange-bg common-btn" href="{% url 'bill:bills' %}?unpayed&billno={{bill.no}}">
-                                            <span class="white">立即支付</span>
-                                        </a>
-                                        {% endif %}
-                                        {% if bill.status == 1  %}
-                                        <a  class="order-form-btn orange-bg common-btn" href="{% url 'bill:detail' bill.id %}">
-                                            <span class="white">已付款</span>
-                                        </a>
-                                        {% endif %}
-                                        <a class="order-form-btn  common-btn grey-btn" href="{% url 'bill:detail' bill.id %}">
-                                                <span class="black">查看详情</span>
-                                        </a>
-                                        </td>
-                                       
-                                        
+                                    <th>订单号</th>
+                                    <th>收件人</th>
+                                    <th>电话</th>
+                                    <th>快递公司</th>
+                                    <th>快递单号</th>
                                 </tr>
-                            
-                         </table>
-                            {% endfor %}
-                           
-                  
-                {% else %}
-                    <div class="text-center serve-none">
-                        <img class="serve-icon" src="/static/img/wudingdan.png" alt="">
-                        <div class="grey fs16">没有查到任何相关订单</div>
-                </div>
-                {% endif %}
+                                <tr class="item">
+                                    <td>
+                                        2018.1
+                                    </td>
+                                    <td>
+                                        100000
+                                    </td>
+                                    <td>
+                                        23
+                                    </td>
+                                    <td>
+                                       55
+                                    </td>
+                                    <td>
+                                            55
+                                         </td>
+                                </tr>
+                                <tr class="item">
+                                    <td>
+                                        2018.1
+                                    </td>
+                                    <td>
+                                        100000
+                                    </td>
+                                    <td>
+                                        23
+                                    </td>
+                                    <td>
+                                       55
+                                    </td>
+                                    <td>
+                                            55
+                                         </td>
+                                </tr>
+                            </table>
+                        
             
             
         </div>
