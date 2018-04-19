@@ -39,8 +39,10 @@
                 <div class="submit">
                     物流跟踪
                     <div class="tracking">
-                        <p>12月2日 出库。。。。</p>
-                        <p>12月2日 出库。。。。</p>
+                        {% for item in delivery.data %}
+                        <p>{{item.time}}  {{item.context}}</p>
+                        
+                        {% endfor %}
                     </div>
                 </div>
                 {% endif %}
@@ -139,4 +141,5 @@
         $(".sum_num").text(num);
         
     </script> 
+  
 {% endblock %}
