@@ -24,10 +24,12 @@
                         <button type="submit" class="orange-bg common-btn last-btn" >
                                 <span class="white">批量发货</span>
                 </button>
-                {% if status == 'error' %}
-                <span class="error">{{msg}}</span>
-                {% else %}
-                <span class="gray">已成功导入{{succeed}}条物流信息，失败{{failed}}条</span>
+                {% if status %}
+                    {% if status == 'error' %}
+                    <span class="error">{{msg}}</span>
+                    {% else %}
+                    <span class="gray">已成功导入{{succeed}}条物流信息，失败{{failed}}条</span>
+                    {% endif %}
                 {% endif %}
                     
                 </form>

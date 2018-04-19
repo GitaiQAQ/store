@@ -131,7 +131,6 @@ def delivery(request):
      AdaptorBill.STATUS_FINISHED, AdaptorBill.STATUS_BAD]
     if request.method == 'POST':
         filename = os.path.join(settings.BASE_FILE_PATH,'input.xls' )
-        pdb.set_trace()
         if 'file' in request.FILES:
         
             absolute_path = fsutil.handle_uploaded_file(filename, request.FILES['file'])
