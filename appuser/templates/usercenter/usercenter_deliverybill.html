@@ -17,15 +17,21 @@
                 <div class="car-title">
                     批量发货
                 </div>
-                <form class="submit search" method="get" enctype="multipart/form-data">
-                    
+                <form class="submit search" method="post" enctype="multipart/form-data">
+                    {%csrf_token%} 
                         <label class="common-inp grey-btn attachment" for="picture">上传附件<i class="fa fa-arrow-circle-up" aria-hidden="true"></i></label>
                         <input type="file"  name="file" value="{{billno}}" name="invoice" id="picture">
-                        <a  href="" class="orange-bg common-btn last-btn" >
+                        <button type="submit" class="orange-bg common-btn last-btn" >
                                 <span class="white">批量发货</span>
-                            </a>
-                    <span class="gray">已成功导入XX条物流信息，失败XX条</span>
+                </button>
+                {% if status == 'error' %}
+                <span class="error">{{msg}}</span>
+                {% else %}
+                <span class="gray">已成功导入{{succeed}}条物流信息，失败{{failed}}条</span>
+                {% endif %}
+                    
                 </form>
+                
                 
                             <table class="order-form statistics text-left w20">
                                 <tr>
@@ -35,23 +41,25 @@
                                     <th>快递公司</th>
                                     <th>快递单号</th>
                                 </tr>
+                                {% for bill in bills %}
                                 <tr class="item">
                                     <td>
-                                        2018.1
+                                        {{bill.no}}
                                     </td>
                                     <td>
-                                        100000
+                                        {{bill.reciever}}
                                     </td>
                                     <td>
-                                        23
+                                        {{bill.phone}}
                                     </td>
                                     <td>
-                                       55
+                                       {{bill.delivery_company}}
                                     </td>
                                     <td>
-                                            55
+                                        {{bill.delivery_no}}
                                          </td>
                                 </tr>
+                                {% endfor %}
                             </table>
                         
             

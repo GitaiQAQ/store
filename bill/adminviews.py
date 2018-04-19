@@ -23,6 +23,8 @@ from django.utils.translation import ugettext as _
 from mobile.detectmobilebrowsermiddleware import DetectMobileBrowser
 from coupon.models import AdaptorCoupon as Coupon 
 from bill import excel_output
+from bill import fsutil
+from bill import excelutil 
 
 dmb     = DetectMobileBrowser()
 
@@ -124,53 +126,54 @@ def delivery(request):
     """
     isMble  = dmb.process_request(request)
     content = {} 
+    content['menu'] = 'delivery'
     bills_status = [AdaptorBill.STATUS_PAYED, AdaptorBill.STATUS_DELIVERIED,
      AdaptorBill.STATUS_FINISHED, AdaptorBill.STATUS_BAD]
-
-    kwargs = {}
-    if 'status' in request.GET:
-        status = request.GET['status']
-        if status != '-1':
-            content['status'] = status  
-            kwargs['status'] = status
-        else:
-            kwargs['status__in'] = bills_status
-    else:
-        kwargs['status__in'] = bills_status
-
-    if 'billno' in request.GET:
-        billno = request.GET['billno']
-        content['billno'] = billno  
-        kwargs['no__icontains'] = billno
-      
-    bills = AdaptorBill.objects.filter( **kwargs ) 
-    if 'print' in request.GET:
-        userid = request.user.id
-        if not os.path.isdir(settings.BASE_FILE_PATH):
-            os.makedirs(settings.BASE_FILE_PATH)
-
-        filename = os.path.join(settings.BASE_FILE_PATH,'sales.xls' )
-        kwargs = {}
-        kwargs['filename'] = filename 
-        kwargs['bills'] = bills 
-        out_excel = excel_output.write_bill_record(**kwargs)
-       
-        if os.path.isfile(filename):
+    if request.method == 'POST':
+        filename = os.path.join(settings.BASE_FILE_PATH,'input.xls' )
+        pdb.set_trace()
+        if 'file' in request.FILES:
+        
+            absolute_path = fsutil.handle_uploaded_file(filename, request.FILES['file'])
+            if absolute_path == -1:
+                content['status'] = 'error'
+                content['msg'] = '请上传后缀为xls的excel文件'
+                if isMble:
+                    return render(request, 'usercenter/usercenter_deliverybill.html', content)
+                else:
+                    return render(request, 'usercenter/usercenter_deliverybill.html', content)
             try:
-                wrapper  = FileWrapper(open(filename, 'rb'))
-            except IOError as e:
-                return HttpResponse(e)
-                
-            response    = HttpResponse(wrapper,content_type='application/vnd.ms-excel')
-            response['Content-Disposition'] = 'inline; filename=%s' % os.path.basename( filename )
-            response['Content-Length']      = os.path.getsize(filename)
-            return response
-        else:
-            return HttpResponse(u'未找到文件...')
-         
-    content['mediaroot'] = settings.MEDIA_URL
-    content['bills'] = bills
-    content['menu'] = 'bill'  
+                results = excelutil.analyse(absolute_path)
+            except Exception as e:
+                content['status'] = 'error'
+                content['msg'] = '读取excel文件失败，文件格式错误...'
+                if isMble:
+                    return render(request, 'usercenter/usercenter_deliverybill.html', content)
+                else:
+                    return render(request, 'usercenter/usercenter_deliverybill.html', content)
+            # 存入结果
+            failed = 0 # 失败的数量
+            succeed = 0 # 成功的数量
+            succeed_items = [] # 成功记录
+            for result in results:
+                try:
+                    bill = AdaptorBill.objects.get(no = result['billno'])
+                    if bill.status == bill.STATUS_PAYED: #未发货
+                        bill.delivery_company = result['company']
+                        bill.delivery_no = result['code'].strip()
+                        bill.status = bill.STATUS_DELIVERIED
+                        bill.save()
+                        succeed_items.append(bill)
+                        succeed += 1
+
+                except AdaptorBill.DoesNotExist:
+                    failed += 1
+
+            content['status'] = 'ok'
+            content['succeed'] = succeed
+            content['failed'] = failed
+            content['bills'] = succeed_items
+
     if isMble:
         return render(request, 'usercenter/usercenter_deliverybill.html', content)
     else:

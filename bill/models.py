@@ -62,6 +62,10 @@ class Bill(BaseDate):
     remark = models.TextField(_('Remark'), null=True)
     # 发票信息
     invoice = models.ForeignKey(Invoice, null = True)  
+    
+    # 物流公司和物流号
+    delivery_company = models.CharField( max_length = 128, null =True) 
+    delivery_no = models.CharField( max_length = 128, null =True) 
 
     # 支付信息
     ALIPAY = 'zhifubao' #支付宝
