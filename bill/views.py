@@ -32,6 +32,7 @@ from address.models import Address
 from bill.apis import get_bill_money, check_inventory, check_bill_timeout
 from store.views_pay import alipay
 from area.models import Area
+from pay.controller import MainController
 
 dmb     = DetectMobileBrowser()
 
@@ -129,7 +130,16 @@ class BillView(View):
                     content['bill'] = bill
                     content['money'] = get_bill_money(bill)
                     if payway == 'weixin':# 支付方式
-                        return redirect(alipay(bill.no, content['money'], bill.no)) 
+                        weixinpay_ctl = MainController()
+                        kwargs = {}
+                        print(bill.no)
+                        kwargs['order_id'] = bill.no
+                        kwargs['goodsName'] = bill.no
+                        kwargs['goodsPrice'] = 0.01 #1分
+                        qecode = weixinpay_ctl.getWeChatQRCode( **kwargs)
+                    
+                        return qecode
+                        #return redirect(alipay(bill.no, content['money'], bill.no)) 
                     else:
                         return redirect(alipay(bill.no, content['money'], bill.no))
                       

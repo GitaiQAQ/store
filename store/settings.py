@@ -295,10 +295,9 @@ ALIPAY = {
 
 #####微信支付配置
 WEIXIN = {
-'app_id':'XXX', #微信APPID
-'app_seckey':'XXX', #微信APP Sec Key
-'mch_id':'XXX', #微信商户ID
-'mch_seckey':'XXX',#微信商户seckey
+'app_id':'wx38dd6de421bc40f5', #微信APPID
+'app_seckey':'beijingyishukejiyouxiangongsi123', #微信APP Sec Key
+'mch_id':'1331223701', #微信商户ID 
 'mch_notify_url':'https:#XXX/notify/weixin/', #微信支付异步通知接收URL
 'clientIp':'',#扫码支付时，会使用这个IP地址发送给微信API, 请设置为您服务器的IP 
 }

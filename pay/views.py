@@ -1,3 +1,5 @@
 from django.shortcuts import render
+from pay.controller import MainController
 
-# Create your views here.
+def weixin(request):
+    return HttpResponse("get u")

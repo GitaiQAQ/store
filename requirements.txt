@@ -8,3 +8,5 @@ mysqlclient
 requests
 openunipay
 python-alipay-sdk
+xmltodict
+qrcode

@@ -8,5 +8,6 @@
 *.json
 *.sql
 */docs/* 
-settings.py
+/settings*
 docs/通用商城设计文档.docx
+store/settings.py
