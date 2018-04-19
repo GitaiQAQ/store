@@ -19,7 +19,7 @@
                 </div>
                 <form class="submit search" method="post" enctype="multipart/form-data">
                     {%csrf_token%} 
-                        <label class="common-inp grey-btn attachment" for="picture">上传附件<i class="fa fa-arrow-circle-up" aria-hidden="true"></i></label>
+                        <label class="common-btn grey-btn attachment" for="picture">上传附件<i class="fa fa-arrow-circle-up" aria-hidden="true"></i></label>
                         <input type="file"  name="file" value="{{billno}}" name="invoice" id="picture">
                         <button type="submit" class="orange-bg common-btn last-btn" >
                                 <span class="white">批量发货</span>
