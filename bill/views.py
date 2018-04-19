@@ -452,7 +452,7 @@ class BillDetailView(APIView):
     def get(self, request, pk, format=None):
         bill = self.get_object(pk)
         url = "https://poll.kuaidi100.com/poll/query.do?customer=5B8A5C9685FA5CD16A736B54936C03B7&param={%22com%22:%22zhongtong%22,%22num%22:%22488692675576%22,%22from%22:%22%22,%22to%22:%22%22}&sign=309C32F42E7EC50B194FE0A098E638DB"
-        req = requests.get(url) 
+        req = requests.get(url, verify=False) 
         delivery = json.loads(req.text)
 
 
