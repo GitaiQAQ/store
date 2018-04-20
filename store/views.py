@@ -22,7 +22,7 @@ def home(request):
     content['categories'] = categories
      
     if isMble:
-        return render(request, 'home.html',content) 
+        return render(request, 'm_home.html',content) 
     else:
         return render(request, 'home.html',content) 
 
