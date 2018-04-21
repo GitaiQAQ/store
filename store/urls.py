@@ -47,6 +47,6 @@ urlpatterns = [
     #url(r"^pay/$",views_pay.alipay),
     url(r"^alipay_check_pay$", views_pay.alipay_check_pay),
     url(r"^alipay_notify$", views_pay.alipay_notify),
-    url(r"^pay$", include('pay.urls', namespace="pay")),
+    url(r"^pay/", include('pay.urls', namespace="pay")),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

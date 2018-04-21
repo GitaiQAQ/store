@@ -136,9 +136,9 @@ class BillView(View):
                         kwargs['order_id'] = bill.no
                         kwargs['goodsName'] = bill.no
                         kwargs['goodsPrice'] = 0.01 #1分
-                        qecode = weixinpay_ctl.getWeChatQRCode( **kwargs)
+                        weixinpay_ctl.getWeChatQRCode( **kwargs)
                     
-                        return qecode
+                        return render(request, 'pay/weixinpay.html', content)
                         #return redirect(alipay(bill.no, content['money'], bill.no)) 
                     else:
                         return redirect(alipay(bill.no, content['money'], bill.no))

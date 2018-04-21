@@ -15,11 +15,11 @@
     
     <div class="col-xs-10">
             <div class="usercentercontent">
-        {% if bill.status == 1 %}
+       
             <div  >
                     <div class="car-title">支付订单</div>
                     <div class="submit sec text-center"> 
-                           <img src="/static/img/right.gif" /><span class="show-sucess">订单已支付</span>
+                           <img src="/media/weixinqr.png" /><span class="show-sucess">订单已支付</span>
                            <div> 
                                 <br/><span class="deliverytime">72小时内发货</span>
                                </p> 
@@ -28,9 +28,7 @@
                            </div>
                     </div>
             </div>
-        {% elif bill.status == -2 %}
        
-        {% endif %} 
         {% block usercentercontent %} 
                 <div class="car-title clearfix">
                         订单详情【{{bill.get_status_display}}】
