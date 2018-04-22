@@ -148,7 +148,7 @@ class CouponView(View):
                 return self.create(request)
             
     def create(self, request):
-        """创建寄修服务单""" 
+        """创建优惠劵""" 
         # 创建时：
         user = request.user
         result = {} 

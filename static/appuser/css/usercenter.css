@@ -264,9 +264,11 @@ table{
 .usercenter-tb td:hover{
     background-color: rgba(242, 242, 242,.5);
 }
-.active{
+ 
+.subactive{
     background-color: rgb(242, 242, 242);
 }
+ 
 .usercentercontent{
     border:1px solid #ddd;
     background-color: #fff;

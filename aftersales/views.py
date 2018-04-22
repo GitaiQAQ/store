@@ -45,7 +45,7 @@ class MainainCodeView(View):
        
         service_man = user.has_perm('aftersales.aftersaler_code')
          
-        content['menu'] = 'service'    
+        content['menu'] = 'code'    
         if service_man:# 客服人员
             kwargs = {}
             if 'code' in request.GET and 'phone' in request.GET:
@@ -123,6 +123,11 @@ class MainainCodeView(View):
                 notifies = Notify.objects.all()
                 notifies.delete()
                 Notify.objects.create(address=address)
+            else:
+                notifies = Notify.objects.all()
+                if len(notifies) > 0:
+                    address = notifies[0].address
+
             code  = 'A'
             code += datetime.now().strftime('%Y%m%d') 
             today = datetime.today().date() 
@@ -144,11 +149,11 @@ class MainainCodeView(View):
  
             maintaincode = MainainCode.objects.create(creator=user,  phone = phone, code = code ) 
             maintaincode.save()
-
+              
             # 发送验证寄修短信信息
             content = "预约服务号："+code+" 寄修信息："+address+"【" + settings.PROJECTNAME + "】"
             req = requests.get(settings.SMS_API.format(phone,content)) 
-        
+            pdb.set_trace()
             result['code'] = maintaincode.code
             result['status'] ='ok'
             result['msg'] = "提交成功..." 
@@ -232,11 +237,18 @@ class AfterSalesView(View):
         
         user = request.user
         service_man = user.has_perm('aftersales.aftersaler_code') 
-        if service_man:# 售后客服人员直接进入预约码页面
-            return redirect('/aftersales/maintaincode')
-
         isMble  = dmb.process_request(request)
         content = {} 
+        content['menu'] = 'service'
+        if service_man:# 售后客服人员直接进入预约码页面
+            aftersale_items = AfterSales.objects.filter(deleted = 0)
+            content['aftersales'] = aftersale_items
+            if isMble:
+                return render(request, 'aftersales/usercenter_aftersales_list_admin.html', content)
+            else:
+                return render(request, 'aftersales/usercenter_aftersales_list_admin.html', content)
+
+        
         aftersale_items = AfterSales.objects.filter(user = user, deleted = 0)
  
         # 已完成的或者已发货的订单可以发起售后
@@ -262,7 +274,7 @@ class AfterSalesView(View):
                 finished_bill.item.append(item)
  
         content['bills'] = finished_bills
-        content['menu'] = 'service'
+        
   
         if 'new' in request.GET: 
             content['choices'] = AfterSales.AFTERSALES_CHOICES
@@ -522,3 +534,29 @@ class AfterSalesView(View):
         return HttpResponse(json.dumps(result), content_type="application/json")
 
 
+class AfterSalesDetailView(DetailView):
+    """product detail"""
+    model = AfterSales
+    def get_object(self, pk):
+        try:
+            return AfterSales.objects.get(pk=pk)
+        except AfterSales.DoesNotExist:
+            raise Http404
+    @method_decorator(login_required)
+    def get(self, request, pk, format=None):
+        aftersale = self.get_object(pk)
+        content = {}
+        user = request.user
+        service_man = user.has_perm('aftersales.aftersaler_code')
+        if service_man or user == aftersale.user:
+            # 客服和本人可以查看详情
+            isMble  = dmb.process_request(request) 
+            content['aftersale'] = aftersale 
+            content['menu'] = 'service'
+            content['perm'] = service_man
+            if isMble:
+                return render(request, 'aftersales/usercenter_detail.html', content)
+            else:
+                return render(request, 'aftersales/usercenter_detail.html', content)
+        else:
+            return HttpResponse("403")

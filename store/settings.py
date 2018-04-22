@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'openunipay',
     'rest_framework',
     'appuser',
+    'pay',
     'category',
     'product',
     'shopcar',
@@ -58,6 +59,7 @@ INSTALLED_APPS = [
     'coupon',
     'invoice',
     'aftersales',
+    
 ]
 
 MIDDLEWARE = [

@@ -29,7 +29,12 @@ def pay_bill(billno, pay_way, payed_money, trade_no, pay_datetime):
     验证信息：支付金额需要跟应付金额相同，否则列为异常订单
     """
     result = {}
-    bill = Bill.objects.get(no = billno)
+    try:
+        bill = Bill.objects.get(no = billno)
+    except Bill.DoesNotExist:
+        result['status']  = 'error'
+        result['msg'] = "未找到订单:{0}".format(billno)
+        return result
     result['bill'] = bill
     sum  = get_bill_money(bill)
  

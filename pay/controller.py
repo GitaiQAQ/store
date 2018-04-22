@@ -14,6 +14,7 @@ import qrcode
 from io import BytesIO
 from pay.PayToolUtil import *
 from django.http import HttpResponse
+from django.conf import settings
 
 class MainController(object):
     #获取微信二维码
@@ -41,10 +42,13 @@ class MainController(object):
                            )
         qr.add_data(res_info) #二维码所含信息
         img = qr.make_image() #生成二维码图片
+        img.save(os.path.join(settings.MEDIA_ROOT, 'weixinqr.png'))
+        """
         byte_io = BytesIO()
         img.save(byte_io, 'PNG') #存入字节流
         byte_io.seek(0)
         return HttpResponse(byte_io, content_type='image/png') #把字节流返回给客户端，解析得到二维码
+        """
 
 
     #微信支付回调
@@ -62,7 +66,8 @@ class MainController(object):
             </xml>
             '''
     
-    #支付结果轮询:客户端根据订单号轮询订单模型记录，状态为 支付成功 则返回出货信号，客户端验证信号为出货，则停止轮询，并控制出货
+    # 支付结果轮询:客户端根据订单号轮询订单模型记录，状态为 支付成功 
+    # 则返回出货信号，客户端验证信号为出货，则停止轮询，并控制出货
     def weChatQRCodeHadPay(self, **kwargs):
         order_id = kwargs.get('order_id') #获取订单号
         #todo：根据订单号查询对应的订单记录状态，返回支付结果
