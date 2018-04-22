@@ -81,10 +81,13 @@
                                         优惠：<span class="coupon{{bill.id}}">{{bill.adaptorcouponitem_set.all.0.coupon.price}}元</span>
                                         {% endif %}
                                        
-                                        实付款：
                                         {% if bill.status == 1  %}
+                                        实付款：
                                         <span >{{bill.money}}</span>
+                                        {% elif bill.status == 4 %}
+                                        <span >实际支付：{{bill.money}}</span>
                                         {% else %}
+                                        应付款：
                                         <span class="real{{bill.id}}">XXX</span>
                                         {% endif %}
     

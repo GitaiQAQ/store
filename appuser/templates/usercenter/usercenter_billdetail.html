@@ -33,7 +33,7 @@
         {% endif %} 
         {% block usercentercontent %} 
                 <div class="car-title clearfix">
-                        订单详情【{{bill.get_status_display}}】
+                        订单详情【{{bill.get_status_display}}】 {% if bill.status == 4 %} | {{bill.errormsg}} {% endif %}
                 </div>
                 {% if bill.status == 2 %}
                 <div class="submit">
@@ -96,11 +96,15 @@
                                     <td><p class="fs24 orange"> ¥<span id="all_sum_price" class="price"> 0.00</span></p></td>
                                     {% elif bill.status == 1 %}
                                     <td><p class="grey" >已支付金额：</p></td>
-                                    <td><p class="fs24 orange"> ¥<span  class="price">{{bill.payed_money}}</span></p></td>
+                                    <td><p class="fs24 orange"> ¥<span  class="price">{{bill.payed_money|default_if_none:'0.00'}}</span></p></td>
+                                    {% elif bill.status == 4 %}
+                                    <td><p class="grey" >实际支付：</p></td>
+                                    <td><p class="fs24 orange"> ¥<span  class="price">{{bill.payed_money|default_if_none:'0.00'}}</span></p></td>
                                     {% else %}
                                     <td><p class="grey" >应付金额：</p></td>
-                                    <td><p class="fs24 orange"> ¥<span id="all_sum_price" class="price">{{bill.payed_money}}</span></p></td>
+                                    <td><p class="fs24 orange"> ¥<span id="all_sum_price" class="price">{{bill.payed_money|default_if_none:'0.00'}}</span></p></td>
                                     {% endif %}
+
                                 </tr> 
                             </table>
                                 

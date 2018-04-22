@@ -42,7 +42,10 @@ class MainController(object):
                            )
         qr.add_data(res_info) #二维码所含信息
         img = qr.make_image() #生成二维码图片
-        img.save(os.path.join(settings.MEDIA_ROOT, 'weixinqr.png'))
+        paydir = os.path.join(settings.MEDIA_ROOT, 'pay')
+        if not os.path.isdir(paydir):
+            os.makedirs(paydir)
+        img.save(os.path.join(paydir,  order_id+'weixinqr.png'))
         """
         byte_io = BytesIO()
         img.save(byte_io, 'PNG') #存入字节流

@@ -3,7 +3,7 @@ import pdb
 
 from bill.models import AdaptorBill as Bill
 from django.utils import timezone
- 
+
 
 def get_bill_money(bill):
     """
@@ -42,6 +42,9 @@ def pay_bill(billno, pay_way, payed_money, trade_no, pay_datetime):
         result['status']  = 'error'
         result['msg'] = "bad bill"
         bill.status = Bill.STATUS_BAD
+        bill.money = payed_money
+        bill.payed_money = payed_money
+        bill.errormsg = '支付金额与订单金额不符.'
     else:
         bill.status = Bill.STATUS_PAYED
         bill.money = payed_money
@@ -117,6 +120,10 @@ def check_bill_timeout(bills):
     """
     查看订单是否已过期，如果过期，则自定删除
     """
-    for bill in bills:
-        getavailabletime(bill)
+    for bill in bills: 
+        if bill.status == bill.STATUS_SUBMITTED or bill.status == bill.STATUS_UNPAYED:
+            # 订单已支付，不需要删除了
+            getavailabletime(bill)
+
+
        

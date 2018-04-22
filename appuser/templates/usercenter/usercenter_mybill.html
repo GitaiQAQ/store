@@ -63,7 +63,16 @@
                                         {% if bill.adaptorcouponitem_set.all %}
                                         优惠：<span class="coupon{{bill.id}}">{{bill.adaptorcouponitem_set.all.0.coupon.price}}元</span>
                                         {% endif %}
-                                        实付款：<span class="real{{bill.id}}">XXX</span>
+                                        
+                                        {% if bill.status == 1  %}
+                                        实付款：
+                                        <span >{{bill.money}}</span>
+                                        {% elif bill.status == 4 %}
+                                        <span >实际支付：{{bill.money}}</span>
+                                        {% else %}
+                                        应付款：
+                                        <span class="real{{bill.id}}">XXX</span>
+                                        {% endif %}
     
                                         {% if bill.status == -2   %}
                                         <a  class="order-form-btn orange-bg common-btn" href="{% url 'bill:bills' %}?unpayed&billno={{bill.no}}">
@@ -72,7 +81,11 @@
                                         {% endif %}
                                         {% if bill.status == 1  %}
                                         <a  class="order-form-btn orange-bg common-btn" href="{% url 'bill:detail' bill.id %}">
-                                            <span class="white">已付款</span>
+                                            <span class="white">{{bill.get_status_display}}</span>
+                                        </a>
+                                        {%　else %}
+                                        <a  class="order-form-btn orange-bg common-btn" href="{% url 'bill:detail' bill.id %}">
+                                            <span class="white">{{bill.get_status_display}}</span>
                                         </a>
                                         {% endif %}
                                         <a class="order-form-btn  common-btn grey-btn" href="{% url 'bill:detail' bill.id %}">

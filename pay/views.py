@@ -16,19 +16,33 @@ def weixin(request):
     """
     content = {}
     content['status'] = 'error'
-    paycheck = PayToolUtil()
+    
     billno = request.GET.get('billno')
     if billno is None:
         content['msg'] = '请在GET中提供billno订单号.'
         return HttpResponse(json.dumps(content), content_type="application/json")
 
+    content = checkbill(billno)
+    if content['status'] == 'ok':
+        bill = content['bill']
+        return redirect(reverse('bill:detail', kwargs={'pk': bill.pk}))
+          
+    
+    return HttpResponse(json.dumps(content), content_type="application/json")
+
+def checkbill(billno):
+    """
+    检查bill订单状态
+    """
+    paycheck = PayToolUtil()
     weixin_returned = paycheck.getQueryUrl(billno)
     weixin_returned = weixin_returned['xml']
 
     return_code = weixin_returned['return_code']
     result_code = weixin_returned['result_code']
     
-    
+    content = {}
+    content['status'] = 'error'
     if return_code == PayToolUtil._SUCCESS and result_code == PayToolUtil._SUCCESS :
         """
         trade_state:
@@ -42,7 +56,7 @@ def weixin(request):
         支付状态机请见下单API页面
         """
         trade_state = weixin_returned['trade_state']
-     
+        
         if  trade_state == PayToolUtil._SUCCESS : 
             # 订单支付成功，更新bill
             transaction_id = weixin_returned['transaction_id']
@@ -56,8 +70,8 @@ def weixin(request):
             result = pay_bill(order_id, pay_way, total_fee, transaction_id, send_pay_date)
             if result['status'] == 'ok':
                 #返回成功页面 
-                bill = result['bill'] 
-                return redirect(reverse('bill:detail', kwargs={'pk': bill.pk}))
+                content['status'] = 'ok'
+                content['bill'] = result['bill']  
             else:
                 content['msg'] = result['msg']
         else:
@@ -90,5 +104,5 @@ def weixin(request):
                 content['msg'] = '用户支付中'
             else:
                 content['msg'] = '支付失败(其他原因，如银行返回失败)'
-    
-    return HttpResponse(json.dumps(content), content_type="application/json")
+        
+    return content

@@ -33,6 +33,7 @@ from bill.apis import get_bill_money, check_inventory, check_bill_timeout
 from store.views_pay import alipay
 from area.models import Area
 from pay.controller import MainController
+from pay.views import checkbill
 
 dmb     = DetectMobileBrowser()
 
@@ -76,7 +77,8 @@ class BillView(View):
         # 查看所有已提交未支付的订单是否已过期
         unpayed_bills = AdaptorBill.objects.filter(status__in = [AdaptorBill.STATUS_SUBMITTED, \
                           AdaptorBill.STATUS_UNPAYED])
- 
+        for bill in unpayed_bills:
+            checkbill(bill.no)
         check_bill_timeout(unpayed_bills)
  
         content['mediaroot'] = settings.MEDIA_URL
