@@ -22,6 +22,7 @@ class Bill(BaseDate):
     STATUS_DELIVERIED = 2   # 已发货
     STATUS_FINISHED = 3# 已完成
     STATUS_BAD = 4 #异常订单
+    STATUS_REFUND = 5 # 已退款
 
     #TIMEOUT = 24 * 60 * 5 # 24小时内支付
     TIMEOUT =  60 * 15 # 15 分钟内支付
@@ -29,13 +30,13 @@ class Bill(BaseDate):
     STATUS_CHOICES = (
         (STATUS_FAILED, '失败'),
         (STATUS_SUBMITTED, '已提交，未支付'), 
-        (STATUS_PAYED, '已支付，未发货'),
-        (STATUS_DELIVERIED, '已发货'),
-        (STATUS_FINISHED, '已完成'),
+        (STATUS_PAYED, '已支付，即将发货'),
+        (STATUS_DELIVERIED, '已发货，等待签收'),
+        (STATUS_FINISHED, '已签收，订单已完成'), 
+        (STATUS_REFUND, '已退款'),
         (STATUS_BAD, '异常订单'),
     )
 
-    
     # 组成方式：年月日时分秒毫秒用户ID
     no = models.CharField(_('Bill No.'), max_length=1024)
     # 提交订单的人

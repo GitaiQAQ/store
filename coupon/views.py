@@ -47,6 +47,16 @@ class CouponView(View):
         perm = user.has_perm('coupon.manager_coupon') 
          
         content['menu'] = 'coupon'
+        if 'api' in request.GET:
+            coupons = Coupon.objects.filter(owner = user, used = 0 )
+            items = []
+            for coupon in coupons :
+                item = {}
+                item['id'] = coupon.id
+                item['code'] = coupon.code
+                items.append(item)
+            return HttpResponse(json.dumps(items), content_type="application/json")
+
         if 'used' in request.GET:
             used = request.GET['used']
             content['used'] = used

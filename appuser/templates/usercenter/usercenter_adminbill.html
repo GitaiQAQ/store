@@ -95,7 +95,7 @@
                                         {% endif %}
                                         {% if bill.status == 1  %}
                                         <a  class="order-form-btn orange-bg common-btn" href="{% url 'bill:detail' bill.id %}">
-                                            <span class="white">已付款</span>
+                                            <span class="white">{{bill.get_status_display}}</span>
                                         </a>
                                         {%　else %}
                                         <a  class="order-form-btn orange-bg common-btn" href="{% url 'bill:detail' bill.id %}">
