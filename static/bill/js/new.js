@@ -305,6 +305,13 @@ $('.container-car').on('click', '.msg-list', function () {
     $(this).append('<div class="act orange"><i class="fa fa-check" aria-hidden="true"></i></div>');
     address_id = $('.act_address').attr("addressid");
 })
-/* $(document).ready(function(){
-    $('.address:first').addClass('act_address');
-}) */
+
+
+//选择按钮后 自动填入激活码
+$(".choose").click(function() {
+  /*   var thisInp=$(this); */
+    if (this.checked) {
+        var codeVal = $(this).next().text();
+        $('#coupon-number').val(codeVal);
+    }
+});

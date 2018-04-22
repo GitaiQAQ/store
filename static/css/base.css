@@ -102,6 +102,9 @@ th{
 .menu-list .active * {
     color: #ea5014;
 }
+.menu-list .active{
+    background: inherit!important;
+}
 .text-overflow{
     display:block;/*内联对象需加*/
     width:100%;

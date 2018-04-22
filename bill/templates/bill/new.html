@@ -51,14 +51,17 @@
             <div class="  col-xs-6 item-content div-sum-money">
                     <div class=" ">
                         <div >
-                            <div><img src="/static/bill/img/plus.png" class="plus"/>使用优惠劵</div>
-                            <div>
-                                <input type="text" placeholder="填写优惠劵" class="common-inp coupon-inp" id="coupon-number" value=""/>
-                                <button class="coupon-submit-btn  common-btn white orange-bg"  id="submit-coupon">提交</button> 
-                            </div> 
-                            <div class="coupon-msg" id="coupon-msg"> 
-                                        
+                            <div><input type="radio" name="activation_code" class="choose"/><span>JDE123788222222</span>
+                            <span class="face-value">¥200</span>
                             </div>
+                            <div>
+                                激活新卡券：
+                                <input type="text" placeholder="请输入激活码" class="common-inp coupon-inp" id="coupon-number" value=""/>
+                                <button class="coupon-submit-btn  common-btn white orange-bg"  id="submit-coupon">激活并使用</button> 
+                            </div> 
+                            <div class="coupon-msg" id="coupon-msg">
+                            </div>
+                            <div>共使用了<span class="orange">0</span>张优惠券，可有优惠<span class="orange">0.00</span>元</div>
                         </div> 
                     </div>
             </div>
