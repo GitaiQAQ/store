@@ -1,13 +1,22 @@
 {% extends 'base.html' %} 
 {% block fixed_menu_class %}fixed_menu_class{%endblock%}
 {% block pagetitle%}用户中心{% endblock%} 
+{% if perm %}
+{% block publicmenu %}
+{% include 'admintitle.html' %}
+{% endblock %}
+{% endif %}
 {% block css %}
 <link href="/static/appuser/css/usercenter.css" rel="stylesheet">
 <link href="/static/aftersales/css/detail.css" rel="stylesheet">
 {% endblock %} 
 {% block content %}
 <div class="container m60"> 
-        {% include "usercenter/menu.html" %} 
+        {% if perm %}
+        {% include "usercenter/admin_menu.html" %}
+        {% else %}
+        {% include "usercenter/menu.html" %}
+        {% endif %}
     <div class="col-xs-10">
         {% block usercentercontent %}
         <div class="usercentercontent">

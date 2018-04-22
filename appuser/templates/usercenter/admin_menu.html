@@ -4,35 +4,42 @@
 
     <table class="usercenter-tb">
         <tr>
-            <td {% if menu == 'bill' %}class="active"{% endif %}>
+            <td {% if menu == 'bill' %}class="subactive"{% endif %}>
               <a class="black" href="{% url 'bill:admin' %}"> 
                    <img src="/static/img/icon/center1.svg" alt=""><span>销售订单</span>
               </a>
             </td>
         </tr>
         <tr>
-            <td {% if menu == 'delivery' %}class="active"{% endif %}>
+            <td {% if menu == 'delivery' %}class="subactive"{% endif %}>
               <a class="black" href="{% url 'bill:delivery' %}"> 
                    <img src="/static/img/icon/fahuo.svg" alt=""><span>发货</span>
               </a>
             </td>
         </tr>
         <tr>
-            <td {% if menu == 'service' %}class="active"{% endif %}>
+            <td {% if menu == 'code' %}class="subactive"{% endif %}>
+                <a class="black" href="{% url 'aftersales:maintaincode' %}"> 
+                    <img src="/static/img/icon/center2.svg" alt="">预约服务码
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td {% if menu == 'service' %}class="subactive"{% endif %}>
                 <a class="black" href="{% url 'aftersales:aftersales' %}"> 
                     <img src="/static/img/icon/center2.svg" alt="">售后订单
                 </a>
             </td>
         </tr>
         <tr>
-            <td {% if menu == 'coupon' %}class="active"{% endif %}>
+            <td {% if menu == 'coupon' %}class="subactive"{% endif %}>
                 <a class="black" href="{% url 'coupon:coupons' %}">
                    <img src="/static/img/icon/center3.svg" alt="">优惠劵管理
                 </a>
             </td>
         </tr>
         <tr>
-            <td {% if menu == 'sale' %}class="active"{% endif %}>
+            <td {% if menu == 'sale' %}class="subactive"{% endif %}>
                 <a class="black" href="{% url 'bill:sales' %}"> 
                     <img src="/static/img/icon/center4.svg" alt="">销售统计
                 </a>
