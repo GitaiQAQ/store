@@ -399,6 +399,28 @@ label[for="picture"]{
 label.attachment[for="picture"]{
     margin:0;
 }
+.qr-code{
+    width: 210px;
+}
+#back{
+    margin-top: 60px;
+    cursor: pointer;
+}
+.overdue-msg{
+    position: absolute;
+    top: -50px;
+    width: 100%;
+}
+.code-msg{
+    width: 210px;
+    border-radius: 6px;
+    margin: 20px auto 0;
+    padding: 10px;
+}
+.code-msg img{
+    width: 40px;
+    margin: 0 15px 0 10px;
+}
 .last-btn{
     margin:0 20px 0px 20px;
 }
