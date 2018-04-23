@@ -23,8 +23,11 @@
                         <option value="2" {% if　status == '2' %}selected="selected"{% endif %}>已发货</option>
                         <option value="1" {% if　status == '1' %}selected="selected"{% endif %}>未发货</option>
                     </select>
-                    <input class="common-inp" type="text" name="billno" value="{{billno}}" placeholder="订单号"/>
-                    <button type="submit" class="orange-bg common-btn inp-after-btn" >
+                    <input class="common-inp" type="text" name="receiver" value="{{billno}}" placeholder="收货人"/>
+                    <input class="common-inp" type="text" name="order_date" value="{{billno}}" placeholder="下单日期"/>
+                    <input class="common-inp" type="text" name="send_date" value="{{billno}}" placeholder="发货日期"/>
+                    <input class="common-inp" type="text" name="search_rule" value="{{billno}}" placeholder="产品型号"/>
+                    <div class="mt-20"><button type="submit" class="orange-bg common-btn inp-after-btn" >
                             <span class="white">搜索</span>
                     </button>
 
@@ -33,7 +36,7 @@
                     </button>
                     <a  href="{% url 'bill:delivery' %}" class="orange-bg common-btn inp-after-btn" >
                         <span class="white">批量发货</span>
-                    </a>
+                    </a></div>
                 </form>
                 {% if bills %}
                    

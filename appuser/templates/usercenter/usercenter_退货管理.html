@@ -1,0 +1,115 @@
+{% extends 'base.html' %} 
+{% block fixed_menu_class %}fixed_menu_class{%endblock%}
+{% block pagetitle%}批量发货{% endblock%} 
+{% block publicmenu %}
+{% include 'admintitle.html' %}
+{% endblock %}
+{% block css %}
+<link href="/static/appuser/css/usercenter.css" rel="stylesheet">
+<link href="/static/appuser/css/refund.css" rel="stylesheet">
+{% endblock %} 
+{% block content %}
+{%csrf_token%} 
+<div class="container m60"> 
+    {% include "usercenter/admin_menu.html" %}
+    <div class="col-xs-10">
+        {% block usercentercontent %}
+        <div class="usercentercontent">
+                <div class="car-title">
+                    退货管理
+                </div>
+                <form class="submit search" method="post" enctype="multipart/form-data">
+                    {%csrf_token%} 
+                        <div>
+                           <label for="bill_nb">订单号：</label><input class="common-inp" id="bill_nb" name="bill_no" type="text">
+                           <label for="phone_nb">联系电话：</label>
+                           <input class="common-inp" id="phone_nb" name="phone_nb" type="text">
+                        </div>
+                        <div>
+                            <label>产品型号：</label>
+                                <select class="common-inp" name="rule">
+                                    <option value=""></option>
+                                </select>
+                                <label>退款进度：</label>
+                                <select class="common-inp" name="progress">
+                                    <option value=""></option>
+                                </select>
+                        </div>
+                        <div class="date-inp">
+                                <label>下单日期：</label><input class="common-inp mr-2" name="date" type="text">—
+                            </label><input class="common-inp" name="date" type="text">
+                        </div>
+                        <button type="button" class="orange-bg common-btn" >
+                                <span class="white">搜索</span>
+                        </button>
+                        <button type="button" class="orange-bg common-btn" >
+                                <span class="white">导出搜索结果</span>
+                        </button>
+                        <button type="button" class="orange-bg common-btn" >
+                                <span class="white">批量发货</span>
+                        </button>
+                    
+                </form>
+                
+                
+                            <table class="order-form statistics text-left">
+                                <tr>
+                                    <th>订单号</th>
+                                    <th>联系电话</th>
+                                    <th>产品型号</th>
+                                    <th>退款进度</th>
+                                    <th>订单金额</th>
+                                    <th>退款原因</th>
+                                    <th>审核</th>
+                                </tr>
+                                <tr class="item">
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>2222</td>
+                                    <td>
+                                        <a class="order-form-btn orange-bg common-btn" href="#">
+                                            <span class="white">批准</span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+                        
+            
+            
+        </div>
+        {% endblock %}
+    </div>
+</div>
+
+{% endblock %}
+{% block js %}
+<script src="/static/appuser/js/usercenter.js"></script>
+<script src="/static/bill/js/mybill.js"></script>
+<script>
+        var total = 0;
+        var real = 0;
+        var coupon = 0;
+         {% for bill in bills %} 
+              {% for item in bill.adaptorbillitem_set.all %}
+              total += {{item.rule.price}}*{{item.num}};
+                {% if bill.adaptorcouponitem_set.all %}
+                    coupon = {{bill.adaptorcouponitem_set.all.0.coupon.price}};
+                {% endif %}
+              {% endfor %}
+              $(".total{{bill.id}}").text(total);
+              real = total - coupon;
+              $(".real{{bill.id}}").text(real);
+              total = 0;
+              coupon = 0;
+              real = 0; 
+         {% endfor %}
+    </script>
+{% endblock %}

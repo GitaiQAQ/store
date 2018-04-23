@@ -7,9 +7,9 @@
 {% endblock %} 
 {% block content %}
 <div class="container m60">
-    {% if perm %} {% include "usercenter/admin_menu.html" %} {% else %} {% include "usercenter/menu.html" %} {% endif %}
+<!--     {% if perm %} {% include "usercenter/admin_menu.html" %} {% else %} {% include "usercenter/menu.html" %} {% endif %} -->
 
-    <div class="col-xs-10 gray">
+    <div class="col-xs-12 gray">
         <div class="usercentercontent">
 
             <div>
@@ -17,7 +17,7 @@
                 {% block usercentercontent %}
 
             <div class="clearfix receipt">
-                <div class="pull-left">订单号：1232137218973298173 {{bill.get_status_display}}
+                <div class="pull-left">订单号：<span id="billno">201804231723335</span> {{bill.get_status_display}}
                 </div>
                 <div class="pull-right gray">
                     {% if bill.status == -2 %}

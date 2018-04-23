@@ -443,7 +443,7 @@ input[type="submit"]{
     padding: 30px;
 }
 .search input{
-  min-width: 200px;
+  width: 190px;
 }
 .genre{
     margin: 15px 15px 15px auto;
@@ -461,7 +461,9 @@ input[name="logistics_name"],input[name="logistics_nub"]{
     min-height: 360px;
     padding-top:90px
 }
-
+.mt-20{
+    margin-top: 20px;
+}
 .sec_msg .orange.fs16{
     margin: 20px auto; 
 }
