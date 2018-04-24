@@ -1,28 +1,32 @@
 $('#back').click(function () {
     window.location.href = '/bill/bills/?unpayed';
 })
-$('.qr-code').load(function () {
-    var inquireAbout = setInterval(inquireAbout(), 1000);
-    //请求服务器检查状态
-function inquireAbout() {
-    var billno = $('#billno').text();
-    $.ajax({
-        type: 'get',
-        url: '/pay/weixin/',
-        billno:'billno',
-        success: function (data) {
-            console.log(data);
-            if (data['status'] == 'ok') {
-                $().message(data['status']);
-                clearInterval(inquireAbout);//停止查询
-            } else {
-                $().errormessage(data['msg']);
+$(function () {
+    var inquireAbout = setInterval(
+        function() {
+            var billno = $('#billno').text(),
+            data={
+                'billno':billno
             }
-        },
-        error: function () {
-            $().errormessage(data['status']);
+            $.ajax({
+                type: 'get',
+                url: '/pay/weixin/',
+                data:data,
+                success: function (data) {
+                    console.log(data);
+                    if (data['status'] != 'ok')  {
+                        $().errormessage(data['msg']);
+                        clearInterval(inquireAbout);//停止查询
+                    }
+                },
+                error: function () {
+                    $().errormessage(data['status']);
+                    clearInterval(inquireAbout);//停止查询
+                }
+            })  
         }
-    })
-}
+        , 1000);
+    //请求服务器检查状态
+
 })
 
