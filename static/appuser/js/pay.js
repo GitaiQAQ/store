@@ -15,9 +15,15 @@ $(function () {
                 success: function (data) {
                     console.log(data);
                     if (data['status'] != 'ok')  {
-                        $().errormessage(data['msg']);
-                        clearInterval(inquireAbout);//停止查询
+                        if (data['status'] == 'go'){
+                            //订单已支付，跳转页面
+                            window.location.href = '/bill/bills/'+data['bill'];
+                        }else{
+                            $().errormessage(data['msg']);
+                            clearInterval(inquireAbout);//停止查询
+                        }
                     }
+                    
                 },
                 error: function () {
                     $().errormessage(data['status']);

@@ -25,11 +25,10 @@ def weixin(request):
     content = checkbill(billno)
     if content['status'] == 'ok':
         
-        if 'bill' in content:
-            bill = content['bill']
-            return redirect(reverse('bill:detail', kwargs={'pk': bill.pk}))
-          
-    
+        if 'bill' in content: 
+            content['bill']  = content['bill'].id
+            content['status'] = 'go' # 跳转
+             
     return HttpResponse(json.dumps(content), content_type="application/json")
 
 def checkbill(billno):

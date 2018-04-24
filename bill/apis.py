@@ -36,9 +36,8 @@ def pay_bill(billno, pay_way, payed_money, trade_no, pay_datetime):
         result['msg'] = "未找到订单:{0}".format(billno)
         return result
     result['bill'] = bill
-    sum  = get_bill_money(bill)
- 
-    if str(sum) != payed_money:
+    sum  = get_bill_money(bill) 
+    if str(sum) != str(payed_money):
         result['status']  = 'error'
         result['msg'] = "bad bill"
         bill.status = Bill.STATUS_BAD
