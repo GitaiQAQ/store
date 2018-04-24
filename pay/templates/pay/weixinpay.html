@@ -17,7 +17,7 @@
                 {% block usercentercontent %}
 
             <div class="clearfix receipt">
-                <div class="pull-left">订单号：<span id="billno">201804231723335</span> {{bill.get_status_display}}
+                <div class="pull-left">订单号：<span id="billno">{{bill.no}}</span> {{bill.get_status_display}}
                 </div>
                 <div class="pull-right gray">
                     {% if bill.status == -2 %}
