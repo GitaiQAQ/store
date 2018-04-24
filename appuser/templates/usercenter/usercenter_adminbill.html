@@ -18,26 +18,55 @@
                     销售订单
                 </div>
                 <form class="submit search" method="get">
-                    <select class="common-inp" name="status" >
-                        <option value="-1" >订单状态</option>
-                        <option value="2" {% if　status == '2' %}selected="selected"{% endif %}>已发货</option>
-                        <option value="1" {% if　status == '1' %}selected="selected"{% endif %}>未发货</option>
-                    </select>
-                    <input class="common-inp" type="text" name="receiver" value="{{billno}}" placeholder="收货人"/>
-                    <input class="common-inp" type="text" name="order_date" value="{{billno}}" placeholder="下单日期"/>
-                    <input class="common-inp" type="text" name="send_date" value="{{billno}}" placeholder="发货日期"/>
-                    <input class="common-inp" type="text" name="search_rule" value="{{billno}}" placeholder="产品型号"/>
-                    <div class="mt-20"><button type="submit" class="orange-bg common-btn inp-after-btn" >
-                            <span class="white">搜索</span>
-                    </button>
-
-                    <button id="leading_out" type="button" class="orange-bg common-btn inp-after-btn" >
-                        <span class="white">导出搜索结果</span>
-                    </button>
-                    <a  href="{% url 'bill:delivery' %}" class="orange-bg common-btn inp-after-btn" >
-                        <span class="white">批量发货</span>
-                    </a></div>
-                </form>
+                        <select class="common-inp" name="status" >
+                            <option value="-1" >订单状态</option>
+                            <option value="2" {% if　status == '2' %}selected="selected"{% endif %}>已发货</option>
+                            <option value="1" {% if　status == '1' %}selected="selected"{% endif %}>未发货</option>
+                        </select>
+                        <input class="common-inp" type="text" name="receiver" value="{{billno}}" placeholder="收货人"/>
+                        <input class="common-inp" type="text" name="order_date" value="{{billno}}" placeholder="下单日期"/>
+                        <input class="common-inp" type="text" name="send_date" value="{{billno}}" placeholder="发货日期"/>
+                        <input class="common-inp" type="text" name="search_rule" value="{{billno}}" placeholder="产品型号"/>
+                        <div class="mt-20"><button type="submit" class="orange-bg common-btn inp-after-btn" >
+                                <span class="white">搜索</span>
+                        </button>
+    
+                        <button id="leading_out" type="button" class="orange-bg common-btn inp-after-btn" >
+                            <span class="white">导出搜索结果</span>
+                        </button>
+                        <a  href="{% url 'bill:delivery' %}" class="orange-bg common-btn inp-after-btn" >
+                            <span class="white">批量发货</span>
+                        </a></div>
+                    </form>
+                <table class="order-form statistics text-left">
+                        <tr>
+                            <th>收货人</th>
+                            <th>产品型号</th>
+                            <th>订单状态</th>
+                            <th>优惠券</th>
+                            <th>订单金额</th>
+                            <th>发货时间</th>
+                        </tr>
+                        <tr class="item">
+                            <td>
+                                ASU2929287373738
+                            </td>
+                            <td>
+                               张某
+                            </td>
+                            <td>
+                                138888888
+                            </td>
+                            <td>
+                             顺丰
+                            </td>
+                            <td>
+                               126378737377
+                                 </td>
+                                 <td></td>
+                        </tr>
+                    </table>
+                
                 {% if bills %}
                    
                             {% for bill in bills %} <table class="order-form text-center">
