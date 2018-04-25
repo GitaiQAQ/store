@@ -151,9 +151,9 @@ class MainainCodeView(View):
             maintaincode.save()
               
             # 发送验证寄修短信信息
-            content = "预约服务号："+code+" 寄修信息："+address+"【" + settings.PROJECTNAME + "】"
-            req = requests.get(settings.SMS_API.format(phone,content)) 
-            pdb.set_trace()
+            content = "预约服务号："+code+" 寄修信息："+address+"【一数科技】"
+            req = requests.get(settings.SMS_API.format(phone,content))  
+            
             result['code'] = maintaincode.code
             result['status'] ='ok'
             result['msg'] = "提交成功..." 

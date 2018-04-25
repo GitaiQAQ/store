@@ -77,20 +77,23 @@
                                         {% endif %}
     
                                         {% if bill.status == -2   %}
-                                        <a  class="order-form-btn orange-bg common-btn" href="{% url 'bill:bills' %}?unpayed&billno={{bill.no}}">
+                                        <a  class=" orange-bg common-btn" href="{% url 'bill:bills' %}?unpayed&billno={{bill.no}}">
                                             <span class="white">立即支付</span>
                                         </a>
                                         {% endif %}
-                                        {% if bill.status == 1  %}
-                                        <a  class="order-form-btn orange-bg common-btn" href="{% url 'bill:detail' bill.id %}">
+                                        {% if bill.status == 1  %}<!--已支付-->
+                                        <a  class=" orange-bg common-btn" href="{% url 'bill:detail' bill.id %}">
                                             <span class="white">{{bill.get_status_display}}</span>
                                         </a>
+                                        <button  class=" orange-bg common-btn btn-refund">
+                                            <span class="white">申请退款</span>
+                                        </button>
                                         {%　else %}
-                                        <a  class="order-form-btn orange-bg common-btn" href="{% url 'bill:detail' bill.id %}">
+                                        <a  class=" orange-bg common-btn" href="{% url 'bill:detail' bill.id %}">
                                             <span class="white">{{bill.get_status_display}}</span>
                                         </a>
                                         {% endif %}
-                                        <a class="order-form-btn  common-btn grey-btn" href="{% url 'bill:detail' bill.id %}">
+                                        <a class="  common-btn grey-btn" href="{% url 'bill:detail' bill.id %}">
                                                 <span class="black">查看详情</span>
                                         </a>
                                         </td>

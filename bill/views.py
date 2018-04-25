@@ -297,53 +297,26 @@ class BillView(View):
 
     def put(self, request):
         """
-        修改分类名称
+        退款
         """
         result = {}  
+        user = request.user
         data = QueryDict(request.body.decode('utf-8'))  
         if 'id' in data:
-            productid = data['id']
+            billid = data['id']
             try:
-                product = AdaptorProduct.objects.get(id=productid)
-                if 'title' in data:
-                    title = data['title']
-                    product.title = title
-                if 'categoryid' in data:
-                    categoryid = data['categoryid']
-                    try:
-                        category = Category.objects.get(id = categoryid) 
-                        product.category = category
-                    except Category.DoesNotExist:
-                        result['status'] = 'error' 
-                        result['msg'] = 'Category not found, category id:{}'.format(categoryid) 
-                        return self.httpjson(result)
-                    
-                if 'unit' in data:
-                    unit = data['unit']
-                    product.unit = unit
-                if 'price' in data:
-                    price = data['price']
-                    product.price = price
-                if 'parameters' in data:
-                    parameters = data['parameters']
-                    product.parameters = parameters 
-                if 'description' in request.POST:
-                    description = request.POST['description'].strip()
-                    product.description = description 
-                if 'detail' in data:
-                    detail = data['detail']
-                    product.detail = detail 
-                if 'rules' in request.POST:  
-                    product.adaptorrule_set.all().delete()
-                    rules = request.POST['rules'].strip()
-                    AdaptorRule.objects.mul_create(rules, product)
-                
-                product.save() 
+                bill = AdaptorBill.objects.get(id = billid, owner = user)
+                if 'reason' in data:
+                    reason = data['reason']
+                    bill.refund_reason = reason
+                bill.refund_status = AdaptorBill.REFUNDWAITING
+                bill.refund_time = timezone.now() 
+                bill.save() 
                 result['status'] ='ok'
-                result['msg'] ='Done'
-            except AdaptorProduct.DoesNotExist:
+                result['msg'] ='退款申请已提交，请耐心等待审批...'
+            except AdaptorBill.DoesNotExist:
                 result['status'] ='error'
-                result['msg'] ='404 Not found the Product ID:{}'.format(productid) 
+                result['msg'] ='404 Not found the Bill ID:{}'.format(billid) 
         else:
             result['status'] ='error'
             result['msg'] ='Need id  in POST'

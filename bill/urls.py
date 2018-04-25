@@ -11,4 +11,5 @@ urlpatterns = [
     url(r'^bills/admin$', adminviews.admin, name='admin'),
     url(r'^bills/delivery$', adminviews.delivery, name='delivery'),
     url(r'^bills/sales$', adminviews.sales, name='sales'),
+    url(r'^bills/refundlist$', adminviews.refundlist, name='refundlist'),
 ]
