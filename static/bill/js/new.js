@@ -5,6 +5,14 @@ $('#coupon-number').on('focus',function(){
 })
 $(document).ready(function(){
     /* 
+     *获取优惠券数据
+     */
+$.ajax({
+    type:'get',
+    url:''
+})
+
+    /* 
      *获取cookid数据
      */
     
