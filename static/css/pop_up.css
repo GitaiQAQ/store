@@ -23,3 +23,7 @@
 .pop_up>div{
     margin-bottom: 30px;
 }
+textarea{
+    resize: none;
+    border: 1px solid #ddd;
+}
