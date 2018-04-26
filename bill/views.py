@@ -34,8 +34,10 @@ from store.views_pay import alipay
 from area.models import Area
 from pay.controller import MainController
 from pay.views import checkbill
+from pay.PayToolUtil import PayToolUtil
 
 dmb     = DetectMobileBrowser()
+
 
 def web_callback(request):
     """
@@ -305,15 +307,25 @@ class BillView(View):
         if 'id' in data:
             billid = data['id']
             try:
-                bill = AdaptorBill.objects.get(id = billid, owner = user)
+                
                 if 'approve' in data:
+                    bill = AdaptorBill.objects.get(id = billid)
                     # 退款审核
                     bill.refund_approve_status = AdaptorBill.REFUNDAGREE
                     bill.refund_approve_time = timezone.now() 
                     bill.save() 
+                    if bill.pay_way == 'weixin':
+                        # 退微信
+                        pay = PayToolUtil()
+                        status = pay.refundPayUrl(bill.no, bill.payed_money)
+                    else:
+                        # 退支付宝
+                        pass
+
                     result['status'] ='ok'
                     result['msg'] ='退款申请已批准，请耐心等待支付平台退款...'
                 else:
+                    bill = AdaptorBill.objects.get(id = billid, owner = user)
                     if 'reason' in data:
                         reason = data['reason']
                         bill.refund_reason = reason 

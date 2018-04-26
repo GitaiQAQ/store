@@ -4,6 +4,7 @@
 {% block pagetitle%}订单详情{% endblock%} 
 {% block css %}
 <link href="/static/appuser/css/usercenter.css" rel="stylesheet">
+<link href="/static/css/pop_up.css" rel="stylesheet">
 {% endblock %} 
 {% block content %}
 <div class="container m60"> 
@@ -49,11 +50,14 @@
                                 <br/>
                                 {% if perm %}
                                     {%csrf_token%} 
+                                    <div >
                                     <input type="hidden" id="billid" value="{{bill.id}}"/>
                                     <button   class=" orange-bg common-btn btn-approve">
                                         <span class="white">批准</span>
                                     </button>
+                                </div>
                                 {% endif %}
+                                微信退款说明：用零钱支付的退款20分钟内到账，银行卡支付的退款3个工作日内到账。
                             </div>
                     </div>
                 {% endif %}
@@ -161,11 +165,17 @@
         
     </div>
 </div>
-
+<div class="pop_up">
+        <div class="gray">
+           确定同意退款？
+        </div>
+        <button id="continue" class="grey-btn common-btn">取消</button>
+        <button id="sure" class="common-btn orange-bg"  ><span class="white">确定</span></button>
+</div>
 {% endblock %}
 {% block js %}
 <script src="/static/appuser/js/usercenter.js"></script>
-
+<script src="/static/bill/js/detail.js"></script>
 <script>
         var sum = 0;
         var num = 0;

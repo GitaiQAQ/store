@@ -20,6 +20,9 @@ $('#sure').on('click',function () {//确认退货
             if (result['status'] == 'ok') {
                 $('.pop_up').hide();
                 $().message(result['msg']);
+                var reload=setTimeout(function(){
+                    location.reload();
+                },3000)
             } else {
                 $('.pop_up').hide();
                 $().message(result['msg']);

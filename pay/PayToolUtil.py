@@ -30,8 +30,9 @@ class PayToolUtil(object):
     _ip_address = socket.gethostbyname(_host_name)
     _CREATE_IP = _ip_address  # 发起支付的ip
     
-    _UFDODER_URL = "https://api.mch.weixin.qq.com/pay/unifiedorder"
-    _QUERY_URL = "https://api.mch.weixin.qq.com/pay/orderquery"
+    _UFDODER_URL = "https://api.mch.weixin.qq.com/pay/unifiedorder" #下单API
+    _QUERY_URL = "https://api.mch.weixin.qq.com/pay/orderquery" # 查询API
+    _REFUND_URL = "https://api.mch.weixin.qq.com/secapi/pay/refund" # 退款API
     _NOTIFY_URL = "47.95.239.228:8000/pay/weixin/"#"your Ip：端口／处理方法路径";  # 微信支付结果回调的处理方法
     _SUCCESS = 'SUCCESS'
 
@@ -85,7 +86,7 @@ class PayToolUtil(object):
         #向微信支付发出请求，并提取回传数据
         #res = urllib2.Request(self._UFDODER_URL, data=request_xml_str)
         #res_data = urllib2.urlopen(res)
-        res_data = requests.post(self._UFDODER_URL, data=request_xml_str)  
+        res_data = requests.post(self._UFDODER_URL, data=request_xml_str, verify = False)  
         res_read = res_data.content
         doc = xmltodict.parse(res_read)
         return_code = doc['xml']['return_code']
@@ -101,6 +102,73 @@ class PayToolUtil(object):
             fail_des = doc['xml']['return_msg']
             print ("fail des============="+fail_des)
     
+
+    def refundPayUrl(self, orderid, paymoney, **kwargs):
+        '''
+        向微信支付端发出退款请求
+        '''
+        
+        appid = self._APP_ID
+        mch_id = self._MCH_ID
+        key = self._API_KEY
+        nonce_str = str(int(round(time.time() * 1000)))+str(random.randint(1,999))+" ".join(random.sample(['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'], 5)).replace(" ","") #生成随机字符串
+        spbill_create_ip = self._CREATE_IP
+        notify_url = self._NOTIFY_URL
+        trade_type = "NATIVE"
+        paymoney = int(paymoney * 100)
+        params = {}
+        params['appid'] = appid
+        params['mch_id'] = mch_id
+        params['nonce_str'] = nonce_str
+        params['out_trade_no'] = orderid#.encode('utf-8')    #客户端生成并传过来，参数必须用utf8编码，否则报错
+        params['total_fee'] = paymoney   #单位是分，必须是整数
+        params['refund_fee'] = paymoney 
+        params['out_refund_no'] = 'R'+orderid # 商户退款单号,格式R+单号
+          
+
+        #生成签名
+        ret = []
+        for k in sorted(params.keys()):
+            if (k != 'sign') and (k != '') and (params[k] is not None):
+                ret.append('%s=%s' % (k, params[k]))
+        params_str = '&'.join(ret)
+        params_str = '%(params_str)s&key=%(partner_key)s'%{'params_str': params_str, 'partner_key': key}
+        #reload(sys)
+        #sys.setdefaultencoding('utf8')
+        params_str = hashlib.md5(params_str.encode('utf-8')).hexdigest()
+        sign = params_str.upper()
+        params['sign'] = sign
+
+
+        #拼接参数的xml字符串
+        request_xml_str = '<xml>'
+        for key, value in params.items():
+            if isinstance(value, str):
+                request_xml_str = '%s<%s><![CDATA[%s]]></%s>' % (request_xml_str, key, value, key, )
+            else:
+                request_xml_str = '%s<%s>%s</%s>' % (request_xml_str, key, value, key, )
+        request_xml_str = '%s</xml>' % request_xml_str
+
+        #向微信支付发出请求，并提取回传数据
+        #res = urllib2.Request(self._UFDODER_URL, data=request_xml_str)
+        #res_data = urllib2.urlopen(res)
+        res_data = requests.post(self._REFUND_URL, data=request_xml_str, verify = False)  
+        res_read = res_data.content
+        doc = xmltodict.parse(res_read)
+        return_code = doc['xml']['return_code']
+        if return_code=="SUCCESS":
+            result_code = doc['xml']['result_code']
+            if result_code == "SUCCESS": 
+                return 'ok'
+            else:
+                err_des = doc['xml']['err_code_des']
+                print ("errdes==========="+err_des)
+                return 'error'
+        else:
+            fail_des = doc['xml']['return_msg']
+            print ("fail des============="+fail_des)
+            return 'error'
+
     def getQueryUrl(self,orderid):
         '''
         向微信支付查询接口，获取url
