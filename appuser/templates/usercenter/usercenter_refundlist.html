@@ -38,17 +38,10 @@
                         <div class="date-inp">
                                 <label>下单日期：</label><input class="common-inp mr-2" name="date" type="text">—
                             </label><input class="common-inp" name="date" type="text">
-                        </div>
-                        <button type="button" class="orange-bg common-btn" >
-                                <span class="white">搜索</span>
-                        </button>
-                        <button type="button" class="orange-bg common-btn" >
-                                <span class="white">导出搜索结果</span>
-                        </button>
-                        <button type="button" class="orange-bg common-btn" >
-                                <span class="white">批量发货</span>
-                        </button>
-                    
+                            <button type="button" class="orange-bg common-btn" >
+                                    <span class="white">搜索</span>
+                            </button>
+                        </div> 
                 </form>
                 
                 
@@ -79,7 +72,7 @@
                                     <td>
                                             {{ bill.payed_money }}
                                     </td>
-                                    <td>{{bill.reason}}</td>
+                                    <td>{{bill.refund_reason}}</td>
                                     <td>
                                         <a class="order-form-btn orange-bg common-btn" href="#">
                                             <span class="white">批准</span>

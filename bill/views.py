@@ -306,14 +306,23 @@ class BillView(View):
             billid = data['id']
             try:
                 bill = AdaptorBill.objects.get(id = billid, owner = user)
-                if 'reason' in data:
-                    reason = data['reason']
-                    bill.refund_reason = reason
-                bill.refund_status = AdaptorBill.REFUNDWAITING
-                bill.refund_time = timezone.now() 
-                bill.save() 
-                result['status'] ='ok'
-                result['msg'] ='退款申请已提交，请耐心等待审批...'
+                if 'approve' in data:
+                    # 退款审核
+                    bill.refund_approve_status = AdaptorBill.REFUNDAGREE
+                    bill.refund_approve_time = timezone.now() 
+                    bill.save() 
+                    result['status'] ='ok'
+                    result['msg'] ='退款申请已批准，请耐心等待支付平台退款...'
+                else:
+                    if 'reason' in data:
+                        reason = data['reason']
+                        bill.refund_reason = reason 
+                    bill.refundstatus = AdaptorBill.REFUNDWAITING
+                    bill.refund_time = timezone.now() 
+                    bill.save() 
+                    
+                    result['status'] ='ok'
+                    result['msg'] ='退款申请已提交，请耐心等待审批...'
             except AdaptorBill.DoesNotExist:
                 result['status'] ='error'
                 result['msg'] ='404 Not found the Bill ID:{}'.format(billid) 

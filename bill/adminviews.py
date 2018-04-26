@@ -238,8 +238,8 @@ def refundlist(request):
         billno = request.GET['billno']
         content['billno'] = 'billno'  
         kwargs['no__icontains'] = billno
-    #bills = AdaptorBill.objects.filter( **kwargs )
-    bills = AdaptorBill.objects.all(  )
+    bills = AdaptorBill.objects.filter( **kwargs )
+    #bills = AdaptorBill.objects.all(  )
     content['mediaroot'] = settings.MEDIA_URL
     content['bills'] = bills
     content['menu'] = 'refundlist'  

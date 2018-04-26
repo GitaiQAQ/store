@@ -15,25 +15,51 @@
     
     <div class="col-xs-10">
             <div class="usercentercontent">
-        {% if bill.status == 1 %}
-            <div  >
-                    <div class="car-title">支付订单</div>
-                    <div class="submit sec text-center"> 
-                           <img src="/static/img/right.gif" /><span class="show-sucess">订单已支付</span>
-                           <div> 
-                                <br/><span class="deliverytime">72小时内发货</span>
-                               </p> 
-                           </div>
-                           <div>
-                           </div>
+                {% if bill.refundstatus == 0  %}
+                        {% if bill.status == 1 %}
+                            <div  >
+                                    <div class="car-title">支付订单</div>
+                                    <div class="submit sec text-center"> 
+                                        <img src="/static/img/right.gif" /><span class="show-sucess">订单已支付</span>
+                                        <div> 
+                                                <br/><span class="deliverytime"> 
+                                                            72小时内发货 
+                                                </span>
+                                            
+                                        </div>
+                                        <div>
+                                        </div>
+                                    </div>
+                            </div>
+                        {% elif bill.status == -2 %}
+                    
+                        {% endif %} 
+                {% else %}
+                    <div  >
+                            <div class="car-title">退款详情
+                                    {% if bill.refundstatus == 0  %}
+                                    【{{bill.get_status_display}}】 {% if bill.status == 4 %} | {{bill.errormsg}} {% endif %}
+                                    {% else %}
+                                    【退款：{{bill.get_refundstatus_display}}】
+                                    {% endif %}</div>
+                            <div class="submit refundsubmit sec "> 
+                                <div >
+                                     <span class="grey">   退款原因:{{bill.refund_reason}} </span>
+                                </div>
+                                <br/>
+                                {% if perm %}
+                                    {%csrf_token%} 
+                                    <input type="hidden" id="billid" value="{{bill.id}}"/>
+                                    <button   class=" orange-bg common-btn btn-approve">
+                                        <span class="white">批准</span>
+                                    </button>
+                                {% endif %}
+                            </div>
                     </div>
-            </div>
-        {% elif bill.status == -2 %}
-       
-        {% endif %} 
+                {% endif %}
         {% block usercentercontent %} 
                 <div class="car-title clearfix">
-                        订单详情【{{bill.get_status_display}}】 {% if bill.status == 4 %} | {{bill.errormsg}} {% endif %}
+                        订单详情 
                 </div>
                 {% if bill.status == 2 %}
                 <div class="submit">

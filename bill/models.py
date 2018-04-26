@@ -24,8 +24,8 @@ class Bill(BaseDate):
     STATUS_BAD = 4 #异常订单
     STATUS_REFUND = 5 # 已退款
 
-    #TIMEOUT = 24 * 60 * 5 # 24小时内支付
-    TIMEOUT =  60 * 15 # 15 分钟内支付
+    TIMEOUT = 2 * 60 * 5 # 2小时内支付
+    #TIMEOUT =  60 * 15 # 15 分钟内支付
 
     STATUS_CHOICES = (
         (STATUS_FAILED, '失败'),
@@ -98,8 +98,7 @@ class Bill(BaseDate):
         (REFUNDREFUSED, '退款被拒绝'), 
     )
     
-    refundstatus = models.SmallIntegerField( choices=REFUND_CHOICES, max_length = 128, 
-                    default =REFUNDAPPLY)
+    refundstatus = models.SmallIntegerField( choices=REFUND_CHOICES, default =REFUNDAPPLY)
     refund_reason = models.TextField(_('refund reason'), null=True)
     # 退款申请时间
     refund_time = models.DateTimeField( null=True)
