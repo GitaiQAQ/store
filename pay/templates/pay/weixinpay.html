@@ -62,7 +62,7 @@
                         </div>
                         <div id="back" class="orange text-left">< 选择其他支付方式</div>
                     </div>
-                    <div class="pull-right col-xs-6"><img  src="/static/img/phone-bg.png" /></div>
+                    <div class="pull-right text-left col-xs-6"><img  src="/static/img/phone-bg.png" /></div>
                 </div>
             </div>
 
@@ -88,5 +88,9 @@
         {% endfor %} 
         $('#all_sum_price').text(sum);
         $(".sum_num").text(num);
+
+        $('#back').click(function () {
+            window.location.href = '/bill/bills/?unpayed&billno=' + {{bill.no}} ; 
+        })
     </script> 
 {% endblock %}

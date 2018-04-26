@@ -1,6 +1,4 @@
-$('#back').click(function () {
-    window.location.href = '/bill/bills/?unpayed';
-})
+
 $(function () {
     var inquireAbout = setInterval(
         function() {

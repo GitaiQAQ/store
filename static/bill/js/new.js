@@ -9,9 +9,18 @@ $(document).ready(function(){
      */
 $.ajax({
     type:'get',
-    url:''
+    url:' /coupon/coupon/?api',
+    dataType:"json", 
+    success:function(data){
+        $.each(data, function(i,code) {
+                $('<div><input type="radio" name="activation_code" class="choose"/><span>' + code.code+ "</span>" + '<span class="face-value">¥200</span></div>').appendTo("#activation_code");
+        });
+    },
+    error: function () {
+        alert('server is down!')
+    }
 })
-
+                            
     /* 
      *获取cookid数据
      */
@@ -259,6 +268,11 @@ $.ajax({
                     $('#sum_price, #all_sum_price').text(nSum_price- coupon_price); 
                     $('#coupon-msg').val('');
                     $('#coupon-msg').children('.alert').remove();
+                    //已使用优惠券数量和面额
+                    var code_nb =/* parseInt($('#code-nb').text())+ */1,
+                    denomination =  /* parseInt($('#denomination').text())+ */parseInt(result['price']);
+                    $('#code-nb').text(code_nb);
+                    $('#denomination').text(denomination);
                 }else{
                     $("#coupon-msg").empty();
                     html = html.replace('####',result['msg'] );
@@ -316,7 +330,7 @@ $('.container-car').on('click', '.msg-list', function () {
 
 
 //选择按钮后 自动填入激活码
-$(".choose").click(function() {
+$("#activation_code").on('click','.choose',function() {
   /*   var thisInp=$(this); */
     if (this.checked) {
         var codeVal = $(this).next().text();

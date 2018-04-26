@@ -85,7 +85,7 @@
                                         <a  class=" orange-bg common-btn" href="{% url 'bill:detail' bill.id %}">
                                             <span class="white">{{bill.get_status_display}}</span>
                                         </a>
-                                        <button  class=" orange-bg common-btn btn-refund">
+                                        <button id="refund"  class=" orange-bg common-btn btn-refund">
                                             <span class="white">申请退款</span>
                                         </button>
                                         {%　else %}
