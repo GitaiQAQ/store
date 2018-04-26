@@ -27,3 +27,7 @@ textarea{
     resize: none;
     border: 1px solid #ddd;
 }
+textarea:focus{
+    outline: none;
+    border-color: #ea5014;
+}
