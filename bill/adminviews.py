@@ -63,6 +63,11 @@ def admin(request):
     """
     销售订单 
     """
+    user = request.user
+    perm = user.has_perm('bill.manage_bill')
+    if not perm:
+        return HttpResponse("403")
+
     isMble  = dmb.process_request(request)
     content = {} 
     bills_status = [AdaptorBill.STATUS_PAYED, AdaptorBill.STATUS_DELIVERIED,
@@ -124,6 +129,10 @@ def delivery(request):
     """
     批量发货 
     """
+    user = request.user
+    perm = user.has_perm('bill.manage_bill')
+    if not perm:
+        return HttpResponse("403")
     isMble  = dmb.process_request(request)
     content = {} 
     content['menu'] = 'delivery'
@@ -184,6 +193,10 @@ def sales(request):
     """
     销售统计 
     """
+    user = request.user
+    perm = user.has_perm('bill.manage_bill')
+    if not perm:
+        return HttpResponse("403")
     isMble  = dmb.process_request(request)
     content = {} 
     bills_status = [AdaptorBill.STATUS_PAYED, AdaptorBill.STATUS_DELIVERIED,
@@ -204,3 +217,33 @@ def sales(request):
     else:
         return render(request, 'usercenter/usercenter_salesbill.html', content)
 
+@login_required
+def refundlist(request):
+    """
+    退款列表 
+    可以查看：正在申请的、已经同意的和已经拒绝的
+    """
+    user = request.user
+    perm = user.has_perm('bill.manage_bill')
+    if not perm:
+        return HttpResponse("403")
+    isMble  = dmb.process_request(request)
+    content = {}  
+    refund_status = [AdaptorBill.REFUNDWAITING, AdaptorBill.REFUNDAGREE,
+     AdaptorBill.REFUNDREFUSED]
+
+    kwargs = {}
+    kwargs['refundstatus__in'] = refund_status
+    if 'billno' in request.GET:
+        billno = request.GET['billno']
+        content['billno'] = 'billno'  
+        kwargs['no__icontains'] = billno
+    #bills = AdaptorBill.objects.filter( **kwargs )
+    bills = AdaptorBill.objects.all(  )
+    content['mediaroot'] = settings.MEDIA_URL
+    content['bills'] = bills
+    content['menu'] = 'refundlist'  
+    if isMble:
+        return render(request, 'usercenter/usercenter_refundlist.html', content)
+    else:
+        return render(request, 'usercenter/usercenter_refundlist.html', content)

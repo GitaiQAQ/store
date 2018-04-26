@@ -40,7 +40,7 @@ class Bill(BaseDate):
     # 组成方式：年月日时分秒毫秒用户ID
     no = models.CharField(_('Bill No.'), max_length=1024)
     # 提交订单的人
-    owner = models.ForeignKey(User) 
+    owner = models.ForeignKey(User, related_name="bill_owner") 
     
     # 收货人地址
     address_detail = models.CharField(_('address_detail'), max_length=1024, null = True) 
@@ -84,8 +84,53 @@ class Bill(BaseDate):
     trade_no = models.CharField(_('trade no'), max_length = 4096, null = True) 
     pay_datetime = models.DateTimeField(_('pay date'),null = True) 
     
+    # 退款相关信息
+    # 退款状态
+    REFUNDAPPLY = 0
+    REFUNDWAITING = 1
+    REFUNDAGREE = 2
+    REFUNDREFUSED = 3
+
+    REFUND_CHOICES = (
+        (REFUNDAPPLY, '申请退款'),
+        (REFUNDWAITING, '等待客服审批'), 
+        (REFUNDAGREE, '退款已同意'), 
+        (REFUNDREFUSED, '退款被拒绝'), 
+    )
+    
+    refundstatus = models.SmallIntegerField( choices=REFUND_CHOICES, max_length = 128, 
+                    default =REFUNDAPPLY)
+    refund_reason = models.TextField(_('refund reason'), null=True)
+    # 退款申请时间
+    refund_time = models.DateTimeField( null=True)
+
+    # 退款审批信息：
+    # 审批人
+    refund_approver = models.ForeignKey(User, related_name="refund_approver", null=True)
+     
+    # 退款审批状态  
+    REFUND_APPROVE_CHOICES = ( 
+        (REFUNDAGREE, '退款已同意'), 
+        (REFUNDREFUSED, '退款被拒绝'), 
+    )
+    refund_approve_status = models.CharField( choices=REFUND_APPROVE_CHOICES, max_length = 128, 
+                    null =True)
+    # 审批时间
+    refund_approve_time = models.DateTimeField( null=True)
+    # 审批原因
+    refund_approve_reason = models.TextField(_('refund approve reason'), null=True)
+
+
     def __str__(self):
         return self.no
+
+    @property
+    def get_adminrefund_status(self):
+        """
+        返回管理员可以看到的退款状态列表
+        """
+        return [self.REFUNDWAITING, self.REFUNDAGREE, self.REFUNDREFUSED]
+
     class Meta:
         abstract = True
         ordering = ['-date']
