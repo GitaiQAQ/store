@@ -304,6 +304,18 @@ WEIXIN = {
 'clientIp':'',#扫码支付时，会使用这个IP地址发送给微信API, 请设置为您服务器的IP 
 }
 
+# 支付宝配置参数
+"""
+ALIPAY_APPID = "2016091000479829"
+ALIPAY_URL = "https://openapi.alipaydev.com/gateway.do"
+ALI_PUBLIC_KEY = os.path.join(BASE_DIR, 'store', 'alipay_public.pem')
+PRIVATE_KEY = os.path.join(BASE_DIR, 'store', 'app_private_key.pem')
+
+PAYHOST = 'http://www.asu.com:9000'
+ALIPAY_RETURN_URL = PAYHOST + '/alipay_check_pay'
+ALIPAY_NOTIFY_URL = PAYHOST + '/alipay_notify'
+
+"""
 # 支付宝测试-沙箱环境
 # 支付宝配置参数
 ALIPAY_APPID = "2016091000479829"
@@ -311,6 +323,6 @@ ALIPAY_URL = "https://openapi.alipaydev.com/gateway.do"
 ALI_PUBLIC_KEY = os.path.join(BASE_DIR, 'store', 'alipay_public.pem')
 PRIVATE_KEY = os.path.join(BASE_DIR, 'store', 'app_private_key.pem')
 
-PAYHOST = 'http://www.asu.com:9000'
+PAYHOST = 'http://127.0.0.1:9000'
 ALIPAY_RETURN_URL = PAYHOST + '/alipay_check_pay'
 ALIPAY_NOTIFY_URL = PAYHOST + '/alipay_notify'

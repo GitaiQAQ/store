@@ -35,10 +35,35 @@ def alipay(order_id, total_amount, subject):
 
     # 让用户进行支付的支付宝页面网址
     url = settings.ALIPAY_URL + "?" + order_string
-    return url
-    # return redirect(url)
+    #return url
+    # 2018042723221914
+    result = alipay.api_alipay_trade_refund(total_amount, order_id)
+    #return redirect(url)
      
-    #return JsonResponse({"code": 0, "message": "请求支付成功", "url": url})
+    return JsonResponse({"code": 0, "message": "请求支付成功", "url": result})
+
+
+
+def alipay_refund(order_id, total_amount):
+    # 退款
+    # 创建用于进行支付宝支付的工具对象
+    alipay = AliPay(
+        appid=settings.ALIPAY_APPID,
+        app_notify_url=None,  # 默认回调url
+        app_private_key_path=settings.PRIVATE_KEY,
+        alipay_public_key_path=settings.ALI_PUBLIC_KEY,
+
+        # 支付宝的公钥，验证支付宝回传消息使用，不是你自己的公钥,
+        sign_type="RSA2",  # RSA 或者 RSA2
+        debug=True  # 默认False  配合沙箱模式使用
+    )
+   
+    # 2018042723221914
+    result = alipay.api_alipay_trade_refund(total_amount, order_id)
+    #return redirect(url)
+     
+    return result
+
 
 def alipay_notify(request):
     """
