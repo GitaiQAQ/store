@@ -1,63 +1,88 @@
-header {
-    position: fixed;
-    top: 5px;
-    z-index: 10;
-    color: #fff;
+  /* 轮播图 */
+  .sider {
+    height: 611px;
     width: 100%;
+    position: relative;
+    background-size:cover!important;
+    background-position: center center!important;
+    background-repeat: no-repeat!important;
+  }
+  .sider0{
+  background: url(/static/img/sider/sider0.jpg);
 }
-body{
-    background-color:#f6f6f6;
+.sider1{
+  background: url(/static/img/sider/sider1.jpg);
 }
-.submenu {
-    width: 20%;
-    text-align: center;
-    box-sizing: border-box;
+  .sider .shop-link {
+    position: absolute;
+  }
+  .shop-link ul>li{
+      float: left;
+      padding: 0 8px;
+      border-left: 1px solid rgb(181, 182, 182);
+      line-height: .9;
+  }
+  .shop-link1 ul>li:first-child{
+      border: none;
+      padding-left: 0px!important;
+  }
+.mb20{
+margin-bottom: 20px;
 }
 
-.submenu img {
+  .shop-link0{
+    bottom: 50%;
+    transform: translateY(50%);
+  }
+
+.shop-link1{
+  bottom: 50%;
+}
+  
+.learn_more{
+  padding-bottom: 4px;
+  border-bottom: 2px solid #ea5014;
+}
+  .sider .shop-link .now-bye {
+    margin-left: 10px;
+  }
+  .sider .shop-link .common-btn .fa-angle-right {
+    font-size: 120%;
+    margin-left: 4px;
+  }
+  sider a:hover,sider a:visited,sider a:active{
+    color: inherit;
+  }
+  .orange.fs34{
+    margin-bottom: 12px;
+  }
+  .fs18{
+    font-size: 18px;
+  }
+
+  /* 主要产品列表 */
+  .classify-name{
+    margin: 60px 0 0px;
+    padding: 0 14px 4px 0;
+    border-bottom: 2px  solid rgb(204, 204, 204);
+    display: inline-block;
+  }
+  .product-pic{
     display: block;
-    margin: 10% auto 5%;
-    width: 55%;
-    border-radius: 50%;
+    height: 174px;
+    margin: 30px auto;
+  }
+  .product-list{
+    margin-top: 30px;
     border: 1px solid #ddd;
-}
-
-.search {
-    background-color: rgba(225, 225, 225, 0.12);
-    border: 1px solid #ddd;
-    height: 34px;
-}
-
-.pagination-2 {
-    position: relative;
-    top: 2px;
-    text-align: center;
-}
-
-#swiper-container img {
-    width: 100%;
-}
-
-.subnav-wrap {
-    border-top-right-radius: 20px;
-    border-top-left-radius: 20px;
-    position: relative;
-    top: -20px;
-    z-index: 100;
-    background-color: #f6f6f6; 
-}
-
-.search input {
-    border-width: 0px;
-    background: none;
-    outline: none;
-    width: 90%;
-    height: 100%;
-}
-
-.col-xs-2 {
-    padding: 0px;
-}
-.recommend_title{
-    width: 50%;
-}
+    background: -webkit-linear-gradient(left bottom, #f5f5f5 , #fff); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(top right,  #f5f5f5 , #fff); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(top right, #f5f5f5 , #fff); /* Firefox 3.6 - 15 */
+    background: linear-gradient(to top right, #f5f5f5 , #fff); /* 标准的语法 */
+  }
+  .product-list .orange{
+    margin: 5px 0 30px;
+  }
+  .product-warp{
+    margin-bottom: 60px;
+  }
