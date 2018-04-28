@@ -7,6 +7,7 @@
 /media/
 *.json
 *.sql
+*.pem
 */docs/* 
 /settings*
 docs/通用商城设计文档.docx

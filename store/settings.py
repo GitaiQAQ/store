@@ -302,6 +302,8 @@ WEIXIN = {
 'mch_id':'1331223701', #微信商户ID 
 'mch_notify_url':'https:#XXX/notify/weixin/', #微信支付异步通知接收URL
 'clientIp':'',#扫码支付时，会使用这个IP地址发送给微信API, 请设置为您服务器的IP 
+'cert': os.path.join(BASE_DIR, 'weixin_cert.pem'),
+'key': os.path.join(BASE_DIR, 'weixin_key.pem'),
 }
 
 # 支付宝配置参数

@@ -103,7 +103,7 @@ class PayToolUtil(object):
             print ("fail des============="+fail_des)
     
 
-    def refundPayUrl(self, orderid, paymoney, **kwargs):
+    def refundPayUrl(self, orderid, paymoney, cert ):
         '''
         向微信支付端发出退款请求
         '''
@@ -152,7 +152,7 @@ class PayToolUtil(object):
         #向微信支付发出请求，并提取回传数据
         #res = urllib2.Request(self._UFDODER_URL, data=request_xml_str)
         #res_data = urllib2.urlopen(res)
-        res_data = requests.post(self._REFUND_URL, data=request_xml_str, verify = False)  
+        res_data = requests.post(self._REFUND_URL, data=request_xml_str, cert = cert)  
         res_read = res_data.content
         doc = xmltodict.parse(res_read)
         return_code = doc['xml']['return_code']

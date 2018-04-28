@@ -45,10 +45,10 @@
                                     {% endif %}</div>
                             <div class="submit refundsubmit sec "> 
                                 <div >
-                                     <span class="grey">   退款原因:{{bill.refund_reason}} </span>
+                                     <span class="grey">   退款原因:{{bill.refund_reason|default:'未填写'}} </span>
                                 </div>
                                 <br/>
-                                {% if perm %}
+                                {% if perm and bill.refundstatus == 1 %}
                                     {%csrf_token%} 
                                     <div >
                                     <input type="hidden" id="billid" value="{{bill.id}}"/>
