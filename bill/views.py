@@ -140,7 +140,7 @@ class BillView(View):
                         print(bill.no)
                         kwargs['order_id'] = bill.no
                         kwargs['goodsName'] = bill.no
-                        kwargs['goodsPrice'] = 0.01 #1分
+                        kwargs['goodsPrice'] = content['money'] #1分
                         weixinpay_ctl.getWeChatQRCode( **kwargs)
                     
                         return render(request, 'pay/weixinpay.html', content)
@@ -312,15 +312,17 @@ class BillView(View):
                 if 'approve' in data:
                     bill = AdaptorBill.objects.get(id = billid)
                     # 退款审核
+                    bill.refundstatus = AdaptorBill.REFUNDAGREE
                     bill.refund_approve_status = AdaptorBill.REFUNDAGREE
                     bill.refund_approve_time = timezone.now() 
-                    bill.save() 
+                    bill.refund_approver = user
+                    bill.save()  
 
                     if bill.pay_way == 'weixin':
                         # 退微信
                         pay = PayToolUtil()
-                        #status = pay.refundPayUrl(bill.no, bill.payed_money)
-                        pass
+                        cert = (settings.WEIXIN['cert'], settings.WEIXIN['key'])
+                        status = pay.refundPayUrl(bill.no, bill.payed_money, cert) 
                     else:
                         # 退支付宝
                         # return alipay('2018042723221914', 0.02)

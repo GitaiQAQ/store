@@ -48,6 +48,7 @@
                             <table class="order-form statistics text-left">
                                 <tr>
                                     <th>订单号</th>
+                                    <th>申请时间</th>
                                     <th>联系电话</th>
                                     
                                     <th>退款进度</th>
@@ -63,6 +64,9 @@
                                         </a>
                                     </td>
                                     <td>
+                                            {{bill.refund_time}}
+                                    </td>
+                                    <td>
                                         {{bill.owner.phone}}
                                     </td>
                                     
@@ -74,9 +78,15 @@
                                     </td>
                                     <td>{{bill.refund_reason}}</td>
                                     <td>
-                                        <a class="order-form-btn orange-bg common-btn" href="#">
+                                        {% if bill.refundstatus == 1 %}
+                                        <a class="order-form-btn orange-bg common-btn" href="{% url 'bill:detail' bill.id %}">
                                             <span class="white">批准</span>
                                         </a>
+                                        {% else %}
+                                         
+                                           <span class="gray">审核已完成</span>
+                                         
+                                        {% endif %}
                                     </td>
                                 </tr>
                                 {% endfor %}
