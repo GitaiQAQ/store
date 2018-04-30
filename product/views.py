@@ -103,7 +103,7 @@ class ProductDetailView(APIView):
         content['mediaroot'] = settings.MEDIA_URL
         content['pics'] = pics
         if isMble:
-            return render(request, 'detail.html', content)
+            return render(request, 'm_detail.html', content)
         else:
             return render(request, 'detail.html', content)
 

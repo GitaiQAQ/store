@@ -32,6 +32,9 @@ ul{
 .fs16{
     font-size: 16px;
 }
+.fs24{
+    font-size: 24px;
+}
 .common-btn {
     display: inline-block;
     padding: 4px 12px;
@@ -183,3 +186,7 @@ nav ul{
 }
 
 /* 菜单结束 */
+.container-main {
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
