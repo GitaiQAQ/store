@@ -5,7 +5,21 @@
 {% include 'admintitle.html' %}
 {% endblock %}
 {% block css %}
+<link href="/static/plugins//bootstrap-datepicker/css/datepicker.css" rel="stylesheet" />
+<link href="/static/plugins/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet" />
 <link href="/static/appuser/css/usercenter.css" rel="stylesheet">
+<link href="/static/appuser/css/refund.css" rel="stylesheet">
+<style>
+    .search input, .search select{
+        margin-right:0px;
+    }
+    #delivery_dateto{
+        width: 127px;
+    }
+    select.common-inp.status{
+        margin-left: 2px;
+    }
+</style>
 {% endblock %} 
 {% block content %}
 {%csrf_token%} 
@@ -17,26 +31,41 @@
                 <div class="car-title">
                     销售订单
                 </div>
-                <form class="submit search" method="get">
-                        <select class="common-inp" name="status" >
-                            <option value="-1" >订单状态</option>
-                            <option value="2" {% if　status == '2' %}selected="selected"{% endif %}>已发货</option>
-                            <option value="1" {% if　status == '1' %}selected="selected"{% endif %}>未发货</option>
-                        </select>
-                        <input class="common-inp" type="text" name="receiver" value="{{billno}}" placeholder="收货人"/>
-                        <input class="common-inp" type="text" name="order_date" value="{{billno}}" placeholder="下单日期"/>
-                        <input class="common-inp" type="text" name="send_date" value="{{billno}}" placeholder="发货日期"/>
-                        <input class="common-inp" type="text" name="search_rule" value="{{billno}}" placeholder="产品型号"/>
-                        <div class="mt-20"><button type="submit" class="orange-bg common-btn inp-after-btn" >
-                                <span class="white">搜索</span>
-                        </button>
-    
-                        <button id="leading_out" type="button" class="orange-bg common-btn inp-after-btn" >
-                            <span class="white">导出搜索结果</span>
-                        </button>
-                        <a  href="{% url 'bill:delivery' %}" class="orange-bg common-btn inp-after-btn" >
-                            <span class="white">批量发货</span>
-                        </a></div>
+                <form class="submit search" method="get" action=""> 
+                        <div>
+                                <label for="bill_nb">订单号：</label>
+                                <input class="common-inp" id="bill_nb" name="billno" type="text" value="{{billno}}">
+                                <label for="phone_nb">联系电话：</label>
+                                <input class="common-inp" id="phone_nb" name="phone" type="text" value="{{phone}}">
+                             </div>
+                             <div class="date-inp">
+                                    <label>下单日期：</label>
+                                    <input class="common-inp   " name="datefrom" id="datefrom" type="text" value="{{datefrom}}" >
+                                    <span class="gray">—</span>
+                                    <input class="common-inp" name="dateto" id="dateto" type="text" value="{{dateto}}" >
+                                   
+                                    <label>发货日期：</label>
+                                    <input class="common-inp   " name="delivery_datefrom" id="delivery_datefrom" type="text" value="{{delivery_datefrom}}" >
+                                    <span class="gray">—</span>
+                                    <input class="common-inp" name="delivery_dateto" id="delivery_dateto" type="text" value="{{delivery_dateto}}" >
+                                    
+                                </div> 
+                             <div>
+                                 <label>产品型号：</label>
+                                 <input class="common-inp"   name="name" type="text" value="{{name}}">
+                                 <label>订单状态：</label>
+                                 <select class="common-inp status" name="status">
+                                     <option value="-1">全部</option>
+                                     <option value="1">已支付</option>
+                                     <option value="2">已发货</option>
+                                     <option value="3">已完成</option>
+                                 </select>
+                             </div>
+                            <div>
+                                <button type="submit" class="orange-bg common-btn" >
+                                        <span class="white">搜索</span>
+                                </button>
+                            </div>
                     </form>
                 <table class="order-form statistics text-left">
                         <tr>
@@ -47,29 +76,69 @@
                             <th>订单金额</th>
                             <th>发货时间</th>
                         </tr>
-                        <tr class="item">
-                            <td>
-                                ASU2929287373738
-                            </td>
-                            <td>
-                               张某
-                            </td>
-                            <td>
-                                138888888
-                            </td>
-                            <td>
-                             顺丰
-                            </td>
-                            <td>
-                               126378737377
-                                 </td>
-                                 <td></td>
-                        </tr>
+                        {% if bills %} 
+                           {% for bill in bills %} 
+                              <tr class="item">
+                                    <td>
+                                        <a   href="{% url 'bill:detail' bill.id %}">
+                                            <span class="orange">{{bill.no}}</span>
+                                        </a>    
+                                    </td>
+                               <td>
+                                    {% for item in bill.adaptorbillitem_set.all %}
+                                    {{item.product.title}} {{item.rule.name}}
+                                    <br/>
+                                    {% endfor %}
+                              </td>
+                              <td>
+                                    {% if bill.refundstatus == 0   %}
+                                        {% if bill.status == -2   %}
+                                        <a  class="order-form-btn orange-bg common-btn" href="{% url 'bill:bills' %}?unpayed&billno={{bill.no}}">
+                                            <span class="white">立即支付</span>
+                                        </a>
+                                        {% endif %}
+                                        {% if bill.status == 1  %}
+                                        <a  class="order-form-btn orange-bg common-btn" href="{% url 'bill:detail' bill.id %}">
+                                            <span class="white">{{bill.get_status_display}}</span>
+                                        </a>
+                                        {%　else %}
+                                        <a  class="order-form-btn orange-bg common-btn" href="{% url 'bill:detail' bill.id %}">
+                                            <span class="white">{{bill.get_status_display}}</span>
+                                        </a>
+                                        {% endif %}
+                                    {%　else %}
+                                         <a  class="order-form-btn orange-bg common-btn" href="{% url 'bill:detail' bill.id %}">
+                                            <span class="white">{{bill.get_refundstatus_display}}</span>
+                                        </a>
+                                    {% endif %}
+                              </td>
+                              <td>
+                                    {% if bill.adaptorcouponitem_set.all %}
+                                    <span class="coupon{{bill.id}}">{{bill.adaptorcouponitem_set.all.0.coupon.price}}元</span>
+                                    {% else %}
+                                    未使用
+                                    {% endif %}
+                              </td>
+                              <td>
+                                    {% if bill.status == 1  %} 
+                                    <span >{{bill.money}}</span>
+                                    {% elif bill.status == 4 %}
+                                    <span> {{bill.money}}</span>
+                                    {% else %}
+                                    <span class="real{{bill.id}}">XXX</span>
+                                    {% endif %}
+                              </td>
+                              <td>
+                                    {{ bill.delivery_date|date:"Y-m-d"|default_if_none:"未发货"}}
+                              </td>
+                              </tr>
+                            {% endfor %}
+                        {% endif %} 
                     </table>
                 
-                {% if bills %}
-                   
-                            {% for bill in bills %} <table class="order-form text-center">
+                {% if bills %} 
+                    {% for bill in bills %} 
+                        <table class="order-form text-center">
                             <tr>
                                 <th class="text-left usercenter-tb">
                                         <img src="/static/img/icon/center5.svg" class="orange delete" alt="" billid="{{ bill.id }}"> 
@@ -187,4 +256,19 @@
               real = 0; 
          {% endfor %}
     </script>
+ <script src="/static/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+ <script src="/static/plugins/bootstrap-datepicker/js/locales/bootstrap-datepicker.zh-CN.js" charset="UTF-8"></script>
+      
+<script> 
+        $(function () { 
+            $( "#datefrom, #dateto, #delivery_datefrom, #delivery_dateto" ).datepicker({ 
+                defaultDate: "+30w",
+                changeMonth: true,
+                changeYear: true,
+                language:'zh-CN', 
+                format:'yyyy-mm-dd', 
+            }); 
+            });
+            
+</script>
 {% endblock %}

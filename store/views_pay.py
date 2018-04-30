@@ -13,6 +13,7 @@ from bill.apis import pay_bill
 def alipay(order_id, total_amount, subject):
     #request.POST.get("order_id")
     # 创建用于进行支付宝支付的工具对象
+    total_amount = str(total_amount) 
     alipay = AliPay(
         appid=settings.ALIPAY_APPID,
         app_notify_url=None,  # 默认回调url
@@ -35,14 +36,7 @@ def alipay(order_id, total_amount, subject):
 
     # 让用户进行支付的支付宝页面网址
     url = settings.ALIPAY_URL + "?" + order_string
-    #return url
-    # 2018042723221914
-    result = alipay.api_alipay_trade_refund(total_amount, order_id)
-    #return redirect(url)
-     
-    return JsonResponse({"code": 0, "message": "请求支付成功", "url": result})
-
-
+    return url  
 
 def alipay_refund(order_id, total_amount):
     # 退款

@@ -55,10 +55,10 @@
                                         {{bill.phone}}
                                     </td>
                                     <td>
-                                       {{bill.delivery_company}}
+                                       {{bill.delivery_company|default_if_none:""}}
                                     </td>
                                     <td>
-                                        {{bill.delivery_no}}
+                                        {{bill.delivery_no|default_if_none:""}}
                                          </td>
                                 </tr>
                                 {% endfor %}

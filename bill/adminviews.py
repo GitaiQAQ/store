@@ -5,7 +5,7 @@ import random
 import string
 import os
 from datetime import datetime
-
+from django.utils import timezone
 from django.shortcuts import render
 from django.http import HttpResponse 
 from django.http import Http404, QueryDict
@@ -74,6 +74,8 @@ def admin(request):
      AdaptorBill.STATUS_FINISHED, AdaptorBill.STATUS_BAD]
 
     kwargs = {}
+    kwargs, content = search(request)
+    kwargs['refundstatus'] = AdaptorBill.REFUNDAPPLY
     if 'status' in request.GET:
         status = request.GET['status']
         if status != '-1':
@@ -84,11 +86,38 @@ def admin(request):
     else:
         kwargs['status__in'] = bills_status
 
-    if 'billno' in request.GET:
-        billno = request.GET['billno']
-        content['billno'] = billno  
-        kwargs['no__icontains'] = billno
-      
+    if 'datefrom' in request.GET:
+        datefrom = request.GET['datefrom'].strip()
+        if len(datefrom) > 0:
+            datefrom = datetime.strptime(datefrom, "%Y-%m-%d")
+            print(datefrom)
+            kwargs['date__gt'] = datefrom
+            content['datefrom'] = datefrom.strftime("%Y-%m-%d")
+    
+    if 'dateto' in request.GET:
+        dateto = request.GET['dateto'].strip()
+        if len(dateto) > 0:
+            dateto = datetime.strptime(dateto, "%Y-%m-%d") 
+            kwargs['date__lt'] = dateto
+            content['dateto'] = dateto.strftime("%Y-%m-%d")  
+    # 
+
+    if 'delivery_datefrom' in request.GET:
+        delivery_datefrom = request.GET['delivery_datefrom'].strip()
+        if len(delivery_datefrom) > 0:
+            delivery_datefrom = datetime.strptime(delivery_datefrom, "%Y-%m-%d")
+             
+            kwargs['delivery_date__gt'] = delivery_datefrom
+            content['delivery_datefrom'] = delivery_datefrom.strftime("%Y-%m-%d")
+    
+    if 'delivery_dateto' in request.GET:
+        delivery_dateto = request.GET['delivery_dateto'].strip()
+        if len(delivery_dateto) > 0:
+            delivery_dateto = datetime.strptime(delivery_dateto, "%Y-%m-%d")
+    
+            kwargs['delivery_date__lt'] = delivery_dateto
+            content['delivery_dateto'] = delivery_dateto.strftime("%Y-%m-%d") 
+
     bills = AdaptorBill.objects.filter( **kwargs ) 
     if 'print' in request.GET:
         userid = request.user.id
@@ -138,6 +167,7 @@ def delivery(request):
     content['menu'] = 'delivery'
     bills_status = [AdaptorBill.STATUS_PAYED, AdaptorBill.STATUS_DELIVERIED,
      AdaptorBill.STATUS_FINISHED, AdaptorBill.STATUS_BAD]
+    kwargs = {}
     if request.method == 'POST':
         filename = os.path.join(settings.BASE_FILE_PATH,'input.xls' )
         if 'file' in request.FILES:
@@ -170,10 +200,10 @@ def delivery(request):
                         bill.delivery_company = result['company']
                         bill.delivery_no = result['code'].strip()
                         bill.status = bill.STATUS_DELIVERIED
+                        bill.delivery_date = timezone.now()
                         bill.save()
                         succeed_items.append(bill)
-                        succeed += 1
-
+                        succeed += 1 
                 except AdaptorBill.DoesNotExist:
                     failed += 1
 
@@ -181,7 +211,11 @@ def delivery(request):
             content['succeed'] = succeed
             content['failed'] = failed
             content['bills'] = succeed_items
-
+    else:
+        # 等到发货的记录
+        kwargs['status'] = AdaptorBill.STATUS_PAYED
+        bills = AdaptorBill.objects.filter( **kwargs ) #.order_by('refundstatus', '-refund_time')
+        content['bills'] = bills
     if isMble:
         return render(request, 'usercenter/usercenter_deliverybill.html', content)
     else:
@@ -233,13 +267,34 @@ def refundlist(request):
      AdaptorBill.REFUNDREFUSED]
 
     kwargs = {}
-    kwargs['refundstatus__in'] = refund_status
-    if 'billno' in request.GET:
-        billno = request.GET['billno']
-        content['billno'] = 'billno'  
-        kwargs['no__icontains'] = billno
+    kwargs, content = search(request)
+    if 'refundstatus' in request.GET:
+        refundstatus = request.GET['refundstatus'].strip()
+        if len(refundstatus) > 0 and refundstatus != '-1':
+            content['refundstatus'] = refundstatus
+            kwargs['refundstatus'] = refundstatus
+        else:
+            kwargs['refundstatus__in'] = refund_status
+    else:
+        kwargs['refundstatus__in'] = refund_status
+    
+    if 'datefrom' in request.GET:
+        datefrom = request.GET['datefrom'].strip()
+        if len(datefrom) > 0:
+            datefrom = datetime.strptime(datefrom, "%Y-%m-%d")
+            print(datefrom)
+            kwargs['refund_time__gt'] = datefrom
+            content['datefrom'] = datefrom.strftime("%Y-%m-%d")
+    
+    if 'dateto' in request.GET:
+        dateto = request.GET['dateto'].strip()
+        if len(dateto) > 0:
+            dateto = datetime.strptime(dateto, "%Y-%m-%d")
+            print(dateto)
+            kwargs['refund_time__lt'] = dateto
+            content['dateto'] = dateto.strftime("%Y-%m-%d")
+
     bills = AdaptorBill.objects.filter( **kwargs ).order_by('refundstatus', '-refund_time')
-    #bills = AdaptorBill.objects.all(  )
     content['mediaroot'] = settings.MEDIA_URL
     content['bills'] = bills
     content['menu'] = 'refundlist'  
@@ -247,3 +302,37 @@ def refundlist(request):
         return render(request, 'usercenter/usercenter_refundlist.html', content)
     else:
         return render(request, 'usercenter/usercenter_refundlist.html', content)
+    
+def search(request):
+    """
+    搜索：销售订单和退款用的搜索都是这个。
+    """
+    kwargs = {}
+    content = {}
+    
+    if 'billno' in request.GET:
+        billno = request.GET['billno'].strip()
+        if len(billno) > 0:
+            content['billno'] = billno
+            kwargs['no__icontains'] = billno
+    
+    if 'phone' in request.GET:
+        phone = request.GET['phone'].strip()
+        if len(phone) > 0:
+            content['phone'] = phone 
+            kwargs['phone__icontains'] = billno
+    
+    if 'name' in request.GET:
+        name = request.GET['name'].strip()
+        content['name'] = name
+        billids = []
+        if len(name) > 0:
+            items = AdaptorBillItem.objects.filter(product__title__icontains = name)
+            for item in items:
+                if item.bill.id not in billids :
+                    billids.append(item.bill.id) 
+            kwargs['id__in'] = billids
+    
+    
+    
+    return kwargs, content 

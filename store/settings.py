@@ -328,3 +328,6 @@ PRIVATE_KEY = os.path.join(BASE_DIR, 'store', 'app_private_key.pem')
 PAYHOST = 'http://127.0.0.1:9000'
 ALIPAY_RETURN_URL = PAYHOST + '/alipay_check_pay'
 ALIPAY_NOTIFY_URL = PAYHOST + '/alipay_notify'
+
+OFFICIALSITE='http://127.0.0.1:8000/book/buy/?code={0}&api={1}'
+OFFCIALAPI='54aa6579-b065-4e77-812f-2356942060e654aa6579-b065-4e77-812f-2356942060e6'

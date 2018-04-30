@@ -136,15 +136,15 @@ class BillView(View):
                     content['money'] = get_bill_money(bill)
                     if payway == 'weixin':# 支付方式
                         weixinpay_ctl = MainController()
-                        kwargs = {}
-                        print(bill.no)
+                        kwargs = {} 
                         kwargs['order_id'] = bill.no
                         kwargs['goodsName'] = bill.no
                         kwargs['goodsPrice'] = content['money'] #1分
-                        weixinpay_ctl.getWeChatQRCode( **kwargs)
+                        qrimage = os.path.join(settings.MEDIA_ROOT, 'pay', bill.no+'weixinqr.png')
+                        if not os.path.isfile( qrimage ):
+                            weixinpay_ctl.getWeChatQRCode( **kwargs)
                     
                         return render(request, 'pay/weixinpay.html', content)
-                        #return redirect(alipay(bill.no, content['money'], bill.no)) 
                     else:
                         return redirect(alipay(bill.no, content['money'], bill.no))
                       
@@ -247,33 +247,42 @@ class BillView(View):
                 bill.save()
                 if 'number' in request.POST and 'couponitems' in request.POST:
                     number = request.POST['number'].strip()
-                    couponitems = json.loads(request.POST['couponitems'])
-                    if number:
-                        try:
-                            coupon = Coupon.objects.get(code = number)
-                            bill_categoryid = set()
-                            for item in items: 
-                                rule = AdaptorRule.objects.get(id = item['ruleid'])
-                                bill_categoryid.add(rule.product.category.id)
-                            
-                            coupon_categoriesid = set()
-                            
-                            coupon_categories = coupon.categories.all()
-                            for category in coupon_categories: 
-                                coupon_categoriesid.add(category.id) 
-                
-                            if bill_categoryid < coupon_categoriesid or bill_categoryid == coupon_categoriesid: 
-                                # 优惠劵可以使用
-                                CouponItem.objects.get_or_create(bill = bill, coupon = coupon)
-                                coupon.used = 1
-                                coupon.owner = request.user
-                                coupon.save()
-                            else: 
-                                print( 'error:该优惠劵不能在本次订单中使用，使用规则：' + coupon.rule)
+                    if number.startswith('ASU'):
+                        # 预约券
+                        req = requests.get(settings.OFFICIALSITE.format(number, settings.OFFCIALAPI)+'&used=1') 
+                        result = json.loads(req.content.decode('utf-8'))
+                        if result['status'] == 'ok':
+                            bill.bookno = number
+                            bill.save()
+                    else:
+                        couponitems = json.loads(request.POST['couponitems'])
+                        if number:
+                            try:
+                                coupon = Coupon.objects.get(code = number)
+                                bill_categoryid = set()
+                                for item in items: 
+                                    rule = AdaptorRule.objects.get(id = item['ruleid'])
+                                    bill_categoryid.add(rule.product.category.id)
                                 
-                        except Coupon.DoesNotExist: 
-                            print( 'error:{0}该优惠劵不存在...'.format(number))
-
+                                coupon_categoriesid = set()
+                                
+                                coupon_categories = coupon.categories.all()
+                                for category in coupon_categories: 
+                                    coupon_categoriesid.add(category.id) 
+                    
+                                if bill_categoryid < coupon_categoriesid or bill_categoryid == coupon_categoriesid: 
+                                    # 优惠劵可以使用
+                                    CouponItem.objects.get_or_create(bill = bill, coupon = coupon)
+                                    coupon.used = 1
+                                    coupon.owner = request.user
+                                    coupon.save()
+                                else: 
+                                    print( 'error:该优惠劵不能在本次订单中使用，使用规则：' + coupon.rule)
+                                    
+                            except Coupon.DoesNotExist: 
+                                print( 'error:{0}该优惠劵不存在...'.format(number))
+                 
+                    
                 """
                 # 提交到queue中
                 q_bill={}

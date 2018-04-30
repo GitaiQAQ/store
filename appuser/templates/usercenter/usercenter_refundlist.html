@@ -5,6 +5,8 @@
 {% include 'admintitle.html' %}
 {% endblock %}
 {% block css %}
+<link href="/static/plugins//bootstrap-datepicker/css/datepicker.css" rel="stylesheet" />
+<link href="/static/plugins/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet" />
 <link href="/static/appuser/css/usercenter.css" rel="stylesheet">
 <link href="/static/appuser/css/refund.css" rel="stylesheet">
 {% endblock %} 
@@ -18,41 +20,44 @@
                 <div class="car-title">
                     退货管理
                 </div>
-                <form class="submit search" method="post" enctype="multipart/form-data">
-                    {%csrf_token%} 
+                <form class="submit search" method="get" action=""> 
                         <div>
-                           <label for="bill_nb">订单号：</label><input class="common-inp" id="bill_nb" name="bill_no" type="text">
+                           <label for="bill_nb">订单号：</label>
+                           <input class="common-inp" id="bill_nb" name="billno" type="text" value="{{billno}}">
                            <label for="phone_nb">联系电话：</label>
-                           <input class="common-inp" id="phone_nb" name="phone_nb" type="text">
+                           <input class="common-inp" id="phone_nb" name="phone" type="text" value="{{phone}}">
                         </div>
                         <div>
                             <label>产品型号：</label>
-                                <select class="common-inp" name="rule">
-                                    <option value=""></option>
-                                </select>
+                            <input class="common-inp"   name="name" type="text" value="{{name}}">
                                 <label>退款进度：</label>
-                                <select class="common-inp" name="progress">
-                                    <option value=""></option>
+                                <select class="common-inp" name="refundstatus">
+                                    <option value="-1">全部</option>
+                                    <option value="1" {% if refundstatus == '1' %} selected="selected" {% endif %}>等待客服审批</option>
+                                    <option value="2" {% if refundstatus == '2' %} selected="selected" {% endif %}> 退款已同意</option>
+                                    <option value="3" {% if refundstatus == '3' %} selected="selected" {% endif %}>退款被拒绝</option>
                                 </select>
                         </div>
                         <div class="date-inp">
-                                <label>下单日期：</label><input class="common-inp mr-2" name="date" type="text">—
-                            </label><input class="common-inp" name="date" type="text">
-                            <button type="button" class="orange-bg common-btn" >
+                            <label>申请日期：</label>
+                            <input class="common-inp mr-2 " name="datefrom" id="datefrom" type="text" value="{{datefrom}}" >
+                            <span class="gray">—</span>
+                            <input class="common-inp" name="dateto" id="dateto" type="text" value="{{dateto}}" >
+                            <button type="submit" class="orange-bg common-btn" >
                                     <span class="white">搜索</span>
                             </button>
                         </div> 
-                </form>
-                
-                
+                    </form>
                             <table class="order-form statistics text-left">
                                 <tr>
-                                    <th>订单号</th>
-                                    <th>申请时间</th>
-                                    <th>联系电话</th>
-                                    
-                                    <th>退款进度</th>
+                                    <th>订单号/
+                                        <br/>
+                                        申请时间
+                                    </th> 
+                                    <th>联系电话</th> 
+                                    <th>产品型号</th>
                                     <th>支付金额</th>
+                                    <th>退款状态</th>
                                     <th>退款原因</th>
                                     <th>审核</th>
                                 </tr>
@@ -60,21 +65,25 @@
                                 <tr class="item">
                                     <td>
                                         <a href="{% url 'bill:detail' bill.id %}" target="_blank" >
-                                                <span class="orange">{{bill.no}}</span>
-                                        </a>
-                                    </td>
-                                    <td>
+                                            <span class="orange">{{bill.no}}</span>
+                                            <br/>
                                             {{bill.refund_time}}
-                                    </td>
+                                        </a>
+                                    </td> 
                                     <td>
                                         {{bill.owner.phone}}
                                     </td>
-                                    
                                     <td>
-                                            {{ bill.get_refundstatus_display }}
+                                        {% for item in bill.adaptorbillitem_set.all %}
+                                        {{item.product.title}} {{item.rule.name}}
+                                        <br/>
+                                        {% endfor %}
                                     </td>
                                     <td>
-                                            {{ bill.payed_money }}
+                                        {{ bill.get_refundstatus_display }}
+                                    </td>
+                                    <td>
+                                        {{ bill.payed_money }}
                                     </td>
                                     <td>{{bill.refund_reason}}</td>
                                     <td>
@@ -83,17 +92,12 @@
                                             <span class="white">批准</span>
                                         </a>
                                         {% else %}
-                                         
                                            <span class="gray">审核已完成</span>
-                                         
                                         {% endif %}
                                     </td>
                                 </tr>
                                 {% endfor %}
                             </table>
-                        
-            
-            
         </div>
         {% endblock %}
     </div>
@@ -122,4 +126,19 @@
               real = 0; 
          {% endfor %}
     </script>
+<script src="/static/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script src="/static/plugins/bootstrap-datepicker/js/locales/bootstrap-datepicker.zh-CN.js" charset="UTF-8"></script>
+ 
+<script> 
+        $(function () { 
+            $( "#datefrom, #dateto" ).datepicker({ 
+                defaultDate: "+30w",
+                changeMonth: true,
+                changeYear: true,
+                language:'zh-CN', 
+                format:'yyyy-mm-dd', 
+            }); 
+            });
+            
+</script>
 {% endblock %}

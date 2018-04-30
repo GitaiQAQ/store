@@ -48,6 +48,7 @@ class CouponView(View):
          
         content['menu'] = 'coupon'
         if 'api' in request.GET:
+            # 获得当前用户的优惠劵
             coupons = Coupon.objects.filter(owner = user, used = 0 )
             items = []
             for coupon in coupons :
@@ -65,43 +66,46 @@ class CouponView(View):
             result = {}
             number = request.GET['number']
             items = json.loads(request.GET['items'])
-            
-            try:
-                coupon = Coupon.objects.get(code = number)
-                # 判断：1 是否已使用；2 判断是否过期； 3 判断是否本订单可用
-                # 1 判断是否已使用
-                if coupon.used == 1: # 已使用
-                    result['status'] = 'error'
-                    result['msg'] = '该优惠劵已使用...' 
-                else:
-                    # 2 判断是否已过期
-                    now = timezone.now()
-                    if coupon.deadline < now:
+            if number.startswith('ASU'):
+                req = requests.get(settings.OFFICIALSITE.format(number, settings.OFFCIALAPI)) 
+                result = json.loads(req.content.decode('utf-8'))
+            else:
+                try:
+                    coupon = Coupon.objects.get(code = number)
+                    # 判断：1 是否已使用；2 判断是否过期； 3 判断是否本订单可用
+                    # 1 判断是否已使用
+                    if coupon.used == 1: # 已使用
                         result['status'] = 'error'
-                        result['msg'] = '该优惠劵已过期...'
+                        result['msg'] = '该优惠劵已使用...' 
                     else:
-                        bill_categoryid = set()
-                        for item in items: 
-                            rule = Rule.objects.get(id = item['ruleid'])
-                            bill_categoryid.add(rule.product.category.id)
-                        
-                        coupon_categoriesid = set()
-                        
-                        coupon_categories = coupon.categories.all()
-                        for category in coupon_categories: 
-                            coupon_categoriesid.add(category.id) 
-            
-                        if bill_categoryid < coupon_categoriesid or bill_categoryid == coupon_categoriesid:
-                            result['status'] = 'ok'
-                            result['price'] =  str(coupon.price)
-                        else:
+                        # 2 判断是否已过期
+                        now = timezone.now()
+                        if coupon.deadline < now:
                             result['status'] = 'error'
-                            result['msg'] = '该优惠劵不能在本次订单中使用，使用规则：' + coupon.rule
-                        
-            except Coupon.DoesNotExist:
-                result['status'] = 'error'
-                result['msg'] = '该优惠劵不存在...'
-            
+                            result['msg'] = '该优惠劵已过期...'
+                        else:
+                            bill_categoryid = set()
+                            for item in items: 
+                                rule = Rule.objects.get(id = item['ruleid'])
+                                bill_categoryid.add(rule.product.category.id)
+                            
+                            coupon_categoriesid = set()
+                            
+                            coupon_categories = coupon.categories.all()
+                            for category in coupon_categories: 
+                                coupon_categoriesid.add(category.id) 
+                
+                            if bill_categoryid < coupon_categoriesid or bill_categoryid == coupon_categoriesid:
+                                result['status'] = 'ok'
+                                result['price'] =  str(coupon.price)
+                            else:
+                                result['status'] = 'error'
+                                result['msg'] = '该优惠劵不能在本次订单中使用，使用规则：' + coupon.rule
+                            
+                except Coupon.DoesNotExist:
+                    result['status'] = 'error'
+                    result['msg'] = '该优惠劵不存在...'
+                
             return self.httpjson(result)
         
         if perm:# 管理人员 

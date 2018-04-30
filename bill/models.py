@@ -67,6 +67,7 @@ class Bill(BaseDate):
     # 物流公司和物流号
     delivery_company = models.CharField( max_length = 128, null =True) 
     delivery_no = models.CharField( max_length = 128, null =True) 
+    delivery_date = models.DateTimeField(null = True) 
 
     # 支付信息
     ALIPAY = 'zhifubao' #支付宝
@@ -135,6 +136,8 @@ class Bill(BaseDate):
         ordering = ['-date']
 
 class AdaptorBill(Bill):
+    # 预约号码
+    bookno = models.CharField( max_length = 128,  null =True)
     objects = AdaptorBillManager()
 
 class BillItem(models.Model):
