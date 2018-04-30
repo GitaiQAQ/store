@@ -22,13 +22,13 @@
     {% endblock %}
     <!--扩展css结束-->
 </head>
-<nav class="container {% block fixed_menu_class %}{%endblock%}">
-  <div class="row">
+<nav class="p-r container {% block fixed_menu_class %}{%endblock%}">
+  <div class="row clearfix">
     
     <div class="col-xs-9 text-left">
       <a href="/"><img src="/static/img/logo.png" alt=""></a>
     </div>
-    <div class="col-xs-3 text-right">
+    <div class="pull-right text-right">
         {% if request.user.is_anonymous %}
         <a  class="user" href="/users/login/">
              <img src="/static/img/icon/account.svg" alt="">
@@ -43,7 +43,7 @@
             <a  class="user" href="javascript:;">
                 <img src="/static/img/icon/account.svg" alt="">
             </a>
-            <ul id="center">
+            <ul id="center" class="text-left">
                 <a href="{% url 'bill:bills' %}">
                     <li>
                         <img src="/static/img/icon/center1.svg" alt="">我的订单</li>
@@ -52,12 +52,12 @@
                     <li>
                         <img src="/static/img/icon/center2.svg" alt="">售后服务</li>
                 </a>
-                <a class="black" href="{% url 'coupon:coupons' %}"> 
+                <a href="{% url 'coupon:coupons' %}"> 
                     <li>
                             <img src="/static/img/icon/center3.svg" alt="">我的优惠劵
                     </li>
                 </a>
-                <a class="black" href="{% url 'address:addresses' %}"> 
+                <a href="{% url 'address:addresses' %}"> 
                     <li>
                         <img src="/static/img/icon/center4.svg" alt="">收货地址</li>
                 </a>  

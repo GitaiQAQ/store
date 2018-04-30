@@ -1,4 +1,15 @@
 
+/* 弹出用户中心菜单 */
+$(document).ready(function(){
+    $(".user>img").on('touchstart',function(e){
+        $('#center').slideDown();
+        e.stopPropagation();
+    })
+    jQuery(document).on('touchstart',function () {
+        $('#center').slideUp();
+    })
+});
+
 function getCookie(name) {
     var cookieValue = null;
     if (document.cookie && document.cookie != '') {
@@ -86,15 +97,4 @@ $('.code-bg').on('click',function(){
 $(function(){
     var height = window.innerHeight;
     $('nav ul').height(height-60);
-})
-./* 弹出用户中心菜单 */
-$(function(){
-    $(".user img").on('click',function(e){
-        $('#center').slideDown();
-        e.stopPropagation();
-    })
-    jQuery(document).click(function () {
-        $('#center').slideUp();
-    })
-    fixedFooter();
 })

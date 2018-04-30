@@ -159,21 +159,32 @@ body{
     width: 100%!important;
 }
 nav ul{
+    display: none;
     background-color: #fff;
     padding:0 15px 15px;
+    position: absolute;
+    z-index: 100;
+    width: 100%;
+    left: 0;
+    top: 100%;
 }
 nav li{
     padding-top: 20px;
     padding-bottom: 20px;
     border-bottom: 1px solid #ddd;
 }
-nav .col-xs-3 img{
+nav .pull-right>a>img{
     height: 20px;
+}
+nav ul img{
+    width: 16px;
+    margin-right: 10px;
+    vertical-align: text-top;
 }
 a[title="站长统计"]{
     display: none;
 }
-nav .col-xs-3{
+nav .pull-right{
     padding: 18px 15px;
 }
 nav .col-xs-9 img{
@@ -183,9 +194,6 @@ nav .col-xs-9 a{
     display: inline-block;
     height: 100%;
     padding: 15px 0;
-}
-nav ul{
-    display: none;
 }
 
 /* 菜单结束 */
