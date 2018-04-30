@@ -155,6 +155,9 @@ nav.act{
 .user{
     margin-right: 10px;
 }
+button:focus{
+    outline: none;
+}
 body{
     width: 100%!important;
 }
