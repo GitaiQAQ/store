@@ -87,3 +87,14 @@ $(function(){
     var height = window.innerHeight;
     $('nav ul').height(height-60);
 })
+./* 弹出用户中心菜单 */
+$(function(){
+    $(".user img").on('click',function(e){
+        $('#center').slideDown();
+        e.stopPropagation();
+    })
+    jQuery(document).click(function () {
+        $('#center').slideUp();
+    })
+    fixedFooter();
+})

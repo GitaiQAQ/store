@@ -36,16 +36,7 @@ function fnLimited(inputLimited){
 
 
 
-$(function(){
-    $(".fa-user").on('click',function(e){
-        $('#center').slideDown();
-        e.stopPropagation();
-    })
-    jQuery(document).click(function () {
-        $('#center').slideUp();
-    })
-    fixedFooter();
-})
+
 function fixedFooter(){//页面过小时，底部固定
     var docHeight=$('body').height();//整个网页的高度
     var windowHeight= $(window).height();//浏览器可视窗口的高度

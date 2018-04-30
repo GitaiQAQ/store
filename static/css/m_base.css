@@ -152,6 +152,9 @@ nav.act{
     width:100%;
     z-index: 10000;
 }
+.user{
+    margin-right: 10px;
+}
 body{
     width: 100%!important;
 }
@@ -173,10 +176,10 @@ a[title="站长统计"]{
 nav .col-xs-3{
     padding: 18px 15px;
 }
-nav .col-xs-6 img{
+nav .col-xs-9 img{
     height: 26px;
 }
-nav .col-xs-6 a{
+nav .col-xs-9 a{
     display: inline-block;
     height: 100%;
     padding: 15px 0;

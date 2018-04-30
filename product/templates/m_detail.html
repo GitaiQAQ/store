@@ -20,21 +20,19 @@
                                 <div class="sider">
                                     <img class="product-pic" src="{{mediaroot}}{{pic.url}}" alt="">
                                 </div>
-                                <div class="pagination grey">{{forloop.counter}}/{{pics.count}}</div>
+                                
                             </div> 
                     {% endfor %}
             
                 </div>
                 <!-- Add Navigation -->
-                <div class="swiper-button-warp container">
-                    <div class="swiper-button-prev"></div>
-                    <div class="swiper-button-next"></div>
-                </div>
+                <div class="swiper-pagination"></div>
             </div>
+            
         </div>
-    <div class="col-xs-12 shop">
+    <div class="shop">
         <div class="fs20 item_name"> {{product.title|truncatechars:"100"}}{% if product.status == 0 %}【未上架】{% endif %}</div>
-        <div class="fs20">¥<span id="total_price">--</span>
+        <div class="fs20 orange">¥<span id="total_price">--</span>
             
         </div>
         <div class="cut-line"></div>
@@ -86,19 +84,21 @@
             <div class="inventory gray">库存数量：<span id="inventory">2222</span> </div>
         </div>
         <div class="grey">邮费：{% if product.mail_price == 0 %}免费{% else %}{{product.mail_price}}{%endif%}
-            <span class="ml30">发货时间:{{product.delivery_time}}</span></div>
-        <div>
-            {% if product.status == 1 %}
-                {% if product.inventory == 0 %}
-                <button class="common-btn grey-btn" disabled="disabled">已售罄</button>
-                {% else %}
-                <button class="common-btn white orange-bg" id="add-cart">加入购物车</button>
-                {% endif %}
-                <a class="orange ml30" href="{{product.taobaourl}}" target="__blank">了解更多></a>
-            {% endif %}
-        </div>
+            <span class="ml20">发货时间:{{product.delivery_time}}</span></div>
+        
     </div>
-    <div class="col-xs-12 orange fs18 introduce"><div>产品概括</div></div>
+    <div class="row add-cart-wrap clearfix">
+        {% if product.status == 1 %}
+            {% if product.inventory == 0 %}
+            <button class="common-btn grey-btn" disabled="disabled">已售罄</button>
+            {% else %}
+            <button class="common-big-btn pull-left" id="add-cart">加入购物车</button>
+            <button class="common-big-btn white orange-bg pull-right" id="bye-now">立即购买</button>
+            {% endif %}
+            <!-- <a class="orange ml30" href="{{product.taobaourl}}" target="__blank">了解更多></a> -->
+        {% endif %}
+    </div>
+    <div class="row orange fs16 introduce"><div>产品概括</div></div>
      <!-- 商品详情 -->
     <div id="myTabContent" class="tab-content">
         <div class="col-xs-12 tab-pane fade in active" id="details" role="tabpanel">
@@ -109,21 +109,13 @@
     </div>
     <!-- 商品详情 end -->
 </div>
-<div class="pop_up">
-    <div class="fs16 gray">
-       <img src="/static/img/right.gif" alt="">
-       <span id="pop-up-msg">已添加至购物车 </span>
-    </div>
-    <button id="continue" class="grey-btn common-btn">继续购买</button>
-    <a class="common-btn orange-bg" href="/shopcar/shopcars/"><span class="white">现在结算</span></a>
-</div>
+
 
 {% endblock %}
 {% block js %}
-<script type="text/javascript " src="/static/js/pop_up.js "></script>
 <script type="text/javascript " src="/static/js/swiper-3.4.2.jquery.min.js "></script>
 <script type="text/javascript " src="/static/js/login.js "></script>
-<script type="text/javascript " src="/static/products/js/detail.js"></script>
+<script type="text/javascript " src="/static/products/js/m-detail.js"></script>
 <script>
     /*
     var items = {{ product.parameters | safe }};

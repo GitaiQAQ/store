@@ -25,14 +25,59 @@
 <nav class="container {% block fixed_menu_class %}{%endblock%}">
   <div class="row">
     
-    <div class="col-xs-6 text-left">
+    <div class="col-xs-9 text-left">
       <a href="/"><img src="/static/img/logo.png" alt=""></a>
     </div>
-    <div class="col-xs-6 text-right">
-      <img src="/static/img/icon/cart.svg" alt="">
+    <div class="col-xs-3 text-right">
+        {% if request.user.is_anonymous %}
+        <a  class="user" href="/users/login/">
+             <img src="/static/img/icon/account.svg" alt="">
+        </a>
+         {% else %}
+            {% if adminperm %}
+                <a class="user" href="{% url 'aftersales:aftersales' %}">
+                    <img src="/static/img/icon/account.svg" alt="">
+                </a>
+            {% else %}
+            
+            <a  class="user" href="javascript:;">
+                <img src="/static/img/icon/account.svg" alt="">
+            </a>
+            <ul id="center">
+                <a href="{% url 'bill:bills' %}">
+                    <li>
+                        <img src="/static/img/icon/center1.svg" alt="">我的订单</li>
+                </a>
+                <a href="{% url 'aftersales:aftersales' %}">
+                    <li>
+                        <img src="/static/img/icon/center2.svg" alt="">售后服务</li>
+                </a>
+                <a class="black" href="{% url 'coupon:coupons' %}"> 
+                    <li>
+                            <img src="/static/img/icon/center3.svg" alt="">我的优惠劵
+                    </li>
+                </a>
+                <a class="black" href="{% url 'address:addresses' %}"> 
+                    <li>
+                        <img src="/static/img/icon/center4.svg" alt="">收货地址</li>
+                </a>  
+                <a href="/users/logout/">
+                    <li>
+                        <img src="/static/img/icon/center5.svg" alt="">退出登录</li>
+                </a>  
+            </ul>
+            {% endif %}
+        {% endif %}
+        <a class="p-r" href="{% url 'shopcar:shopcar_detail'%}">
+            <img src="/static/img/icon/cart.svg" alt="">
+            {% if caritems  %}
+            <div class="hint orange-bg"></div>
+            {% endif %}
+        </a>
+      
     </div>
   </div>
-
+  
   <div class="row">
       <ul>
           <a href="http://www.a-su.com.cn/product/products/cast2/">

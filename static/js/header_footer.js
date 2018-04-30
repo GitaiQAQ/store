@@ -39,3 +39,14 @@ $('.close_code').on('click',function(){
 $('.code-bg').on('click',function(){
     $(this).parents('.code-wrap').fadeOut(300);
 })
+/* 弹出用户中心菜单 */
+$(function(){
+    $(".fa-user").on('click',function(e){
+        $('#center').slideDown();
+        e.stopPropagation();
+    })
+    jQuery(document).click(function () {
+        $('#center').slideUp();
+    })
+    fixedFooter();
+})
