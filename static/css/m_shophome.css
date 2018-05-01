@@ -36,19 +36,18 @@ margin-bottom: 20px;
 }
 
   .shop-link0{
-    bottom: 50%;
-    transform: translateY(50%);
+    bottom: 40px;
   }
 
 .shop-link1{
-  bottom: 50%;
+  bottom: 40px;
 }
 .common-big-btn {
   width: 50%;
   margin-top: 2%;
 }
-.fs24{
-  font-size: 24px;
+.fs26{
+  font-size: 26px;
 }
 
   .sider .shop-link .common-btn .fa-angle-right {
@@ -58,8 +57,10 @@ margin-bottom: 20px;
   sider a:hover,sider a:visited,sider a:active{
     color: inherit;
   }
-  
-  .orange.fs24{
+  .m15{
+    padding: 30px 0 15px;
+  }
+  .lanting.fs26{
     margin-bottom: 15px;
   }
   .fs16{
