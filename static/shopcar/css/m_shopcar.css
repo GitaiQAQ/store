@@ -1,0 +1,51 @@
+.car-title{
+    padding:15px 0;
+    background-color: rgb(72, 72, 74);
+}
+.car-list{
+    padding: 15px 0;
+    margin: 15px 15px 0;
+}
+.cut-line{
+    border-bottom: 1px solid #ddd;
+    width: 100%;
+
+}
+.img-rounded{
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+.r-btn{
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+    cursor: pointer;
+}
+.car-list tr:last-child td{
+    padding: 10px 0;
+}
+.img-wrap{
+    width: 25%;
+}
+.shop-msg{
+    width: 50%;
+    padding-left: 15px;
+}
+.carnum {
+    display: inline-block;
+    width: 20%;
+    border: none;
+    outline: none;
+    padding: 0 6px;
+}
+.nothing{
+    padding: 40px 15px;
+}
+#buy{
+    width:60%;
+    margin: 15px 0 30px;
+}
+.car-footer{
+    margin-top: 20px;
+}
