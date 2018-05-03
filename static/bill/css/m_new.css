@@ -187,9 +187,11 @@ margin-right: 25px;
     padding: 0px;
 }
 .car-title{
-    padding: 15px 20px;
+    padding: 15px;
     font-size: 14px;
+    border-top: 1px solid #ddd;
 }
+
 table.shop-car{
     width: 100%; 
     background-color: #fff;
@@ -305,6 +307,11 @@ input[type=checkbox].checked{
    margin: 15px auto 0;
    display: block;
    padding: 12px 0;
+}
+.title-icon{
+    height: 18px;
+    vertical-align: top;
+    margin-right: 2px;
 }
 .sum_money{
     text-align: right;
