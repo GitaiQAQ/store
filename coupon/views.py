@@ -120,14 +120,14 @@ class CouponView(View):
             content['coupons'] =coupons
             content['categories'] = self.get_categories()
             if isMble:
-                return render(request, 'coupon/lists.html', content)
+                return render(request, 'coupon/m_lists.html', content)
             else:
                 return render(request, 'coupon/lists.html', content) 
         else: # 普通用户查看自己的优惠劵
             coupons = Coupon.objects.filter(owner = user)
             content['coupons'] = coupons
             if isMble:
-                return render(request, 'coupon/mycoupon.html', content)
+                return render(request, 'coupon/m_mycoupon.html', content)
             else:
                 return render(request, 'coupon/mycoupon.html', content)
 

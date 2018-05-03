@@ -214,3 +214,17 @@ nav .col-xs-9 a{
     margin-top: 40px;
     margin-bottom: 40px;
 }
+.iradio_flat-red.checked {
+    background-position: -79px -1px!important;
+}
+.iradio_flat-red {
+    background-position: -95px -1px!important;
+}
+.alert{
+    color: #ea5014;
+    padding: 10px 0;
+    margin-bottom: 10px;
+    border: none!important;
+    border-radius: 0px;
+    background-color:transparent!important;
+}

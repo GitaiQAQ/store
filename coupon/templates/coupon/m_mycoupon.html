@@ -1,0 +1,63 @@
+{% extends 'm_base.html' %} 
+
+{% block pagetitle%}用户中心{% endblock%} 
+{% block css %}
+<link href="/static/appuser/css/m_usercenter.css" rel="stylesheet">
+{% endblock %} 
+{% block content %} 
+        {% block usercentercontent %}
+        <div class="usercentercontent">
+                <div class="car-title clearfix" >
+                        我的优惠券 
+                </div>
+                <div class="submit gray">
+                        <form method="post"  action=""  >
+                                {% csrf_token %} 
+                    <div>
+                        <input class="common-inp cash-coupon-inp" type="hidden" name="method" value="put">
+                        <div class="item-title row">激活新卡券</div> 
+                        <input class="common-inp cash-coupon-inp" type="text" name="code" id="">
+                        <button type="submit" class="orange-bg cash-coupon-btn common-big-btn white">激活并使用</button>
+                    </div>
+                    {% if status %}
+                    {% if status == 'error' %}
+                           <div class="alert alert-danger" role="alert">
+                            {{msg}}
+                          </div>
+                    {% endif %}
+                    {% if status == 'ok' %}
+                    <div class="alert alert-success" role="alert">
+                     {{msg}}
+                   </div>
+                    {% endif %}
+                    {% endif %}
+                    </form>
+                    <div class="item-title row">我的代金券</div> 
+                    <div class="cash-coupon-wrap clearfix">
+                        
+                        {% if coupons %}
+                        {% for coupon in coupons %}
+                        <div class="cash-coupon pull-left">
+                            <div class="cash-coupon-msg">
+                                <span class="fs18">¥
+                                </span><span class="price fs32">{{coupon.price}}</span>激活码：{{coupon.code}}</div>
+                            <div class="instructions grey">
+                                <p>优惠类型：现金券</p>
+                                <p>使用规则：{{coupon.rule}}</p>
+                                <p>有效日期：至{{coupon.deadline|date:'Y-m-d'}}</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                    
+
+
+                </div>
+        </div>
+        {% endblock %}
+
+{% endblock %}
+{% block js %}
+<script src="/static/appuser/js/usercenter.js"></script>
+{% endblock %}

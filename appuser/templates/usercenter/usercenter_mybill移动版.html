@@ -1,0 +1,137 @@
+{% extends 'm_base.html' %} 
+
+{% block pagetitle%}我的订单{% endblock%} 
+{% block css %}
+<link href="/static/css/pop_up.css" rel="stylesheet">
+<link href="/static/appuser/css/m_usercenter.css" rel="stylesheet">
+{% endblock %} 
+{% block content %}
+{%csrf_token%} 
+        {% block usercentercontent %}
+        <div class="usercentercontent">
+                <div class="car-title">
+                    我的订单
+                </div>
+                {% if bills %}
+                            {% for bill in bills %} <table class="order-form text-center">
+                            <tr>
+                                <th class="text-left usercenter-tb" colspan="2">
+                                        <img src="/static/img/icon/center5.svg" class="orange delete" alt="" billid="{{ bill.id }}"> 
+                                        {{ bill.date|date:"Y-m-d" }}
+                                </th>
+                                <th class="text-left" colspan="3">订单号：
+                                    <a href="{% url 'bill:detail' bill.id %}">
+                                        <span class="orange">{{bill.no}}</span>
+                                    </a>
+                                </th>
+                            </tr>
+                            {% for item in bill.adaptorbillitem_set.all %}
+                                <tr class="item">
+                                        <td class="img-wrap text-left">
+                                            <img class="img-rounded" src="{{mediaroot}}{{item.rule.product.thumbnail}}">
+                                        </td>
+                                        <td class="shop-name text-left">
+                                                <div class="carlist_name black">{{item.rule.product.title}}</div>
+                                                <div class="rule_content grey">规格：{{item.rule_title}} </div>
+                                        </td>
+                                        <td class="orange text-right">¥&nbsp;<span class="price">{{item.rule.price}}</span></td>
+                                        <td >×<span class="nub">{{item.num}}</span></td>
+                                        <!-- {% if bill.status == -2 and forloop.counter == 1 %}
+                                        <td class=" orange">{{bill.get_status_display}}</td>
+                                        {% else %}
+                                        <td class=" orange"></td>
+                                        {% endif %} -->
+                                        
+                                </tr>
+                                <tr class="cut_line">
+                                    <td colspan="5">
+                                        <div></div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                                <tr>
+                                    <td colspan="5" class="gray aggregate text-right">
+                                        合计：<span class="orange fs16 total{{bill.id}}">XXX</span>
+                                    {% if bill.adaptorcouponitem_set.all %}
+                                    优惠：<span class="coupon{{bill.id}}">{{bill.adaptorcouponitem_set.all.0.coupon.price}}元</span>
+                                    {% endif %}
+                                    {% if bill.status == 1  %}
+                                    实付款：
+                                    <span class="orange fs16">{{bill.money}}</span>
+                                    {% elif bill.status == 4 %}
+                                    <span >实际支付：span</span>
+                                    {% else %}
+                                    应付款：
+                                    <span class="real{{bill.id}}">XXX</span>
+                                    {% endif %}
+
+                                   <div class="mt10"> {% if bill.status == -2   %}
+                                    <a  class=" orange-bg common-btn" href="{% url 'bill:bills' %}?unpayed&billno={{bill.no}}">
+                                        <span class="white">立即支付</span>
+                                    </a>
+                                    {% endif %}
+                                    {% if bill.status == 1  %}<!--已支付-->
+                                    <a  class=" orange-bg common-btn" href="{% url 'bill:detail' bill.id %}">
+                                        <span class="white">{{bill.get_status_display}}</span>
+                                    </a>
+                                    
+                                    <button  {% if bill.refundstatus == 0  %}id="refund"{% endif %}  class=" orange-bg common-btn btn-refund">
+                                        <span class="white">{{bill.get_refundstatus_display}}</span>
+                                    </button>
+                                    
+                                    {%　else %}
+                                    <a  class=" orange-bg common-btn" href="{% url 'bill:detail' bill.id %}">
+                                        <span class="white">{{bill.get_status_display}}</span>
+                                    </a>
+                                    {% endif %}
+                                    <a class="  common-btn grey-btn" href="{% url 'bill:detail' bill.id %}">
+                                        <span class="black">查看详情</span>
+                                    </a></div>
+                                    </td>
+                                </tr>
+                         </table>
+                            {% endfor %}
+                {% else %}
+                    <div class="text-center serve-none">
+                        <img class="serve-icon" src="/static/img/wudingdan.png" alt="">
+                        <div class="grey fs16">您目前还没有此类订单</div>
+                        <a href="/">
+                            <span class="common-btn grey-btn">返回首页</span>
+                        </a>
+                    </div>
+                {% endif %}
+        </div>
+        {% endblock %}
+{%csrf_token%} 
+<div class="pop_up">
+        <div class="gray">
+           <textarea name="" id="" cols="30" rows="6" placeholder="退款原因"></textarea>
+        </div>
+        <button id="continue" class="grey-btn common-btn">取消</button>
+        <button id="sure" class="common-btn orange-bg"  ><span class="white">确定</span></button>
+</div>
+{% endblock %}
+{% block js %}
+<script src="/static/appuser/js/usercenter.js"></script>
+<script src="/static/bill/js/mybill.js"></script>
+
+<script>
+        var total = 0;
+        var real = 0;
+        var coupon = 0;
+         {% for bill in bills %} 
+              {% for item in bill.adaptorbillitem_set.all %}
+              total += {{item.rule.price}}*{{item.num}};
+                {% if bill.adaptorcouponitem_set.all %}
+                    coupon = {{bill.adaptorcouponitem_set.all.0.coupon.price}};
+                {% endif %}
+              {% endfor %}
+              $(".total{{bill.id}}").text(total);
+              real = total - coupon;
+              $(".real{{bill.id}}").text(real);
+              total = 0;
+              coupon = 0;
+              real = 0; 
+         {% endfor %}
+    </script>
+{% endblock %}

@@ -2,11 +2,11 @@
 
 .coupon-inp{
     margin-top: 15px;
-    width: 200px;
+    width: 68%;
 }
 .coupon-submit-btn{
     height: 38px;
-    
+    width: 30%;
 }
 .mr-20{
     margin-right:20px;
@@ -16,6 +16,9 @@
 }
 #tb_items tr>td:first-child{
 text-align: left;
+}
+.container>.car-title:first-child{
+    border-top: 0px;
 }
 .header {
     height: 44px;
@@ -204,7 +207,7 @@ table.shop-car td{
     border-bottom: 1px solid #ddd;
 }
 .invoice_msg{
-    margin-left: 15px;
+    margin-bottom: 15px;
 }
 .img-rounded{
     background-color: #fff;
@@ -215,7 +218,7 @@ table.shop-car td{
 }
 
 #invoice_title,#invoice_code{
-    min-width: 240px;
+    width: 100%;
 }
 .img-wrap{
     width: 130px;
@@ -223,11 +226,12 @@ table.shop-car td{
 .shop-msg{
     width: 490px;
 }
-.face-value{
-    margin-left: 15px;
-}
+
 .title-name{
     padding-left: 30px!important;
+}
+input[type=radio].choose{
+    margin-right: 10px!important;
 }
 .w159{
     width: 159px;

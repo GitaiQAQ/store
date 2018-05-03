@@ -1,0 +1,139 @@
+{% extends 'm_base.html' %}
+{% block pagetitle%}优惠券管理{% endblock%} 
+{% block publicmenu %}
+{% include 'admintitle.html' %}
+{% endblock %}
+{% block css %}
+<link href="/static/appuser/css/m_usercenter.css" rel="stylesheet">
+<link href="/static/plugins//bootstrap-datepicker/css/datepicker.css" rel="stylesheet" />
+<link href="/static/plugins/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet" />
+<link href="/static/appuser/css/after_sale.css" rel="stylesheet">
+{% endblock %} 
+{% block content %}
+{%csrf_token%} 
+<div class="container m60"> 
+    {% include "usercenter/admin_menu.html" %}
+    <div class="col-xs-10">
+        {% block usercentercontent %}
+        <div class="usercentercontent">
+                <div class="car-title clearfix">
+                    <div class="pull-left">优惠券</div> 
+                </div>
+                <form method="post"  action=""  >
+                        {% csrf_token %} 
+                   <div class="gray address-wrap">
+                    <textarea rows="4" class="common-inp adress-text" id="address" name="rule" placeholder="使用说明/使用规则"></textarea>
+                    {% csrf_token %} 
+                    <input class="common-inp" type="text" name="money" value="" placeholder="直减金额" />
+                    <input class="common-inp" type="text" name="num" value="" placeholder="优惠劵数量" />
+                    <input class="common-inp" type="text" name="date" value="" id="dealine" placeholder="有效期截止" />
+                    <div>优惠券适用于： 
+                        {% for category in categories %}
+                        <input type="checkbox" checked="checked" name="categories" id="product" value="{{category.id}}">
+                        <label for="product">{{category.name}}</label>
+                        {% endfor %} 
+                    </div>
+                    <button type="submit" class=" orange-bg common-btn new-btn" id="generate">
+                        <span class="white">创建</span>
+                    </button>
+                    {% if status %}
+                    {% if status == 'error' %}
+                           <div class="alert alert-danger" role="alert">
+                            {{msg}}
+                          </div>
+                    {% endif %}
+                    {% if status == 'ok' %}
+                    <div class="alert alert-success" role="alert">
+                     {{msg}}
+                   </div>
+                    {% endif %}
+                    {% endif %}
+                </form>
+                <hr>
+                <div class="links">
+                    <a href=""><span class="orange">优惠券列表</span></a>
+                <a href="{% url 'coupon:coupons' %}">全部</a>
+                <a href="{% url 'coupon:coupons' %}?used=1" {% if used == '1' %}class="orange"{%endif%}>已使用</a>
+                <a href="{% url 'coupon:coupons' %}?used=0" {% if used == '0' %}class="orange"{%endif%}>未使用</a>
+                <a href="{% url 'coupon:coupons' %}?used=2" {% if used == '2' %}class="orange"{%endif%}>已过期</a>
+                </div>
+              
+                </div>
+                {% if coupons %}
+                <table class="order-form last-td-pd text-center">
+                            <tr> 
+                                <th class="text-left">优惠劵码
+                                </th>
+                                <th>使用规则</th>
+                                <th>金额</th>
+                                <th>发起时间</th>
+                                <th>已使用</th> 
+                                <th>截止时间</th> 
+                            </tr> 
+                        {% for coupon in coupons %} 
+                            <tr {% if coupon.used == 1 %} class="grey" {% endif%} > 
+                                    <td class="text-left"> 
+                                        <div class="carlist_name black">{{coupon.code}}</div>  
+                                    </td>
+                                    <td class="  nub">
+                                        【
+                                        {% for category in coupon.categories.all %}
+                                        {{category.name}}{% if not forloop.last %} | {% endif %}
+                                        {% endfor %}
+                                        】
+                                        {{coupon.rule}}
+                                    </td>
+                                    <td class="  nub">{{coupon.price}}</td>
+                                    <td class="w110 ">{{coupon.date | date:'Y-m-d'}}</td>
+                                    
+                                    <td  >
+                                        {% if coupon.used == 1 %}
+                                        <span class="price">已使用【{{coupon.owner.username}}】</span>
+                                        {% elif  coupon.used == 2 %}
+                                        <span class="price">已过期</span>
+                                        {% else %}
+                                        <span class="price">未使用</span>
+                                        {% endif %}
+                                    </td>  
+                                    <td class="w110 ">{{coupon.deadline | date:'Y-m-d'}}</td>
+                            </tr>
+                            <tr class="cut_line">
+                                    <td colspan="7">
+                                        <div></div>
+                                    </td>
+                            </tr>
+                        {% endfor %}
+                        
+                </table>
+            {% else %}
+                <div class="text-center serve-none">
+                    <img class="serve-icon" src="/static/img/coupon.png" alt="">
+                    <div class="grey fs16">目前还没有创建优惠劵</div>
+                   
+                </div>
+            {% endif %}
+            
+        </div>
+        {% endblock %}
+    </div>
+</div>
+
+{% endblock %}
+{% block js %} 
+
+<script src="/static/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script src="/static/plugins/bootstrap-datepicker/js/locales/bootstrap-datepicker.zh-CN.js" charset="UTF-8"></script>
+ 
+<script> 
+        $(function () { 
+            $( "#dealine" ).datepicker({ 
+                defaultDate: "+30w",
+                changeMonth: true,
+                changeYear: true,
+                language:'zh-CN', 
+                format:'yyyy-mm-dd', 
+            }); 
+            });
+            
+    </script>
+{% endblock %}
