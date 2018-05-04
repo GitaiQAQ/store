@@ -43,29 +43,45 @@
             <a  class="user" href="javascript:;">
                 <img src="/static/img/icon/account.svg" alt="">
             </a>
-            <ul id="center" class="text-left">
-                <a href="{% url 'bill:bills' %}">
-                    <li>
-                        <img src="/static/img/icon/center1.svg" alt="">我的订单</li>
-                </a>
-                <a href="{% url 'aftersales:aftersales' %}">
-                    <li>
-                        <img src="/static/img/icon/center2.svg" alt="">售后服务</li>
-                </a>
-                <a href="{% url 'coupon:coupons' %}"> 
-                    <li>
-                            <img src="/static/img/icon/center3.svg" alt="">我的优惠劵
-                    </li>
-                </a>
-                <a href="{% url 'address:addresses' %}"> 
-                    <li>
-                        <img src="/static/img/icon/center4.svg" alt="">收货地址</li>
-                </a>  
-                <a href="/users/logout/">
-                    <li>
-                        <img src="/static/img/icon/center5.svg" alt="">退出登录</li>
-                </a>  
-            </ul>
+			<div id="center">
+				<div class="text-center user-img-wrap">
+					<p>
+						<img class="user-img" src="/static/img/noavatar.png" alt="">
+					</p>
+					用户名称
+				</div>
+				<ul class="text-left">
+					<a href="{% url 'bill:bills' %}">
+						<li>
+							<img src="/static/img/icon/center1.svg" alt="">我的订单
+							<i class="fa fa-angle-right fa-fw fa-pull-right" aria-hidden="true"></i>
+						</li>
+					</a>
+					<a href="{% url 'aftersales:aftersales' %}">
+						<li>
+							<img src="/static/img/icon/center2.svg" alt="">售后服务
+							<i class="fa fa-angle-right fa-fw fa-pull-right" aria-hidden="true"></i>
+						</li>
+					</a>
+					<a href="{% url 'coupon:coupons' %}">
+						<li>
+							<img src="/static/img/icon/center3.svg" alt="">我的优惠劵
+							<i class="fa fa-angle-right fa-fw fa-pull-right" aria-hidden="true"></i>
+						</li>
+					</a>
+					<a href="{% url 'address:addresses' %}">
+						<li>
+							<img src="/static/img/icon/center4.svg" alt="">收货地址
+							<i class="fa fa-angle-right fa-fw fa-pull-right" aria-hidden="true"></i>
+						</li>
+					</a>
+					<a href="/users/logout/">
+						<li>
+							<img src="/static/img/icon/center5.svg" alt="">退出登录
+							<i class="fa fa-angle-right fa-fw fa-pull-right" aria-hidden="true"></i></li>
+					</a>
+				</ul>
+			</div>
             {% endif %}
         {% endif %}
         <a class="p-r" href="{% url 'shopcar:shopcar_detail'%}">
@@ -78,22 +94,7 @@
     </div>
   </div>
   
-  <div class="row">
-      <ul>
-          <a href="http://www.a-su.com.cn/product/products/cast2/">
-            <li>Watch</li>
-          </a>
-          <a href="/">
-            <li>商城</li>
-          </a>
-          <a href="http://bbs.a-su.com.cn/forum.php">
-            <li>社区</li>
-          </a>
-          <a href="http://www.a-su.com.cn/page/service/list/">
-            <li>服务</li>
-          </a>
-        </ul>
-  </div>
+
 </nav>
 <body>
         {% if request.user.is_anonymous %}

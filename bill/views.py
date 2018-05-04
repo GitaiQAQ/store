@@ -159,7 +159,7 @@ class BillView(View):
                 return render(request, 'bill/unpayed.html', content)
         else:
             if isMble:
-                return render(request, 'usercenter/usercenter_mybill.html', content)
+                return render(request, 'usercenter/m_usercenter_mybill.html', content)
             else:
                 return render(request, 'usercenter/usercenter_mybill.html', content)
     
@@ -520,7 +520,7 @@ class BillDetailView(APIView):
 
             return HttpResponse(json.dumps(result), content_type='application/json')
         if isMble:
-            return render(request, 'usercenter/usercenter_billdetail.html', content)
+            return render(request, 'usercenter/m_usercenter_billdetail.html', content)
         else:
             return render(request, 'usercenter/usercenter_billdetail.html', content)
 

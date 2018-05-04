@@ -330,8 +330,8 @@ input[type=checkbox].checked{
     border-top: 1px solid #ddd;
 }
 .col-items{
-    padding-left: 30px;
-    padding-right: 30px;
+    padding-left: 15px;
+    padding-right: 15px;
     background-color: white;
 }
 .car-list{

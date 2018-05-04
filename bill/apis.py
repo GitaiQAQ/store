@@ -80,13 +80,13 @@ def check_inventory(items):
             result['status'] = False
             result['product'] = item['rule'].product.title + '|' +  item['rule'].name
             return result
-        elif item['rule'].inventory > 0 :
+        elif item['rule'].inventory is not None:
             if item['rule'].inventory < item['num'] :
                 # 库存不足
                 result['status'] = False
                 result['product'] = item['rule'].product.title + '|' +  item['rule'].name
                 return result
-
+        
     return result
 
 def getavailabletime(bill):

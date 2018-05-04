@@ -77,7 +77,7 @@ img.edit{
 }
 
 table.order-form tr{ 
-    padding-left: 32px; 
+    padding-left: 15px; 
 } 
 .order-form td,.order-form th{
     padding:25px 0;
@@ -594,7 +594,7 @@ table.billdetail{
     padding: 15px 0 0 0; 
 }
 .billdetail tr td:last-child,table.order-form.address_list tr td:last-child{
-    padding-right: 30px!important;
+    padding-right: 15px!important;
 }
 .w320{
     width: 320px;

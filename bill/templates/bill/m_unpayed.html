@@ -1,33 +1,111 @@
+{% extends 'm_base.html' %}
+{% load areas %}
 
-{% extends 'm_base.html' %} {% block css %}
- {% load staticfiles %}<link href="/static/bill/css/m_unpayed.css" rel="stylesheet">
-{% endblock %}
- {% block content %}
- <header class="header">
-    <i class="fa fa-angle-left pull-left back f26" aria-hidden="true"></i>
-  购买
-</header>
- {% if bill %} 
- {{bill.get_status_displayname}}
- <a href="javascript:;">
-    <section class="billno">
-        订单号：{{bill.no}}
-    </section>
-</a>
- {% for item in bill.adaptorbillitem_set.all %} 
- <a href="javascript:;">
-    <section class="">
-        {{item.id}}
-    </section>
-</a>
-
- {% endfor %}
- {%else %}
- <div class="notfound" >{{error}}</div>
- {% endif %}
- <div class="pay">
- <button class="btn btn-danger pay_btn" type="button" >支付按钮</button></div>
+{% block pagetitle%}支付-订单号：{{bill.no}}{% endblock%} 
+{% block css %} {% load staticfiles %}
+{% load staticfiles %}<link href="/static/bill/css/m_unpayed.css" rel="stylesheet"> 
+<link href="/static/plugins/icheck/skins/flat/red.css" rel="stylesheet">
+<link type="text/css" rel="stylesheet" href="/static/css/HoldOn.css"> 
+{% endblock %} 
+{% block content %}
+<div class="clearfix">
+    <div class="col-xs-12 container-car">
+        <div class="page-title white">支付订单</div>
+        <div class="col-xs-12 sec text-center"> 
+               <img src="/static/img/right.gif" /><span class="show-sucess">订单提交成功</span>
+               <div>
+                   <p class="grey mt15">请在<span class="black timeout" timeout="{{seconds}}"></span>内完成支付,超时订单自动取消。
+                    <br/><span class="deliverytime">72小时内发货</span>
+                   </p> 
+               </div>
+               <div>
+               </div>
+        </div>
+        <div class="car-title col-xs-12">支付方式</div>
+            <div class="all_price col-xs-12 item-content">
+                <div>
+                    <input type="radio" name="payway" class="zhifubao invoice_type"  value="zhifubao" checked="checked" />
+                    <span class="grey payname payname-zhifubao"> 支付宝支付</span>
+                    <input name="payway" class="weixin invoice_type" type="radio" value="weixin" />
+                    <span class="grey payname"> 微信支付</span> 
+                </div> 
+            </div>
+        
+        <!-- <input class="message com-input" type="text" placeholder="选填：买家留言"/>-->
+        <div class="  col-xs-12 item-content div-sum-money"> 
+            <div class="text-right  pull-right"> 
+                <p class="grey" >应付金额： <span class="fs24 orange">¥</span>
+                <span id="all_sum_price" class="price fs24 orange"> 0.00</span></p>
+                <button id="submit-pay"  class="submit-btn submit-btn-test common-btn white orange-bg"  >现在支付</button> 
+                <br/>
+                <br/>
+            </div>
+            
+        </div> 
+        
+       <!--
+        <div class="col-xs-12 item-pay gray">
+                    <h5 class="fs16 black">收货信息</h5>
+                    姓名：{{bill.address.receiver}}<br>
+                    电话：{{bill.address.phone}}<br>
+                    地址：{{bill.address.detail}}{{bill.address.detail}}
+                    <h5 class="fs16 black">发票信息：</h5>
+                    {{bill.invoice.title}}
+                    {{bill.invoice.code}} 
+                    {{bill.adaptorcouponitem_set.all.0.coupon.price}} 
+        </div>
+    -->
+    </div>
+</div>
 {% endblock %}
 {% block js %}
+<script type="text/javascript" src="/static/js/cookie.js"></script>
+<script type="text/javascript" src="/static/js/HoldOn.min.js"></script> 
+<script type="text/javascript " src="/static/plugins/icheck/icheck.min.js "></script>
+<script type="text/javascript" src="/static/js/icheck.js"></script> 
+<!-- <script type="text/javascript " src="/static/bill/js/newtest.js "></script> -->
+<script>
+    var totalmoney = 0;
+    {% for billitem in bill.adaptorbillitem_set.all %}
+    totalmoney += {{billitem.rule.price}} * {{billitem.num}};
+    {% endfor %}
+
+    {% for couponitem in bill.adaptorcouponitem_set.all %}
+    totalmoney -= {{couponitem.coupon.price}};
+    {% endfor %}
+    $("#all_sum_price").text(totalmoney);
+</script>
+<script>
+    $("#submit-pay").click(function(){
+        //pay
+       var payway = $('input[name="payway"]:checked').val() ;
+       url = "{% url 'bill:bills' %}?payed&billno={{bill.no}}&payway="+payway;
+       //window.location = url;
+       window.open(url);
+    });
+
+   
+
+   
+   $(function(){
+    hours = parseInt ( {{seconds}} /60/60);
+    minutes = parseInt(( {{seconds}} -hours * 60 * 60)/60);
+    seconds  = {{seconds}} - hours * 60 * 60 - minutes * 60;
+    $('.timeout').text(hours+':'+ minutes +':' +seconds);
+    var nSeconds={{seconds}};
+    var timeOut = setInterval(function(){
+    nSeconds--;
+    hours = parseInt (nSeconds/60/60);
+    minutes = parseInt((nSeconds-hours * 60 * 60)/60);
+    seconds  = nSeconds- hours * 60 * 60 - minutes * 60;
+    $('.timeout').text(hours+':'+ minutes +':' +seconds);
+    if(nSeconds==0){
+        clearInterval(timeOut);//关闭setTimeout()
+        window.location.href='/bill/bills/';//跳转链接
+    }
+    },1000)
+   })
+</script>
+
 {% endblock %}
-{% block menu %}{% endblock %}
+ 

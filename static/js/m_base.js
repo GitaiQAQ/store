@@ -96,5 +96,5 @@ $('.code-bg').on('click',function(){
 })
 $(function(){
     var height = window.innerHeight;
-    $('nav ul').height(height-60);
+    $('nav ul').height(height-210);
 })
