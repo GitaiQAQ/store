@@ -15,8 +15,7 @@
                 {% if bills %}
                             {% for bill in bills %} <table class="order-form text-center">
                             <tr>
-                                <th class="text-left usercenter-tb" colspan="2">
-                                        <img src="/static/img/icon/center5.svg" class="orange delete" alt="" billid="{{ bill.id }}"> 
+                                <th class="text-left usercenter-tb" colspan="">
                                         {{ bill.date|date:"Y-m-d" }}
                                 </th>
                                 <th class="text-left" colspan="3">订单号：
@@ -24,6 +23,7 @@
                                         <span class="orange">{{bill.no}}</span>
                                     </a>
                                 </th>
+                                <th> <img src="/static/img/icon/center5.svg" class="orange delete" alt="" billid="{{ bill.id }}"></th>
                             </tr>
                             {% for item in bill.adaptorbillitem_set.all %}
                                 <tr class="item">
@@ -65,7 +65,7 @@
                                     <span class="real{{bill.id}}">XXX</span>
                                     {% endif %}
 
-                                   <div class="mt10"> {% if bill.status == -2   %}
+                                   <div class="mt10 text-left"> {% if bill.status == -2   %}
                                     <a  class=" orange-bg common-btn" href="{% url 'bill:bills' %}?unpayed&billno={{bill.no}}">
                                         <span class="white">立即支付</span>
                                     </a>

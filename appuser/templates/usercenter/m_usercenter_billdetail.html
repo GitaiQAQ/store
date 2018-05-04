@@ -94,13 +94,13 @@
                             <div class="rule_content grey">规格： {{item.rule_title}} </div>
                         </a>
                     </td>
-                    <td class="w200">
+                    <td class="">
                         ¥&nbsp;<span class="price">{{item.rule.price}}
                     </td>
                     <td class="nub">
-                        {{item.num}}
+                        ×{{item.num}}
                     </td>
-                    <td class="w200 text-right">¥&nbsp;<span class=" price-sum{{forloop.counter}}">sss</span></td>
+                    
                 </tr>
                 {% endfor %}
             </table>

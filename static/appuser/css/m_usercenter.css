@@ -283,7 +283,7 @@ table.order-form tr td:first-child,table.order-form tr th:first-child{
 padding-left: 15px;
 }
 table.order-form tr td:last-child, table.order-form tr th:last-child{
-    padding-right: 30px;
+    padding-right: 15px;
 }
 .order-form-btn{
     padding: 4px 12px;
