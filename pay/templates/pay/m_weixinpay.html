@@ -1,0 +1,95 @@
+{% extends 'm_base.html' %} 
+{% load areas %}
+
+{% block pagetitle%}订单详情{% endblock%} 
+{% block css %}
+<link href="/static/appuser/css/m_usercenter.css" rel="stylesheet">
+{% endblock %} 
+{% block content %}
+<div class="container gray">
+<!--     {% if perm %} {% include "usercenter/admin_menu.html" %} {% else %} {% include "usercenter/menu.html" %} {% endif %} -->
+
+        <div class="usercentercontent">
+
+            <div>
+                <div class="car-title row">支付</div>
+                {% block usercentercontent %}
+
+            <div class="clearfix receipt">
+                <div class="pull-left">订单号：<span id="billno">{{bill.no}}</span> {{bill.get_status_display}}
+                </div>
+                <div class="pull-right gray">
+                    {% if bill.status == -2 %}
+                    <div>应付金额：
+                        <span class="orange fs18"> ¥
+                            <span id="all_sum_price" class="price"> 0.00</span>
+                        </span>
+                    </div>
+
+                    {% elif bill.status == 1 %}
+                    <div>已支付金额：
+                        <span class="fs18 orange"> ¥
+                            <span class="price">{{bill.payed_money}}</span>
+                        </span>
+                    </div>
+
+                    {% else %}
+                    <div>应付金额：
+                        <span class="fs18 orange"> ¥
+                            <span id="all_sum_price" class="price">{{bill.payed_money}}</span>
+                        </span>
+                    </div>
+
+                    {% endif %}
+
+                </div>
+            </div>
+            {% endblock %}
+                <div class="item-content sec">
+                    微信支付
+                </div>
+                <div class="container-fluid sec clearfix text-center">
+                    <div class="pull-left p-r">
+                        <div class="text-center overdue-msg">如果二维码已过期，请刷新页面重新获取二维码。</div>
+                        <img class="qr-code" src="/media/pay/{{bill.no}}weixinqr.png" />
+                        <div class="clearfix orange-bg code-msg">
+                            <div class="pull-left"><img src="/static/img/icon/sao.svg"/></div>
+                            <div class="white pull-left text-left">
+                                请使用微信扫一扫<br>
+                                扫描二维码支付
+                            </div>
+                        </div>
+                        <div id="back" class="orange text-left">< 选择其他支付方式</div>
+                    </div>
+                   
+                </div>
+            </div>
+
+            
+        </div>
+
+    </div>
+
+
+</div>
+
+{% endblock %}
+{% block js %}
+<script src="/static/appuser/js/usercenter.js"></script>
+<script src="/static/pay/js/pay.js"></script>
+<script>
+        var sum = 0;
+        var num = 0;
+        {% for item in bill.adaptorbillitem_set.all %}
+        sum += {{ item.rule.price }} * {{ item.num }};
+        num += {{ item.num }};
+        $(".price-sum{{forloop.counter}}").text({{ item.rule.price }} * {{ item.num }});
+        {% endfor %} 
+        $('#all_sum_price').text(sum);
+        $(".sum_num").text(num);
+
+        $('#back').click(function () {
+            window.location.href = '/bill/bills/?unpayed&billno=' + {{bill.no}} ; 
+        })
+    </script> 
+{% endblock %}

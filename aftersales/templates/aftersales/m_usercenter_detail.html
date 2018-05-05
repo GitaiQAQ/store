@@ -1,0 +1,152 @@
+{% extends 'm_base.html' %} 
+{% block pagetitle%}用户中心{% endblock%} 
+{% if perm %}
+{% block publicmenu %}
+{% include 'admintitle.html' %}
+{% endblock %}
+{% endif %}
+{% block css %}
+<link href="/static/appuser/css/m_usercenter.css" rel="stylesheet">
+<link href="/static/aftersales/css/m_detail.css" rel="stylesheet">
+{% endblock %} 
+{% block content %}
+<div class="container ">
+        {% block usercentercontent %}
+        <div class="usercentercontent">
+                <div class="car-title clearfix row">
+                        售后详情
+                </div>
+                <div >
+                <table class="aftersale-detail-tb  ">
+                    <tr>
+                        <td class="td_name">
+                                <p class="grey" >预约服务号:</p>
+                        </td>
+                        <td>
+                                <p>{% if aftersale.maintain_code %}{{aftersale.maintain_code.code}}{% else %}暂无{% endif %}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                            <td class="td_name">
+                                    <p class="grey" >售后类别:</p>
+                            </td>
+                            <td>
+                                    <p>{{aftersale.get_service_type_display}}</p>
+                            </td>
+                    </tr>
+                    <tr>
+                            <td class="td_name">
+                                    <p class="grey" >回寄地址:</p>
+                            </td>
+                            <td>
+                                    <p>{{aftersale.back_addr}}</p>
+                            </td>
+                    </tr>
+                    <tr>
+                        <td class="td_name">
+                                <p class="grey" >姓名:</p>
+                        </td>
+                        <td>
+                                <p>{{aftersale.name}}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_name">
+                                <p class="grey" >邮箱:</p>
+                        </td>
+                        <td>
+                                <p>{{aftersale.email|default:'未填写'}}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_name">
+                                <p class="grey" >手机号:</p>
+                        </td>
+                        <td>
+                                <p>{{aftersale.phone}}</p>
+                        </td>
+                    </tr>
+                </table>
+               <hr>
+               <table class="aftersale-detail-tb ">
+                    <tr >
+                        <td class="td_name">
+                                <p class="grey" >产品型号:</p>
+                        </td>
+                        <td>
+                                <p>{{aftersale.device_type|default:'未填写'}}</p>
+                        </td> 
+                            <td class="td_name">
+                                    <p class="grey" >颜色:</p>
+                            </td>
+                            <td>
+                                    <p>{{aftersale.device_color|default:'未填写'}}</p>
+                            </td>
+                    </tr>
+                    <tr>
+                        <td class="td_name">
+                                <p class="grey" >产品序列号:</p>
+                        </td>
+                        <td>
+                                <p>{{aftersale.proudct_code|default:'未填写'}}</p>
+                        </td>
+                   
+                        <td class="td_name">
+                                <p class="grey" >购买日期:</p>
+                        </td>
+                        <td>
+                                <p>{{aftersale.buy_date|date:'Y-m-d'}}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_name">
+                                <p class="grey" >购买渠道:</p>
+                        </td>
+                        <td>
+                                <p>{{aftersale.saller|default:'未填写'}}</p>
+                        </td>
+                   
+                        <td> </td>
+                        <td>  </td>
+                    </tr>
+                </table>
+               
+            </div>
+            <div class="row item-title clearfix">
+                    售后进度追踪【{{aftersale.get_status_display}}】
+            </div>
+            <div >
+                <table class="aftersale-detail-tb " >
+                    <tr>
+                      <td class="td_name"><p  class="grey" >{{aftersale.date|date:'Y-m-d'}}:</p></td>
+                      <td><p>发起售后</p></td>
+                   </tr>
+                   {% if aftersale.status ==   1 %}
+                   <tr>
+                        <td class="td_name"><p  class="grey" >{{aftersale.code_date|date:'Y-m-d'}}:</p></td>
+                        <td><p>提交预约服务号</p></td>
+                    </tr>
+                    {% endif %}
+                    {% if aftersale.status == 2  %}
+                    <tr>
+                        <td class="td_name"><p  class="grey" >{{aftersale.delivery_date|date:'Y-m-d'}}:</p></td>
+                        <td><p>已发货</p></td>
+                    </tr>
+                    {% endif %}
+                    {% if aftersale.status == 3 %}
+                    <tr>
+                        <td class="td_name"><p  class="grey" >{{aftersale.finished_date|date:'Y-m-d'}}:</p></td>
+                        <td><p>售后完成</p></td>
+                    </tr>
+                    {% endif %} 
+                </table>
+            </div>   
+        
+        </div>
+        {% endblock %}
+</div>
+
+{% endblock %}
+{% block js %}
+<script src="/static/appuser/js/usercenter.js"></script>
+{% endblock %}

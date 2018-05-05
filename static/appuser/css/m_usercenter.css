@@ -20,7 +20,10 @@ input[type=file]:focus,、{
     outline:none;
 }
 
-
+.address_list{
+    border-bottom: 1px solid #ddd;
+    margin-top: 15px;
+}
 
 .address-wrap>.col-xs-3{
     margin-right: 30px;
@@ -29,8 +32,12 @@ input[type=file]:focus,、{
     background-color: rgb(247, 247, 247);
     border:1px solid #ddd;
 }
+.new-address-btn{
+    width: 100%;
+    margin: 20px auto 40px;
+}
 .car-title{
-    padding: 20px 15px;
+    padding: 18px 15px;
     background-color: rgb(72, 72, 74);
     font-size: 16px;
     color: #fff;
@@ -38,7 +45,6 @@ input[type=file]:focus,、{
 #sum_number{
     color: #777;
 }
-
 
 .header i {
     height: 100%;
@@ -67,6 +73,10 @@ margin-right: 25px;
 img.delete,img.edit{
     cursor: pointer;
     width:16px;
+    vertical-align: inherit;
+}
+.delete.aftersales-delete{
+margin-left: 8px;
 }
 img.edit{
     margin-right: 6px;
@@ -75,17 +85,23 @@ img.edit{
     padding-top: 0px;
     padding-bottom: 0px;
 }
+.m40{
+    margin: 40px auto;
+}
 
-table.order-form tr{ 
-    padding-left: 15px; 
-} 
 .order-form td,.order-form th{
-    padding:25px 0;
+    padding:15px 0px;
 }
 table.order-form th{
     background-color: rgb(247, 247, 247);
     font-weight: 100;
 }
+table.order-form tr td:first-child,table.order-form tr th:first-child{
+    padding-left: 15px;
+    }
+    table.order-form tr td:last-child, table.order-form tr th:last-child{
+        padding-right: 15px;
+    }
 .wrap-border{
     border-bottom: 1px solid #ddd;
 }
@@ -279,12 +295,7 @@ table{
 .car-title .black{
     margin-left: 10px;
 }
-table.order-form tr td:first-child,table.order-form tr th:first-child{
-padding-left: 15px;
-}
-table.order-form tr td:last-child, table.order-form tr th:last-child{
-    padding-right: 15px;
-}
+
 .order-form-btn{
     padding: 4px 12px;
     display: inline;
@@ -293,10 +304,6 @@ table.order-form tr td:last-child, table.order-form tr th:last-child{
 .order-form .shop-name{
     width: auto;
 }
-th{
-    text-align: center;
-}
-
 .cut_line td[colspan="5"]{
     padding: 0 30px;
 }
@@ -312,7 +319,7 @@ th{
     height: 1px;
 }
 .td_line {
-    padding: 0 30px !important;
+    padding: 0 15px!important;
 }
 
 .td_line div{
@@ -322,34 +329,33 @@ th{
 }
 a.apply-for-btn{
     padding: 2px 12px;
+    min-width:unset;
 }
 .usercentercontent>ul{
     padding: 20px 30px;
 }
 .information,.receipt{
-    padding:30px;
+    padding:15px;
     border-bottom: 1px solid #ddd;
+}
+.receipt{
+    margin-bottom: 15px;
 }
 .information input.common-inp{
     margin-right:15px;
     float: left;
 }
 input[name="address"]{
-    width: 780px;
+    width: 100%;
     margin-top: 15px;
     margin-bottom: 15px;
 }
-input[name="name"]{
-    width: 180px;
-}
-input[name="phone"]{
-    width: 200px;
-}
-input[name="email"]{
-    width: 370px;
+
+
+input[name="name"],input[name="phone"],input[name="email"],input[name="dealer"],input[name="rule"]{
+    width: 100%;
 }
 input[name="rule"]{
-    width: 240px;
     margin-bottom: 15px;
 }
 input[name="color"]{
@@ -366,10 +372,6 @@ input[name="code"]{
 
 input[name="date"]{
     width: 160px;
-}
-
-input[name="dealer"]{
-    width: 525px;
 }
 
 /* .picture-warp{
@@ -418,7 +420,7 @@ label.attachment[for="picture"]{
 }   
 textarea[rows="4"]{
     display: block;
-    width: 780px;
+    width: 100%;
     height: auto;
     resize: none;
 }
@@ -459,14 +461,17 @@ input[name="logistics_name"],input[name="logistics_nub"]{
 .fs32{
     font-size: 32px;
 }
+#newaftersales input{
+    margin: 15px auto 0;
+}
 .pop-box{
     text-align: center;
-    padding: 60px 0;
+    padding: 30px 0;
     position: fixed;
     left: 50%;
     top:50%;
     transform: translate(-50%,-50%);
-    width: 400px;
+    width:80%;
     background: #fff;
     box-shadow: 0 2px 8px 0 rgba(0,0,0,0.2), 0 0 0 1px rgba(0,0,0,0.08);z-index: 1001;
 }
@@ -593,8 +598,11 @@ table.billdetail{
 .billdetail td[colspan="5"]{
     padding: 15px 0 0 0; 
 }
-.billdetail tr td:last-child,table.order-form.address_list tr td:last-child{
+.billdetail tr td:last-child{
     padding-right: 15px!important;
+}
+.address_list td{
+    padding: 5px 0;
 }
 .w320{
     width: 320px;

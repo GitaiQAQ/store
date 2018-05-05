@@ -143,8 +143,10 @@ class BillView(View):
                         qrimage = os.path.join(settings.MEDIA_ROOT, 'pay', bill.no+'weixinqr.png')
                         if not os.path.isfile( qrimage ):
                             weixinpay_ctl.getWeChatQRCode( **kwargs)
-                    
-                        return render(request, 'pay/weixinpay.html', content)
+                        if isMble:
+                            return render(request, 'pay/m_weixinpay.html', content)
+                        else:
+                            return render(request, 'pay/weixinpay.html', content)
                     else:
                         return redirect(alipay(bill.no, content['money'], bill.no))
                       

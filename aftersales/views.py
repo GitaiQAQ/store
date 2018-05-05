@@ -279,7 +279,7 @@ class AfterSalesView(View):
         if 'new' in request.GET: 
             content['choices'] = AfterSales.AFTERSALES_CHOICES
             if isMble:
-                return render(request, 'aftersales/usercenter_apply.html', content)
+                return render(request, 'aftersales/m_usercenter_apply.html', content)
             else:
                 return render(request, 'aftersales/usercenter_apply.html', content)
         elif 'aftersaleid' in request.GET : 
@@ -338,7 +338,7 @@ class AfterSalesView(View):
                     aftersale = []
                 content['aftersale'] = aftersale
             if isMble:
-                return render(request, 'aftersales/usercenter_detail.html', content)
+                return render(request, 'aftersales/m_usercenter_detail.html', content)
             else:
                 return render(request, 'aftersales/usercenter_detail.html', content)
             
@@ -346,7 +346,7 @@ class AfterSalesView(View):
         else: 
             content['aftersales'] = aftersale_items
             if isMble:
-                return render(request, 'aftersales/usercenter_aftersales_list.html', content)
+                return render(request, 'aftersales/m_usercenter_aftersales_list.html', content)
             else:
                 return render(request, 'aftersales/usercenter_aftersales_list.html', content)
     

@@ -53,22 +53,16 @@ $.ajax({
         '   <div class="rule_content grey">#rule'+
         '   </div>'+
         '</td> '+
-        '<td class="w159 text-center" carid="{{car.id}}">'+
-        '           <i class="fa fa-jpy" aria-hidden="true"></i>'+
-        '           <span class="carprice">#num_and_price</span>'+
-        '</td> '+
-        '<td class="w159 text-right">'+
-        '        <i class="fa fa-jpy" aria-hidden="true"></i>'+
-        '       <span class="small_sum">#total_money</span>'+
+        '<td class="text-center orange" carid="{{car.id}}">'+
+        ' ¥<span class="carprice">#num_and_price</span>'+
         '</td> '+
     '</tr>';
     for (var i = 0; i < aProducts.length; i++) {
         tmp = html;
-        
         tmp = tmp.replace("#img", aProducts[i].img );
         tmp = tmp.replace("#productname", aProducts[i].name);
         tmp = tmp.replace("#rule", aProducts[i].rule);
-        tmp = tmp.replace("#num_and_price", aProducts[i].Price+' x '+ aProducts[i].num);
+        tmp = tmp.replace("#num_and_price",aProducts[i].Price+'<br><span class="fs12 grey">数量：'+ aProducts[i].num+'</span>');
         tmp = tmp.replace("#total_money", aProducts[i].Price * aProducts[i].num);
         $("#tb_items").append(tmp);
         sum_number += parseInt(aProducts[i].num);

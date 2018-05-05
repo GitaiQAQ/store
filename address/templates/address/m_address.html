@@ -1,0 +1,49 @@
+{% extends 'm_base.html' %}
+{% block pagetitle%}地址列表{% endblock%}  
+  {% block css %} {% load staticfiles %}
+{% load areas %}
+<link href="/static/appuser/css/m_usercenter.css" rel="stylesheet">{% endblock %} {% block content %}
+<!-- 顶部 -->
+
+                            <div class="car-title clearfix">
+                                <div class="pull-left">
+                                        收货地址
+                                </div>
+                                
+                            </div>
+                            
+                   <div class="text-center container">
+                        
+                                
+                                {% if addresses %}
+                                    {% for address in addresses %}
+                                    <table class="address_list gray">
+                                <tr class="text-left" addressid={{address.id}}>
+                                    <td><span class="name">{{address.receiver}}</span></td>
+                                    <td><span class="ph_number">{{address.phone}}</span></td>
+                                    <td class="text-right">
+                                        <a href="{% url 'address:addresses' %}?addressid={{address.id}}">
+                                            <img class="edit" src="/static/img/icon/edit.svg" alt="" billid="{{ bill.id }}">
+                                        </a>
+                                        <img class="delete" src="/static/img/icon/center5.svg" class="delete" alt="" billid="{{ bill.id }}">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3"><div class="pull-left s_address">{{address.area|areas}}{{address.area.short_name}}[县\区]  {{address.detail}}</div></td>
+                                    
+                                    
+                                </tr>
+                            </table><!--  -->
+                                {% endfor %}
+                                {% else %}
+                                <br>
+                                <br>
+                                 <p>没有创建任何地址</p>
+                                {% endif %}
+                           
+                    <a class="new-address-btn orange-bg common-big-btn" href="{% url 'address:addresses' %}?new="><span class="white">+添加新地址</span></a>
+                   </div>
+{% endblock %}{% block js %}
+<script src="/static/address/js/m_address.js">
+</script>
+{% endblock %}

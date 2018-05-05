@@ -1,55 +1,48 @@
-{% extends 'base.html' %} 
-{% block fixed_menu_class %}fixed_menu_class{%endblock%}
+{% extends 'm_base.html' %} 
 {% block pagetitle%}新建地址{% endblock%}  
  {% block css %} {% load staticfiles %}
-<link href="/static/appuser/css/usercenter.css" rel="stylesheet"> 
-<link href="/static/appuser/css/new.css" rel="stylesheet">{% endblock %} 
+<link href="/static/appuser/css/m_usercenter.css" rel="stylesheet"> 
+<link href="/static/appuser/css/m_new.css" rel="stylesheet">{% endblock %} 
 {% block content %}
 <!-- 顶部 -->
 
 <!-- 顶部 -->
-<div class="container m60">
-        {% include "usercenter/menu.html" %} 
-    <div class="col-xs-10">
-        <div class="usercentercontent">
-            <div class="car-title">
+<div class="container">
+       
+            <div class="car-title row">
                     添加新地址
                 
             </div>
-            <div class="submit new_address">
+            <div class="new_address">
                 {% if address %}
                 <input type="hidden" id="addressid" value="{{address.id}}" /> {% endif %}
-                <div>
+                <div class="mt30">
                     <input class="common-inp" type="text" id="receiver" placeholder="收货人姓名" value="{{address.receiver}}" />
 
                     <input class="common-inp" type="text" id="phone" placeholder="电话" value="{{address.phone}}" />
+                
+                    <div>
+                            <select class="common-inp col-xs-4" id="province" type="text">
+                                    <option class="grey">省份</option>
+                                </select>
+                                <select class="common-inp col-xs-4" id="city" type="text">
+                                    <!-- <option>城市</option> -->
+                                </select>
+                                <select class="common-inp col-xs-4" id="counties" type="text">
+                                    <!-- <option>县区</option> -->
+                                </select>
+                    </div>
                 </div>
-
-                <div>
-                    <select class="common-inp" id="province" type="text">
-                        <option class="grey">省份</option>
-                    </select>
-                    <select class="common-inp" id="city" type="text">
-                        <!-- <option>城市</option> -->
-                    </select>
-                    <select class="common-inp" id="counties" type="text">
-                        <!-- <option>县区</option> -->
-                    </select>
-                </div>
-
                 <input class="common-inp" type="text" id="detail" placeholder="详细地址:" value="{{address.detail}}" />
-                <div>
+                <div class="text-right">
                     <input type="checkbox" id="default">
                     <label class="default" for="default">设为默认地址</label>
                 </div>
                 <!-- 新建地址按钮 -->
-                <button class="common-btn orange-bg white create-btn" type="submit">
-                    保存使用
-                </button>
+                <div class="text-center"><button class=" common-big-btn orange-bg white create-btn" type="submit">
+                        保存使用
+                    </button></div>
             </div>
-        </div>
-
-    </div>
 </div>
 
 {% endblock %}{% block js %}

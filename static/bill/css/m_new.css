@@ -162,7 +162,6 @@ section.ware{
 
 .img-rounded{
 width: 6%;
-margin-right:12px;
 }
 .ware .pull-right{
     position: absolute;
@@ -210,21 +209,18 @@ table.shop-car td{
     margin-bottom: 15px;
 }
 .img-rounded{
-    background-color: #fff;
-    width: 90px;
-    height: 90px;
-    padding:15px;
-    border: 1px solid #ddd;
+    width: 60px;
+    height: 60px;
 }
 
 #invoice_title,#invoice_code{
     width: 100%;
 }
-.img-wrap{
-    width: 130px;
-}
-.shop-msg{
-    width: 490px;
+ 
+table.shop-car td.shop-msg{
+    text-align: left;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .title-name{

@@ -1,0 +1,74 @@
+{% extends 'm_base.html' %} 
+{% block pagetitle%}用户中心{% endblock%} 
+{% block css %}
+<link href="/static/appuser/css/m_usercenter.css" rel="stylesheet">
+{% endblock %} 
+{% block content %}
+        {% block usercentercontent %}
+        <div class="usercentercontent">
+                <div class="car-title clearfix">
+                        售后服务
+                        <a class="apply-for-btn pull-right orange-bg common-btn" href="{% url 'aftersales:aftersales' %}?new">申请售后服务</a>
+                </div>
+               
+                {% if bills or aftersales %}
+                <table class="order-form m40 text-left gray">
+                       
+                        {% csrf_token %} 
+                        {% for aftersale in aftersales %}
+                        
+                        <tr>
+                            <th class="usercenter-tb" aftersaleid="{{aftersale.id}}">
+                                    {{aftersale.date|date:'Y-m-d'}}
+                            </th>
+                            <!-- <td class="text-left usercenter-tb" aftersaleid="{{aftersale.id}}">{{aftersale.name}}</td> -->
+                        
+                            <th class="text-right">预约服务号:{{aftersale.maintain_code.code}}</th>
+                            
+                        </tr>
+                        <tr>
+                                <td><a  href="/aftersales/aftersales/?aftersaleid={{aftersale.id}}&detail">
+                                    <span class="orange">
+                                       {{aftersale.device_type}}
+                                    </span>
+                                </a><!-- {{aftersale.phone}} --></td>
+                                <!--  <td>{{aftersale.get_status_display}}</td> -->
+                                 <td colspan="2" class="text-right">
+                                     {% if aftersale.status == 0 %}
+                                     <a class="apply-for-btn orange-bg common-btn" href="/aftersales/aftersales/?aftersaleid={{aftersale.id}}&status={{aftersale.status}}">
+                                         <span class="white">输入预约服务号</span>
+                                     </a>
+                                     {% elif aftersale.status == 1  %}
+                                     <a class="apply-for-btn orange-bg common-btn" href="/aftersales/aftersales/?aftersaleid={{aftersale.id}}&status={{aftersale.status}}">
+                                         <span class="white">填写发货信息</span>
+                                     </a>
+                                     {% elif aftersale.status == 2  %}
+                                     <a class="apply-for-btn orange-bg common-btn" href="/aftersales/aftersales/?aftersaleid={{aftersale.id}}&detail">
+                                         <span class="white">查看进度</span>
+                                     </a>
+                                     {% endif %}
+                                     <img src="/static/img/icon/center5.svg" class="delete aftersales-delete" data-toggle="modal"
+                                      data-target="#confirm-delete" alt="" aftersalsesid="{{aftersale.id}}"> 
+                                 </td>
+                        </tr>
+                        <tr class="cut_line">
+                                <td colspan="4" class="td_line">
+                                    <div></div>
+                                </td>
+                        </tr>
+                    </table>
+                        {% endfor %}
+               
+                {% else %}
+                {% include "usercenter/nothing.html" %}
+                {% endif %}
+               
+            </table>
+        </div>
+        {% endblock %}
+{% include "delete.confirm.html" %}
+{% endblock %}
+{% block js %}
+<script src="/static/appuser/js/usercenter.js"></script>
+<script src="/static/aftersales/js/list.js"></script>
+{% endblock %}

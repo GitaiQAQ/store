@@ -1,0 +1,68 @@
+{% extends 'm_base.html' %} 
+{% block pagetitle%}用户中心{% endblock%} 
+{% block css %}
+<link href="/static/appuser/css/m_usercenter.css" rel="stylesheet">
+<link href="/static/plugins//bootstrap-datepicker/css/datepicker.css" rel="stylesheet" />
+<link href="/static/plugins/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet" />
+{% endblock %} 
+{% block content %}
+{% include "aftersales/usercenter_msg.html" %}
+<div class="container"> 
+        {% block usercentercontent %}
+        <div class="car-title clearfix row">
+               录入寄修信息
+            </div>
+            <form method="post" id="newaftersales" action="" enctype="multipart/form-data">
+                    {% csrf_token %} 
+                <div class="clearfix">
+                    <input class="common-inp" type="text" name="name" id="name" placeholder="姓名">
+                    <input class="common-inp" type="text" name="phone" id="myphone" value="{{request.user.phone}}" placeholder="电话">
+                    <input class="common-inp" type="text" name="email" id="email" placeholder="邮箱">
+                    <input class="common-inp" type="text" name="address" id="address" placeholder="寄回地址">
+                    <input class="common-inp" type="text" name="rule" id="productname" placeholder="产品名称">
+                    <!--<input class="common-inp" type="text" name="color" id="" placeholder="颜色">-->
+                    <input class="common-inp" type="text" name="number" id="number" placeholder="产品系列号(PSN)">
+                    <input class="common-inp" type="text" name="date" id="buy_date" placeholder="购买日期">
+                    <input class="common-inp" type="text" name="dealer" id="" placeholder="购买经销商">
+                </div>
+                <div class="receipt">
+                    上传购机发票
+                    <label class="common-btn grey-btn" for="picture">上传附件<i class="fa fa-arrow-circle-up" aria-hidden="true"></i></label>
+                   <input type="file" name="invoice" id="picture">
+                  
+                    <textarea class="common-inp" name="description" id="description" rows="4" placeholder="故障现象"></textarea>
+                </div>
+                <div>
+                    <div>申请售后类别</div>
+                    <div>
+                        <select class="common-inp genre" id="maintaince_type" name="service_type" id=""> 
+                                <option value="0" msg="退机必须整包装，不能缺附件">7日内退机</option>
+                                <option value="3" msg="换机只返主机">换机</option>
+                                <option value="1" msg="维修只返主机">返修主机</option>
+                                <option value="2" msg="附件只返有故障的附件">返修配件</option> 
+                        </select>
+                        <span class="showmsg">
+                        退机必须整包装，不能缺附件
+                        </span>
+                    </div>
+                        <button class="common-big-btn orange-bg new-address-btn" id="submit" type="submit">
+                            <span class="white">提交</span>
+                        </button>
+                </div>
+            </form>
+        {% endblock %}
+    
+</div>
+
+{% endblock %}
+{% block js %}
+<script src="/static/appuser/js/usercenter.js"></script>
+<script src="/static/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script src="/static/plugins/bootstrap-datepicker/js/locales/bootstrap-datepicker.zh-CN.js" charset="UTF-8"></script>
+<script src="/static/aftersales/js/aftersales.js"></script>
+<script>
+   $("#submit").click(function(){
+       //newaftersales
+   })
+</script>
+{% endblock %}
