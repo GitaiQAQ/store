@@ -14,9 +14,9 @@
 .jquery-message,.jquery-error-message{
     position: fixed;
 	bottom: 100px;
-    left: 5%;
-    width: 88%;
-    min-height: 59px;
+    left: 35%;
+    width: 30%;
+    min-height: 100px;
     padding:15px;
     color: #ea5014;
     background-color: #fff;
