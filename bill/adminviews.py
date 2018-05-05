@@ -216,6 +216,29 @@ def delivery(request):
         kwargs['status'] = AdaptorBill.STATUS_PAYED
         bills = AdaptorBill.objects.filter( **kwargs ) #.order_by('refundstatus', '-refund_time')
         content['bills'] = bills
+        if 'print' in request.GET:
+            userid = request.user.id
+            if not os.path.isdir(settings.BASE_FILE_PATH):
+                os.makedirs(settings.BASE_FILE_PATH)
+
+            filename = os.path.join(settings.BASE_FILE_PATH,'sales.xls' )
+            kwargs = {}
+            kwargs['filename'] = filename 
+            kwargs['bills'] = bills 
+            out_excel = excel_output.write_bill_record(**kwargs)
+        
+            if os.path.isfile(filename):
+                try:
+                    wrapper  = FileWrapper(open(filename, 'rb'))
+                except IOError as e:
+                    return HttpResponse(e)
+                    
+                response    = HttpResponse(wrapper,content_type='application/vnd.ms-excel')
+                response['Content-Disposition'] = 'inline; filename=%s' % os.path.basename( filename )
+                response['Content-Length']      = os.path.getsize(filename)
+                return response
+            else:
+                return HttpResponse(u'未找到文件...')
     if isMble:
         return render(request, 'usercenter/usercenter_deliverybill.html', content)
     else:

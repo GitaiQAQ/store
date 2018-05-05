@@ -1,15 +1,14 @@
 
 /* 产品详情详细介绍的临时CSS */
-    .list-wrap {
-        margin-left: 70px;
+    .list-wrap { 
         font-size: 14px;
     }
 
-    .list-wrap .col-xs-10,
-    .cut-off .col-xs-10 { 
+    .list-wrap .col-xs-8,
+    .cut-off .col-xs-8 { 
     }
 
-    .list-wrap>.col-xs-10>div {
+    .list-wrap>.col-xs-8>div {
         margin-bottom: 15px;
     }
 

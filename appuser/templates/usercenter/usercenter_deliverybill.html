@@ -23,7 +23,10 @@
                         <input type="file"  name="file" value="{{billno}}" name="invoice" id="picture">
                         <button type="submit" class="orange-bg common-btn last-btn" >
                                 <span class="white">批量发货</span>
-                </button>
+                        </button>
+                        <button id="leading_out" type="button" class="orange-bg common-btn  " >
+                            <span class="white">导出结果</span>
+                        </button>
                 {% if status %}
                     {% if status == 'error' %}
                     <span class="error">{{msg}}</span>
