@@ -3,30 +3,28 @@
 <input id="intemplate" value="1" type="hidden" />
     {% if addresses %}
         {% for address in addresses %}
-            <div class="black col-xs-3 address-wrap" addressid="{{address.id}}">
-                        <div class="address {% if address.default == 1 %} act_address  {% endif %}" addressid="{{address.id}}">
-                                <div class="msg-list p-r">
-                                    <div class="name">
-                                        <span class="name">{{address.receiver}}</span>
-                                    </div>
-                                    <div>{{address.phone}}</div>
-                                    <div class="a-detail">
-                                            {{address.area|areas}}{{address.area.short_name}}[县\区] {{address.detail}}
-                                    </div>
-                                    {% if address.default == 1 %}
-                                    <div class="act orange"><i class="fa fa-check" aria-hidden="true"></i></div>
-                                    {% endif %}
-                         </div>
-                                <div class="address-footer row">
-                                        <button class="address_modify col-xs-6" url="{% url 'address:addresses' %}?addressid={{address.id}}&template">
-                                                修改
-                                        </button>
-                                        <div class="col-xs-6 delete_address">删除</div>
+            <div class="black address-wrap  {%  if  forloop.first   %}first{% endif %}" {%  if  forloop.first   %} addressid="{{address.id}}"{% endif %}>
+                    <div class="address {% if address.default == 1 %} act_address  {% endif %}" addressid="{{address.id}}">
+                            <div class="msg-list p-r">
+                                <div class="name">
+                                    <span class="name">{{address.receiver}}</span><span></span>
                                 </div>
-                      </div>
-
-                    
-            </div> 
+                                <div>{{address.phone}}</div>
+                                <div class="a-detail">
+                                        {{address.area|areas}}{{address.area.short_name}}[县\区] {{address.detail}}
+                                </div>
+                                {% if address.default == 1 %}
+                                <div class="act orange"><i class="fa fa-check" aria-hidden="true"></i></div>
+                                {% endif %}
+                            </div>
+                            <div class="address-footer row">
+                                    <button class="address_modify col-xs-6" url="{% url 'address:addresses' %}?addressid={{address.id}}&template">
+                                            修改
+                                    </button>
+                                    <div class="col-xs-6 delete_address">删除</div>
+                            </div>
+                    </div> 
+        </div>  
         {% endfor %}
     {% else %}
         <!-- 没有创建任何地址 -->
@@ -35,7 +33,7 @@
 
 <!-- 新建地址按钮 -->
 
-<div class="black col-xs-3 address-wrap ">
+<div class="black address-wrap ">
                 <button class="new-address address_new" url="{% url 'address:addresses' %}?new=&template">
                     <div class="add-new">＋</div>
                     添加新地址

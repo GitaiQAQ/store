@@ -4,6 +4,10 @@ $('#coupon-number').on('focus',function(){
     $('#coupon-msg').children('.alert').remove();
 })
 $(document).ready(function(){
+    //地址下拉
+    $('#down').on('click',function(){
+        $('.address-wrap').toggle();
+    })
     /* 
      *获取优惠券数据
      */
@@ -282,7 +286,7 @@ $.ajax({
 
 });
 /* 地址框删除按钮功能 */
-$('body').on('click', '.delete_address', function () {
+$('#item-address').on('click', '.delete_address', function () {
     var delete_address = $(this),
         id = delete_address.parents('.address-wrap').attr('addressid'),
         url = '/address/addresses/';
@@ -313,8 +317,7 @@ $('body').on('click', '.delete_address', function () {
     });
 }) 
 /* 点击地址框，选中变红 */
-$('.container-car').on('click', '.msg-list', function () {
-    
+$('#item-address').on('click', '.msg-list', function () {
     $('.address').removeClass('act_address');
     $('.act.orange').remove();//清楚样式
     $(this).parent().addClass('act_address');
