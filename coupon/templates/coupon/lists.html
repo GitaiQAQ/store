@@ -56,7 +56,7 @@
                 <a href="{% url 'coupon:coupons' %}">全部</a>
                 <a href="{% url 'coupon:coupons' %}?used=1" {% if used == '1' %}class="orange"{%endif%}>已使用</a>
                 <a href="{% url 'coupon:coupons' %}?used=0" {% if used == '0' %}class="orange"{%endif%}>未使用</a>
-                <a href="{% url 'coupon:coupons' %}?used=2" {% if used == '2' %}class="orange"{%endif%}>已过期</a>
+                
                 </div>
               
                 </div>

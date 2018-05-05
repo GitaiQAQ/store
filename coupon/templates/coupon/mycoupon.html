@@ -18,7 +18,7 @@
                                 {% csrf_token %} 
                     <div>
                             <input class="common-inp cash-coupon-inp" type="hidden" name="method" value="put">
-                        激活新卡券<input class="common-inp cash-coupon-inp" type="text" name="code" id="">
+                        激活新优惠券<input class="common-inp cash-coupon-inp" type="text" name="code" id="">
                         <button type="submit" class="orange-bg cash-coupon-btn common-btn white" >激活并使用</button>
                     </div>
                     {% if status %}
@@ -36,7 +36,7 @@
                     </form>
                     
                     <div class="cash-coupon-wrap clearfix">
-                        <div>我的代金券</div>
+                        <div>我的优惠券</div>
                         {% if coupons %}
                         {% for coupon in coupons %}
                         <div class="cash-coupon pull-left">

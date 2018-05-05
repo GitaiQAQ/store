@@ -241,3 +241,15 @@ nav .col-xs-9 a{
     border-radius: 0px;
     background-color:transparent!important;
 }
+
+.hint {
+    position: absolute;
+    right: -8%;
+    bottom: 68%;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    line-height: 15px;
+    font-size: 10px;
+    text-align: center;
+}

@@ -113,9 +113,11 @@ class CouponView(View):
             unused_coupons = Coupon.objects.filter(used = 0)
             for coupon_item in unused_coupons:
                 if coupon_item.deadline < now:
-                    coupon_item.used = 2
-                    coupon_item.save()
-
+                    #coupon_item.used = 2
+                    # 过期的自动删除
+                    coupon_item.delete()
+            # 过期的自动删除
+            Coupon.objects.filter(used = 2).delete()
             coupons = self.pagination(request) 
             content['coupons'] =coupons
             content['categories'] = self.get_categories()

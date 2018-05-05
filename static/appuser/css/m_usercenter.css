@@ -73,7 +73,7 @@ margin-right: 25px;
 img.delete,img.edit{
     cursor: pointer;
     width:16px;
-    vertical-align: inherit;
+    /*vertical-align: inherit;*/
 }
 .delete.aftersales-delete{
 margin-left: 8px;
