@@ -62,9 +62,9 @@ class ShopcarView(APIView):
                         try:
                             caritem = CartItem.objects.get(rule = rule, user = user)
                             caritem.delete()
-                        except CarItem.DoesNotExist:
+                        except CartItem.DoesNotExist:
                             pass
-                        except CarItem.MultipleObjectsReturned:
+                        except CartItem.MultipleObjectsReturned:
                             CartItem.objects.filter(rule = rule, user = user).delete()
                             
                         result['status'] = 'ok'

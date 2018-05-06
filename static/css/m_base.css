@@ -195,12 +195,15 @@ nav ul{
     border-radius: 50%;
 }
 nav li{
-    padding-top: 30px;
-    padding-bottom:30px;
+    padding-top: 20px;
+    padding-bottom:20px;
     border-bottom: 1px solid #ddd;
 }
 nav .pull-right>a>img{
     height: 20px;
+}
+.swiper-button-prev, .swiper-button-next {
+    height: 28px!important;
 }
 nav ul img{
     width: 16px;
@@ -244,10 +247,10 @@ nav .col-xs-9 a{
 
 .hint {
     position: absolute;
-    right: -8%;
+    right: -10%;
     bottom: 68%;
-    width: 5px;
-    height: 5px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
     line-height: 15px;
     font-size: 10px;

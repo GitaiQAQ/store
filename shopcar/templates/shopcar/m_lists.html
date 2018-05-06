@@ -51,10 +51,11 @@
         
         
             <!-- 数量 -->
-            <td class="text-right unselect">
+            <td class="text-right unselect" colspan="2">
                 <img class="addition r-btn" src="/static/img/icon/jia.svg" alt="" inventory="{{car.rule.inventory|default_if_none:'有货'}}">
                 <span class="carnum text-center" ruleid="{{car.rule.id}}" desc="{{car.desc}}" inventory="{{car.rule.inventory|default_if_none:'有货'}}">{{car.quantity}}</span>
                 <img class="subtraction r-btn" src="/static/img/icon/jian.svg" alt="">
+                <img class="delete r-btn" ruleid="{{car.rule.id}}" src="/static/img/icon/cuo.svg" alt="">
             </td>
             <!-- 数量 end -->
         
@@ -65,16 +66,13 @@
             </td> -->
             <!-- 小计 emd -->
         
-            <td class="text-center">
-                <img class="delete r-btn" ruleid="{{car.rule.id}}" src="/static/img/icon/cuo.svg" alt="">
-            </td>
     </tr>
         
     </table>
     <div class="cut-line"></div>
             {% endfor %} {% else %}
-            <div class="orange nothing">
-                购物车中没有物品
+            <div class="nothing text-center">
+                <a href="/"><span class="orange">购物车是空的添加一些商品吧</span></a>
             </div> {%endif%}
             <!-- 购物车列表详情end -->
 
@@ -109,7 +107,7 @@
             <script type="text/javascript " src="/static/js/login.js "></script>
             <script type="text/javascript" src="/static/js/cookie.js"></script>
             <script type="text/javascript " src="/static/plugins/icheck/icheck.min.js "></script>
-            <script type="text/javascript" src="/static/shopcar/js/shopcar.js"></script>
+            <script type="text/javascript" src="/static/shopcar/js/m_shopcar.js"></script>
 
             <script>
                 var sum = 0;

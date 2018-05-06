@@ -12,6 +12,9 @@
     width: 100%;
 
 }
+.delete{
+    margin-left: 4px;
+}
 .img-rounded{
     width: 90px;
     padding: 10px;

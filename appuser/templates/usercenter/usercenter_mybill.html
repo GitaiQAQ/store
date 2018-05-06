@@ -20,10 +20,12 @@
                         <a href="{% url 'bill:detail' bill.id %}">
                             <span class="orange">{{bill.no}}</span>
                         </a>
+                        {% if bill.status == -2 and forloop.counter == 1 %}
+                            <span class="black status">状态：</span><span class="orange">{{bill.get_status_display}}</span>
+                        {% endif %}
                     </th>
                     <th>单价</th>
                     <th>数量</th>
-                    <th>状态</th>
                     <th>应付总额</th>
                 </tr>
                 {% for item in bill.adaptorbillitem_set.all %}
@@ -41,11 +43,7 @@
                         <span class="price">{{item.rule.price}}</span>
                     </td>
                     <td class="w110 nub">{{item.num}}</td>
-                    {% if bill.status == -2 and forloop.counter == 1 %}
-                    <td class="w110 orange">{{bill.get_status_display}}</td>
-                    {% else %}
-                    <td class="w110 orange"></td>
-                    {% endif %}
+                    
                     <td class="w110">¥&nbsp;
                         <span class="price-sum"></span>
                     </td>
@@ -72,20 +70,12 @@
                         <a class=" orange-bg common-btn" href="{% url 'bill:bills' %}?unpayed&billno={{bill.no}}">
                             <span class="white">立即支付</span>
                         </a>
-                        {% endif %} {% if bill.status == 1 %}
-                        <!--已支付-->
-                        <a class=" orange-bg common-btn" href="{% url 'bill:detail' bill.id %}">
-                            <span class="white">{{bill.get_status_display}}</span>
-                        </a>
+                        {% endif %} 
+                        {% if bill.status == 1 %} 
 
                         <button {% if bill.refundstatus == 0 %}id="refund" {% endif %} class=" orange-bg common-btn btn-refund">
                             <span class="white">{{bill.get_refundstatus_display}}</span>
-                        </button>
-
-                        {%　else %}
-                        <a class=" orange-bg common-btn" href="{% url 'bill:detail' bill.id %}">
-                            <span class="white">{{bill.get_status_display}}</span>
-                        </a>
+                        </button> 
                         {% endif %}
                         <a class="  common-btn grey-btn" href="{% url 'bill:detail' bill.id %}">
                             <span class="black">查看详情</span>

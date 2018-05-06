@@ -51,6 +51,9 @@ div.address{
 .address-wrap{
     display: none;
 }
+.fa-angle-double-down{
+    margin-bottom: 15px;
+}
 .address-wrap.first{
     display: block!important;
 }

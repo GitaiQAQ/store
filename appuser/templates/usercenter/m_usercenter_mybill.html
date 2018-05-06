@@ -18,24 +18,26 @@
                                 <th class="text-left usercenter-tb" colspan="">
                                         {{ bill.date|date:"Y-m-d" }}
                                 </th>
-                                <th class="text-left" colspan="3">订单号：
+                                <th class="text-left" colspan="4">订单号：
                                     <a href="{% url 'bill:detail' bill.id %}">
                                         <span class="orange">{{bill.no}}</span>
                                     </a>
+                                    <img src="/static/img/icon/center5.svg" class="orange delete pull-right" alt="" billid="{{ bill.id }}">
                                 </th>
-                                <th> <img src="/static/img/icon/center5.svg" class="orange delete" alt="" billid="{{ bill.id }}"></th>
                             </tr>
                             {% for item in bill.adaptorbillitem_set.all %}
                                 <tr class="item">
                                         <td class="img-wrap text-left">
                                             <img class="img-rounded" src="{{mediaroot}}{{item.rule.product.thumbnail}}">
                                         </td>
-                                        <td class="shop-name text-left">
+                                        <td colspan="3" class="shop-name text-left">
                                                 <div class="carlist_name black">{{item.rule.product.title}}</div>
                                                 <div class="rule_content grey">规格：{{item.rule_title}} </div>
                                         </td>
-                                        <td class="orange text-right">¥&nbsp;<span class="price">{{item.rule.price}}</span></td>
-                                        <td >×<span class="nub">{{item.num}}</span></td>
+                                        <td class="orange text-right">¥&nbsp;<span class="price">{{item.rule.price}}
+                                                &nbsp;×<span class="nub">{{item.num}}</span>
+                                        </span></td>
+                                        
                                         <!-- {% if bill.status == -2 and forloop.counter == 1 %}
                                         <td class=" orange">{{bill.get_status_display}}</td>
                                         {% else %}
@@ -51,40 +53,40 @@
                             {% endfor %}
                                 <tr>
                                     <td colspan="5" class="gray aggregate text-right">
-                                        合计：<span class="orange fs16 total{{bill.id}}">XXX</span>
+                                    合计：<span class="orange fs16 total{{bill.id}}">XXX</span>
                                     {% if bill.adaptorcouponitem_set.all %}
-                                    优惠：<span class="coupon{{bill.id}}">{{bill.adaptorcouponitem_set.all.0.coupon.price}}元</span>
+                                    &nbsp;&nbsp;优惠：<span class="coupon{{bill.id}}">{{bill.adaptorcouponitem_set.all.0.coupon.price}}元</span>
                                     {% endif %}
                                     {% if bill.status == 1  %}
-                                    实付款：
+                                    &nbsp;&nbsp;实付款：
                                     <span class="orange fs16">{{bill.money}}</span>
                                     {% elif bill.status == 4 %}
-                                    <span >实际支付：span</span>
+                                    <span>&nbsp;&nbsp;实际支付：span</span>
                                     {% else %}
-                                    应付款：
+                                    &nbsp;&nbsp;应付款：
                                     <span class="real{{bill.id}}">XXX</span>
                                     {% endif %}
 
-                                   <div class="mt10 text-left"> {% if bill.status == -2   %}
-                                    <a  class=" orange-bg common-btn" href="{% url 'bill:bills' %}?unpayed&billno={{bill.no}}">
+                                   <div class="m15"> {% if bill.status == -2   %}
+                                    <a  class=" orange-bg common-btn apply-for-btn" href="{% url 'bill:bills' %}?unpayed&billno={{bill.no}}">
                                         <span class="white">立即支付</span>
                                     </a>
                                     {% endif %}
                                     {% if bill.status == 1  %}<!--已支付-->
-                                    <a  class=" orange-bg common-btn" href="{% url 'bill:detail' bill.id %}">
+                                    <a  class=" orange-bg common-btn apply-for-btn" href="{% url 'bill:detail' bill.id %}">
                                         <span class="white">{{bill.get_status_display}}</span>
                                     </a>
                                     
-                                    <button  {% if bill.refundstatus == 0  %}id="refund"{% endif %}  class=" orange-bg common-btn btn-refund">
+                                    <button  {% if bill.refundstatus == 0  %}id="refund"{% endif %}  class="apply-for-btn orange-bg common-btn btn-refund">
                                         <span class="white">{{bill.get_refundstatus_display}}</span>
                                     </button>
                                     
                                     {%　else %}
-                                    <a  class=" orange-bg common-btn" href="{% url 'bill:detail' bill.id %}">
+                                    <a  class="apply-for-btn orange-bg common-btn" href="{% url 'bill:detail' bill.id %}">
                                         <span class="white">{{bill.get_status_display}}</span>
                                     </a>
                                     {% endif %}
-                                    <a class="  common-btn grey-btn" href="{% url 'bill:detail' bill.id %}">
+                                    <a class="apply-for-btn  common-btn grey-btn" href="{% url 'bill:detail' bill.id %}">
                                         <span class="black">查看详情</span>
                                     </a></div>
                                     </td>

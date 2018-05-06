@@ -310,9 +310,7 @@ table{
 .mt10{
     margin-top:10px;
 }
-.aggregate>span{
-    margin-right: 15px;
-    }
+
 .cut_line div{
     border-top: 1px solid #ddd;
     content: '';
@@ -326,6 +324,9 @@ table{
     border-top: 1px solid #ddd;
     content: '';
     height: 1px;
+}
+.m15{
+    margin: 15px auto;
 }
 a.apply-for-btn{
     padding: 2px 12px;
