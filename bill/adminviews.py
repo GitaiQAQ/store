@@ -70,8 +70,10 @@ def admin(request):
 
     isMble  = dmb.process_request(request)
     content = {} 
+    #bills_status = [AdaptorBill.STATUS_PAYED, AdaptorBill.STATUS_DELIVERIED,
+    # AdaptorBill.STATUS_FINISHED, AdaptorBill.STATUS_BAD]
     bills_status = [AdaptorBill.STATUS_PAYED, AdaptorBill.STATUS_DELIVERIED,
-     AdaptorBill.STATUS_FINISHED, AdaptorBill.STATUS_BAD]
+     AdaptorBill.STATUS_FINISHED]
 
     kwargs = {}
     kwargs, content = search(request)
@@ -84,7 +86,7 @@ def admin(request):
         else:
             kwargs['status__in'] = bills_status
     else:
-        kwargs['status__in'] = [] # 默认什么都不显示
+        kwargs['status__in'] = bills_status # 默认什么都不显示
 
     if 'datefrom' in request.GET:
         datefrom = request.GET['datefrom'].strip()
@@ -168,6 +170,7 @@ def delivery(request):
     bills_status = [AdaptorBill.STATUS_PAYED, AdaptorBill.STATUS_DELIVERIED,
      AdaptorBill.STATUS_FINISHED, AdaptorBill.STATUS_BAD]
     kwargs = {}
+    kwargs['refundstatus'] = AdaptorBill.REFUNDAPPLY
     if request.method == 'POST':
         filename = os.path.join(settings.BASE_FILE_PATH,'input.xls' )
         if 'file' in request.FILES:
