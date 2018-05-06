@@ -60,7 +60,7 @@
                                         </td>
                                         <td  >
                                             {% if code.used == 1 %}
-                                            <span class="price">已使用</span>
+                                            <span class="price">{{code.adaptoraftersales_set.all.0.device_type}}</span>
                                             {% else %}
                                             <span class="price">未绑定商品</span>
                                             {% endif %}

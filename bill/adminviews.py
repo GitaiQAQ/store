@@ -84,7 +84,7 @@ def admin(request):
         else:
             kwargs['status__in'] = bills_status
     else:
-        kwargs['status__in'] = bills_status
+        kwargs['status__in'] = [] # 默认什么都不显示
 
     if 'datefrom' in request.GET:
         datefrom = request.GET['datefrom'].strip()

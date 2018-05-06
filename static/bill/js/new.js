@@ -265,7 +265,11 @@ $.ajax({
                 if (result['status'] == 'ok') {
                     $("#coupon_price").text(result['price']);
                     var coupon_price = parseInt(result['price']);
-                    $('#sum_price, #all_sum_price').text(nSum_price- coupon_price); 
+                    var sum = nSum_price- coupon_price;
+                    if (sum <= 0){
+                        sum = 0.01;//
+                    }
+                    $('#sum_price, #all_sum_price').text( sum ); 
                     $('#coupon-msg').val('');
                     $('#coupon-msg').children('.alert').remove();
                     //已使用优惠券数量和面额

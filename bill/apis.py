@@ -18,7 +18,10 @@ def get_bill_money(bill):
     coupons = bill.adaptorcouponitem_set.all()
     for coupon in coupons:
         sum -= coupon.coupon.price
-
+    if sum <= 0:
+        # 优惠后，订单实际需要支付的金额小于0或者等于0时，让用户支付1分钱
+        sum = 0.01
+        
     return sum
 
 
