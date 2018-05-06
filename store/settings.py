@@ -105,7 +105,7 @@ DATABASES = {
         'NAME':'store',
 		'USER':'root',
         'PASSWORD':'sqlroot',
-        'HOST':'192.168.1.108',
+        'HOST':'127.0.0.1',
         'PORT':3306, 
     }
 }
@@ -277,7 +277,7 @@ SMS_API = "http://sdk2.entinfo.cn:8061/mdsmssend.ashx?sn=SDK-BBX-010-22746&pwd=7
 
 
 # 第三方用户登录信息
-LOGIN_MASTER = "http://192.168.1.108:7000"
+LOGIN_MASTER = "http://127.0.0.1:7000"
 STORE_LOGIN = 'http://127.0.0.1:9000'
 LOGIN_APPID = "17ad0726-c535-4acd-96d8-c7cba0784424"
 LOGIN_SECRET = "113e2570-970f-4214-87c1-913a765a4bfc"

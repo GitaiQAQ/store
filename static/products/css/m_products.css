@@ -20,7 +20,12 @@
     transform: translateY(-60%);
     z-index: 1000!important;
   }
- 
+ .nav_fixed{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+}
   .edition{
       border: 1px solid #ddd;
       padding: 10px 24px;

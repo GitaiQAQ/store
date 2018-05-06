@@ -17,14 +17,14 @@ li{
     font-size: 30px;
 }
 .icheckbox_flat-red.checked {
-    background-position: -14px 0!important;
+    background-position: -15px 0!important;
 }
 .icheckbox_flat-red{
-    background-position: 3px 0!important;
+    background-position: 0 0!important;
 }
 .icheckbox_flat-red, .iradio_flat-red {
-    width: 18px!important;
-    height: 18px!important;
+    width: 15px!important;
+    height: 15px!important;
 }
 ul{
     margin: 0;

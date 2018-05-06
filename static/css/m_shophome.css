@@ -13,6 +13,9 @@
 .sider1{
   background: url(/static/img/sider/sider1_m.jpg);
 }
+.shop-link00{
+  transform: translateX(20%);
+}
   .sider .shop-link {
     position: absolute;
     width: 100%;

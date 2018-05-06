@@ -1,12 +1,14 @@
-
+                  
 //优惠券去掉提示框
 $('#coupon-number').on('focus',function(){
     $('#coupon-msg').children('.alert').remove();
 })
 $(document).ready(function(){
+
     /* 
      *获取优惠券数据
      */
+    
 $.ajax({
     type:'get',
     url:' /coupon/coupon/?api',
@@ -14,13 +16,27 @@ $.ajax({
     success:function(data){
         $.each(data, function(i,code) {
                 $('<div><input type="radio" name="activation_code" class="choose"/><span>' + code.code+ "</span>" + '<span class="face-value">¥200</span></div>').appendTo("#activation_code");
+     
         });
+                   //选择按钮后 自动填入激活码
+   $(".choose").on('ifChecked',function() {
+    var codeVal = $(this).parent().next().text();
+    $('#coupon-number').val(codeVal);
+});   
+        $('input[type="radio"]').iCheck({
+            checkboxClass: 'icheckbox_flat-red',
+            radioClass: 'iradio_flat-red', 
+            increaseArea : '20%' 
+        });
+        
+
     },
     error: function () {
         alert('server is down!')
     }
+    
 })
-                            
+           
     /* 
      *获取cookid数据
      */
@@ -232,12 +248,11 @@ $.ajax({
             $('.invoice_company').hide('slow');
         }
     });
-
-    $('.invoice_type').iCheck({
+    $('input[type="radio"]').iCheck({
         checkboxClass: 'icheckbox_flat-red',
         radioClass: 'iradio_flat-red', 
         increaseArea : '20%' 
-    }); 
+    });
     
     $('.invoice_company').hide();
 
@@ -332,12 +347,3 @@ $('.container-car').on('click', '.msg-list', function () {
     address_id = $('.act_address').attr("addressid");
 })
 
-
-//选择按钮后 自动填入激活码
-$("#activation_code").on('click','.choose',function() {
-  /*   var thisInp=$(this); */
-    if (this.checked) {
-        var codeVal = $(this).next().text();
-        $('#coupon-number').val(codeVal);
-    }
-});

@@ -19,6 +19,16 @@ $.ajax({
         $.each(data, function(i,code) {
                 $('<div><input type="radio" name="activation_code" class="choose"/><span>' + code.code+ "</span>" + '<span class="pull-right">¥200</span></div>').appendTo("#activation_code");
         });
+                      //选择按钮后 自动填入激活码
+   $(".choose").on('ifChecked',function() {
+    var codeVal = $(this).parent().next().text();
+    $('#coupon-number').val(codeVal);
+});   
+        $('input[type="radio"]').iCheck({
+            checkboxClass: 'icheckbox_flat-red',
+            radioClass: 'iradio_flat-red', 
+            increaseArea : '20%' 
+        });
     },
     error: function () {
         alert('server is down!')

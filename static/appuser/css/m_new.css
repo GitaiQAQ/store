@@ -23,3 +23,10 @@ input#default[type=checkbox]{
     width: 100%;
 }
 /* 新建联系人结束 */
+.new_address select+.new_address select{
+    
+    margin-left: 2%;
+}
+.new_address select{
+    width: 32%;
+}

@@ -22,7 +22,7 @@ input[type=file]:focus,、{
 
 .address_list{
     border-bottom: 1px solid #ddd;
-    margin-top: 15px;
+    margin-top: 30px;
 }
 
 .address-wrap>.col-xs-3{
@@ -604,7 +604,7 @@ table.billdetail{
     padding-right: 15px!important;
 }
 .address_list td{
-    padding: 5px 0;
+    padding-bottom:20px;
 }
 .w320{
     width: 320px;

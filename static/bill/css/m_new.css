@@ -191,7 +191,9 @@ margin-right: 25px;
     font-size: 12px;
 }
 
-
+.item-content{
+    margin-bottom: 15px;
+}
 
 .container-car{
     margin: 30px auto 30px;
