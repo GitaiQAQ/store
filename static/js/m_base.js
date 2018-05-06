@@ -1,11 +1,11 @@
 
 /* 弹出用户中心菜单 */
 $(document).ready(function(){
-    $(".user>img").on('touchstart',function(e){
+    $(".user>img").on('touchend',function(e){
         $('#center').slideDown();
         e.stopPropagation();
     })
-    jQuery(document).on('touchstart',function () {
+    jQuery(document).on('touchend',function () {
         $('#center').slideUp();
     })
 });
@@ -76,22 +76,22 @@ $('#link').on('touchstart',function(){
     }
 })
 //回到顶部
-$('#to_top').on('touchstart',function () {
+$('#to_top').on('touchend',function () {
     $('html, body').animate({
         scrollTop: $('body').offset().top
     }, 300);
 })
 /* 点击显示qq群二维码 */
-$('#qq_group').on('click',function(){
+$('#qq_group').on('touchend',function(){
     $('.code-wrap').eq(0).fadeIn(300);
 })
-$('#wei_group').on('click',function(){
+$('#wei_group').on('touchend',function(){
     $('.code-wrap').eq(1).fadeIn(300);
 })
-$('.close_code').on('click',function(){
+$('.close_code').on('touchend',function(){
     $(this).parents('.code-wrap').fadeOut(300);
 })
-$('.code-bg').on('click',function(){
+$('.code-bg').on('touchend',function(){
     $(this).parents('.code-wrap').fadeOut(300);
 })
 $(function(){

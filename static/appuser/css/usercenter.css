@@ -402,6 +402,10 @@ label.attachment[for="picture"]{
 .qr-code{
     width: 210px;
 }
+.status.black{
+    display: inline-block;
+    margin-left: 15px;
+}
 #back{
     margin-top: 60px;
     margin-bottom: 30px;
