@@ -54,9 +54,7 @@ div.address{
 .address-wrap{
     display: none;
 }
-.fa-angle-double-down{
-    margin-bottom: 15px;
-}
+
 .address-wrap.first{
     display: block!important;
 }
@@ -70,12 +68,16 @@ div.address{
 }
 .add-new{
 background-color: rgb(201, 201, 202);
-width: 25px;
-height: 25px;
+width: 24px;
+height: 24px;
 border-radius: 50%;
 color: #fff;
 font-size: 18px;
 margin: 0 auto 10px;
+}
+.iradio_flat-red{
+    vertical-align: sub;
+    margin-right: 4px;
 }
 .address-footer{
     border-top: 1px solid #ddd;
@@ -192,9 +194,13 @@ margin-right: 25px;
 }
 
 .item-content{
-    margin-bottom: 15px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-top: 1px solid #ddd;
 }
-
+.item-content:first-child{
+    border-top: none;
+}
 .container-car{
     margin: 30px auto 30px;
     padding: 0px;
@@ -202,7 +208,6 @@ margin-right: 25px;
 .car-title{
     padding: 15px;
     font-size: 14px;
-    border-top: 1px solid #ddd;
 }
 
 table.shop-car{
@@ -333,7 +338,7 @@ input[type=checkbox].checked{
 }
 
 .div-sum-money{
-    padding:20px 15px;
+    padding:0 15px;
     border-top: 1px solid #ddd;
 }
 .col-items{

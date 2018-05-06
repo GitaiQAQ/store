@@ -5,42 +5,50 @@
 <div class="bill-title text-center white">提交订单</div>
 <div class="container container-car clearfix">
     <!-- 收货地址 -->
-    <div class="car-title col-xs-12">
-        <img class="title-icon" src="/static/img/icon/mpeisong.svg"> 配送地址
-       
-    </div>
-    <div class="col-xs-12 item-contnt " id="item-address">
-    </div>
-    <div id="down" class="col-xs-12 text-center"><i class="fa fa-angle-double-down fs18" aria-hidden="true"></i></div>
+    
+    <div class="item-content clearfix">
+            <div class="col-xs-12" id="item-address">
+                    <div class="car-title row">
+                            <img class="title-icon" src="/static/img/icon/mpeisong.svg"> 配送地址
+                           
+                        </div>
+            </div>
+            <div id="down" class="col-xs-12 text-center"><i class="fa fa-angle-double-down fs18" aria-hidden="true"></i></div>
     <!-- 发票信息 -->
-    <div class="car-title col-xs-12">
-        <img class="title-icon" src="/static/img/icon/mfapiao.svg"> 发票信息
     </div>
-    <div class="all_price col-xs-12 item-content">
-        <div>
-            <input type="radio" name="invoicetype" class="invoice_type" value="1" checked="checked" />
-            <span class="grey mr-20"> 个人</span>
-            <input name="invoicetype" class="invoice_type" type="radio" value="0" />
-            <span class="grey"> 企业</span>
-            <br/>
-            <br/>
-            <input type="text" placeholder="填写发票抬头" class="common-inp" id="invoice_title" value="" />
-            <input type="text" class="common-inp invoice_company" placeholder="纳税人识别号" id="invoice_code" value="" />
-            <span class="invoice_msg invoice_company gray">*&nbsp;根据最新增值税管理办法，如需企业抬头发票，请填写有效税号信息。</span>
-        </div>
+    
+    <div  class="item-content clearfix">
+            <div class="car-title col-xs-12">
+                    <img class="title-icon" src="/static/img/icon/mfapiao.svg"> 发票信息
+                </div>
+                <div class="all_price col-xs-12">
+                    <div>
+                        <input type="radio" name="invoicetype" class="invoice_type" value="1" checked="checked" />
+                        <span class="grey mr-20"> 个人</span>
+                        <input name="invoicetype" class="invoice_type" type="radio" value="0" />
+                        <span class="grey"> 企业</span>
+                        <br/>
+                        <br/>
+                        <input type="text" placeholder="填写发票抬头" class="common-inp" id="invoice_title" value="" />
+                        <input type="text" class="common-inp invoice_company" placeholder="纳税人识别号" id="invoice_code" value="" />
+                        <span class="invoice_msg invoice_company gray">*&nbsp;根据最新增值税管理办法，如需企业抬头发票，请填写有效税号信息。</span>
+                    </div>
+                </div>
     </div>
 
     <!-- 购物清单 -->
-    <div class="car-title col-xs-12">
-        <img class="title-icon" src="/static/img/icon/mdingdan.svg"> 购物清单
+    <div class="item-content clearfix">
+            <div class="car-title">
+                    <img class="title-icon" src="/static/img/icon/mdingdan.svg"> 购物清单
+                </div>
+                <div class="col-items">
+                    <table class="shop-car" id="tb_items">
+                        <!-- 购物车列表详情 -->
+                        <!-- 购物车列表详情end -->
+                    </table>
+                </div>
     </div>
-    <div class="col-items">
-        <table class="shop-car item-content" id="tb_items">
-            <!-- 购物车列表详情 -->
-            <!-- 购物车列表详情end -->
-        </table>
-    </div>
-    <div class="  col-xs-12 item-content div-sum-money">
+    <div class="item-content col-xs-12">
         <div class="car-title row">
             <img class="title-icon" src="/static/img/icon/ojia.svg" alt="">
             使用优惠券
