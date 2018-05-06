@@ -128,6 +128,7 @@ class AfterSales(BaseDate):
            ( 'aftersaler', u'售后客服-填写寄修单'),
         ) 
         abstract = True
+        ordering = ('-date',)
 
 
 class AdaptorAfterSales(AfterSales):

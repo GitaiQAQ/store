@@ -59,8 +59,14 @@ class ShopcarView(APIView):
                     rule = AdaptorRule.objects.get(id = ruleid)
             
                     if method == 'delete': 
-                        caritem = CartItem.objects.get(rule = rule, user = user)
-                        caritem.delete()
+                        try:
+                            caritem = CartItem.objects.get(rule = rule, user = user)
+                            caritem.delete()
+                        except CarItem.DoesNotExist:
+                            pass
+                        except CarItem.MultipleObjectsReturned:
+                            CartItem.objects.filter(rule = rule, user = user).delete()
+                            
                         result['status'] = 'ok'
                         result['msg']    = _('Delete successfully....')#'删除成功...' 
                     else :
