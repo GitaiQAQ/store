@@ -221,12 +221,18 @@ $('.car-list').on('click', '.delete', function () {
         success: function (result) {
             if (result['status'] == 'ok') {
                 fa_times.parents('.car-list').remove();
+                if($('.car-list').length==0){
+                    location.reload();
+                }
                 fixedFooter();//如果网页高度不够底部固定。
                 selectList = $("input.checked:checked").parents('.car-list');
                 var sum = cal_sum();
                 $('.sum_price').text(sum);
                 var nub = nub_sum();
                 $('.nub-sum').text(nub);
+                if($('.car-list').length==0){
+                    location.reload();
+                }
             }
         },
         error: function () {

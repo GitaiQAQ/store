@@ -4,8 +4,8 @@
     margin-bottom: 30px;
 }
 .car-list{
-    padding: 15px 0;
-    margin: 15px 15px 0;
+    margin-top: 15px;
+    width: 100%;
 }
 .cut-line{
     border-bottom: 1px solid #ddd;

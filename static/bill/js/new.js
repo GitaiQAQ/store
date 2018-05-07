@@ -1,50 +1,50 @@
-                  
+
 //优惠券去掉提示框
-$('#coupon-number').on('focus',function(){
+$('#coupon-number').on('focus', function () {
     $('#coupon-msg').children('.alert').remove();
 })
-$(document).ready(function(){
+$(document).ready(function () {
 
     /* 
      *获取优惠券数据
      */
-    
-$.ajax({
-    type:'get',
-    url:' /coupon/coupon/?api',
-    dataType:"json", 
-    success:function(data){
-        $.each(data, function(i,code) {
-                $('<div><input type="radio" name="activation_code" class="choose"/><span>' + code.code+ "</span>" + '<span class="face-value">¥200</span></div>').appendTo("#activation_code");
-     
-        });
-                   //选择按钮后 自动填入激活码
-   $(".choose").on('ifChecked',function() {
-    var codeVal = $(this).parent().next().text();
-    $('#coupon-number').val(codeVal);
-});   
-        $('input[type="radio"]').iCheck({
-            checkboxClass: 'icheckbox_flat-red',
-            radioClass: 'iradio_flat-red', 
-            increaseArea : '20%' 
-        });
-        
 
-    },
-    error: function () {
-        alert('server is down!')
-    }
-    
-})
-           
+    $.ajax({
+        type: 'get',
+        url: ' /coupon/coupon/?api',
+        dataType: "json",
+        success: function (data) {
+            $.each(data, function (i, code) {
+                $('<div><input type="radio" name="activation_code" class="choose"/><span>' + code.code + "</span>" + '<span class="face-value">¥200</span></div>').appendTo("#activation_code");
+
+            });
+            //选择按钮后 自动填入激活码
+            $(".choose").on('ifChecked', function () {
+                var codeVal = $(this).parent().next().text();
+                $('#coupon-number').val(codeVal);
+            });
+            $('input[type="radio"]').iCheck({
+                checkboxClass: 'icheckbox_flat-red',
+                radioClass: 'iradio_flat-red',
+                increaseArea: '20%'
+            });
+
+
+        },
+        error: function () {
+            alert('server is down!')
+        }
+
+    })
+
     /* 
      *获取cookid数据
      */
-    
+
     var nSum_price = JSON.parse(CookieUtil.get("sum_price"));//总价格
     var aProducts = JSON.parse(CookieUtil.get("products"));//商品
     var oAdress = JSON.parse(CookieUtil.get("aAddress"));//快递地址
-    
+
     /* 
      *显示总价
      */
@@ -59,32 +59,32 @@ $.ajax({
     var oImg = $('img.thumbnail');
     var counter = 0;
     //for (var i = 0; i < Math.max(oImg.length,aProducts.length); i++) {
-    var html = '<tr class="car-list">  '+
-        '<td class="img-wrap text-center">'+
-        '    <img class="img-rounded" src="#img">'+
-        '</td> '+
-        '<td class="shop-msg">'+
-        '    <div class="carlist_name">#productname'+
-        '   </div>'+
-        '   <div class="rule_content grey">#rule'+
-        '   </div>'+
-        '</td> '+
-        '<td class="w159 text-center" carid="{{car.id}}">'+
-        '           <i class="fa fa-jpy" aria-hidden="true"></i>'+
-        '           <span class="carprice">#num_and_price</span>'+
-        '</td> '+
-        '<td class="w159 text-right">'+
-        '        <i class="fa fa-jpy" aria-hidden="true"></i>'+
-        '       <span class="small_sum">#total_money</span>'+
-        '</td> '+
-    '</tr>';
+    var html = '<tr class="car-list">  ' +
+        '<td class="img-wrap text-center">' +
+        '    <img class="img-rounded" src="#img">' +
+        '</td> ' +
+        '<td class="shop-msg">' +
+        '    <div class="carlist_name">#productname' +
+        '   </div>' +
+        '   <div class="rule_content grey">#rule' +
+        '   </div>' +
+        '</td> ' +
+        '<td class="w159 text-center" carid="{{car.id}}">' +
+        '           <i class="fa fa-jpy" aria-hidden="true"></i>' +
+        '           <span class="carprice">#num_and_price</span>' +
+        '</td> ' +
+        '<td class="w159 text-right">' +
+        '        <i class="fa fa-jpy" aria-hidden="true"></i>' +
+        '       <span class="small_sum">#total_money</span>' +
+        '</td> ' +
+        '</tr>';
     for (var i = 0; i < aProducts.length; i++) {
         tmp = html;
-        
-        tmp = tmp.replace("#img", aProducts[i].img );
+
+        tmp = tmp.replace("#img", aProducts[i].img);
         tmp = tmp.replace("#productname", aProducts[i].name);
         tmp = tmp.replace("#rule", aProducts[i].rule);
-        tmp = tmp.replace("#num_and_price", aProducts[i].Price+' x '+ aProducts[i].num);
+        tmp = tmp.replace("#num_and_price", aProducts[i].Price + ' x ' + aProducts[i].num);
         tmp = tmp.replace("#total_money", aProducts[i].Price * aProducts[i].num);
         $("#tb_items").append(tmp);
         sum_number += parseInt(aProducts[i].num);
@@ -117,12 +117,12 @@ $.ajax({
         }
         */
     };
-    $('.sum_num').text( sum_number);
+    $('.sum_num').text(sum_number);
 
     /* 
     *地址栏text
     */
-    
+
     var addressIcon = '<i class="fa fa-map-marker" aria-hidden="true"></i>:';
     if (oAdress) {
         $('#name').text('' + oAdress.name);
@@ -135,15 +135,15 @@ $.ajax({
     }
 
     $.ajax({
-            type: 'get',
-            url: '/address/addresses/?template', 
-            success: function (result) { 
-                $("#item-address").append(result);
-                address_id = $('.act_address').attr("addressid");
-            }
-        });
+        type: 'get',
+        url: '/address/addresses/?template',
+        success: function (result) {
+            $("#item-address").append(result);
+            address_id = $('.act_address').attr("addressid");
+        }
+    });
 
-    
+
     //  提交订单
     mark = false;
     $('.submit-btn').click(function () {
@@ -152,12 +152,12 @@ $.ajax({
         if (mark == true) {
             return;
         }
-        if (!address_id){
+        if (!address_id) {
             $().message('未选中地址！');
             return;
         }
-        var timeout =  (500 * 2) * 3 /500;//3 second
-        
+        var timeout = (500 * 2) * 3 / 500;//3 second
+
         var options = {
             theme: "sk-doc",
             message: '提交中...',
@@ -194,11 +194,11 @@ $.ajax({
             'phone': '',
             'reciever': '大哥',
             'items': JSON.stringify(items),
-            'number': number, 
-            'couponitems': JSON.stringify(couponitems), 
-            'invoicetype':invoicetype,
-            'title':title,
-            'code':code,
+            'number': number,
+            'couponitems': JSON.stringify(couponitems),
+            'invoicetype': invoicetype,
+            'title': title,
+            'code': code,
 
             'csrfmiddlewaretoken': getCookie('csrftoken')
         };
@@ -211,9 +211,9 @@ $.ajax({
                     //$().message(result['msg']); 
                     // 不断查询订单状态
                     billno = result['no'];
-                    url = '/bill/bills/?unpayed&billno='+billno; //API
-                    location.href=url; 
-                }else{
+                    url = '/bill/bills/?unpayed&billno=' + billno; //API
+                    location.href = url;
+                } else {
                     HoldOn.close();
                     $().message(result['msg']);
                     mark = false;
@@ -227,17 +227,17 @@ $.ajax({
                 // unloading
             }
 
-        });  
+        });
 
     });
-    
+
     /*
     $('.invoice_type').on('ifChecked', function(){ 
         show_invoice();
     });
 */
     //发票：切换个人与企业
-    $('.invoice_type').on('ifClicked', function(){
+    $('.invoice_type').on('ifClicked', function () {
         var val = $(this).val();
         if (val == 0) {
             //代表类型为企业,需要纳税号
@@ -250,28 +250,28 @@ $.ajax({
     });
     $('input[type="radio"]').iCheck({
         checkboxClass: 'icheckbox_flat-red',
-        radioClass: 'iradio_flat-red', 
-        increaseArea : '20%' 
+        radioClass: 'iradio_flat-red',
+        increaseArea: '20%'
     });
-    
+
     $('.invoice_company').hide();
 
 
-    
+
     $('#submit-coupon').click(function () {
         var number = $("#coupon-number").val();
         var items = Array();
         for (var i = 0; i < aProducts.length; i++) {
             item = {
-                'ruleid': aProducts[i].ruleid, 
+                'ruleid': aProducts[i].ruleid,
             }
             items.push(item);
         };
         data = {
-            'number': number, 
-            'items': JSON.stringify(items),  
+            'number': number,
+            'items': JSON.stringify(items),
         };
-        var  html= '   <div class="alert alert-danger" role="alert">#### </div> ';
+        var html = '   <div class="alert alert-danger" role="alert">#### </div> ';
         $.ajax({
             type: 'get',
             url: '/coupon/coupon/',
@@ -280,29 +280,29 @@ $.ajax({
                 if (result['status'] == 'ok') {
                     $("#coupon_price").text(result['price']);
                     var coupon_price = parseInt(result['price']);
-                    var sum = nSum_price- coupon_price;
-                    if (sum <= 0){
+                    var sum = nSum_price - coupon_price;
+                    if (sum <= 0) {
                         sum = 0.01;//
                     }
-                    $('#sum_price, #all_sum_price').text( sum ); 
+                    $('#sum_price, #all_sum_price').text(sum);
                     $('#coupon-msg').val('');
                     $('#coupon-msg').children('.alert').remove();
                     //已使用优惠券数量和面额
                     var code_nb =/* parseInt($('#code-nb').text())+ */1,
-                    denomination =  /* parseInt($('#denomination').text())+ */parseInt(result['price']);
+                        denomination =  /* parseInt($('#denomination').text())+ */parseInt(result['price']);
                     $('#code-nb').text(code_nb);
                     $('#denomination').text(denomination);
-                }else{
+                } else {
                     $("#coupon-msg").empty();
-                    html = html.replace('####',result['msg'] );
+                    html = html.replace('####', result['msg']);
                     $("#coupon-msg").append(html);
                 }
-                html= '   <div class="alert alert-danger" role="alert">#### </div> ';
+                html = '   <div class="alert alert-danger" role="alert">#### </div> ';
             },
-            error: function () { 
-                alert('server is down!') ;
-            } 
-        }); 
+            error: function () {
+                alert('server is down!');
+            }
+        });
     });
 
 });
@@ -336,10 +336,10 @@ $('body').on('click', '.delete_address', function () {
             alert('server is down!')
         }
     });
-}) 
+})
 /* 点击地址框，选中变红 */
 $('.container-car').on('click', '.msg-list', function () {
-    
+
     $('.address').removeClass('act_address');
     $('.act.orange').remove();//清楚样式
     $(this).parent().addClass('act_address');

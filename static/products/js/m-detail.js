@@ -247,7 +247,7 @@ function ajaxByeNow() {
         data: data,
         success: function (result) {
             if (result['status'] == 'ok') {
-                window.location.href = '/bill/bills/?new';
+                window.location.href = '/shopcar/shopcars/';/* '/bill/bills/?new' */
             }
             else {
                 $().message(result['msg']);

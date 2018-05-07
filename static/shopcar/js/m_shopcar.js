@@ -221,6 +221,9 @@ $('.car-list').on('click', '.delete', function () {
         success: function (result) {
             if (result['status'] == 'ok') {
                 fa_times.parents('.car-list').remove();
+                if($('.car-list').length==0){
+                    location.reload();
+                }
                 selectList = $("input.checked:checked").parents('.car-list');
                 var sum = cal_sum();
                 $('.sum_price').text(sum);

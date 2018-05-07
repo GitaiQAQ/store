@@ -11,75 +11,59 @@
     </div>
 </div>
     <!-- 购物车列表详情 -->
-    {% if ruleitems %} {% for car in ruleitems %}
-    <table class="car-list">
-        <tr>
-            <!--商品图 -->
-             <td class="text-center img-wrap">
-                <img class="img-rounded" src="{{mediaroot}}{{car.rule.product.thumbnail}}">
-            </td>
-            <!--商品图 end -->
+    <div class="container">
+            {% if ruleitems %} {% for car in ruleitems %}
+            <table class="car-list">
+                <tr>
+                    <!--商品图 -->
+                     <td class="text-center img-wrap">
+                        <img class="img-rounded" src="{{mediaroot}}{{car.rule.product.thumbnail}}">
+                    </td>
+                    <!--商品图 end -->
+                
+                    <!-- 名称型号 -->
+                    <td class="shop-msg">
+                        <div class="carlist_name">{{car.rule.product.title|truncatechars:"20"}}
+                        </div>
+                        <div class="rule_content grey">{% if car.desc %}规格：{{car.desc}} {% endif %}
+                        </div>
+                    </td>
+                    <!-- 名称型号 end -->
+                
+                    <!-- 价格 -->
+                    <td class="text-center" carid="{{car.id}}">
+                        <i class="fa fa-jpy" aria-hidden="true"></i>
+                        <span class="carprice">{{car.rule.price}}</span>
+                    </td>
+                    <!-- 价格 end -->
+                </tr>
+            
+            <tr>
         
-            <!-- 名称型号 -->
-            <td class="shop-msg">
-                <div class="carlist_name">{{car.rule.product.title|truncatechars:"20"}}
-                </div>
-                <div class="rule_content grey">{% if car.desc %}规格：{{car.desc}} {% endif %}
-                </div>
-            </td>
-            <!-- 名称型号 end -->
-        
-            <!-- 价格 -->
-            <td class="text-center" carid="{{car.id}}">
-                <i class="fa fa-jpy" aria-hidden="true"></i>
-                <span class="carprice">{{car.rule.price}}</span>
-            </td>
-            <!-- 价格 end -->
-        </tr>
-    
-    <tr>
-
-        <!-- 商品勾选 -->
-        <td class="check">
-                <input class="checked ichecked_item" type="checkbox" checked>
-            </td>
-            <!-- 商品勾选 end -->
-        
-        
-        
-        
-        
-        
-            <!-- 数量 -->
-            <td class="text-right unselect" colspan="2">
-                <img class="addition r-btn" src="/static/img/icon/jia.svg" alt="" inventory="{{car.rule.inventory|default_if_none:'有货'}}">
-                <span class="carnum text-center" ruleid="{{car.rule.id}}" desc="{{car.desc}}" inventory="{{car.rule.inventory|default_if_none:'有货'}}">{{car.quantity}}</span>
-                <img class="subtraction r-btn" src="/static/img/icon/jian.svg" alt="">
-                <img class="delete r-btn" ruleid="{{car.rule.id}}" src="/static/img/icon/cuo.svg" alt="">
-            </td>
-            <!-- 数量 end -->
-        
-            <!-- 小计 -->
-            <!-- <td class="text-center">
-                <i class="fa fa-jpy" aria-hidden="true"></i>
-                <span class="small_sum small_sum{{forloop.counter}}">11</span>
-            </td> -->
-            <!-- 小计 emd -->
-        
-    </tr>
-        
-    </table>
-    <div class="cut-line"></div>
-            {% endfor %} {% else %}
-            <div class="nothing text-center">
-                <a href="/"><span class="orange">购物车是空的，添加一些商品吧</span></a>
-            </div> {%endif%}
-            <!-- 购物车列表详情end -->
-
-
-
-
-
+                <!-- 商品勾选 -->
+                <td class="check">
+                        <input class="checked ichecked_item" type="checkbox" checked>
+                    </td>
+                    <!-- 商品勾选 end -->
+                    <!-- 数量 -->
+                    <td class="text-right unselect" colspan="2">
+                        <img class="addition r-btn" src="/static/img/icon/jia.svg" alt="" inventory="{{car.rule.inventory|default_if_none:'有货'}}">
+                        <span class="carnum text-center" ruleid="{{car.rule.id}}" desc="{{car.desc}}" inventory="{{car.rule.inventory|default_if_none:'有货'}}">{{car.quantity}}</span>
+                        <img class="subtraction r-btn" src="/static/img/icon/jian.svg" alt="">
+                        <img class="delete r-btn" ruleid="{{car.rule.id}}" src="/static/img/icon/cuo.svg" alt="">
+                    </td>
+                    <!-- 数量 end -->
+                
+            </tr>
+                
+            </table>
+            <div class="cut-line"></div>
+                    {% endfor %} {% else %}
+                    <div class="nothing text-center">
+                        <a href="/"><span class="orange">购物车是空的，添加一些商品吧</span></a>
+                    </div> {%endif%}
+                    <!-- 购物车列表详情end -->
+    </div>
             <div class="container car-footer clearfix">
                     <div class="pull-left">
                             <input id="all_checked" type="checkbox" checked> &nbsp;&nbsp;全选丨
