@@ -458,7 +458,11 @@ class AfterSalesView(View):
             if 'dealer' in request.POST:
                 saller = request.POST['dealer'].strip() 
                 aftersale.saller = saller
-            
+
+            if 'appphone' in request.POST:
+                appphone = request.POST['appphone'].strip() 
+                aftersale.appphone = appphone
+
             if 'invoice' in request.FILES:
                 code    = ''.join(random.choice(string.ascii_letters + string.digits) for i in range(4))
                 filename = handle_uploaded_file(request.FILES['invoice'], str(user.id)+'_'+ code)

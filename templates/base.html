@@ -46,7 +46,12 @@
                                         <div class="point"></div>
                                     </td>
                                     <td class="{% if communitypage %}active{% endif %} ">
+                                        {% if token %}
+                                        <a href="http://bbs.a-su.com.cn/?token={{token}}" target="_blank">社区</a>
+                                        {% else %}
                                         <a href="http://bbs.a-su.com.cn/forum.php" target="_blank">社区</a>
+                                        {% endif %}
+                                        
                                         <div class="point"></div>
                                     </td>
                                     <!-- <td class="{% if storepage %}active{% endif %} ">
