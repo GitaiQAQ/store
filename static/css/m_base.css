@@ -150,6 +150,9 @@ nav.fixed_menu_class>div.row{
 nav a{
     color: #b5b5b5;
 }
+a:focus, a:hover{
+    color: #ea5014;
+}
 nav>div:first-child{
     background-color: rgb(51, 51, 51);
 }

@@ -12,7 +12,6 @@ $(function(){
             sum = number*price
             $(this).text(sum);
       });
-
       /* 关闭弹出窗 */
       $('#cancel').on('click',function () {
           $(this).parents('.pop_wrap').hide();
