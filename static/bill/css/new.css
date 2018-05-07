@@ -188,7 +188,7 @@ margin-right: 25px;
 }
 .item-content{
     background-color: white;
-    padding: 20px 29px;
+    padding:40px 30px;
 }
 .item-content input,.rule_content.grey{
     font-size: 12px;
@@ -241,6 +241,7 @@ table.shop-car td{
 }
 #invoice_title,#invoice_code{
     min-width: 240px;
+    margin-bottom: 0px;
 }
 .img-wrap{
     width: 130px;
@@ -253,6 +254,9 @@ table.shop-car td{
 }
 .title-name{
     padding-left: 30px!important;
+}
+.iradio_flat-red{
+    margin: 0 10px 2px 0;
 }
 .w159{
     width: 159px;
