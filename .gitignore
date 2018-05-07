@@ -9,6 +9,6 @@
 *.sql
 *.pem
 */docs/* 
-/settings*
+/store/settings.py
 docs/通用商城设计文档.docx
-store/settings.py
+*settings.py 
