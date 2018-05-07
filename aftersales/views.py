@@ -328,7 +328,7 @@ class AfterSalesView(View):
                 
                 content['code'] = code
                 if isMble:
-                    return render(request, 'aftersales/usercenter_delivery.html', content)
+                    return render(request, 'aftersales/m_usercenter_delivery.html', content)
                 else:
                     return render(request, 'aftersales/usercenter_delivery.html', content)
             elif 'detail' in request.GET: # 查看售后详情 
@@ -412,7 +412,7 @@ class AfterSalesView(View):
                 result['status'] ='error'
                 result['msg'] ='请填写物流公司和物流单号...'
                 if isMble:
-                    return render(request, 'aftersales/usercenter_delivery.html', result)
+                    return render(request, 'aftersales/m_usercenter_delivery.html', result)
                 else:
                     return render(request, 'aftersales/usercenter_delivery.html', result)
         else:

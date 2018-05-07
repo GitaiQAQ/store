@@ -12,11 +12,11 @@
                 </div>
                
                 {% if bills or aftersales %}
-                <table class="order-form m40 text-left gray">
+              
                        
                         {% csrf_token %} 
                         {% for aftersale in aftersales %}
-                        
+                        <table class="order-form m40 text-left gray">
                         <tr>
                             <th class="usercenter-tb" aftersaleid="{{aftersale.id}}">
                                     {{aftersale.date|date:'Y-m-d'}}
