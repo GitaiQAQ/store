@@ -23,7 +23,7 @@ $(document).ready(function () {
                 var codeVal = $(this).parent().next().text();
                 $('#coupon-number').val(codeVal);
             });
-            $('input[type="radio"]').iCheck({
+            $('.choose').iCheck({
                 checkboxClass: 'icheckbox_flat-red',
                 radioClass: 'iradio_flat-red',
                 increaseArea: '20%'
@@ -248,7 +248,7 @@ $(document).ready(function () {
             $('.invoice_company').hide('slow');
         }
     });
-    $('input[type="radio"]').iCheck({
+    $('.invoice_type').iCheck({
         checkboxClass: 'icheckbox_flat-red',
         radioClass: 'iradio_flat-red',
         increaseArea: '20%'
