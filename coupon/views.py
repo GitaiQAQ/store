@@ -55,6 +55,7 @@ class CouponView(View):
                 item = {}
                 item['id'] = coupon.id
                 item['code'] = coupon.code
+                item['price'] = str(coupon.price)
                 items.append(item)
             return HttpResponse(json.dumps(items), content_type="application/json")
 

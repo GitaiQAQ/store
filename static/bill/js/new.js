@@ -15,7 +15,7 @@ $(document).ready(function () {
         dataType: "json",
         success: function (data) {
             $.each(data, function (i, code) {
-                $('<div><input type="radio" name="activation_code" class="choose"/><span>' + code.code + "</span>" + '<span class="face-value">¥200</span></div>').appendTo("#activation_code");
+                $('<div><input type="radio" name="activation_code" class="choose"/><span>' + code.code + "</span>" + '<span class="face-value">¥'+code.price+'</span></div>').appendTo("#activation_code");
 
             });
             //选择按钮后 自动填入激活码
