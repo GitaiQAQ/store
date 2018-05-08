@@ -38,10 +38,11 @@
                 </form>
                 
                 
-                            <table class="order-form statistics text-left w20">
+                            <table class="order-form statistics text-left ">
                                 <tr>
                                     <th>订单号</th>
                                     <th>收件人</th>
+                                    <th>产品型号</th>
                                     <th>电话</th>
                                     <th>快递公司</th>
                                     <th>快递单号</th>
@@ -53,6 +54,12 @@
                                     </td>
                                     <td>
                                         {{bill.reciever}}
+                                    </td>
+                                    <td>
+                                        {% for item in bill.adaptorbillitem_set.all %}
+                                        {{item.product.title}} {{item.rule.name}}
+                                        <br/>
+                                        {% endfor %}
                                     </td>
                                     <td>
                                         {{bill.phone}}

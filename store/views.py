@@ -20,7 +20,7 @@ def home(request):
     categories = Category.objects.all()
     content['products'] = products
     content['categories'] = categories
-     
+    print(request.session.get('token'))
     if isMble:
         return render(request, 'm_home.html',content) 
     else:
@@ -35,4 +35,5 @@ def caritems(request):
     else:
         counter = 0 
         adminperm = False
-    return {'caritems': counter, 'adminperm':adminperm}
+    token = False 
+    return {'caritems': counter, 'adminperm':adminperm, 'token':token}

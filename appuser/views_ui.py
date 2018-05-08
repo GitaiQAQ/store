@@ -46,6 +46,9 @@ def login(request):
         if req.status_code == 200:
             userinfo = json.loads(req.text)
             if userinfo['status'] == 'ok':
+                request.session['token'] = token
+                print(request.session['token'])
+                request.session.modified = True
                 userinfo  = userinfo['result']
                 phone = userinfo['phone'] 
                 email = userinfo['email'] 

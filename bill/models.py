@@ -95,7 +95,7 @@ class Bill(BaseDate):
     REFUND_CHOICES = (
         (REFUNDAPPLY, '申请退款'),
         (REFUNDWAITING, '等待客服审批'), 
-        (REFUNDAGREE, '退款已同意'), 
+        (REFUNDAGREE, '退款成功'), 
         (REFUNDREFUSED, '退款被拒绝'), 
     )
     
@@ -110,7 +110,7 @@ class Bill(BaseDate):
      
     # 退款审批状态  
     REFUND_APPROVE_CHOICES = ( 
-        (REFUNDAGREE, '退款已同意'), 
+        (REFUNDAGREE, '退款成功'), 
         (REFUNDREFUSED, '退款被拒绝'), 
     )
     refund_approve_status = models.CharField( choices=REFUND_APPROVE_CHOICES, max_length = 128, 

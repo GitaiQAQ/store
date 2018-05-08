@@ -68,7 +68,11 @@ class AfterSales(BaseDate):
 
     # 姓名
     name = models.CharField(_('name'), max_length = 128)
-    phone = models.CharField(_('phone'), max_length = 11)
+    phone = phone = models.CharField(_('phone'), max_length = 11)
+
+    # 注册APP的手机号码
+    appphone = models.CharField(_('appphone'), max_length = 11, null= True)
+
     email = models.CharField(_('email'), max_length = 128, null= True)
     back_addr = models.CharField('回寄地址', max_length = 1024)
 
