@@ -62,6 +62,10 @@
             $().errormessage('请填写产品序列号(PSN)...');
             e.preventDefault();
             return;
+        }else if(number.length!=14){
+            $('#number').get(0).focus();
+            $().errormessage('请填写正确的产品序列号(PSN)...');
+            e.preventDefault();
         }
 
         var description = $('#description').val();
