@@ -73,9 +73,14 @@
     {% for couponitem in bill.adaptorcouponitem_set.all %}
     totalmoney -= {{couponitem.coupon.price}};
     {% endfor %}
-    $("#all_sum_price").text(totalmoney);
-</script>
-<script>
+    $(document).ready(function(){
+        if(totalmoney<0){
+        $("#all_sum_price").text(0);
+    }else{
+        $("#all_sum_price").text(totalmoney);
+    }
+    })
+    
     $("#submit-pay").click(function(){
         //pay
        var payway = $('input[name="payway"]:checked').val() ;
