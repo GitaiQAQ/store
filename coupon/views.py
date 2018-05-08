@@ -185,7 +185,7 @@ class CouponView(View):
                 coupons = self.pagination(request)
                 result['coupons'] =coupons
                 if isMble:
-                    return render(request, 'coupon/lists.html', result) 
+                    return render(request, 'coupon/m_lists.html', result) 
                 else:
                     return render(request, 'coupon/lists.html', result)
 
@@ -221,7 +221,7 @@ class CouponView(View):
         coupons = self.pagination(request)
         result['coupons'] =coupons
         if isMble:
-            return render(request, 'coupon/lists.html', result) 
+            return render(request, 'coupon/m_lists.html', result) 
         else:
             return render(request, 'coupon/lists.html', result) 
     
@@ -271,7 +271,7 @@ class CouponView(View):
             result['msg'] ='Need title  in POST'
 
         if isMble:
-            return render(request, 'coupon/mycoupon.html', result) 
+            return render(request, 'coupon/m_mycoupon.html', result) 
         else:
             return render(request, 'coupon/mycoupon.html', result)
 

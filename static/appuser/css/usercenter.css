@@ -343,7 +343,6 @@ a.apply-for-btn{
 }
 .information input.common-inp{
     margin-right:15px;
-    float: left;
 }
 input[name="address"]{
     width: 780px;

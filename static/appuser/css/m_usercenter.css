@@ -353,7 +353,7 @@ input[name="address"]{
 }
 
 
-input[name="name"],input[name="phone"],input[name="email"],input[name="dealer"],input[name="rule"]{
+input[name="name"],input[name="date"],input[name="phone"],input[name="appphone"],input[name="email"],input[name="dealer"],input[name="rule"]{
     width: 100%;
 }
 input[name="rule"]{
@@ -369,10 +369,6 @@ input[name="number"]{
 }
 input[name="code"]{
     width:100%;
-}
-
-input[name="date"]{
-    width: 160px;
 }
 
 /* .picture-warp{
