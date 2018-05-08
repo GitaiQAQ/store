@@ -15,12 +15,12 @@ def home(request):
     sitecontents = AdaptorBaseBlock.objects.all()#sget_available_content()
     content['sitecontents'] = sitecontents
     content['mediaroot'] = settings.MEDIA_URL
+    print(request.session.get('token'))
     #products = Product.objects.all().order_by('category', '-date')
     products = Product.objects.filter(status = Product.PUBLISHED).order_by('category', '-date')
     categories = Category.objects.all()
     content['products'] = products
-    content['categories'] = categories
-    print(request.session.get('token'))
+    content['categories'] = categories 
     if isMble:
         return render(request, 'm_home.html',content) 
     else:
@@ -36,4 +36,6 @@ def caritems(request):
         counter = 0 
         adminperm = False
     token = False 
+    if 'token' in request.session:
+        token = request.session['token']
     return {'caritems': counter, 'adminperm':adminperm, 'token':token}

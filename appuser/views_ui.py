@@ -46,8 +46,8 @@ def login(request):
         if req.status_code == 200:
             userinfo = json.loads(req.text)
             if userinfo['status'] == 'ok':
-                request.session['token'] = token
-                print(request.session['token'])
+                
+                #print(request.session['token'])
                 request.session.modified = True
                 userinfo  = userinfo['result']
                 phone = userinfo['phone'] 
@@ -68,6 +68,8 @@ def login(request):
                 user =  authenticate(phone = phone) 
                 request.user = user 
                 auth.login(request, user) 
+                request.session['token'] = token
+                request.session.set_expiry(60 * 60) # 1h
                  
                 if 'next' in request.GET: 
                     next_url= request.GET.get('next')
