@@ -147,7 +147,7 @@
             {% if bill.invoice %}
                 <div class="submit gray">
                         <h5 class="black">发票</h5>
-                        <p>发票类型：电子发票</p>
+                        <p>发票类型：纸质发票</p>
                         <P>发票抬头：{% if bill.invoice.invoicetype == 1 %}个人{% else %}企业{%endif%}</P>
                         <p>发票内容：{{bill.invoice.content}}</p>
                 </div>

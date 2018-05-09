@@ -494,7 +494,7 @@ input[name="logistics_name"],input[name="logistics_nub"]{
     margin: 15px auto;
 }
 #cancel{
-    margin-right: 10px;
+    margin-left: 10px;
 }
 .serve-none{
     padding-top: 50px ;

@@ -205,7 +205,7 @@ function ajaxSubmit() {
             }
         },
         error: function () { // 500
-            $().errormessage('server is down!');
+           return;
         }
     });
 }

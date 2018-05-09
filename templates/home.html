@@ -82,7 +82,7 @@
                                 <div class="orange">¥&nbsp;
                                     {% for rule in product.adaptorrule_set.all %}
                                         {% if rule.price %}
-                                           {{rule.price}}
+                                           {{rule.price|stringformat:'d'}}
                                         {% endif %}
                                     {% endfor %} 
                                 </div>

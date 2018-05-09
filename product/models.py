@@ -50,7 +50,7 @@ class Product(BaseDate):
     # 邮费
     mail_price =  models.DecimalField(_('price'), max_digits=3, decimal_places=0, default=0)
     # 发货时间
-    delivery_time = models.CharField(_(''), max_length = 2048, default="订单付款后7个工作日")
+    delivery_time = models.CharField(_(''), max_length = 2048, default="工作日48个小时内发货")
     thumbnail = models.CharField(_('thumbnail'), max_length = 2048, null=True)
 
     class Meta:

@@ -131,7 +131,7 @@ function ajaxSubmit() {
             }
         },
         error: function () { // 500
-            $().errormessage('server is down!');
+            return;
         }
     });
 }
@@ -170,7 +170,7 @@ $('.buy-now').click(function () {
                 }
             },
             error: function () { // 500
-                $().errormessage('server is down!');
+                return;
             }
         });
     }
