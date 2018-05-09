@@ -44,7 +44,7 @@ class MainainCodeView(View):
         user = request.user
        
         service_man = user.has_perm('aftersales.aftersaler_code')
-         
+        content['menu'] = service_man
         content['menu'] = 'code'    
         if service_man:# 客服人员
             kwargs = {}
@@ -81,6 +81,8 @@ class MainainCodeView(View):
                 else:
                     return render(request, 'maintaincode/lists.html', content)
         else:
+            
+            """
             codes = MainainCode.objects.filter(phone = user.phone)
             #content['aftersale_items'] = aftersale_items 
             if 'new' in request.GET:
@@ -93,6 +95,8 @@ class MainainCodeView(View):
                     return render(request, 'maintaincode/lists.html', content)
                 else:
                     return render(request, 'maintaincode/lists.html', content)
+            """
+            return redirect('/aftersales/aftersales/')
     
     @method_decorator(login_required)
     @method_decorator(csrf_exempt)

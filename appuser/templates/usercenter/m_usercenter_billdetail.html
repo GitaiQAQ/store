@@ -58,20 +58,26 @@
                 <div class="car-title clearfix">
                         订单详情 
                 </div>
-                {% if bill.status == 2 %}
+                {% if bill.status == 2 or bill.status == 3 %}
                 <div class="submit">
-                    物流跟踪
+                    物流跟踪{% if bill.delivery_company == 'shentong' %}【申通快递】
+                    {% elif  bill.delivery_company == 'zhongtong'  %}【中通快递】
+                    {% else %}【未知快递公司】 {% endif %} 【快递单号：{{bill.delivery_no}}】
                     <div class="tracking">
-                        {% for item in delivery.data %}
-                        <p>{{item.time}}  {{item.context}}</p>
-                        
-                        {% endfor %}
+                        {% if delivery.data %}
+                            {% for item in delivery.data %}
+                            <p>{{item.time}}  {{item.context}}</p>
+                            
+                            {% endfor %}
+                        {% else %}
+                            <p>快递信息查询失败，状态码{{delivery.returnCode}}</p>
+                        {% endif %}
                     </div>
                 </div>
                 {% endif %}
             <table class="order-form billdetail">
                 <tr>
-                    <td colspan="5">订单号：1232137218973298173</td>
+                    <td colspan="5">订单号：{{bill.no}}</td>
                 </tr>
                 {% for item in bill.adaptorbillitem_set.all  %}
                 <tr>

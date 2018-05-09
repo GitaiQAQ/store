@@ -20,7 +20,7 @@
                         <a href="{% url 'bill:detail' bill.id %}">
                             <span class="orange">{{bill.no}}</span>
                         </a>
-                        {% if bill.status == -2 and forloop.counter == 1 %}
+                        {% if bill.refundstatus == 0  %}
                             <span class="black status">状态：</span><span class="orange">{{bill.get_status_display}}</span>
                         {% endif %}
                     </th>

@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from store import views
-from store import views_pay
+from store import views_pay, views_tmp
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -48,5 +48,5 @@ urlpatterns = [
     url(r"^alipay_check_pay$", views_pay.alipay_check_pay),
     url(r"^alipay_notify$", views_pay.alipay_notify),
     url(r"^pay/", include('pay.urls', namespace="pay")),
-
+      url(r"^service$", views_tmp.service),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

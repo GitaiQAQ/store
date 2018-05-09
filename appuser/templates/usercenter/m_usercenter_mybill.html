@@ -57,6 +57,7 @@
                                     {% if bill.adaptorcouponitem_set.all %}
                                     &nbsp;&nbsp;优惠：<span class="coupon{{bill.id}}">{{bill.adaptorcouponitem_set.all.0.coupon.price}}元</span>
                                     {% endif %}
+
                                     {% if bill.status == 1  %}
                                     &nbsp;&nbsp;实付款：
                                     <span class="orange fs16">{{bill.money}}</span>
@@ -67,25 +68,33 @@
                                     <span class="real{{bill.id}}">XXX</span>
                                     {% endif %}
 
-                                   <div class="m15"> {% if bill.status == -2   %}
+                                   <div class="m15">
+                                    {% if bill.status == -2   %}
                                     <a  class=" orange-bg common-btn apply-for-btn" href="{% url 'bill:bills' %}?unpayed&billno={{bill.no}}">
                                         <span class="white">立即支付</span>
                                     </a>
                                     {% endif %}
-                                    {% if bill.status == 1  %}<!--已支付-->
-                                    <a  class=" orange-bg common-btn apply-for-btn" href="{% url 'bill:detail' bill.id %}">
-                                        <span class="white">{{bill.get_status_display}}</span>
-                                    </a>
-                                    
-                                    <button  {% if bill.refundstatus == 0  %}id="refund"{% endif %}  class="apply-for-btn orange-bg common-btn btn-refund">
-                                        <span class="white">{{bill.get_refundstatus_display}}</span>
-                                    </button>
-                                    
-                                    {%　else %}
-                                    <a  class="apply-for-btn orange-bg common-btn" href="{% url 'bill:detail' bill.id %}">
-                                        <span class="white">{{bill.get_status_display}}</span>
-                                    </a>
+                                    {% if bill.refundstatus == 0  %}
+                                        {% if bill.status == 1  %}<!--已支付-->
+                                        <a  class=" orange-bg common-btn apply-for-btn" href="{% url 'bill:detail' bill.id %}">
+                                            <span class="white">{{bill.get_status_display}}</span>
+                                        </a>
+                                        
+                                        <button  id="refund" class="apply-for-btn orange-bg common-btn btn-refund">
+                                            <span class="white">{{bill.get_refundstatus_display}}</span>
+                                        </button>
+                                        
+                                        {%　else %}
+                                        <a  class="apply-for-btn orange-bg common-btn" href="{% url 'bill:detail' bill.id %}">
+                                            <span class="white">{{bill.get_status_display}}</span>
+                                        </a>
+                                        {% endif %}
+                                    {% else %}
+                                        <button   class="apply-for-btn orange-bg common-btn btn-refund">
+                                            <span class="white">{{bill.get_refundstatus_display}}</span>
+                                        </button>
                                     {% endif %}
+
                                     <a class="apply-for-btn  common-btn grey-btn" href="{% url 'bill:detail' bill.id %}">
                                         <span class="black">查看详情</span>
                                     </a></div>

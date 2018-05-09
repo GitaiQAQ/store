@@ -481,10 +481,19 @@ class BillDetailView(APIView):
     @method_decorator(login_required)
     def get(self, request, pk, format=None):
         bill = self.get_object(pk)
-        url = "https://poll.kuaidi100.com/poll/query.do?customer=5B8A5C9685FA5CD16A736B54936C03B7&param={%22com%22:%22zhongtong%22,%22num%22:%22488692675576%22,%22from%22:%22%22,%22to%22:%22%22}&sign=309C32F42E7EC50B194FE0A098E638DB"
-        req = requests.get(url, verify=False) 
+        #url = "https://poll.kuaidi100.com/poll/query.do?customer=5B8A5C9685FA5CD16A736B54936C03B7&param={%22com%22:%22zhongtong%22,%22num%22:%22488692675576%22,%22from%22:%22%22,%22to%22:%22%22}&sign=309C32F42E7EC50B194FE0A098E638DB"
+        url = 'https://poll.kuaidi100.com/poll/query.do?customer=5B8A5C9685FA5CD16A736B54936C03B7&param={{%22com%22:%22{0}%22,%22num%22:%22{1}%22,%22from%22:%22%22,%22to%22:%22%22}}&sign=309C32F42E7EC50B194FE0A098E638DB'
+        #req = requests.get(url.format(bill.delivery_company, bill.delivery_no), verify=False) 
+        #url = url.format('zhongtong', '488692675576')
+        url = url.format(bill.delivery_company, bill.delivery_no) 
+        req = requests.get(url, verify=False)  
         delivery = json.loads(req.text)
-
+        print(delivery)
+        if 'state' in delivery:
+            if delivery['state'] == '3':
+                # 已签收
+                bill.status = bill.STATUS_FINISHED
+                bill.save
 
         perm = request.user.has_perm('bill.manage_bill')
          
