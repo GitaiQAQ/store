@@ -282,6 +282,10 @@ class AfterSalesView(View):
   
         if 'new' in request.GET: 
             content['choices'] = AfterSales.AFTERSALES_CHOICES
+            codes = MainainCode.objects.filter(phone = user.phone, used = 0)
+            hascode = len(codes)
+            print(hascode)
+            content['hascode'] = hascode
             if isMble:
                 return render(request, 'aftersales/m_usercenter_apply.html', content)
             else:

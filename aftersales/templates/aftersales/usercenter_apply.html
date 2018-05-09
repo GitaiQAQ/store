@@ -7,9 +7,13 @@
 <link href="/static/plugins/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet" />
 {% endblock %} 
 {% block content %}
+{% if hascode == 0 %}
 {% include "aftersales/usercenter_msg.html" %}
+{% endif %}
 <div class="container m60"> 
+    
      {% include "usercenter/menu.html" %}
+     
     <div class="col-xs-10">
         {% block usercentercontent %}
         <div class="usercentercontent">

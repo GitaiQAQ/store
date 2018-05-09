@@ -6,7 +6,9 @@
 <link href="/static/plugins/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet" />
 {% endblock %} 
 {% block content %}
+{% if hascode == 0 %}
 {% include "aftersales/usercenter_msg.html" %}
+{% endif %}
 <div class="container"> 
         {% block usercentercontent %}
         <div class="car-title clearfix row">

@@ -24,7 +24,7 @@ class Bill(BaseDate):
     STATUS_BAD = 4 #异常订单
     STATUS_REFUND = 5 # 已退款
 
-    TIMEOUT = 2 * 60 * 5 # 2小时内支付
+    TIMEOUT = 2 * 60 * 60 # 2小时内支付
     #TIMEOUT =  60 * 15 # 15 分钟内支付
 
     STATUS_CHOICES = (

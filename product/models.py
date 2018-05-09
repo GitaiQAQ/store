@@ -169,7 +169,7 @@ class Rule(models.Model):
     # 规格名称 ：标准版、黑金版、
     name = models.CharField(_('name'), max_length=1024) 
     # 价格:6999
-    price = models.DecimalField(_('price'), max_digits=9, decimal_places=2, null=True)
+    price = models.DecimalField(_('price'), max_digits=9, decimal_places=0, null=True)
     # 库存, 只有在支付成功之后才减
     # 库存为null时，指的是库存无限。
     # 用户提交订单、加入购物车、支付时，都会检查这个字段来查看库存是否充足
