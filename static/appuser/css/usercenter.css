@@ -345,7 +345,7 @@ a.apply-for-btn{
     margin-right:15px;
 }
 input[name="address"]{
-    width: 787px;
+    width: 780px;
     margin-top: 15px;
     margin-bottom: 15px;
 }
@@ -356,7 +356,7 @@ input[name="phone"]{
     width: 200px;
 }
 input[name="email"]{
-    width: 370px;
+    width: 363px;
 }
 input[name="rule"]{
     width: 240px;
@@ -367,7 +367,7 @@ input[name="color"]{
     margin-bottom: 15px;
 }
 input[name="number"]{
-    width: 350px;
+    width: 343px;
     margin-bottom: 15px;
 }
 input[name="code"]{
@@ -379,7 +379,7 @@ input[name="date"]{
 }
 
 input[name="dealer"]{
-    width: 573px;
+    width: 566px;
 }
 
 /* .picture-warp{
