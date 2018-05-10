@@ -53,18 +53,18 @@
                             {% endfor %}
                                 <tr>
                                     <td colspan="5" class="gray aggregate text-right">
-                                    合计：<span class="orange fs16 total{{bill.id}}">XXX</span>
+                                    合计：¥<span class="fs16 total{{bill.id}}">XXX</span>
                                     {% if bill.adaptorcouponitem_set.all %}
-                                    &nbsp;&nbsp;优惠：<span class="coupon{{bill.id}}">{{bill.adaptorcouponitem_set.all.0.coupon.price}}元</span>
+                                    &nbsp;&nbsp;优惠：<span class="coupon{{bill.id}}">¥{{bill.adaptorcouponitem_set.all.0.coupon.price}}</span>
                                     {% endif %}
 
                                     {% if bill.status == 1  %}
                                     &nbsp;&nbsp;实付款：
-                                    <span class="orange fs16">{{bill.money}}</span>
+                                    <span class="orange fs16">¥{{bill.money}}</span>
                                     {% elif bill.status == 4 %}
-                                    <span>&nbsp;&nbsp;实际支付：span</span>
+                                    <span>&nbsp;&nbsp;实际支付：¥span</span>
                                     {% else %}
-                                    &nbsp;&nbsp;应付款：
+                                    &nbsp;&nbsp;应付款：¥
                                     <span class="real{{bill.id}}">XXX</span>
                                     {% endif %}
 

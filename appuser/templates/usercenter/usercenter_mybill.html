@@ -56,15 +56,15 @@
                 {% endfor %}
                 <tr>
                     <td colspan="7" class="text-right gray aggregate">
-                        合计：
+                        合计：¥
                         <span class="total{{bill.id}}">XXX</span>
-                        {% if bill.adaptorcouponitem_set.all %} 优惠：
+                        {% if bill.adaptorcouponitem_set.all %} 优惠：¥
                         <span class="coupon{{bill.id}}">{{bill.adaptorcouponitem_set.all.0.coupon.price}}元</span>
                         {% endif %} {% if bill.status == 1 %} 实付款：
-                        <span>{{bill.money}}</span>
+                        <span>¥{{bill.money}}</span>
                         {% elif bill.status == 4 %}
-                        <span>实际支付：{{bill.money}}</span>
-                        {% else %} 应付款：
+                        <span>实际支付：¥{{bill.money}}</span>
+                        {% else %} 应付款：¥
                         <span class="real{{bill.id}}">XXX</span>
                         {% endif %} {% if bill.status == -2 %}
                         <a class=" orange-bg common-btn" href="{% url 'bill:bills' %}?unpayed&billno={{bill.no}}">
