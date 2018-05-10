@@ -264,7 +264,7 @@ class CouponView(View):
                 result['status'] ='error'
                 result['msg'] ='激活失败...'
              
-            coupons = Coupon.objects.filter(owner = user)
+            coupons = Coupon.objects.filter(owner = user, used = 0)
             result['coupons'] = coupons 
         else:
             result['status'] ='error'

@@ -66,6 +66,7 @@
             $('#number').get(0).focus();
             $().errormessage('请填写正确的产品序列号(PSN)...');
             e.preventDefault();
+            return;
         }
 
         var description = $('#description').val();

@@ -8,7 +8,7 @@ from datetime import datetime
 from datetime import timedelta
 
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views import View
 from django.http import Http404, QueryDict
 from django.views.decorators.csrf import csrf_exempt
@@ -370,7 +370,7 @@ class AfterSalesView(View):
                 aftersaleid = self.create(request) 
                 try:
                     aftersaleid = int (aftersaleid)
-                    return self.get(request)
+                    return HttpResponseRedirect('/aftersales/aftersales/?aftersaleid={0}&status=0'.format(aftersaleid))#self.get(request)
                 except ValueError:
                     return aftersaleid 
                     
@@ -380,8 +380,12 @@ class AfterSalesView(View):
             if 'aftersaleid' in request.POST:
                 return self.add_delivery_info(request)
             else:
-                self.create(request)
-                return self.get(request)
+                aftersaleid = self.create(request)
+                try:
+                    aftersaleid = int (aftersaleid)
+                    return HttpResponseRedirect('/aftersales/aftersales/?aftersaleid={0}&status=0'.format(aftersaleid))#self.get(request)
+                except ValueError:
+                    return aftersaleid 
 
     def add_delivery_info(self, request):
         """
