@@ -124,7 +124,16 @@
                         <td> </td>
                         <td>  </td>
                     </tr>
+                    <tr>
+                                <td colspan="4" class="td_name">
+                                                {% if aftersale.invoice %}
+                                                <img src="{{mediaroot}}{{aftersale.invoice}}" style="width: 90%">
+                                       {% endif %}
+                                </td>
+                               
+                            </tr>
                 </table>
+                
                
             </div>
             <div class="car-title clearfix">
@@ -145,7 +154,15 @@
                     {% if aftersale.status == 2  %}
                     <tr>
                         <td class="td_name"><p  class="grey" >{{aftersale.delivery_date|date:'Y-m-d'}}:</p></td>
-                        <td><p>已发货</p></td>
+                        <td>
+                                <p>已发货: 
+                                 {{aftersale.delivery_company|default_if_none:''}}  
+                                 【{{aftersale.delivery_number|default_if_none:''}}】
+                                </p>
+                                {% if aftersale.delivery_pic %}
+                                   <img src="{{mediaroot}}{{aftersale.delivery_pic}}" style="width: 90%">
+                                {% endif %}
+                        </td>
                     </tr>
                     {% endif %}
                     {% if aftersale.status == 3 %}
@@ -153,7 +170,8 @@
                         <td class="td_name"><p  class="grey" >{{aftersale.finished_date|date:'Y-m-d'}}:</p></td>
                         <td><p>售后完成</p></td>
                     </tr>
-                    {% endif %} 
+                    {% endif %}  
+                    
                 </table>
             </div>   
         

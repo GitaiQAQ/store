@@ -403,12 +403,12 @@ class AfterSalesView(View):
             if logistics_name and logistics_nub:
                 aftersaleid = request.POST['aftersaleid']  
                 aftersale = AfterSales.objects.get(id = aftersaleid)  
-
-                if 'pictrue' in request.FILES:
+   
+                if 'picture' in request.FILES:
                     code    = ''.join(random.choice(string.ascii_letters + string.digits) for i in range(4))
-                    filename = handle_uploaded_file(request.FILES['pictrue'], str(user.id)+'_'+ code)
+                    filename = handle_uploaded_file(request.FILES['picture'], str(user.id)+'_'+ code)
                     aftersale.delivery_pic = filename
-    
+              
                 aftersale.status = AfterSales.DELIVERIED
                 aftersale.delivery_company = logistics_name
                 aftersale.delivery_number = logistics_nub
@@ -476,8 +476,9 @@ class AfterSalesView(View):
             if 'appphone' in request.POST:
                 appphone = request.POST['appphone'].strip() 
                 aftersale.appphone = appphone
-
+            
             if 'invoice' in request.FILES:
+                
                 code    = ''.join(random.choice(string.ascii_letters + string.digits) for i in range(4))
                 filename = handle_uploaded_file(request.FILES['invoice'], str(user.id)+'_'+ code)
                 aftersale.invoice = filename
