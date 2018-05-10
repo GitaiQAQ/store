@@ -302,12 +302,12 @@ class AfterSalesView(View):
                 status = request.GET['status']
                 code = ''
                 try:
-                    aftersale = AfterSales.objects.get(id = aftersaleid)
+                    aftersale = AfterSales.objects.get(id = aftersaleid) 
                     if aftersale.status == AfterSales.START:
                         # 刚填写了信息，还没有输入预约号码
                         # 现在系统自动匹配预约号码
                         # 本人未使用的
-                        codes = MainainCode.objects.filter(phone = user.phone, used = 0)
+                        codes = MainainCode.objects.filter(phone = user.phone, used = 0) 
                         if len(codes) > 0:
                             code = codes[0].code
                             codes[0].used = 1
@@ -317,6 +317,7 @@ class AfterSalesView(View):
                             aftersale.status = AfterSales.CODE
                             aftersale.code_date = datetime.today()
                             aftersale.save()
+                            content['aftersale'] = aftersale
                         else:
                             # 预约号匹配失败，用户还没有预约号码
                             pass
@@ -369,7 +370,7 @@ class AfterSalesView(View):
             elif method == 'create': # 创建
                 aftersaleid = self.create(request) 
                 try:
-                    aftersaleid = int (aftersaleid)
+                    aftersaleid = int (aftersaleid) 
                     return HttpResponseRedirect('/aftersales/aftersales/?aftersaleid={0}&status=0'.format(aftersaleid))#self.get(request)
                 except ValueError:
                     return aftersaleid 
@@ -383,6 +384,7 @@ class AfterSalesView(View):
                 aftersaleid = self.create(request)
                 try:
                     aftersaleid = int (aftersaleid)
+                     
                     return HttpResponseRedirect('/aftersales/aftersales/?aftersaleid={0}&status=0'.format(aftersaleid))#self.get(request)
                 except ValueError:
                     return aftersaleid 
