@@ -1,7 +1,6 @@
 {% extends 'm_base.html' %} {% block pagetitle%}购物车{% endblock%} {% block css %} {% load staticfiles %}
 
-<link href="/static/shopcar/css/m_shopcar.css" rel="stylesheet">
-<link href="/static/plugins/icheck/skins/flat/red.css" rel="stylesheet"> {% endblock %} {% block content %}
+<link href="/static/shopcar/css/m_shopcar.css" rel="stylesheet"> {% endblock %} {% block content %}
 <div class="car-title white clearfix">
     <div class="col-xs-4"><a href="/">
     <span class="white"><i class="fa fa-angle-left" aria-hidden="true"></i> 继续购物</span>
@@ -42,7 +41,8 @@
         
                 <!-- 商品勾选 -->
                 <td class="check">
-                        <input class="checked ichecked_item" type="checkbox" checked>
+                        <input class="checked magic-checkbox" type="checkbox" checked>
+                        <label for=""></label>
                     </td>
                     <!-- 商品勾选 end -->
                     <!-- 数量 -->
@@ -66,7 +66,9 @@
     </div>
             <div class="container car-footer clearfix">
                     <div class="pull-left">
-                            <input id="all_checked" type="checkbox" checked> &nbsp;&nbsp;全选丨
+                            <input id="all_checked" class="magic-checkbox" type="checkbox" checked>
+                            <label></label>
+                            &nbsp;&nbsp;全选丨
                             <span id="all-delete" class="grey">删除选中的商品</span>
                         </div>
                         
@@ -90,7 +92,6 @@
             {% endblock %} {% block js %}
             <script type="text/javascript " src="/static/js/login.js "></script>
             <script type="text/javascript" src="/static/js/cookie.js"></script>
-            <script type="text/javascript " src="/static/plugins/icheck/icheck.min.js "></script>
             <script type="text/javascript" src="/static/shopcar/js/m_shopcar.js"></script>
 
             <script>

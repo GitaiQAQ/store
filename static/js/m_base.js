@@ -8,6 +8,15 @@ $(document).ready(function(){
     jQuery(document).on('touchend',function () {
         $('#center').slideUp();
     })
+   
+   /* 
+   让复选框CSS插件生效
+   */
+    $('.magic-checkbox').each(function(){
+        var i = $('.magic-checkbox').index($(this));
+        $('.magic-checkbox').eq(i).attr('id','c'+i);
+        $('.magic-checkbox + label').eq(i).attr('for','c'+i);
+    })
 });
 
 function getCookie(name) {

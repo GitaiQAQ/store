@@ -45,3 +45,13 @@ function fixedFooter(){//页面过小时，底部固定
         $('footer').css({'position':'fixed','bottom':'0px','width':'100%'});
     }
 }
+$(function(){
+     /* 
+   让复选框CSS插件生效
+   */
+  $('.magic-checkbox').each(function(){
+    var i = $('.magic-checkbox').index($(this));
+    $('.magic-checkbox').eq(i).attr('id','c'+i);
+    $('.magic-checkbox + label').eq(i).attr('for','c'+i);
+});
+})

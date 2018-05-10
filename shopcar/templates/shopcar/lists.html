@@ -4,7 +4,6 @@
 {% block css %} {% load staticfiles %}
 
 <link href="/static/shopcar/css/shopcar.css" rel="stylesheet">
-<link href="/static/plugins/icheck/skins/flat/red.css" rel="stylesheet">
 {% endblock %} 
 {% block content %}
 
@@ -27,7 +26,10 @@
                 <tr class="car-list">
 
                 <!-- 商品勾选 -->
-                    <td class="check text-center"><input class="checked ichecked_item" type="checkbox" checked></td>
+                    <td class="check text-center">
+                        <input class="checked magic-checkbox" type="checkbox" checked>
+                        <label for=""></label>
+                    </td>
                 <!-- 商品勾选 end -->
 
                 <!--商品图 -->
@@ -87,8 +89,9 @@
             <div class="col-xs-12 car-footer">
         
                     <div class="col-xs-3">
-                            <input id="all_checked" type="checkbox" checked>
-                            &nbsp;&nbsp;全选丨<span id="all-delete" class="grey">删除选中的商品</span>
+                        <input id="all_checked" class="magic-checkbox" type="checkbox" checked>
+                            <label></label>
+                        &nbsp;&nbsp;全选丨<span id="all-delete" class="grey">删除选中的商品</span>
                     </div>
                     <div class="col-xs-6 text-right">
                         <div>已选&nbsp;<span class="fs18 nub-sum orange"></span>&nbsp;件商品</div>
@@ -110,7 +113,6 @@
  {% endblock %} {% block js %}
  <script type="text/javascript " src="/static/js/login.js "></script>
  <script type="text/javascript" src="/static/js/cookie.js"></script> 
- <script type="text/javascript " src="/static/plugins/icheck/icheck.min.js "></script> 
 <script type="text/javascript" src="/static/shopcar/js/shopcar.js"></script>
 
 <script>
