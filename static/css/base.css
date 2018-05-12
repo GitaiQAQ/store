@@ -3,6 +3,7 @@
 {
 font-family: lanting;
 src: url('/static/font/lanting.ttf');
+src:url('/static/font/lanting.ttf') format('embedded-opentype');
 }
 .lanting{
     font-family: lanting;

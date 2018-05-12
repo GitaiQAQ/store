@@ -110,12 +110,12 @@
             </div>
     </div>
 </div>
- {% endblock %} {% block js %}
- <script type="text/javascript" src="/static/js/login.js "></script>
- <script type="text/javascript" src="/static/js/cookie.js"></script> 
+{% endblock %} {% block js %}
+<script type="text/javascript" src="/static/js/login.js"></script>
+<script type="text/javascript" src="/static/js/cookie.js"></script> 
 <script type="text/javascript" src="/static/shopcar/js/shopcar.js"></script>
 
-<script>
+<script type="text/javascript">
     var sum = 0;
     {%if ruleitems %} {% for rule in ruleitems %}
     sum += {{ rule.rule.price }} * {{ rule.quantity }};

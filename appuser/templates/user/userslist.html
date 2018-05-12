@@ -33,7 +33,7 @@
  {% endif%}
  {% endblock %}
  {% block footer_script %}{{ block.super}}
- <script>
+ <script type="text/javascript">
     $(document).ready(function() {
    {% for user in user_list %}
    {% if user != request.user %}

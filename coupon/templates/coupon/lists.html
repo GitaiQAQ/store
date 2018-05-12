@@ -122,10 +122,9 @@
 {% endblock %}
 {% block js %} 
 
-<script src="/static/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-<script src="/static/plugins/bootstrap-datepicker/js/locales/bootstrap-datepicker.zh-CN.js" charset="UTF-8"></script>
- 
-<script> 
+<script type="text/javascript" src="/static/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="/static/plugins/bootstrap-datepicker/js/locales/bootstrap-datepicker.zh-CN.js"></script>
+<script type="text/javascript"> 
         $(function () { 
             $( "#dealine" ).datepicker({ 
                 defaultDate: "+30w",

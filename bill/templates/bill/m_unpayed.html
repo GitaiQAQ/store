@@ -60,10 +60,10 @@
 {% block js %}
 <script type="text/javascript" src="/static/js/cookie.js"></script>
 <script type="text/javascript" src="/static/js/HoldOn.min.js"></script> 
-<script type="text/javascript" src="/static/plugins/icheck/icheck.min.js "></script>
+<script type="text/javascript" src="/static/plugins/icheck/icheck.min.js"></script>
 <script type="text/javascript" src="/static/js/icheck.js"></script> 
 <!-- <script type="text/javascript" src="/static/bill/js/newtest.js "></script> -->
-<script>
+<script type="text/javascript">
     var totalmoney = 0;
     {% for billitem in bill.adaptorbillitem_set.all %}
     totalmoney += {{billitem.rule.price}} * {{billitem.num}};

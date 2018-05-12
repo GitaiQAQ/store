@@ -76,9 +76,9 @@
 
 {% endblock %}
 {% block js %}
-<script src="/static/appuser/js/usercenter.js"></script>
-<script src="/static/pay/js/pay.js"></script>
-<script>
+<script type="text/javascript" src="/static/appuser/js/usercenter.js"></script>
+<script type="text/javascript" src="/static/pay/js/pay.js"></script>
+<script type="text/javascript">
         var sum = 0;
         var num = 0;
         {% for item in bill.adaptorbillitem_set.all %}

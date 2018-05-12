@@ -22,8 +22,8 @@
 
 <input type="hidden" name="next" value="{{next_url}}" /> {% endblock %}{% block jslogin %}
 {% endblock %} {% block js %}
-<script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
-<script>
+<script type="text/javascript" src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
+<script type="text/javascript">
     $(document).ready(function() {
         // 在键盘按下并释放及提交后验证提交表单
         $("#signup-Form").validate({

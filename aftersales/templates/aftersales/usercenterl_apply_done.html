@@ -26,12 +26,11 @@
 
 {% endblock %}
 {% block js %}
-<script>
-      
-window.onload = function(){
-    setTimeout(function () {//三秒返回
-            location.href='/aftersales/aftersales/';
-    }, 3000);
-  }  
+<script type="text/javascript">
+    window.onload = function () {
+        setTimeout(function () {//三秒返回
+            location.href = '/aftersales/aftersales/';
+        }, 3000);
+    }  
 </script>
 {% endblock %}
