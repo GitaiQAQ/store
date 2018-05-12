@@ -45,8 +45,12 @@
                                     {%csrf_token%} 
                                     <div >
                                     <input type="hidden" id="billid" value="{{bill.id}}"/>
+                                    <textarea name=""  cols="30" rows="10"></textarea>
                                     <button   class=" orange-bg common-btn btn-approve">
                                         <span class="white">批准</span>
+                                    </button>
+                                    <button   class=" orange-bg common-btn">
+                                        <span class="white">驳回</span>
                                     </button>
                                 </div>
                                 {% endif %}

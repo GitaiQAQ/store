@@ -77,8 +77,7 @@
         </div>
         <div class="cut-line"></div>
         <div class="carnum clearfix p-r">
-            <input class="pull-left" onkeypress="if (!/[0-9]/.test(String.fromCharCode(event.keyCode)))event.keyCode=0" 
-            id="carnum" type="text" value="1">
+            <input class="pull-left" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" id="carnum" type="text" min="1" value="1">
             <span class="pull-left grey" role="group">
                 <div id="addition"><i class="fa fa-angle-up" aria-hidden="true"></i></div>
                 <div id="subtraction"><i class="fa fa-angle-down" aria-hidden="true"></i></div>

@@ -118,16 +118,17 @@ $('.b_color').on('click',function(){
 /* 
  * 个数输入--禁止输入除数字之外的其他字符和0
  */
-$("#carnum").keyup(function ()
-{ var detection= parseInt($('#inventory').text());
-   
-    
-    if(!isNaN(detection)){//如果库存是数字
-        if($("#carnum").val()>detection){//个数选到最大库存后不再增长
+$("#carnum").keyup(function () {
+    var detection = parseInt($('#inventory').text());
+    if (!isNaN(detection)) {//如果库存是数字
+        if ($("#carnum").val() > detection) {//个数选到最大库存后不再增长
             $("#carnum").val(detection);
-        }else{
-            $(this).val($(this).val().replace(/[^0-9]/g, ''));
+        } else {
+            $(this).val($(this).val().replace(/[^\d]/g, ''));
         }
+    } else if ($("#carnum").val() > 300) {
+        $("#carnum").val(300);
+        $().message('商品数量不能大于 300');
     }
 }).bind("paste", function () {  //CTR+V事件处理
     $(this).val($(this).val().replace(/[^0-9]/g, ''));
@@ -142,11 +143,11 @@ $('#carnum').on('focus',function(){
 $('#carnum').on('blur',function(){
     var detection= parseInt($('#inventory').text());
     
-    if($('#carnum').val()==''){
+    if($('#carnum').val()==''||$('#carnum').val()==0){
        $('.msg').remove();
-       $(this).parent().after('<span class="msg orange fs12">数量不能为空!</span>')
-    }else{
-        total();
+       $(this).val(1);
+       total();
+      /*  $(this).parent().after('<span class="msg orange fs12">数量不能为空!</span>') */
     }
 });
 /* 
@@ -217,7 +218,6 @@ function ajaxSubmit() {
             }
         },
         error: function () { // 500
-            $().errormessage('server is down!');
         }
     });
 }
@@ -254,7 +254,6 @@ function ajaxByeNow() {
             }
         },
         error: function () { // 500
-            $().errormessage('server is down!');
         }
     });
 }

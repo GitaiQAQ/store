@@ -119,19 +119,19 @@ $('.b_color').on('click',function(){
 /* 
  * 个数输入--禁止输入除数字之外的其他字符和0
  */
-$("#carnum").keyup(function ()
+$("#carnum").on('keyup change',function ()
 { var detection= parseInt($('#inventory').text());
-   
-    
-    if(!isNaN(detection)){//如果库存是数字
+   if(!isNaN(detection)){//如果库存是数字
         if($("#carnum").val()>detection){//个数选到最大库存后不再增长
             $("#carnum").val(detection);
         }else{
-            $(this).val($(this).val().replace(/[^0-9]/g, ''));
+            $(this).val($(this).val().replace(/[^\d]/g, ''));
         }
+    }else{
+        $("#carnum").val(300);
     }
 }).bind("paste", function () {  //CTR+V事件处理
-    $(this).val($(this).val().replace(/[^0-9]/g, ''));
+    $(this).val($(this).val().replace(/[^\d]/g, ''));
 }).css("ime-mode", "disabled"); //CSS设置输入法不可用
 
 /* 
@@ -141,13 +141,11 @@ $('#carnum').on('focus',function(){
     $('.msg').remove();
 });
 $('#carnum').on('blur',function(){
-    var detection= parseInt($('#inventory').text());
-    
-    if($('#carnum').val()==''){
+    if($('#carnum').val()==''||$('#carnum').val()==0){
        $('.msg').remove();
-       $(this).parent().after('<span class="msg orange fs12">数量不能为空!</span>')
-    }else{
-        total();
+       $(this).val(1);
+       total();
+      /*  $(this).parent().after('<span class="msg orange fs12">数量不能为空!</span>') */
     }
 });
 /* 
@@ -155,16 +153,14 @@ $('#carnum').on('blur',function(){
  */
 $('#add-cart').click(function () {
     getLogin();
-    if ($('.active-rule').length == 0) {
+    var detection= parseInt($('#inventory').text());
+   if ($('.active-rule').length == 0) {
         $('.rulemsg').remove();
         $('.edition').parent().append('<span class="rulemsg orange fs12">规格未选择!</span>');
     } else if (!$('.b_color').attr('data-color') == ''&&$('.active-color').length == 0) {
             $('.colormsg').remove();
             $('.b_color').parent().append('<span class="colormsg orange fs12">表带颜色未选择!</span>');
-    } else if ($('#carnum').val() == '') {
-        return;
-    }
-    else {
+    } else {
         ajaxSubmit();
     }
 });
