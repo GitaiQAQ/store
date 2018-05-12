@@ -30,7 +30,7 @@ from coupon.models import AdaptorCoupon as Coupon
 from invoice.models import Invoice
 from address.models import Address
 from bill.apis import get_bill_money, check_inventory, check_bill_timeout
-from store.views_pay import alipay, alipay_refund
+from store.views_pay import alipay, alipay_refund, alipay_query
 from area.models import Area
 from pay.controller import MainController
 from pay.views import checkbill
@@ -61,14 +61,19 @@ def web_callback(request):
 
     return HttpResponse(json.dumps(result), content_type='application/json')
 
-
+@login_required
 def pay_callback(request):
     """
-    支付接口回调接口
-    支付接口完成支付后调用该函数来更新我们的数据库
+    支付接主动查询订单状态接口
     """
-
-    return HttpResponse("done")
+    result = {}
+    result['status'] = 'error'
+    if 'billno' in request.GET:
+        billno = request.GET['billno']
+        result = alipay_query(billno)
+        result['bill'] = []
+    
+    return HttpResponse(json.dumps(result), content_type="application/json")
  
 class BillView(View):
     
@@ -83,6 +88,8 @@ class BillView(View):
         for bill in unpayed_bills:
             checkbill(bill.no)
         check_bill_timeout(unpayed_bills)
+
+         
  
         content['mediaroot'] = settings.MEDIA_URL
         if 'new' in request.GET:
@@ -148,7 +155,10 @@ class BillView(View):
                         else:
                             return render(request, 'pay/weixinpay.html', content)
                     else:
-                        return redirect(alipay(bill.no, content['money'], bill.no))
+                        if isMble:
+                            return redirect(alipay(bill.no, content['money'], bill.no, pc = False))
+                        else:
+                            return redirect(alipay(bill.no, content['money'], bill.no))
                       
                 except AdaptorBill.DoesNotExist:
                     content['bill'] = False

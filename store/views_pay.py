@@ -10,11 +10,9 @@ from django.urls import reverse
 import pdb
 from bill.apis import pay_bill
 
-def alipay(order_id, total_amount, subject):
-    #request.POST.get("order_id")
-    # 创建用于进行支付宝支付的工具对象
-    total_amount = str(total_amount) 
-    alipay = AliPay(
+
+def init():
+    alipay_intance = AliPay(
         appid=settings.ALIPAY_APPID,
         app_notify_url=None,  # 默认回调url
         app_private_key_path=settings.PRIVATE_KEY,
@@ -22,18 +20,35 @@ def alipay(order_id, total_amount, subject):
 
         # 支付宝的公钥，验证支付宝回传消息使用，不是你自己的公钥,
         sign_type="RSA2",  # RSA 或者 RSA2
-        debug=True  # 默认False  配合沙箱模式使用
+        debug=False  # 默认False  配合沙箱模式使用
     )
+    return alipay_intance
 
-    # 电脑网站支付，需要跳转到https://openapi.alipay.com/gateway.do? + order_string
-    order_string = alipay.api_alipay_trade_page_pay(
-        out_trade_no = order_id,
-        total_amount = str(total_amount),  # 将Decimal类型转换为字符串交给支付宝
-        subject = subject,
-        return_url = settings.ALIPAY_RETURN_URL,
-        notify_url = settings.ALIPAY_NOTIFY_URL  # 可选, 不填则使用默认notify url
-    )
+def alipay(order_id, total_amount, subject, pc= True):
+    #request.POST.get("order_id")
+    # 创建用于进行支付宝支付的工具对象
+    total_amount = str(total_amount) 
+    alipay = init()
 
+    
+    if pc:
+        # 电脑网站支付，需要跳转到https://openapi.alipay.com/gateway.do? + order_string
+        order_string = alipay.api_alipay_trade_page_pay(
+            out_trade_no = order_id,
+            total_amount = str(total_amount),  # 将Decimal类型转换为字符串交给支付宝
+            subject = subject,
+            return_url = settings.ALIPAY_RETURN_URL,
+            notify_url = settings.ALIPAY_NOTIFY_URL  # 可选, 不填则使用默认notify url
+        )
+    else: 
+        # 手机网站支付，需要跳转到https://openapi.alipay.com/gateway.do? + order_string
+        order_string = alipay.api_alipay_trade_wap_pay(
+            out_trade_no= order_id,
+            total_amount=str(total_amount),
+            subject=subject,
+            return_url=settings.ALIPAY_RETURN_URL,
+            notify_url=settings.ALIPAY_NOTIFY_URL  # 可选, 不填则使用默认notify url
+        )
     # 让用户进行支付的支付宝页面网址
     url = settings.ALIPAY_URL + "?" + order_string
     return url  
@@ -41,19 +56,10 @@ def alipay(order_id, total_amount, subject):
 def alipay_refund(order_id, total_amount):
     # 退款
     # 创建用于进行支付宝支付的工具对象
-    alipay = AliPay(
-        appid=settings.ALIPAY_APPID,
-        app_notify_url=None,  # 默认回调url
-        app_private_key_path=settings.PRIVATE_KEY,
-        alipay_public_key_path=settings.ALI_PUBLIC_KEY,
-
-        # 支付宝的公钥，验证支付宝回传消息使用，不是你自己的公钥,
-        sign_type="RSA2",  # RSA 或者 RSA2
-        debug=True  # 默认False  配合沙箱模式使用
-    )
+    alipay =  init()
    
     # 2018042723221914
-    result = alipay.api_alipay_trade_refund(total_amount, order_id)
+    result = alipay.api_alipay_trade_refund(str(total_amount), order_id)
     #return redirect(url)
      
     return result
@@ -66,20 +72,32 @@ def alipay_notify(request):
     
     return HttpResponse("get from alipay")
 
+
+def alipay_query(order_id):
+    """
+    支付宝支付接口查询订单状态
+    """
+    alipay = init()
+    result = alipay.api_alipay_trade_query(out_trade_no = order_id) 
+    result['status'] =  'error'
+    if result.get("trade_status", "") == "TRADE_SUCCESS":
+        paid = True 
+        total_amount = result.get("total_amount")
+        send_pay_date = result.get("send_pay_date")
+        pay_way = 'zhifubao'
+         
+        pay_result = pay_bill(order_id, pay_way, total_amount, order_id, send_pay_date)
+        result['status'] = pay_result['status']
+ 
+    return result
+     
+
+
 def alipay_check_pay(request):
     # 创建用于进行支付宝支付的工具对象
      
     order_id = request.GET['out_trade_no']
-    alipay = AliPay(
-        appid=settings.ALIPAY_APPID,
-        app_notify_url=None,  # 默认回调url
-        app_private_key_path=settings.PRIVATE_KEY,
-        alipay_public_key_path=settings.ALI_PUBLIC_KEY,
-        # 支付宝的公钥，验证支付宝回传消息使用，不是你自己的公钥,
-        sign_type="RSA2",  # RSA2,官方推荐，配置公钥的时候能看到
-        debug=True  # 默认False  配合沙箱模式使用
-    )
-
+    alipay = init()
     while True:
         # 调用alipay工具查询支付结果
         resp = alipay.api_alipay_trade_query(order_id)  # resp是一个字典
