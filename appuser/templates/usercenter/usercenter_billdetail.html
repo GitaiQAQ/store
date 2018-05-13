@@ -46,17 +46,21 @@
                                     {%csrf_token%} 
                                     <div >
                                     <input type="hidden" id="billid" value="{{bill.id}}"/>
-                                    <textarea name=""  cols="60" rows="6" placeholder="驳回说明"></textarea>
+                                    <textarea id="refuse_reason"  cols="60" rows="6" placeholder="如果驳回，请填写驳回说明"></textarea>
                                     <br>
-                                    <button   class=" orange-bg common-btn btn-approve">
+                                    <button   class=" orange-bg common-btn btn-approve" value="2">
                                         <span class="white">批准</span>
                                     </button>
-                                    <button   class="grey-btn common-btn">
+                                    <button   class="grey-btn common-btn btn-approve " value="3">
                                         <span class="black">驳回</span>
                                     </button>
                                 </div>
                                 {% endif %}
+                                {% if bill.refundstatus == 3 %}
+                                退款审核说明：{{bill.refund_approve_reason|default_if_none:'未填写退款审核说明'}}
+                                {%else%}
                                 微信退款说明：用零钱支付的退款20分钟内到账，银行卡支付的退款3个工作日内到账。
+                                {% endif %}
                             </div>
                     </div>
                 {% endif %}
@@ -171,7 +175,7 @@
     </div>
 </div>
 <div class="pop_up">
-        <div class="gray">
+        <div class="gray poptext">
            确定同意退款？
         </div>
         <button id="continue" class="grey-btn common-btn">取消</button>

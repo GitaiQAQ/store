@@ -4,7 +4,7 @@ import json
 import random
 import string
 import os
-from datetime import datetime
+from datetime import datetime, timedelta
 from django.utils import timezone
 from django.shortcuts import render
 from django.http import HttpResponse 
@@ -308,17 +308,17 @@ def refundlist(request):
         datefrom = request.GET['datefrom'].strip()
         if len(datefrom) > 0:
             datefrom = datetime.strptime(datefrom, "%Y-%m-%d")
-            print(datefrom)
-            kwargs['refund_time__gt'] = datefrom
+            kwargs['refund_time__gte'] = datefrom
             content['datefrom'] = datefrom.strftime("%Y-%m-%d")
     
     if 'dateto' in request.GET:
         dateto = request.GET['dateto'].strip()
         if len(dateto) > 0:
             dateto = datetime.strptime(dateto, "%Y-%m-%d")
-            print(dateto)
-            kwargs['refund_time__lt'] = dateto
             content['dateto'] = dateto.strftime("%Y-%m-%d")
+            dateto = dateto + timedelta(days=1)
+            kwargs['refund_time__lte'] = dateto
+            
 
     bills = AdaptorBill.objects.filter( **kwargs ).order_by('refundstatus', '-refund_time')
     content['mediaroot'] = settings.MEDIA_URL

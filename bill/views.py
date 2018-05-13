@@ -331,33 +331,48 @@ class BillView(View):
             try:
                 
                 if 'approve' in data:
+                    approve = data['approve']
                     bill = AdaptorBill.objects.get(id = billid)
-                    # 退款审核
-                    bill.refundstatus = AdaptorBill.REFUNDAGREE
-                    bill.refund_approve_status = AdaptorBill.REFUNDAGREE
-                    bill.refund_approve_time = timezone.now() 
-                    bill.refund_approver = user
-                    bill.save()  
+                    if approve == str(AdaptorBill.REFUNDAGREE):
+                        
+                        # 退款审核：同意
+                        bill.refundstatus = AdaptorBill.REFUNDAGREE
+                        bill.refund_approve_status = AdaptorBill.REFUNDAGREE
+                        bill.refund_approve_time = timezone.now() 
+                        bill.refund_approver = user
+                        bill.save()  
 
-                    if bill.pay_way == 'weixin':
-                        # 退微信
-                        pay = PayToolUtil()
-                        cert = (settings.WEIXIN['cert'], settings.WEIXIN['key'])
-                        status = pay.refundPayUrl(bill.no, bill.payed_money, cert) 
+                        if bill.pay_way == 'weixin':
+                            # 退微信
+                            pay = PayToolUtil()
+                            cert = (settings.WEIXIN['cert'], settings.WEIXIN['key'])
+                            status = pay.refundPayUrl(bill.no, bill.payed_money, cert) 
+                        else:
+                            # 退支付宝
+                            # return alipay('2018042723221914', 0.02)
+                            alipay_result = alipay_refund(bill.no, bill.payed_money)
+                            if alipay_result['code'] != '10000':
+                                # 退款失败
+                                result['status'] ='error'
+                                result['msg'] = alipay_result['msg'] 
+                                bill.refund_approve_status = AdaptorBill.REFUNDWAITING 
+                                bill.save() 
+                                return self.httpjson(result)
+                        
+                        result['status'] ='ok'
+                        result['msg'] ='退款申请已批准，请耐心等待支付平台退款...'
                     else:
-                        # 退支付宝
-                        # return alipay('2018042723221914', 0.02)
-                        alipay_result = alipay_refund(bill.no, bill.payed_money)
-                        if alipay_result['code'] != '10000':
-                            # 退款失败
-                            result['status'] ='error'
-                            result['msg'] = alipay_result['msg'] 
-                            bill.refund_approve_status = AdaptorBill.REFUNDWAITING 
-                            bill.save() 
-                            return self.httpjson(result)
-                     
-                    result['status'] ='ok'
-                    result['msg'] ='退款申请已批准，请耐心等待支付平台退款...'
+                        # 退款审核：同意
+                        bill.refundstatus = AdaptorBill.REFUNDREFUSED
+                        bill.refund_approve_status = AdaptorBill.REFUNDREFUSED
+                        bill.refund_approve_time = timezone.now() 
+                        bill.refund_approver = user
+                        if 'reason' in data:
+                            bill.refund_approve_reason = data['reason']
+                        bill.refund_approver = user
+                        bill.save() 
+                        result['status'] ='ok'
+                        result['msg'] ='次退款申请已被驳回...' 
                 else:
                     bill = AdaptorBill.objects.get(id = billid, owner = user)
                     if 'reason' in data:
