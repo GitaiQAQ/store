@@ -56,8 +56,9 @@ class ShopcarView(APIView):
                 ruleid = request.POST['ruleid']
                 
                 if ',' in ruleid:
-                    ruleids = ruleid.split(',')
-                    if method == 'delete':  
+                    ruleids = ruleid[: ruleid.rfind(',')]
+                    ruleids = ruleids.split(',')
+                    if method == 'delete':   
                         caritem = CartItem.objects.filter(rule__id__in = ruleids, user = user)
                         caritem.delete() 
                         result['status'] = 'ok'

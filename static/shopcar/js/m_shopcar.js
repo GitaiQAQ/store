@@ -9,74 +9,46 @@ $('document').ready(function () {
  *checkbox click
  *全选/反选
  */
-$("#all_checked").click(function() {
+$(".all_checked").click(function () {
     if (this.checked) {
         $("input.checked").prop("checked", true);
     } else {
         $("input.checked").prop("checked", false);
     }
 });
-/* $('#all_checked').on('ifChecked', function () {
-    //全选勾选
-    $('.ichecked_item').iCheck('check');
-});
-
-$('#all_checked').on('ifUnchecked', function () {
-    //全选取消勾选
-    if ($('#all_checked').attr("remove") == "undefined") {
-        // 如果之前全选了，现在其中某个选项不需要选了，这时不需要触发ifUnchecked事件
-        $('.ichecked_item').iCheck('uncheck');
+$("input.checked").on('click', function () {
+    var checkLth = $("input.checked").length;
+    for (var i = 0; i < checkLth; i++) {
+        if ($("input.checked").eq(i).prop("checked") == false) {
+            $(".all_checked").removeAttr("checked");
+            break;
+        } else {
+            $(".all_checked").prop("checked", true);
+        }
     }
-}); */
+})
 
 /* 按钮选中显示总价*/
 var selectList = '';
 
-$('body').on("click", "input[type='checkbox']", function() {
+$('body').on("click", "input[type='checkbox']", function () {
     selectList = $("input.checked:checked").parents('.car-list');
     //cal_sum();
     var sum = cal_sum();
     $('.sum_price').text(sum);
-    var nub =nub_sum();
+    var nub = nub_sum();
     $('.nub-sum').text(nub);
 });
 
 function itemcheck() {
     selectList = $("input.checked:checked").parents('.car-list');
-
     var sum = cal_sum();
     $('.sum_price').text(sum);
     var nub = nub_sum();
     $('.nub-sum').text(nub);
+
 }
 
-
-/* $('.ichecked_item').on('ifChecked', function () {
-    if ($('.ichecked_item:checked').length == $('.ichecked_item').length) {
-        //全部都被选中了
-        $('#all_checked').iCheck('check');
-    }
-    itemcheck();
-});
- */
-/* $('.ichecked_item').on('ifUnchecked', function () {
-    //$('#all_checked').parents().removeClass("checked");
-
-    $('#all_checked').attr("remove", "1");
-    $('#all_checked').iCheck('uncheck');
-
-    //$('#all_checked').parents().removeClass("checked");
-    itemcheck();
-}); */
-
-
-
-
-/* $('.ichecked_item, #all_checked').iCheck({
-    checkboxClass: 'icheckbox_flat-red',
-    radioClass: 'iradio_flat-red',
-    increaseArea: '20%'
-}); */
 /* 
  *加载完跟新价格
  */
@@ -87,6 +59,9 @@ window.onload = function () {
     $('.sum_price').text(sum);
     var nub = nub_sum();
     $('.nub-sum').text(nub);
+    if ($('.car-list').length == 0) {
+        $(".all_checked").prop("checked", false);
+    }
 }
 /* 
  *计算总计价格
@@ -120,12 +95,15 @@ $('.car-list').on("click", '.addition', function () {
     var quantity = $(this).next().text();
     quantity = parseInt(quantity);
     var inventory = $(this).attr('inventory');
-    if (inventory != '有货'){
-        if (parseInt(inventory) <= quantity)
-        {
+    if (inventory != '有货') {
+        if (parseInt(inventory) <= quantity) {
             return false;
         }
 
+    }else {
+        if (quantity >= 300) {
+            return false;
+        }
     }
     $(this).next().text(quantity + 1);
     var now_num = $(this).next().text();
@@ -218,7 +196,7 @@ $('.car-list').on('click', '.delete', function () {
         success: function (result) {
             if (result['status'] == 'ok') {
                 fa_times.parents('.car-list').remove();
-                if($('.car-list').length==0){
+                if ($('.car-list').length == 0) {
                     location.reload();
                 }
                 selectList = $("input.checked:checked").parents('.car-list');
@@ -236,35 +214,41 @@ $('.car-list').on('click', '.delete', function () {
 /*
 * 全部删除
 */
+/*
+* 全部删除
+*/
 $('#all-delete').click(function () {
     data = {
         'method': 'delete',
         'csrfmiddlewaretoken': getCookie('csrftoken'),
     };
     if (selectList.length) {
+        data['ruleid'] = '';
         for (var i = 0; i < selectList.length; i++) {
             var ruleid = $(selectList[i]).find('.carnum').attr('ruleid');
-            data['ruleid'] = ruleid;
-            $.ajax({
-                type: 'post',
-                url: '/shopcar/shopcars/',
-                data: data,
-                success: function (result) {
-                    if (result['status'] == 'ok') {
-                        fixedFooter();
-                        selectList = $("input.checked:checked").parents('.car-list');
-                        var sum = cal_sum();
-                        $('.sum_price').text(sum);
-                        var nub = nub_sum();
-                        $('.nub-sum').text(nub);
-                    }
-                },
-                error: function () {
-                    $().errormessage('server is down!');
-                }
-            })
+            data['ruleid'] += ruleid + ',';
         }
-        location.href = "/shopcar/shopcars/";
+        $.ajax({
+            type: 'post',
+            url: '/shopcar/shopcars/',
+            data: data,
+            success: function (result) {
+                if (result['status'] == 'ok') {
+                    selectList.remove();
+                    var sum = cal_sum();
+                    $('.sum_price').text(sum);
+                    var nub = nub_sum();
+                    $('.nub-sum').text(nub);
+                    if ($('.car-list').length == 0) {
+                        location.reload();
+                    }
+                }
+            },
+            error: function () {
+                $().errormessage('server is down!');
+            }
+        })
+
     }
     else {
         $().errormessage('请先选择...');
