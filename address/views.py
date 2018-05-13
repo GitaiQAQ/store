@@ -45,25 +45,25 @@ class AddressView(View):
                  
             except Address.DoesNotExist:
                 pass
-            if 'template' in request.GET: 
-                provinces = Area.objects.filter(Q(level = 1) | Q(name='北京市'))
-                cities = Area.objects.filter(id = address.area.parent_id)
-                counties = Area.objects.filter(parent_id = address.area.parent_id)
-                content['provinces'] = provinces
-                content['cities'] = cities
-                content['counties'] = counties
-                
-                city = Area.objects.get(id = address.area.parent_id)
-                if str(city.id) in bigcity:
-                    # 直辖市
-                    province = city
-                else:
-                    province = Area.objects.get(id = city.parent_id)
-                content['address_provice'] = province.id
-                content['address_city'] = address.area.parent_id
-                content['address_county'] = address.area.id
 
-
+            provinces = Area.objects.filter(Q(level = 1) | Q(name='北京市'))
+            cities = Area.objects.filter(id = address.area.parent_id)
+            counties = Area.objects.filter(parent_id = address.area.parent_id)
+            content['provinces'] = provinces
+            content['cities'] = cities
+            content['counties'] = counties
+            
+            city = Area.objects.get(id = address.area.parent_id)
+            if str(city.id) in bigcity:
+                # 直辖市
+                province = city
+            else:
+                province = Area.objects.get(id = city.parent_id)
+            content['address_provice'] = province.id
+            content['address_city'] = address.area.parent_id
+            content['address_county'] = address.area.id
+            
+            if 'template' in request.GET:  
                 return render(request, 'address_template/m_new.html', content)
             else: 
                 if isMble:

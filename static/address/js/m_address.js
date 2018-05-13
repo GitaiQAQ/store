@@ -103,8 +103,8 @@ $('body').on('change','#province',function(){
     $('#city').val('');
     $.get('/area/get_city_list/?provinceid=' + this.value, function (data) {
         $('#city').empty();
-        if (data.length == 1)//北京、上海、重庆、天津4个直辖市
-        {
+        //if (data.length == 1)//北京、上海、重庆、天津4个直辖市
+       // {
              //继续请求区：
              $('#counties').val('');
              $.get('/area/get_county_list/?cityid=' + data[0].id, function (counties) {
@@ -115,10 +115,9 @@ $('body').on('change','#province',function(){
                      $('#counties').append('<option value=' + oCounties.id + '>' + oCounties.short_name + '</option>');
                  };
              });
-        }
+       // }
         for (var i = 0; i < data.length; i++) {
-            var oCity = data[i];
-            
+            var oCity = data[i]; 
             $('#city').append('<option value=' + oCity.id + '>' + oCity.short_name + '</option>');
         }
         

@@ -16,7 +16,7 @@
                 <option value="{{province.id}}" {% if address_provice == 　province.id %}  selected="selected" {% endif %}>{{province.short_name}}</option>
                 {% endfor %}
         </select>
-        <select class="common-inp" id="city" placeholder="手机号" type="text">
+        <select class="common-inp" id="city"   type="text">
                 <option >城市</option>
                 {% for　city in cities %}
                 <option value="{{city.id}}" {% if address_city == city.id %}  selected="selected" {% endif %}>{{city.short_name}}</option>
