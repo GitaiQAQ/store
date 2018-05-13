@@ -56,9 +56,9 @@
                                  <label>订单状态：</label>
                                  <select class="common-inp status" name="status">
                                      <option value="-1">全部</option>
-                                     <option value="1">已支付</option>
-                                     <option value="2">已发货</option>
-                                     <option value="3">已完成</option>
+                                     <option value="1" {% if status == '1' %}selected="selected"{%endif%}>已支付</option>
+                                     <option value="2" {% if status == '2' %}selected="selected"{%endif%}>已发货</option>
+                                     <option value="3" {% if status == '3' %}selected="selected"{%endif%}>已完成</option>
                                  </select>
                              </div>
                             <div>

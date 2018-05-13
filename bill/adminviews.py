@@ -93,14 +93,16 @@ def admin(request):
         if len(datefrom) > 0:
             datefrom = datetime.strptime(datefrom, "%Y-%m-%d")
             print(datefrom)
-            kwargs['date__gt'] = datefrom
+            kwargs['date__gte'] = datefrom
             content['datefrom'] = datefrom.strftime("%Y-%m-%d")
     
     if 'dateto' in request.GET:
         dateto = request.GET['dateto'].strip()
         if len(dateto) > 0:
-            dateto = datetime.strptime(dateto, "%Y-%m-%d") 
-            kwargs['date__lt'] = dateto
+            dateto = datetime.strptime(dateto, "%Y-%m-%d")
+            content['dateto'] = dateto.strftime("%Y-%m-%d")
+            dateto = dateto + timedelta(days=1) 
+            kwargs['date__lte'] = dateto
             content['dateto'] = dateto.strftime("%Y-%m-%d")  
     # 
 
@@ -109,16 +111,17 @@ def admin(request):
         if len(delivery_datefrom) > 0:
             delivery_datefrom = datetime.strptime(delivery_datefrom, "%Y-%m-%d")
              
-            kwargs['delivery_date__gt'] = delivery_datefrom
+            kwargs['delivery_date__gte'] = delivery_datefrom
             content['delivery_datefrom'] = delivery_datefrom.strftime("%Y-%m-%d")
     
     if 'delivery_dateto' in request.GET:
         delivery_dateto = request.GET['delivery_dateto'].strip()
         if len(delivery_dateto) > 0:
             delivery_dateto = datetime.strptime(delivery_dateto, "%Y-%m-%d")
-    
-            kwargs['delivery_date__lt'] = delivery_dateto
             content['delivery_dateto'] = delivery_dateto.strftime("%Y-%m-%d") 
+            delivery_dateto = delivery_dateto + timedelta(days=1) 
+            kwargs['delivery_date__lte'] = delivery_dateto
+            
 
     bills = AdaptorBill.objects.filter( **kwargs ) 
     if 'print' in request.GET:
@@ -346,7 +349,7 @@ def search(request):
         phone = request.GET['phone'].strip()
         if len(phone) > 0:
             content['phone'] = phone 
-            kwargs['phone__icontains'] = billno
+            kwargs['phone__icontains'] = phone
     
     if 'name' in request.GET:
         name = request.GET['name'].strip()
