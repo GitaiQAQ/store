@@ -79,7 +79,8 @@ class ShopcarView(APIView):
                             car.quantity += int(quantity )
                         else:
                             car.quantity = int(quantity)
-                        
+                        if car.quantity > 300 :# 边界值300,最大购买数量
+                            car.quantity = 300
                         # 如何数量大于库存的话，以库存为准 
                         if  rule.inventory is not None:
                             if rule.inventory == 0 :
