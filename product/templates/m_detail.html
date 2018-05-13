@@ -31,8 +31,8 @@
             
         </div>
     <div class="shop">
-        <div class="fs20 item_name"> {{product.title|truncatechars:"100"}}{% if product.status == 0 %}【未上架】{% endif %}</div>
-        <div class="fs20 orange">¥<span id="total_price">--</span>
+        <div class="fs20 item_name" data-img-url="{{mediaroot}}{{product.thumbnail}}"> {{product.title|truncatechars:"100"}}{% if product.status == 0 %}【未上架】{% endif %}</div>
+        <div class="fs20 orange sum_price">¥<span id="total_price">--</span>
             
         </div>
         <div class="cut-line"></div>
@@ -115,6 +115,7 @@
 {% block js %}
 <script type="text/javascript" src="/static/js/swiper-3.4.2.jquery.min.js "></script>
 <script type="text/javascript" src="/static/js/login.js "></script>
+<script type="text/javascript" src="/static/js/cookie.js"></script>
 <script type="text/javascript" src="/static/products/js/m-detail.js"></script>
 <script>
     /*

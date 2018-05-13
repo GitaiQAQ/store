@@ -214,9 +214,6 @@ $('.car-list').on('click', '.delete', function () {
 /*
 * 全部删除
 */
-/*
-* 全部删除
-*/
 $('#all-delete').click(function () {
     data = {
         'method': 'delete',

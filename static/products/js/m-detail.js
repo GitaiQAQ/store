@@ -223,40 +223,27 @@ function ajaxSubmit() {
 }
 /* 立即购买ajax */
 function ajaxByeNow() {
-    var url = '/shopcar/shopcars/',
-        csrfmiddlewaretoken = $('input[name=csrfmiddlewaretoken]').val(),
-        ruleid = $('.edition.active-rule').attr('ruleid'),
-        quantity =$('#carnum').val(),
-        title =  $('.item_name').text(),
-        desc=$('.active-rule').text();
-        if ($('.active-color').attr("data-color-title") != undefined){
-            desc += $('.active-color').attr("data-color-title");
-        }
-        data = {
-        'method': 'create',
-        'ruleid': ruleid,
-        'num': quantity,
-        'desc':desc,
-        'title':title,
-        'csrfmiddlewaretoken': csrfmiddlewaretoken
-        }
-
-    $.ajax({
-        url: url,
-        type: 'post',
-        data: data,
-        success: function (result) {
-            if (result['status'] == 'ok') {
-                window.location.href = '/shopcar/shopcars/';/* '/bill/bills/?new' */
-            }
-            else {
-                $().message(result['msg']);
-            }
-        },
-        error: function () { // 500
-        }
-    });
+    //创建商品列表数组，每个元素是一个商品对象
+    var products = new Array();
+    product = {};
+        product.name = $('.item_name').text();//ok
+        product.rule =$('.active-rule').text()+$('.active-color').attr('data-color-title'); 
+        product.img = $('.item_name').attr('data-img-url'); 
+        product.Price = $('.active-rule').attr('data-price');//ok
+        product.ruleid = $('.active-rule').attr('ruleid');//ok
+        product.rulename = $('.active-rule').text()+$('.active-color').attr('data-color-title'); 
+        product.num = $('#carnum').val();
+        products.push(product);
+    //商品列表数组保存到cookie
+    products = JSON.stringify(products);
+    CookieUtil.set("products", products, '', "/");
+    //cookie保存总价
+    var sum_price = $('#total_price').text();
+    CookieUtil.set("sum_price", sum_price, '', "/");
+    window.location.href = '/bill/bills/?new';
 }
+
+
 /* 下拉置顶加入购物车 */
 
 $(function(){  
