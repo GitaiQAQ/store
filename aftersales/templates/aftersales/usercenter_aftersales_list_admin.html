@@ -6,6 +6,7 @@
 {% endblock %}
 {% block css %}
 <link href="/static/appuser/css/usercenter.css" rel="stylesheet">
+<link href="/static/css/pagination.css" rel="stylesheet">
 {% endblock %} 
 {% block content %}
 <div class="container m60"> 
@@ -117,8 +118,12 @@
                 {% endif %}
                
             </table>
+            <div class="submit text-center">
+                {% include 'pagination.html' %} 
+            </div>
         </div>
         {% endblock %}
+       
     </div>
 </div>
 {% include "delete.confirm.html" %}
@@ -126,4 +131,5 @@
 {% block js %}
 <script type="text/javascript" src="/static/appuser/js/usercenter.js"></script>
 <script type="text/javascript" src="/static/aftersales/js/list.js"></script>
+<script type="text/javascript" src="/static/js/pagination.js"></script>
 {% endblock %}
