@@ -52,10 +52,10 @@ class MainainCodeView(View):
                 code = request.GET['code'].strip() 
                 phone = request.GET['phone'].strip() 
                 if code:
-                    kwargs['code'] = code
+                    kwargs['code__icontains'] = code
                     content['code'] = code
                 if phone:
-                    kwargs['phone'] = phone
+                    kwargs['phone_icontains'] = phone
                     content['phone'] = phone
  
             if kwargs:
