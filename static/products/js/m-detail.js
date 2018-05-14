@@ -28,14 +28,19 @@ if ($(".b_color").length > 0){
  */
 $('.pull-left.grey').on("click", '#addition', function () {
     var quantity = parseInt($('#carnum').val());
-    $('#carnum').val(quantity + 1);
     var detection= parseInt($('#inventory').text());
     if(!isNaN(detection)){//如果库存是数字
-        if($("#carnum").val()>detection){//个数选到最大库存后不再增长
-            $("#carnum").val(detection);
+        if(quantity<detection){
+            $('#carnum').val(quantity + 1);
+        }
+    }else{//如果库存是有货
+        if(quantity<300){//有货且输入小于300
+            $('#carnum').val(quantity + 1);
+        }else{//有货且输入大于300
+            $("#carnum").val(300);
+            $().message('最多可选择300件！');
         }
     }
-    
     total();
 });
 
@@ -118,7 +123,7 @@ $('.b_color').on('click',function(){
 /* 
  * 个数输入--禁止输入除数字之外的其他字符和0
  */
-$("#carnum").keyup(function () {
+$("#carnum").on('keyup change',function () {
     var detection = parseInt($('#inventory').text());
     if (!isNaN(detection)) {//如果库存是数字
         if ($("#carnum").val() > detection) {//个数选到最大库存后不再增长
@@ -126,9 +131,9 @@ $("#carnum").keyup(function () {
         } else {
             $(this).val($(this).val().replace(/[^\d]/g, ''));
         }
-    } else if ($("#carnum").val() > 300) {
+    } else if($(this).val()>300){
         $("#carnum").val(300);
-        $().message('商品数量不能大于 300');
+        $().message('最多可选择300件！');
     }
 }).bind("paste", function () {  //CTR+V事件处理
     $(this).val($(this).val().replace(/[^0-9]/g, ''));

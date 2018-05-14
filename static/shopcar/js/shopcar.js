@@ -99,6 +99,7 @@ $('.car-list').on("click", '.addition', function () {
 
     } else {
         if (quantity >= 300) {
+            $().message('最多可选择300件！');
             return false;
         }
     }
