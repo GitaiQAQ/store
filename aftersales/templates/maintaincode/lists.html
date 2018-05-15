@@ -9,6 +9,7 @@
 {% block css %}
 <link href="/static/appuser/css/usercenter.css" rel="stylesheet">
 <link href="/static/appuser/css/after_sale.css" rel="stylesheet">
+<link href="/static/css/pagination.css" rel="stylesheet">
 {% endblock %} 
 {% block content %}
 {%csrf_token%} 
@@ -18,7 +19,7 @@
         {% block usercentercontent %}
         <div class="usercentercontent">
                 <div class="car-title clearfix">
-                    <div class="pull-left">售后订单</div> 
+                    <div class="pull-left">预约码服务</div> 
                 </div>
                 <div class="gray submit">
                      
@@ -95,7 +96,9 @@
                 {% endif %}
                 
             
-            
+                <div class="submit text-center">
+                    {% include 'pagination.html' %} 
+                </div>
         </div>
         {% endblock %}
     </div>
@@ -104,4 +107,5 @@
 {% endblock %}
 {% block js %} 
 <script type="text/javascript" src="/static/aftersales/js/code_new.js"></script>
+<script type="text/javascript" src="/static/js/pagination.js"></script>
 {% endblock %}

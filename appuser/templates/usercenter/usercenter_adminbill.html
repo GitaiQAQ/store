@@ -9,6 +9,7 @@
 <link href="/static/plugins/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet" />
 <link href="/static/appuser/css/usercenter.css" rel="stylesheet">
 <link href="/static/appuser/css/refund.css" rel="stylesheet">
+<link href="/static/css/pagination.css" rel="stylesheet">
 <style>
     .search input, .search select{
         margin-right:0px;
@@ -230,7 +231,9 @@
                 </div>
                 {% endif %}
             -->
-            
+            <div class="submit text-center">
+                {% include 'pagination.html' %} 
+            </div>
         </div>
         {% endblock %}
     </div>
@@ -240,6 +243,7 @@
 {% block js %}
 <script type="text/javascript" src="/static/appuser/js/usercenter.js"></script>
 <script type="text/javascript" src="/static/bill/js/mybill.js"></script>
+<script type="text/javascript" src="/static/js/pagination.js"></script>
 <script type="text/javascript">
         var total = 0;
         var real = 0;
