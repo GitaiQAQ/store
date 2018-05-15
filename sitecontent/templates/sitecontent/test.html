@@ -1,4 +1,8 @@
 {% extends 'base.html' %}
+{% block publicmenu %}
+{% include 'admintitle.html' %}
+{% endblock %}
+{% block fixed_menu_class %}fixed_menu_class{%endblock%}
 {% load i18n %}
 {% block pagetitle%}{% trans 'Homepage Content Management' %}{% endblock%}
 {% block content %}

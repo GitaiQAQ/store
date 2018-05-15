@@ -1,4 +1,9 @@
-{% extends 'base.html' %}{% block pagetitle%}商品列表{% endblock%} {% block css %}
+{% extends 'base.html' %}
+{% block publicmenu %}
+{% include 'admintitle.html' %}
+{% endblock %}
+{% block fixed_menu_class %}fixed_menu_class{%endblock%}
+{% block pagetitle%}商品列表{% endblock%} {% block css %}
 {% load staticfiles %}
 <link href="/static/products/css/list.css" rel="stylesheet"> {% endblock %} {% block content %}
 <section>

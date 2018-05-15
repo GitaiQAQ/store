@@ -18,14 +18,16 @@ span.btn-group {
 i.fa-shopping-cart {
     margin-right: 5px;
 }
+.container-fluid{
 
+    background-color: #f5f5f5;
+    margin-bottom: 30px;
+}
 .breadcrumb {
-    width: 1080px;
     margin: 0 auto;
-    background-color: #fff;
-    padding: 20px;
-    margin-bottom: 20px;
     border-radius: 0px;
+    padding-top: 30px;
+    padding-bottom: 30px;
 }
 
 .format {
@@ -44,19 +46,22 @@ i.fa-shopping-cart {
 .btn-info {
     margin-right: 100px;
 }
-
 .form-horizontal .form-group {
-    margin-right: 0px;
-    margin-left: 0px;
+    margin-right: auto; 
+   margin-left: auto; 
 }
-
-table {
+table{
     margin: 20px 0;
 }
-
-table:first-child {
-    text-align: center;
+table.menu{
+    margin: 0;
 }
+table.menu:first-child{
+    text-align: left;
+}
+table:first-child{
+    text-align: center;
+} 
 
 i.fa-trash-o {
     color: rgb(201,22,35);

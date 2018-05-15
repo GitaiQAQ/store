@@ -1,4 +1,8 @@
 {% extends 'base.html' %}
+{% block publicmenu %}
+{% include 'admintitle.html' %}
+{% endblock %}
+{% block fixed_menu_class %}fixed_menu_class{%endblock%}
 {% load i18n %}
 {% block pagetitle%}创建商品信息{% endblock%}
  {% block css %}
@@ -15,18 +19,20 @@
 
 <section>
     <!-- 路径导航 -->
-    <ol class="breadcrumb">
-        <li><a href="/">首页</a></li>
-        <li><a href="{% url 'product:products' %}">商品列表</a></li>
-        <li class="active">发布商品</li>
-        <div class="title">修改商品信息</div>
-    </ol>
+    <div class="container-fluid">
+        <ol class="breadcrumb container">
+            <li><a href="/">首页</a></li>
+            <li><a href="{% url 'product:products' %}">商品列表</a></li>
+            <li class="active">发布商品</li>
+            <div class="title">修改商品信息</div>
+        </ol>
+    </div>
 
 
     <div  class="form-horizontal">
         <div class="form-group">
-            <label for="id" class="col-sm-2 control-label">商品类型：</label>
-            <div class="col-sm-2">
+            <label for="id" class="col-xs-2 control-label">商品类型：</label>
+            <div class="col-xs-2">
                 <select class="form-control " id="sel-category">
                     {% for categoryitem in categories %} 
                     {% if categoryitem.id == category.id %}
@@ -37,46 +43,46 @@
                     {% endfor%}
                 </select>
             </div>
-            <label for="id" class="col-sm-2 control-label">商品名称：
+            <label for="id" class="col-xs-2 control-label">商品名称：
             </label>
-            <div class="col-sm-4">
+            <div class="col-xs-4">
                 <input type="text" class="form-control" name="title" id="title" value="{{product.title}}" placeholder="">
             </div>
 
         </div>
         
         <div class="form-group">
-            <label for="name" class="col-sm-2 control-label">{% trans 'Product Detail' %}:</label>
-            <div class="col-sm-8 ta-wrap">
+            <label for="name" class="col-xs-2 control-label">{% trans 'Product Detail' %}:</label>
+            <div class="col-xs-8 ta-wrap">
                 <input type="text" class="form-control" name="desc" value="{{product.description|default:''}}" id="desc" placeholder="">
                 <span>0/50</span>
             </div>
 
         </div>
         <div class="form-group">
-            <label for="name" class="col-sm-2 control-label">运费（￥）元:</label>
-            <div class="col-sm-1 ta-wrap">
+            <label for="name" class="col-xs-2 control-label">运费（￥）元:</label>
+            <div class="col-xs-1 ta-wrap">
                 <input type="text" class="form-control number" name="mailmoney" value="{{product.mail_price|default:'0'}}" id="mailmoney" placeholder="">
                
             </div> 
-            <label for="name" class="col-sm-2 control-label">发货时间:</label>
-            <div class="col-sm-4 ta-wrap">
+            <label for="name" class="col-xs-2 control-label">发货时间:</label>
+            <div class="col-xs-4 ta-wrap">
                 <input type="text" class="form-control" name="delivery_time" value="{{product.delivery_time|default:'工作日48个小时内发货'}}" id="delivery_time" placeholder="">
                 
             </div> 
          
         </div> 
         <div class="form-group">
-            <label for="message" class="col-sm-2 control-label">商品详情：</label>
-            <div class="col-sm-8">
+            <label for="message" class="col-xs-2 control-label">商品详情：</label>
+            <div class="col-xs-8">
                 {{ form.as_p }} 
             </div>
 
         </div>
 
         <div class="form-group">
-                <label for="message" class="col-sm-2 control-label">官网地址：</label>
-                <div class="col-sm-8">
+                <label for="message" class="col-xs-2 control-label">官网地址：</label>
+                <div class="col-xs-8">
                         <input type="text" class="form-control"   value="{{product.taobaourl|default:''}}" id="taobaourl" placeholder="了解更多的URL地址">
                 </div>
     

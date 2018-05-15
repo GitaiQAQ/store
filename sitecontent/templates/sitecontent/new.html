@@ -1,5 +1,8 @@
 {% extends 'base.html' %} 
 {% block fixed_menu_class %}fixed_menu_class{%endblock%}
+{% block publicmenu %}
+{% include 'admintitle.html' %}
+{% endblock %}
 {% load i18n %}
 {% block css %}
 <link href="/static/vendors/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet" />
