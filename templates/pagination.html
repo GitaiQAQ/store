@@ -1,30 +1,18 @@
 <table class="pagination text-center orange">
     <tr>
         <td>
-            <div class="pagination_circle" id="back_off">
+            <div class="pagination_circle" id="back_off" page="{{page}}">
                 <i class="fa fa-angle-double-left" aria-hidden="true"></i>
             </div>
         </td>
-
+        {% for page_i in pages %}
         <td>
-            <div class="pagination_circle pagination-active page-num">1</div>
+            <div class="pagination_circle {% if page == page_i %}pagination-active {% endif %}page-num">{{page_i}}</div>
         </td>
-
+        {% endfor %}
+ 
         <td>
-            <div class="pagination_circle page-num">2</div>
-        </td>
-        <td>
-            <div class="pagination_circle page-num">3</div>
-        </td>
-
-        <td>
-            <div class="pagination_circle page-num">4</div>
-        </td>
-        <td>
-            <div class="pagination_circle page-num">5</div>
-        </td>
-        <td>
-            <div class="pagination_circle" id="go_ahead">
+            <div class="pagination_circle" id="go_ahead" maxpage="{{maxpage}}" page="{{page}}">
                 <i class="fa fa-angle-double-right" aria-hidden="true"></i>
             </div>
         </td>

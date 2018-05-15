@@ -9,6 +9,7 @@
 <link href="/static/plugins/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet" />
 <link href="/static/appuser/css/usercenter.css" rel="stylesheet">
 <link href="/static/appuser/css/refund.css" rel="stylesheet">
+<link href="/static/css/pagination.css" rel="stylesheet">
 {% endblock %} 
 {% block content %}
 {%csrf_token%} 
@@ -98,6 +99,11 @@
                                 </tr>
                                 {% endfor %}
                             </table>
+                            <div class="submit text-center">
+                                    {% if pagenation %}
+                                    {% include 'pagination.html' %} 
+                                    {% endif %}
+                                </div>
         </div>
         {% endblock %}
     </div>
@@ -139,4 +145,5 @@
             }); 
             });
 </script>
+<script type="text/javascript" src="/static/js/pagination.js"></script>
 {% endblock %}

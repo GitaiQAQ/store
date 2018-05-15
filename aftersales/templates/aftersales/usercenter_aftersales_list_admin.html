@@ -119,7 +119,9 @@
                
             </table>
             <div class="submit text-center">
+                {% if pagenation %}
                 {% include 'pagination.html' %} 
+                {% endif %}
             </div>
         </div>
         {% endblock %}

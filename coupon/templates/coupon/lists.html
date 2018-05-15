@@ -9,6 +9,7 @@
 <link href="/static/plugins//bootstrap-datepicker/css/datepicker.css" rel="stylesheet" />
 <link href="/static/plugins/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet" />
 <link href="/static/appuser/css/after_sale.css" rel="stylesheet">
+<link href="/static/css/pagination.css" rel="stylesheet">
 {% endblock %} 
 {% block content %}
 {%csrf_token%} 
@@ -106,6 +107,11 @@
                         {% endfor %}
                         
                 </table>
+                <div class="submit text-center">
+                        {% if pagenation %}
+                        {% include 'pagination.html' %} 
+                        {% endif %}
+                    </div>
             {% else %}
                 <div class="text-center serve-none">
                     <img class="serve-icon" src="/static/img/coupon.png" alt="">
@@ -136,4 +142,5 @@
             });
             
     </script>
+    <script type="text/javascript" src="/static/js/pagination.js"></script>
 {% endblock %}

@@ -119,7 +119,40 @@ class CouponView(View):
                     coupon_item.delete()
             # 过期的自动删除
             Coupon.objects.filter(used = 2).delete()
-            coupons = self.pagination(request) 
+            #coupons = self.pagination(request) 
+            if 'used' in request.GET:
+                used = request.GET['used']
+                coupons = Coupon.objects.filter(used = used) 
+            else:
+                coupons = Coupon.objects.all() 
+            
+            # 分页开始
+            counter = len(coupons)
+            print(counter)
+            pagenation = False
+            if counter > settings.PAGEINDEX : # 需要分页时才分页 
+                pagenation = True
+                i, j = divmod(counter, settings.PAGEINDEX)
+                if j > 0:
+                    i = i + 2
+                else:
+                    i = i + 1
+                content['maxpage'] = i - 1
+                content['pages'] = range(1, i)
+                print(content['pages'] )
+                page = 1
+                if 'page' in request.GET:
+                    try:
+                        page = int(request.GET['page'])
+                        if page <= 0:
+                            page = 1
+                    except ValueError:
+                        pass 
+                content['page'] = page
+                coupons = coupons[(page - 1) * settings.PAGEINDEX : page*settings.PAGEINDEX ]
+            content['pagenation'] = pagenation
+            # 分页结束
+
             content['coupons'] =coupons
             content['categories'] = self.get_categories()
             if isMble:

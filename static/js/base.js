@@ -14,7 +14,20 @@ function getCookie(name) {
     return cookieValue;
 }
 
-
+//获得带参数的完整url
+function loadQueryString(){ 
+    var parameters = {}; 
+    var searchString = location.search.substr(1); 
+    var pairs = searchString.split("&"); 
+    var parts;
+    for(i = 0; i < pairs.length; i++){
+        parts = pairs[i].split("=");
+        var name = parts[0];
+        var data = decodeURI(parts[1]);
+        parameters[name] = data;
+    }
+    return parameters;
+}
 
 function fnLimited(inputLimited){
     inputLimited.keydown(function (e) {

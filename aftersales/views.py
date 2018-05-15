@@ -67,7 +67,32 @@ class MainainCodeView(View):
 
             if len(notifies) > 0:
                 content['address'] = notifies[0].address
-                 
+            # 分页开始
+            counter = len(codes)
+            print(counter)
+            pagenation = False
+            if counter > settings.PAGEINDEX : # 需要分页时才分页 
+                pagenation = True
+                i, j = divmod(counter, settings.PAGEINDEX)
+                if j > 0:
+                    i = i + 2
+                else:
+                    i = i + 1
+                content['maxpage'] = i - 1
+                content['pages'] = range(1, i)
+                print(content['pages'] )
+                page = 1
+                if 'page' in request.GET:
+                    try:
+                        page = int(request.GET['page'])
+                        if page <= 0:
+                            page = 1
+                    except ValueError:
+                        pass 
+                content['page'] = page
+                codes = codes[(page - 1) * settings.PAGEINDEX : page*settings.PAGEINDEX ]
+            content['pagenation'] = pagenation
+            # 分页结束     
             content['codes'] = codes
             content['adminsite'] = service_man    
             if 'new' in request.GET:
@@ -246,7 +271,37 @@ class AfterSalesView(View):
         content['menu'] = 'service'
         if service_man:# 售后客服人员直接进入预约码页面
             aftersale_items = AfterSales.objects.filter(deleted = 0)
+            
+            
+            # 分页开始
+            counter = len(aftersale_items)
+            print(counter)
+            pagenation = False
+            if counter > settings.PAGEINDEX : # 需要分页时才分页 
+                pagenation = True
+                i, j = divmod(counter, settings.PAGEINDEX)
+                if j > 0:
+                    i = i + 2
+                else:
+                    i = i + 1
+                content['maxpage'] = i - 1
+                content['pages'] = range(1, i)
+                print(content['pages'] )
+                page = 1
+                if 'page' in request.GET:
+                    try:
+                        page = int(request.GET['page'])
+                        if page <= 0:
+                            page = 1
+                    except ValueError:
+                        pass 
+                content['page'] = page
+                aftersale_items = aftersale_items[(page - 1) * settings.PAGEINDEX : page*settings.PAGEINDEX ]
+            content['pagenation'] = pagenation
+            # 分页结束
+
             content['aftersales'] = aftersale_items
+            
             if isMble:
                 return render(request, 'aftersales/usercenter_aftersales_list_admin.html', content)
             else:

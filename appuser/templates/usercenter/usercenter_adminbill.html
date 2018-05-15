@@ -232,7 +232,9 @@
                 {% endif %}
             -->
             <div class="submit text-center">
-                {% include 'pagination.html' %} 
+                    {% if pagenation %}
+                    {% include 'pagination.html' %} 
+                    {% endif %}
             </div>
         </div>
         {% endblock %}

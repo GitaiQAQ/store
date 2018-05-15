@@ -149,6 +149,35 @@ def admin(request):
             return HttpResponse(u'未找到文件...')
          
     content['mediaroot'] = settings.MEDIA_URL
+
+    # 分页开始
+    counter = len(bills)
+    print(counter)
+    pagenation = False
+    if counter > settings.PAGEINDEX : # 需要分页时才分页 
+        pagenation = True
+        i, j = divmod(counter, settings.PAGEINDEX)
+        if j > 0:
+            i = i + 2
+        else:
+            i = i + 1
+        content['maxpage'] = i - 1
+        content['pages'] = range(1, i)
+        print(content['pages'] )
+        page = 1
+        if 'page' in request.GET:
+            try:
+                page = int(request.GET['page'])
+                if page <= 0:
+                    page = 1
+            except ValueError:
+                pass 
+        content['page'] = page
+        bills = bills[(page - 1) * settings.PAGEINDEX : page*settings.PAGEINDEX ]
+    content['pagenation'] = pagenation
+    # 分页结束
+
+
     content['bills'] = bills
     content['menu'] = 'bill'  
     if isMble:
@@ -324,6 +353,33 @@ def refundlist(request):
             
 
     bills = AdaptorBill.objects.filter( **kwargs ).order_by('refundstatus', '-refund_time')
+    # 分页开始
+    counter = len(bills)
+    print(counter)
+    pagenation = False
+    if counter > settings.PAGEINDEX : # 需要分页时才分页 
+        pagenation = True
+        i, j = divmod(counter, settings.PAGEINDEX)
+        if j > 0:
+            i = i + 2
+        else:
+            i = i + 1
+        content['maxpage'] = i - 1
+        content['pages'] = range(1, i)
+        print(content['pages'] )
+        page = 1
+        if 'page' in request.GET:
+            try:
+                page = int(request.GET['page'])
+                if page <= 0:
+                    page = 1
+            except ValueError:
+                pass 
+        content['page'] = page
+        bills = bills[(page - 1) * settings.PAGEINDEX : page*settings.PAGEINDEX ]
+    content['pagenation'] = pagenation
+    # 分页结束
+    
     content['mediaroot'] = settings.MEDIA_URL
     content['bills'] = bills
     content['menu'] = 'refundlist'  
