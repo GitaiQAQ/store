@@ -91,8 +91,7 @@ def admin(request):
     if 'datefrom' in request.GET:
         datefrom = request.GET['datefrom'].strip()
         if len(datefrom) > 0:
-            datefrom = datetime.strptime(datefrom, "%Y-%m-%d")
-            print(datefrom)
+            datefrom = datetime.strptime(datefrom, "%Y-%m-%d") 
             kwargs['date__gte'] = datefrom
             content['datefrom'] = datefrom.strftime("%Y-%m-%d")
     
@@ -129,11 +128,11 @@ def admin(request):
         if not os.path.isdir(settings.BASE_FILE_PATH):
             os.makedirs(settings.BASE_FILE_PATH)
 
-        filename = os.path.join(settings.BASE_FILE_PATH,'sales.xls' )
+        filename = os.path.join(settings.BASE_FILE_PATH,'销售订单.xls' )
         kwargs = {}
         kwargs['filename'] = filename 
         kwargs['bills'] = bills 
-        out_excel = excel_output.write_bill_record(**kwargs)
+        out_excel = excel_output.write_admin_record(**kwargs)
        
         if os.path.isfile(filename):
             try:
@@ -151,8 +150,7 @@ def admin(request):
     content['mediaroot'] = settings.MEDIA_URL
 
     # 分页开始
-    counter = len(bills)
-    print(counter)
+    counter = len(bills) 
     pagenation = False
     if counter > settings.PAGEINDEX : # 需要分页时才分页 
         pagenation = True
@@ -372,9 +370,31 @@ def refundlist(request):
             
 
     bills = AdaptorBill.objects.filter( **kwargs ).order_by('refundstatus', '-refund_time')
+    if 'print' in request.GET:
+        userid = request.user.id
+        if not os.path.isdir(settings.BASE_FILE_PATH):
+            os.makedirs(settings.BASE_FILE_PATH)
+
+        filename = os.path.join(settings.BASE_FILE_PATH,'退款.xls' )
+        kwargs = {}
+        kwargs['filename'] = filename 
+        kwargs['bills'] = bills 
+        out_excel = excel_output.write_refund_record(**kwargs)
+    
+        if os.path.isfile(filename):
+            try:
+                wrapper  = FileWrapper(open(filename, 'rb'))
+            except IOError as e:
+                return HttpResponse(e)
+            print(kwargs['filename'])    
+            response    = HttpResponse(wrapper,content_type='application/vnd.ms-excel')
+            response['Content-Disposition'] = 'inline; filename=退款.xls'  
+            response['Content-Length']      = os.path.getsize(filename)
+            return response
+        else:
+            return HttpResponse(u'未找到文件...')
     # 分页开始
     counter = len(bills)
-    print(counter)
     pagenation = False
     if counter > settings.PAGEINDEX : # 需要分页时才分页 
         pagenation = True

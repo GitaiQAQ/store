@@ -23,12 +23,14 @@ from django.utils.translation import ugettext as _
 from django.shortcuts import redirect
 from django.urls import reverse
 import requests
+from wsgiref.util import FileWrapper
 
 from sitecontent.comm import handle_uploaded_file
 from aftersales.models import AdaptorAfterSales as AfterSales
 from aftersales.models import AdaptorMainainCode as MainainCode
 from aftersales.models import Notify  
 from bill.models import AdaptorBill, AdaptorBillItem
+from bill import excel_output
 
 from mobile.detectmobilebrowsermiddleware import DetectMobileBrowser
 dmb     = DetectMobileBrowser()
@@ -272,6 +274,28 @@ class AfterSalesView(View):
         if service_man:# 售后客服人员直接进入预约码页面
             aftersale_items = AfterSales.objects.filter(deleted = 0)
             
+            if 'print' in request.GET:
+                userid = request.user.id
+                if not os.path.isdir(settings.BASE_FILE_PATH):
+                    os.makedirs(settings.BASE_FILE_PATH)
+
+                filename = os.path.join(settings.BASE_FILE_PATH,'aftersale.xls' )
+                kwargs = {}
+                kwargs['filename'] = filename 
+                kwargs['aftersale_items'] = aftersale_items 
+                out_excel = excel_output.write_aftersales_record(**kwargs)
+            
+                if os.path.isfile(filename):
+                    try:
+                        wrapper  = FileWrapper(open(filename, 'rb'))
+                    except IOError as e:
+                        return HttpResponse(e)   
+                    response    = HttpResponse(wrapper,content_type='application/vnd.ms-excel')
+                    response['Content-Disposition'] = 'inline; filename=aftersale.xls'  
+                    response['Content-Length']      = os.path.getsize(filename)
+                    return response
+                else:
+                    return HttpResponse(u'未找到文件...')
             
             # 分页开始
             counter = len(aftersale_items)
