@@ -26,17 +26,20 @@
                         </button>
                         <button id="leading_out" type="button" class="orange-bg common-btn  " >
                             <span class="white">导出结果</span>
-                        </button>
-                {% if status %}
-                    {% if status == 'error' %}
-                    <span class="error">{{msg}}</span>
-                    {% else %}
-                    <span class="gray">已成功导入{{succeed}}条物流信息，失败{{failed}}条</span>
-                    {% endif %}
-                {% endif %}
-                    
+                        </button> 
+                        <div> 
+                            {% if status %}
+                            <br/>
+                                {% if status == 'error' %}
+                                <span class="error orange">{{msg}}</span>
+                                {% else %}
+                                <span class="gray">已成功导入{{succeed}}条物流信息，失败{{failed}}条</span>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                        
                 </form>
-                
+               
                 
                             <table class="order-form statistics text-left ">
                                 <tr>

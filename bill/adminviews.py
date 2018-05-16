@@ -196,6 +196,11 @@ def delivery(request):
     perm = user.has_perm('bill.manage_bill')
     if not perm:
         return HttpResponse("403")
+    deliveriedbills = AdaptorBill.objects.filter(status = AdaptorBill.STATUS_DELIVERIED)
+    for d_bill in deliveriedbills:
+        if len(d_bill.delivery_company) == 0 or len(d_bill.delivery_no) == 0:
+            d_bill.status = d_bill.STATUS_PAYED
+            d_bill.save()
     isMble  = dmb.process_request(request)
     content = {} 
     content['menu'] = 'delivery'
@@ -203,10 +208,17 @@ def delivery(request):
      AdaptorBill.STATUS_FINISHED, AdaptorBill.STATUS_BAD]
     kwargs = {}
     kwargs['refundstatus'] = AdaptorBill.REFUNDAPPLY
+    # 等到发货的记录
+    kwargs['status'] = AdaptorBill.STATUS_PAYED
+    bills = AdaptorBill.objects.filter( **kwargs ) #.order_by('refundstatus', '-refund_time')
+    content['bills'] = bills
+    
+
     if request.method == 'POST':
         filename = os.path.join(settings.BASE_FILE_PATH,'input.xls' )
-        if 'file' in request.FILES:
         
+        if 'file' in request.FILES:
+            
             absolute_path = fsutil.handle_uploaded_file(filename, request.FILES['file'])
             if absolute_path == -1:
                 content['status'] = 'error'
@@ -218,6 +230,7 @@ def delivery(request):
             try:
                 results = excelutil.analyse(absolute_path)
             except Exception as e:
+                
                 content['status'] = 'error'
                 content['msg'] = '读取excel文件失败，文件格式错误...'
                 if isMble:
@@ -232,13 +245,16 @@ def delivery(request):
                 try:
                     bill = AdaptorBill.objects.get(no = result['billno'])
                     if bill.status == bill.STATUS_PAYED: #未发货
-                        bill.delivery_company = result['company']
-                        bill.delivery_no = result['code'].strip()
-                        bill.status = bill.STATUS_DELIVERIED
-                        bill.delivery_date = timezone.now()
-                        bill.save()
-                        succeed_items.append(bill)
-                        succeed += 1 
+                        if len(result['code'].strip()) > 0 and len(result['company'].strip()) > 0:
+                            bill.delivery_company = result['company'].strip()
+                            bill.delivery_no = result['code'].strip()
+                            bill.status = bill.STATUS_DELIVERIED
+                            bill.delivery_date = timezone.now()
+                            bill.save()
+                            succeed_items.append(bill)
+                            succeed += 1 
+                        else:
+                            failed += 1
                 except AdaptorBill.DoesNotExist:
                     failed += 1
 
@@ -246,11 +262,14 @@ def delivery(request):
             content['succeed'] = succeed
             content['failed'] = failed
             content['bills'] = succeed_items
+        else:
+            content['status'] = 'error'
+            content['msg'] = '请选择发货模板文件...'
     else:
         # 等到发货的记录
-        kwargs['status'] = AdaptorBill.STATUS_PAYED
-        bills = AdaptorBill.objects.filter( **kwargs ) #.order_by('refundstatus', '-refund_time')
-        content['bills'] = bills
+        #kwargs['status'] = AdaptorBill.STATUS_PAYED
+        #bills = AdaptorBill.objects.filter( **kwargs ) #.order_by('refundstatus', '-refund_time')
+        #content['bills'] = bills
         if 'print' in request.GET:
             userid = request.user.id
             if not os.path.isdir(settings.BASE_FILE_PATH):

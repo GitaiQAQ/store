@@ -48,6 +48,7 @@ def change(request, pk):
     content['mediaroot'] = settings.MEDIA_URL
     categories = Category.objects.all()  
     content['categories'] = categories
+    content['menu'] = 'product'
 
     if request.method == 'GET':
         try:
