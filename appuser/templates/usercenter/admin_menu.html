@@ -46,6 +46,13 @@
             </td>
         </tr>
         <tr>
+            <td {% if menu == 'product' %}class="subactive"{% endif %}>
+                <a class="black" href="{% url 'product:products' %}">
+                   <img src="/static/img/icon/center3.svg" alt="">商品管理
+                </a>
+            </td>
+        </tr>
+        <tr>
             <td {% if menu == 'sale' %}class="subactive"{% endif %}>
                 <a class="black" href="{% url 'bill:sales' %}"> 
                     <img src="/static/img/icon/center4.svg" alt="">销售统计

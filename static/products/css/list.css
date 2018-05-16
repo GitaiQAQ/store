@@ -49,5 +49,5 @@ h4>a{
 }
 .thumbnail>img{
     margin-top: 15px;
-    height:200px;
+    height:200px !important;
 }

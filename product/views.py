@@ -205,6 +205,7 @@ class ProductView(View):
         if 'manage' in request.GET: 
             return render(request, 'lists.html', content)
         else:
+            content['menu'] = 'product'
             if isMble:
                 return render(request, 'm_lists.html', content)
             else:
