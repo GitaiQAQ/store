@@ -55,7 +55,7 @@ class MainainCodeView(View):
                     kwargs['code__icontains'] = code
                     content['code'] = code
                 if phone:
-                    kwargs['phone_icontains'] = phone
+                    kwargs['phone__icontains'] = phone
                     content['phone'] = phone
  
             if kwargs:
