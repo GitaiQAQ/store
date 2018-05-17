@@ -48,6 +48,10 @@ a.orange+a.orange{
     border-color: transparent;
 }
 .thumbnail>img{
-    margin-top: 15px;
-    height:200px !important;
+    height:auto !important;
+    min-width: 100%;
+    background: linear-gradient(to top right, #f5f5f5 , #fff);
+}
+.thumbnail{
+    padding: 0px;
 }

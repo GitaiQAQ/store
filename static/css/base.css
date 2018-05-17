@@ -10,8 +10,8 @@ src: url('/static/font/lanting.ttf');
 .p-n{
     padding: unset;
 }
-.btn.orange-bg.white{
-    border: 1px solid #832e0c;
+.btn-group .btn.orange-bg.white{
+    border-color:#fff;
 }
 /* 禁止选择文本 */
 .unselect{

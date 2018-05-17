@@ -12,8 +12,13 @@
 
 <div  class="container m60">
         {% include "usercenter/admin_menu.html" %}
-                <div class="col-xs-10">
+        <div class="col-xs-10">
             <!-- 路径导航 -->
+            
+            <div class="usercentercontent">
+                    <div class="car-title">
+                            <a class="orange-bg order-form-btn common-btn" href="/product/products/?new"><span class="white">发布新商品</span></a>
+                        </div>
                 <div class="breadcrumb">
                     <form class="text-center">
                             <input class="search-val" type="search" name="keywords" placeholder="搜索管理内容">
@@ -22,7 +27,7 @@
                     <div class="active">搜索结果:</div>
                 </div>
         
-                <div class="row">
+                <div class="clearfix">
                     {% for product in products %}
                     <div class="col-xs-3">
                         <div class="thumbnail">
@@ -39,7 +44,9 @@
                     </div>
                     {% endfor %}  
                 </div>
-         </div>
+            </div>
+            
+        </div>
     </div>
 
 {% endblock %} {% block js %}
