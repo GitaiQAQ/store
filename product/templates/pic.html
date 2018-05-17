@@ -11,7 +11,13 @@
 <form id="csrftocken_form">{% csrf_token %}
     <input type="hidden" id="productid" value="{{product.id}}" />
 </form>
-
+<div class="container-fluid">
+    <ol class="breadcrumb container">
+        <li><a href="/aftersales/aftersales/">管理中心</a></li>
+        <li><a href="{% url 'product:products' %}">商品列表</a></li>
+        <li class="active">修改图片</li>
+    </ol>
+</div>
     <div class="container">
         <div class="row">
             <div class="col-xs-9">
@@ -30,13 +36,13 @@
     
                             <!-- 浏览 -->
                             <div class="btn-group">
-                                <button type="button" class="btn btn-primary" data-method="rotate" data-option="-30" title="Rotate Left"> 
+                                <button type="button" class="btn orange-bg white" data-method="rotate" data-option="-30" title="Rotate Left"> 
                          <span class="fa fa-rotate-left"></span> 
                      </button>
-                                <button type="button" class="btn btn-primary" data-method="rotate" data-option="30" title="Rotate Right"> 
+                                <button type="button" class="btn orange-bg white" data-method="rotate" data-option="30" title="Rotate Right"> 
                           <span class="fa fa-rotate-right"></span> 
                       </button>
-                                <label class="btn btn-primary btn-upload" for="inputImage" title="Upload image file">
+                                <label class="btn orange-bg white btn-upload" for="inputImage" title="Upload image file">
                    
                           <input type="file" class="sr-only" id="inputImage" name="file" accept="image/*">
                     <span class="docs-tooltip" >
@@ -46,7 +52,7 @@
                             </div>
     
                             <div class="btn-group btn-group-crop">
-                                <button title="保存" type="button" class="btn btn-primary  " data-method="getCroppedCanvas"> 
+                                <button title="保存" type="button" class="btn orange-bg white" data-method="getCroppedCanvas"> 
                          <i class="fa fa-floppy-o"></i>保存
                         </button>
                             </div>
@@ -88,8 +94,8 @@
             {% for pic in product.productpic_set.all %}
             <div class="col-xs-3 col-lg-3">
                 <img class="swiper-img" src="{{mediaroot}}{{pic.url}}" />
-                <button class="btn btn-primary btn-set-primary" picid="{{pic.id}}" productid={{pic.product.id}}>设为缩略图</button>
-                <button title="删除" class="btn btn-primary btn-delete-primary" picid="{{pic.id}}" productid={{pic.product.id}}><i class="fa fa-trash" aria-hidden="true"></i></button>
+                <button class="btn orange-bg btn-set-primary white" picid="{{pic.id}}" productid={{pic.product.id}}>设为缩略图</button>
+                <button title="删除" class="btn orange-bg btn-delete-primary white" picid="{{pic.id}}" productid={{pic.product.id}}><i class="fa fa-trash" aria-hidden="true"></i></button>
 
             </div>
             {% endfor %}

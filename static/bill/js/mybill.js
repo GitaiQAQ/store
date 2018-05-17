@@ -75,3 +75,12 @@ $('#sure').on('click',function () {//确认退货
 $('#continue').click(function () {//点击灰色按钮关闭弹窗
     $('.pop_up').hide();
 })
+$('#result').on('click',function(){
+    
+    var url=window.location.href
+    if(/&/.test(url)){
+        window.location.href=url+'&print=';
+    }else{
+        window.location.href=url+'?print=';
+    } 
+})

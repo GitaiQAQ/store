@@ -46,18 +46,6 @@ input[type=file]:focus,、{
     height: 100%;
     line-height: 40px;
 }
-
-
-.thumbnail{
-    padding: 0px;
-    margin-right: 4px;
-    margin-bottom: 0px;
-    width: 18%;
-    border: 0px;
-    display: none;
-}
-
-
 .all_price .pull-right{
 margin-right: 25px;
 }

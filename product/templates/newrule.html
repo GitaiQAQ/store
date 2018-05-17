@@ -14,12 +14,13 @@
 
 <section>
     <!-- 路径导航 -->
-    <ol class="breadcrumb">
-        <li><a href="/">首页</a></li>
-        <li><a href="{% url 'product:products' %}">商品列表</a></li>
-        <li class="active">发布规格</li>
-       
-    </ol>
+    <div class="container-fluid">
+        <ol class="breadcrumb container">
+            <li><a href="/aftersales/aftersales/">管理中心</a></li>
+            <li><a href="{% url 'product:products' %}">商品列表</a></li>
+            <li class="active">发布规格</li>
+        </ol>
+    </div>
 
 
     <div  class="container">

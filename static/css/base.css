@@ -3,7 +3,6 @@
 {
 font-family: lanting;
 src: url('/static/font/lanting.ttf');
-src:url('/static/font/lanting.ttf') format('embedded-opentype');
 }
 .lanting{
     font-family: lanting;
@@ -11,7 +10,9 @@ src:url('/static/font/lanting.ttf') format('embedded-opentype');
 .p-n{
     padding: unset;
 }
-
+.btn.orange-bg.white{
+    border: 1px solid #832e0c;
+}
 /* 禁止选择文本 */
 .unselect{
     -moz-user-select: -moz-none;

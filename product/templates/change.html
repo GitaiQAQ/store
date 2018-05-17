@@ -23,10 +23,9 @@
     <!-- 路径导航 -->
     <div class="container-fluid">
         <ol class="breadcrumb container">
-            <li><a href="/">首页</a></li>
+            <li><a href="/product/products">管理中心</a></li>
             <li><a href="{% url 'product:products' %}">商品列表</a></li>
             <li class="active">发布商品</li>
-            <div class="title">修改商品信息</div>
         </ol>
     </div>
     
@@ -102,9 +101,9 @@
     <div class="msg "> </div>
     <div class="divsubmit"> 
         <span class="btn-group " role="group " aria-label="... ">
-            <button type="button" class="btn btn-primary product-btn submit" status="1">发布</button>
-            <button type="button" class="btn btn-primary product-btn submit" status="0">存草稿</button>
-            <button type="button " class="btn btn-danger btn-delete submit" status="3"> 删除 </button>
+            <button type="button" class="btn orange-bg white submit" status="1">发布</button>
+            <button type="button" class="btn orange-bg white submit" status="0">存草稿</button>
+            <!-- <button type="button " class="btn orange-bg white btn-delete submit" status="3"> 删除 </button> -->
      </span>
     </div>
 </section>

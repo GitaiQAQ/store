@@ -24,8 +24,8 @@ h4>a{
 .thumbnail img{
     padding: 15px;
 }
-.thumbnail a.orange{
-    padding:9px;
+a.orange+a.orange{
+    margin-left: 10px;
 }
 .btn-search{
     transform: translateX(-150%);
