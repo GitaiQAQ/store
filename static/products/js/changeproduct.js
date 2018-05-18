@@ -116,7 +116,7 @@ $('.submit ').click(function () {
         data: data,
         success: function (result) {
             HoldOn.close();
-            $('.msg').append(html.replace('###', result['msg']));
+            $('.msg').append(html.replace('####', result['msg']));
         },
         error: function () {
             HoldOn.close();

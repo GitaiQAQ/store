@@ -53,8 +53,8 @@
                 </form>
                 <hr>
                 <div class="links">
-                    <a href=""><span class="orange">优惠券列表</span></a>
-                <a href="{% url 'coupon:coupons' %}">全部</a>
+                    <a href=""><span >优惠券列表</span></a>
+                <a href="{% url 'coupon:coupons' %}" {% if not used %}class="orange"{% endif %}>全部</a>
                 <a href="{% url 'coupon:coupons' %}?used=1" {% if used == '1' %}class="orange"{%endif%}>已使用</a>
                 <a href="{% url 'coupon:coupons' %}?used=0" {% if used == '0' %}class="orange"{%endif%}>未使用</a>
                 

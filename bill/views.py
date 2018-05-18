@@ -534,6 +534,8 @@ class BillDetailView(APIView):
             'menu' :'bill',
             'delivery':delivery,
         }
+        if bill.refundstatus == bill.REFUNDWAITING:
+            content['menu'] = 'refundlist'
         """
         city = Area.objects.get(id = bill.address.area.parent_id)
         bigcity = [110100, 120000, 310000, 500000]

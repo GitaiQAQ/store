@@ -33,7 +33,7 @@ $('.add-rule').click(function() {
 });
 
 //  发表+存稿按钮    >>> 点击事件
-$('.submit button').click(function() {
+$('.submit  ').click(function() {
     var options = {
         theme: "sk-doc",
         message: '提交中...',

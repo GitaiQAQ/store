@@ -329,7 +329,7 @@ class ProductView(View):
                 product.save()
                 result['id'] = product.id
                 result['status'] ='ok'
-                result['msg'] = _('Created sucessfully')
+                result['msg'] = '创建成功...'
             except Category.DoesNotExist:
                 result['status'] ='error'
                 result['msg'] ='404 Category not found ID:{}'.format(categoryid)  
@@ -405,7 +405,7 @@ class ProductView(View):
 
                 product.save() 
                 result['status'] ='ok'
-                result['msg'] = _('Modified sucessfully')
+                result['msg'] = '修改成功...'
             except AdaptorProduct.DoesNotExist:
                 result['status'] ='error'
                 result['msg'] ='404 Not found the Product ID:{}'.format(productid) 
