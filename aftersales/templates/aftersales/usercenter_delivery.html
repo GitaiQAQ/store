@@ -18,7 +18,7 @@
                         <input type="hidden" name="status"  value="{{aftersale.status}}">
                         <input type="hidden" name="aftersaleid"  value="{{aftersale.id}}">
                     <div class="submit">
-                        <div>您的寄修预约服务号：<span class="fs18">{{code|default:'--------------------------'}}</span></div>
+                        <div>您的寄修预约服务号：<span id="bespeak"class="fs18">{{code|default:'--------------------------'}}</span></div>
                         <p class="msg">
                                 您的售后信息已经提交成功，请保持电话畅通，等待客服联系。
                             <br>或者您可拔打:400-608-0106, 联系客服获得预约服务号。 
@@ -58,8 +58,6 @@
                     </div>
                 </form>
             {% endif %}
-
-
         </div>
         {% endblock %}
     </div>
@@ -69,15 +67,19 @@
 {% block js %}
 <script type="text/javascript" src="/static/appuser/js/usercenter.js"></script>
 <script type="text/javascript">
-    /* 验证手机号 */
-    $(function () { 
-            $('form').submit(function(e){
-            if($('input[type="text"]').val()==''){
+    $(function () {
+        /* 验证物流公司名称和运单号 */
+        $('form').submit(function (e) {
+            if ($('input[type="text"]').val() == '') {
                 $().errormessage('请填写物流公司名称和运单号...');
                 e.preventDefault();
             }
         })
-        })
-        
+        /* 提示没有预约号 */
+        var bespeak = $('#bespeak').text();
+        if (bespeak == '--------------------------') {
+            $().message('未获取到预约码。。。');
+        };
+    })
 </script>
 {% endblock %}

@@ -58,6 +58,7 @@
                                 {% endif %}
                                 {% if bill.refundstatus == 3 %}
                                 退款审核说明：{{bill.refund_approve_reason|default_if_none:'未填写退款审核说明'}}
+                                <div class="orange">您订购的商品已发货，请收货后，通过售后订单的退货申请入口提交。</div>
                                 {%else%}
                                 微信退款说明：用零钱支付的退款20分钟内到账，银行卡支付的退款3个工作日内到账。
                                 {% endif %}
