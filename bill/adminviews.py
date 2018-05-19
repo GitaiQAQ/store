@@ -100,9 +100,10 @@ def admin(request):
         if len(dateto) > 0:
             dateto = datetime.strptime(dateto, "%Y-%m-%d")
             content['dateto'] = dateto.strftime("%Y-%m-%d")
+            content['dateto'] = dateto.strftime("%Y-%m-%d") 
             dateto = dateto + timedelta(days=1) 
             kwargs['date__lte'] = dateto
-            content['dateto'] = dateto.strftime("%Y-%m-%d")  
+             
     # 
 
     if 'delivery_datefrom' in request.GET:

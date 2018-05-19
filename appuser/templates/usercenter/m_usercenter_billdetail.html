@@ -54,7 +54,7 @@
                                     </button>
                                 </div>
                                 {% endif %}
-                                {% endif %}
+                                 
                                 {% if bill.refundstatus == 3 %}
                                 退款审核说明：{{bill.refund_approve_reason|default_if_none:'未填写退款审核说明'}}
                                 {%else%}

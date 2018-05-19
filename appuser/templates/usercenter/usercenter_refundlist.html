@@ -68,7 +68,7 @@
                                 {% for bill in bills %}
                                 <tr class="item">
                                     <td>
-                                        <a href="{% url 'bill:detail' bill.id %}" target="_blank" >
+                                        <a href="{% url 'bill:detail' bill.id %}?refundlist=" target="_blank" >
                                             <span class="orange">{{bill.no}}</span>
                                             <br/>
                                             {{bill.refund_time}}
