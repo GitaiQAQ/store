@@ -34,7 +34,12 @@
                                                 <div class="carlist_name black">{{item.rule.product.title}}</div>
                                                 <div class="rule_content grey">规格：{{item.rule_title}} </div>
                                         </td>
-                                        <td class="orange text-right">¥&nbsp;<span class="price">{{item.rule.price}}
+                                        <td class="orange text-right">¥&nbsp;<span class="price">
+                                                {% if bill.status == 1 or bill.status == 2 or bill.status == 3 or bill.status == 4 or bill.status == 5 %}
+                                                {{item.price}}
+                                                {% else %}
+                                                {{item.rule.price}}
+                                                {% endif %}
                                                 &nbsp;×<span class="nub">{{item.num}}</span>
                                         </span></td>
                                         
@@ -130,9 +135,15 @@
         var total = 0;
         var real = 0;
         var coupon = 0;
+        var price = 0;
          {% for bill in bills %} 
               {% for item in bill.adaptorbillitem_set.all %}
-              total += {{item.rule.price}}*{{item.num}};
+                {% if bill.status == 1 or bill.status == 2 or bill.status == 3 or bill.status == 4 or bill.status == 5 %}
+                price = {{item.price}};
+                {% else %}
+                price = {{item.rule.price}};
+                {% endif %}
+              total += price *{{item.num}};
                 {% if bill.adaptorcouponitem_set.all %}
                     coupon = {{bill.adaptorcouponitem_set.all.0.coupon.price}};
                 {% endif %}

@@ -40,7 +40,13 @@
                         </a>
                     </td>
                     <td class="w110">¥&nbsp;
-                        <span class="price">{{item.rule.price}}</span>
+                        <span class="price">
+                                {% if bill.status == 1 or bill.status == 2 or bill.status == 3 or bill.status == 4 or bill.status == 5 %}
+                                {{item.price}}
+                                {% else %}
+                                {{item.rule.price}}
+                                {% endif %}
+                        </span>
                     </td>
                     <td class="w110 nub">{{item.num}}</td>
                     
@@ -109,22 +115,28 @@
 {% endblock %} {% block js %}
 <script type="text/javascript" src="/static/appuser/js/usercenter.js"></script>
 <script type="text/javascript" src="/static/bill/js/mybill.js"></script>
-<script type="text/javascript">
-    var total = 0;
-    var real = 0;
-    var coupon = 0;
-    {% for bill in bills %}
-    {% for item in bill.adaptorbillitem_set.all %}
-    total += {{ item.rule.price }}* {{ item.num }};
-    {% if bill.adaptorcouponitem_set.all %}
-    coupon = {{ bill.adaptorcouponitem_set.all.0.coupon.price }};
-    {% endif %}
-    {% endfor %}
-    $(".total{{bill.id}}").text(total);
-    real = total - coupon;
-    $(".real{{bill.id}}").text(real);
-    total = 0;
-    coupon = 0;
-    real = 0;
-    {% endfor %}
-</script> {% endblock %}
+<script>
+        var total = 0;
+        var real = 0;
+        var coupon = 0;
+        var price = 0;
+         {% for bill in bills %} 
+              {% for item in bill.adaptorbillitem_set.all %}
+                {% if bill.status == 1 or bill.status == 2 or bill.status == 3 or bill.status == 4 or bill.status == 5 %}
+                price = {{item.price}};
+                {% else %}
+                price = {{item.rule.price}};
+                {% endif %}
+              total += price *{{item.num}};
+                {% if bill.adaptorcouponitem_set.all %}
+                    coupon = {{bill.adaptorcouponitem_set.all.0.coupon.price}};
+                {% endif %}
+              {% endfor %}
+              $(".total{{bill.id}}").text(total);
+              real = total - coupon;
+              $(".real{{bill.id}}").text(real);
+              total = 0;
+              coupon = 0;
+              real = 0; 
+         {% endfor %}
+    </script>{% endblock %}

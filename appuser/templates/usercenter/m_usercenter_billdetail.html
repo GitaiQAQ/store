@@ -104,7 +104,12 @@
                         </a>
                     </td>
                     <td class="">
-                        ¥&nbsp;<span class="price">{{item.rule.price}}
+                        ¥&nbsp;<span class="price">
+                                {% if bill.status == 1 or bill.status == 2 or bill.status == 3 or bill.status == 4 or bill.status == 5 %}
+                                {{item.price}}
+                                {% else %}
+                                {{item.rule.price}}
+                                {% endif %}
                     </td>
                     <td class="nub">
                         ×{{item.num}}
@@ -135,7 +140,7 @@
                                     {% elif bill.status == 1 %}
                                     <td><p class="grey" >已支付金额：</p></td>
                                     <td><p class="fs24 orange"> ¥<span  class="price">{{bill.payed_money|default_if_none:'0.00'}}</span></p></td>
-                                    {% elif bill.status == 4 %}
+                                    {% elif bill.status == 4  or bill.status == 3 or bill.status == 2 or  bill.status == 5 %}
                                     <td><p class="grey" >实际支付：</p></td>
                                     <td><p class="fs24 orange"> ¥<span  class="price">{{bill.payed_money|default_if_none:'0.00'}}</span></p></td>
                                     {% else %}
@@ -185,9 +190,14 @@
         var sum = 0;
         var num = 0;
         {% for item in bill.adaptorbillitem_set.all %}
-        sum += {{ item.rule.price }} * {{ item.num }};
+        {% if bill.status == 1 or bill.status == 2 or bill.status == 3 or bill.status == 4 or bill.status == 5 %}
+        var price = {{item.price}};
+        {% else %}
+        var price = {{item.rule.price}};
+        {% endif %}
+        sum += price * {{ item.num }};
         num += {{ item.num }};
-        $(".price-sum{{forloop.counter}}").text({{ item.rule.price }} * {{ item.num }});
+        $(".price-sum{{forloop.counter}}").text( price * {{ item.num }});
         {% endfor %} 
         $('#all_sum_price').text(sum);
         $(".sum_num").text(num);
