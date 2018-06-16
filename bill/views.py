@@ -334,35 +334,48 @@ class BillView(View):
                     approve = data['approve']
                     bill = AdaptorBill.objects.get(id = billid)
                     if approve == str(AdaptorBill.REFUNDAGREE):
-                        
-                        # 退款审核：同意
-                        bill.refundstatus = AdaptorBill.REFUNDAGREE
-                        bill.refund_approve_status = AdaptorBill.REFUNDAGREE
-                        bill.refund_approve_time = timezone.now() 
-                        bill.refund_approver = user
-                        bill.save()  
-
+                         
                         if bill.pay_way == 'weixin':
                             # 退微信
                             pay = PayToolUtil()
                             cert = (settings.WEIXIN['cert'], settings.WEIXIN['key'])
-                            status = pay.refundPayUrl(bill.no, bill.payed_money, cert) 
+                            payresult = pay.refundPayUrl(bill.no, bill.payed_money, cert) 
+                            
+                            if payresult[0] == 'ok':
+                                # 退款审核：同意
+                                bill.refundstatus = AdaptorBill.REFUNDAGREE
+                                bill.refund_approve_status = AdaptorBill.REFUNDAGREE
+                                bill.refund_approve_time = timezone.now() 
+                                bill.refund_approver = user
+                                bill.save()
+                                result['status'] ='ok'
+                                result['msg'] ='退款申请已批准，请耐心等待支付平台退款...'
+                            else:
+                                result['status'] ='error'
+                                result['msg'] = payresult[1] 
                         else:
                             # 退支付宝
                             # return alipay('2018042723221914', 0.02)
                             alipay_result = alipay_refund(bill.no, bill.payed_money)
                             if alipay_result['code'] != '10000':
                                 # 退款失败
-                                result['status'] ='error'
+                                result['status'] = 'error'
                                 result['msg'] = alipay_result['msg'] 
                                 bill.refund_approve_status = AdaptorBill.REFUNDWAITING 
                                 bill.save() 
                                 return self.httpjson(result)
+                            else:
+                                # 退款审核：同意
+                                bill.refundstatus = AdaptorBill.REFUNDAGREE
+                                bill.refund_approve_status = AdaptorBill.REFUNDAGREE
+                                bill.refund_approve_time = timezone.now() 
+                                bill.refund_approver = user
+                                bill.save()
+                                result['status'] ='ok'
+                                result['msg'] ='退款申请已批准，请耐心等待支付平台退款...'
                         
-                        result['status'] ='ok'
-                        result['msg'] ='退款申请已批准，请耐心等待支付平台退款...'
                     else:
-                        # 退款审核：同意
+                        # 退款审核：不同意
                         bill.refundstatus = AdaptorBill.REFUNDREFUSED
                         bill.refund_approve_status = AdaptorBill.REFUNDREFUSED
                         bill.refund_approve_time = timezone.now() 
@@ -506,19 +519,21 @@ class BillDetailView(APIView):
     @method_decorator(login_required)
     def get(self, request, pk, format=None):
         bill = self.get_object(pk)
-        #url = "https://poll.kuaidi100.com/poll/query.do?customer=5B8A5C9685FA5CD16A736B54936C03B7&param={%22com%22:%22zhongtong%22,%22num%22:%22488692675576%22,%22from%22:%22%22,%22to%22:%22%22}&sign=309C32F42E7EC50B194FE0A098E638DB"
-        url = 'https://poll.kuaidi100.com/poll/query.do?customer=5B8A5C9685FA5CD16A736B54936C03B7&param={{%22com%22:%22{0}%22,%22num%22:%22{1}%22,%22from%22:%22%22,%22to%22:%22%22}}&sign=309C32F42E7EC50B194FE0A098E638DB'
-        #req = requests.get(url.format(bill.delivery_company, bill.delivery_no), verify=False) 
-        #url = url.format('zhongtong', '488692675576')
-        url = url.format(bill.delivery_company, bill.delivery_no) 
-        req = requests.get(url, verify=False)  
-        delivery = json.loads(req.text)
-        print(delivery)
-        if 'state' in delivery:
-            if delivery['state'] == '3':
-                # 已签收
-                bill.status = bill.STATUS_FINISHED
-                bill.save
+        delivery = {}
+        if bill.status == bill.STATUS_FINISHED or bill.status == bill.STATUS_DELIVERIED:
+            #url = "https://poll.kuaidi100.com/poll/query.do?customer=5B8A5C9685FA5CD16A736B54936C03B7&param={%22com%22:%22zhongtong%22,%22num%22:%22488692675576%22,%22from%22:%22%22,%22to%22:%22%22}&sign=309C32F42E7EC50B194FE0A098E638DB"
+            url = 'https://poll.kuaidi100.com/poll/query.do?customer=5B8A5C9685FA5CD16A736B54936C03B7&param={{%22com%22:%22{0}%22,%22num%22:%22{1}%22,%22from%22:%22%22,%22to%22:%22%22}}&sign=309C32F42E7EC50B194FE0A098E638DB'
+            #req = requests.get(url.format(bill.delivery_company, bill.delivery_no), verify=False) 
+            #url = url.format('zhongtong', '488692675576')
+            url = url.format(bill.delivery_company, bill.delivery_no) 
+            req = requests.get(url, verify=False)  
+            delivery = json.loads(req.text)
+            print("快递状态：", delivery)
+            if 'state' in delivery:
+                if delivery['state'] == '3':
+                    # 已签收
+                    bill.status = bill.STATUS_FINISHED
+                    bill.save
 
         perm = request.user.has_perm('bill.manage_bill')
          

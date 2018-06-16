@@ -159,15 +159,15 @@ class PayToolUtil(object):
         if return_code=="SUCCESS":
             result_code = doc['xml']['result_code']
             if result_code == "SUCCESS": 
-                return 'ok'
+                return 'ok', "退款成功"
             else:
                 err_des = doc['xml']['err_code_des']
                 print ("errdes==========="+err_des)
-                return 'error'
+                return 'error', err_des
         else:
             fail_des = doc['xml']['return_msg']
             print ("fail des============="+fail_des)
-            return 'error'
+            return 'error', fail_des
 
     def getQueryUrl(self,orderid):
         '''
