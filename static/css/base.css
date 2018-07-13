@@ -21,6 +21,9 @@ src: url('/static/font/lanting.ttf');
     -ms-user-select: none;
     user-select: none;
  }
+ .network-filing{
+     margin-left: 45px;
+ }
  label{
     font-weight: 300;
 }
