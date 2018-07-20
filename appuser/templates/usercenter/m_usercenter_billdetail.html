@@ -71,6 +71,7 @@
                 <div class="submit">
                     物流跟踪{% if bill.delivery_company == 'shentong' %}【申通快递】
                     {% elif  bill.delivery_company == 'zhongtong'  %}【中通快递】
+                    {% elif  bill.delivery_company == 'shunfeng'  %}【顺丰快递】
                     {% else %}【未知快递公司】 {% endif %} 【快递单号：{{bill.delivery_no}}】
                     <div class="tracking">
                         {% if delivery.data %}

@@ -5,6 +5,7 @@ import random
 import string
 import os
 import requests
+import hashlib
 from datetime import datetime
 
 from django.shortcuts import render
@@ -521,19 +522,29 @@ class BillDetailView(APIView):
         bill = self.get_object(pk)
         delivery = {}
         if bill.status == bill.STATUS_FINISHED or bill.status == bill.STATUS_DELIVERIED:
-            #url = "https://poll.kuaidi100.com/poll/query.do?customer=5B8A5C9685FA5CD16A736B54936C03B7&param={%22com%22:%22zhongtong%22,%22num%22:%22488692675576%22,%22from%22:%22%22,%22to%22:%22%22}&sign=309C32F42E7EC50B194FE0A098E638DB"
-            url = 'https://poll.kuaidi100.com/poll/query.do?customer=5B8A5C9685FA5CD16A736B54936C03B7&param={{%22com%22:%22{0}%22,%22num%22:%22{1}%22,%22from%22:%22%22,%22to%22:%22%22}}&sign=309C32F42E7EC50B194FE0A098E638DB'
+            costomer = '5B8A5C9685FA5CD16A736B54936C03B7'
+            key='inRvsYYa6417'
+            param100 = '{"com":"'+bill.delivery_company.strip()+'","num":"'+bill.delivery_no.strip()+'","from":"","to":"","resultv2":0}'
+            code100 = param100 + key + costomer
+            sign=hashlib.md5(code100.encode('utf-8')).hexdigest().upper()
+            #url = "https://poll.kuaidi100.com/poll/query.do?customer=5B8A5C9685FA5CD16A736B54936C03B7&param={%22com%22:%22shunfeng%22,%22num%22:%2439569134841%22,%22from%22:%22%22,%22to%22:%22%22}&sign=309C32F42E7EC50B194FE0A098E638DB"
+            #url = 'https://poll.kuaidi100.com/poll/query.do?customer=5B8A5C9685FA5CD16A736B54936C03B7&param={{%22com%22:%22{0}%22,%22num%22:%22{1}%22,%22from%22:%22%22,%22to%22:%22%22}}&sign=309C32F42E7EC50B194FE0A098E638DB'
+            #url = 'http://poll.kuaidi100.com/poll/query.do?customer=5B8A5C9685FA5CD16A736B54936C03B7&sign=C3C0BFF206E93469D5FA28EEF61E63A1&param={%22com%22:%22{0}%22,%22num%22:%22{1}%22,%22from%22:%22%22,%22to%22:%22%22,%22resultv2%22:0}'
+            #url = 'http://poll.kuaidi100.com/poll/query.do?customer=5B8A5C9685FA5CD16A736B54936C03B7&sign=C3C0BFF206E93469D5FA28EEF61E63A1&param={"com":"{0}","num":"{1}","from":"","to":"","resultv2":0}'
+            url = 'http://poll.kuaidi100.com/poll/query.do?customer=5B8A5C9685FA5CD16A736B54936C03B7&sign='+sign+'&param='+param100
             #req = requests.get(url.format(bill.delivery_company, bill.delivery_no), verify=False) 
             #url = url.format('zhongtong', '488692675576')
-            url = url.format(bill.delivery_company, bill.delivery_no) 
-            req = requests.get(url, verify=False)  
+            #url = url.format(bill.delivery_company, bill.delivery_no) 
+            #req = requests.get(url, verify=False)  
+            req = requests.get(url)  
             delivery = json.loads(req.text)
             print("快递状态：", delivery)
+            
             if 'state' in delivery:
                 if delivery['state'] == '3':
                     # 已签收
                     bill.status = bill.STATUS_FINISHED
-                    bill.save
+                    bill.save()
 
         perm = request.user.has_perm('bill.manage_bill')
          
