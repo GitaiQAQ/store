@@ -527,18 +527,12 @@ class BillDetailView(APIView):
             param100 = '{"com":"'+bill.delivery_company.strip()+'","num":"'+bill.delivery_no.strip()+'","from":"","to":"","resultv2":0}'
             code100 = param100 + key + costomer
             sign=hashlib.md5(code100.encode('utf-8')).hexdigest().upper()
-            #url = "https://poll.kuaidi100.com/poll/query.do?customer=5B8A5C9685FA5CD16A736B54936C03B7&param={%22com%22:%22shunfeng%22,%22num%22:%2439569134841%22,%22from%22:%22%22,%22to%22:%22%22}&sign=309C32F42E7EC50B194FE0A098E638DB"
-            #url = 'https://poll.kuaidi100.com/poll/query.do?customer=5B8A5C9685FA5CD16A736B54936C03B7&param={{%22com%22:%22{0}%22,%22num%22:%22{1}%22,%22from%22:%22%22,%22to%22:%22%22}}&sign=309C32F42E7EC50B194FE0A098E638DB'
-            #url = 'http://poll.kuaidi100.com/poll/query.do?customer=5B8A5C9685FA5CD16A736B54936C03B7&sign=C3C0BFF206E93469D5FA28EEF61E63A1&param={%22com%22:%22{0}%22,%22num%22:%22{1}%22,%22from%22:%22%22,%22to%22:%22%22,%22resultv2%22:0}'
-            #url = 'http://poll.kuaidi100.com/poll/query.do?customer=5B8A5C9685FA5CD16A736B54936C03B7&sign=C3C0BFF206E93469D5FA28EEF61E63A1&param={"com":"{0}","num":"{1}","from":"","to":"","resultv2":0}'
+            
             url = 'http://poll.kuaidi100.com/poll/query.do?customer=5B8A5C9685FA5CD16A736B54936C03B7&sign='+sign+'&param='+param100
-            #req = requests.get(url.format(bill.delivery_company, bill.delivery_no), verify=False) 
-            #url = url.format('zhongtong', '488692675576')
-            #url = url.format(bill.delivery_company, bill.delivery_no) 
+
             #req = requests.get(url, verify=False)  
             req = requests.get(url)  
             delivery = json.loads(req.text)
-            print("快递状态：", delivery)
             
             if 'state' in delivery:
                 if delivery['state'] == '3':
@@ -562,15 +556,7 @@ class BillDetailView(APIView):
         }
         if 'refundlist' in request.GET:
             content['menu'] = 'refundlist'
-        """
-        city = Area.objects.get(id = bill.address.area.parent_id)
-        bigcity = [110100, 120000, 310000, 500000]
-        if city.id not in bigcity: 
-            province = Area.objects.get(id = city.parent_id)
-            content['province'] =  province
-
-        content['city'] = city 
-        """
+    
         
         content['mediaroot'] = settings.MEDIA_URL
         if 'status' in request.GET:

@@ -144,8 +144,9 @@
                                     <td><p class="grey" >已支付金额：</p></td>
                                     <td><p class="fs24 orange"> ¥<span  class="price">{{bill.payed_money|default_if_none:'0.00'}}</span></p></td>
                                     {% elif bill.status == 4  or bill.status == 3 or bill.status == 2 or  bill.status == 5 %}
-                                    <td><p class="grey" >实际支付：</p></td>
+                                    <td><p class="grey" >{% if bill.pay_way == 'weixin' %} 微信支付{% elif bill.pay_way == 'zhifubao' %}支付宝支付{% else %}未知支付方式{%endif%}：</p></td>
                                     <td><p class="fs24 orange"> ¥<span  class="price">{{bill.payed_money|default_if_none:'0.00'}}</span></p></td>
+                                    
                                     {% else %}
                                     <td><p class="grey" >应付金额：</p></td>
                                     <td><p class="fs24 orange"> ¥<span id="all_sum_price" class="price">{{bill.payed_money|default_if_none:'0.00'}}</span></p></td>
