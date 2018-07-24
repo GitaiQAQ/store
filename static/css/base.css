@@ -13,6 +13,11 @@ src: url('/static/font/lanting.ttf');
 .btn-group .btn.orange-bg.white{
     border-color:#fff;
 }
+.emblem{
+    height: 14px;
+    vertical-align: sub;
+    margin-right: 2px;
+}
 /* 禁止选择文本 */
 .unselect{
     -moz-user-select: -moz-none;

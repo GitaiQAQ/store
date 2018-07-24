@@ -13,6 +13,10 @@ a{
 li{
     list-style: none;
 }
+.emblem{
+    height:13px;
+    margin-right: 2px;
+}
 .fs30{
     font-size: 30px;
 }
